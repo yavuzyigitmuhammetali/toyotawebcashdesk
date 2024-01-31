@@ -28,9 +28,8 @@
     top: 62%;
     left: 50%;
 }
-.status-svg{
+.login-page-left-area-indicator{
     position: absolute;
-    transform: translate(-50%, -50%);
-    left: 8.5%;
-    top: 9%;
+    top: 5px;
+    left: 15px;
 }

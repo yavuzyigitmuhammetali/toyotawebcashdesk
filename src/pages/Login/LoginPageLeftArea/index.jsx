@@ -1,25 +1,15 @@
 import React, {useState} from 'react';
 import "./loginPageLeftArea.css"
+import OnlineOfflineIndicator from "../../../shared/componenets/OnlineOfflineIndicator";
 
-function LoginPageLeftArea({width = "400px", dark = false, online = false, circleSize = 5}) {
+function LoginPageLeftArea({width = "400px", dark = false, online = false}) {
 
 
     return (
         <div style={{color: dark ? "white" : "#111418", width: width}} className="login-page-left-area-container">
-            <span>
-                <span style={online ? {color: "green"} : {color: "red"}}
-                      className="login-page-left-area-texts online-offline">{online ? "Online" : "Offline"}</span>
-                <span className="status-svg">
-                <svg width="100" height="100">
-        <circle cx="50" cy="50" r={circleSize} fill={online ? "green" : "red"} id="point"/>
-        <circle cx="50" cy="50" r={circleSize} fill="none" stroke={online ? "green" : "red"} strokeWidth="2">
-          <animate attributeName="r" from={circleSize} to={circleSize * 2} dur="1s" begin="0s"
-                   repeatCount="indefinite"/>
-          <animate attributeName="opacity" from="1" to="0" dur="1s" begin="0s" repeatCount="indefinite"/>
-        </circle>
-      </svg>
-            </span>
-            </span>
+            <div className="login-page-left-area-indicator">
+                <OnlineOfflineIndicator online={online}/>
+            </div>
             {dark ?
                 <span ><svg
                     xmlns="http://www.w3.org/2000/svg"
