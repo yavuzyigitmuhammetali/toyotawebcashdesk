@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import "./loginPageLeftArea.css"
 import OnlineOfflineIndicator from "../../../shared/componenets/OnlineOfflineIndicator";
 

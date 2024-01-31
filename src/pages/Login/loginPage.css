@@ -5,20 +5,12 @@
     max-height: 100vh!important;
     position: relative;
     overflow: hidden!important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .login-page-left-area {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
 }
 
 .login-page-right-area {
-    position: absolute;
-    z-index: 100;
-    width: 400px;
-    height: 483px;
-    top: 49.5%;
-    left: 50%;
-    transform: translate(-50%, -50%);
 }

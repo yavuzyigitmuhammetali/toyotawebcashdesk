@@ -1,7 +1,7 @@
 import React from 'react';
 
 
-function OnlineOfflineIndicator({online = true, circleSize = 5}) {
+function OnlineOfflineIndicator({online = false, circleSize = 5}) {
     return (
         <div style={{display:"inline-block",position: "relative",boxSizing:"border-box",paddingLeft:"10px"}}>
             <div style={online ? {color: "green"} : {color: "red"}}>{online ? "Online" : "Offline"}</div>
