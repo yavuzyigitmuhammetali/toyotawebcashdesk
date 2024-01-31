@@ -7,7 +7,6 @@
     overflow: hidden!important;
 }
 .login-page-left-area {
-    background-color: green;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -19,7 +18,6 @@
     z-index: 100;
     width: 400px;
     height: 483px;
-    background-color: red;
     top: 49.5%;
     left: 50%;
     transform: translate(-50%, -50%);

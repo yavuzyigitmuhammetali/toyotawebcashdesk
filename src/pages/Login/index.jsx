@@ -7,7 +7,7 @@ function LoginPage({dark = false}) {
     return (
         <div style={{backgroundColor: dark ? "#111418" : "#E9ECF7"}} className="login-page-container">
             <div className="login-page-left-area"><LoginPageLeftArea/></div>
-            <div className="login-page-right-area"><LoginPageRightArea/></div>
+
         </div>
     );
 }
