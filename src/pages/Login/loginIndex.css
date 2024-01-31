@@ -1,0 +1,26 @@
+.login-page-container {
+    min-width: 100vw!important;
+    max-width: 100vw!important;
+    min-height: 100vh!important;
+    max-height: 100vh!important;
+    position: relative;
+    overflow: hidden!important;
+}
+.login-page-left-area {
+    background-color: green;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.login-page-right-area {
+    position: absolute;
+    z-index: 100;
+    width: 400px;
+    height: 483px;
+    background-color: red;
+    top: 49.5%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
