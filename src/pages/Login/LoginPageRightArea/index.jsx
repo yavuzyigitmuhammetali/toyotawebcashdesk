@@ -56,11 +56,11 @@ function LoginPageRightArea({dark = false}) {
                     <CssBaseline/>
                     <TextField
                         onChange={(event)=>setUsername(event.target.value)}
-                        autoComplete="current-password" id="outlined-basic" label="Username" variant="outlined" size="small"/>
+                        autoComplete="current-password" id="outlined-basic" placeholder="Username" variant="outlined" size="small"/>
                     <TextField
                         onChange={(event)=>setPassword(event.target.value)}
                         id="outlined-password-input"
-                        label="Password"
+                        placeholder="password"
                         type="password"
                         autoComplete="current-password"
                         size="small"
