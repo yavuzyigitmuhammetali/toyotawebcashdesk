@@ -1,10 +1,11 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import TextField from '@mui/material/TextField';
 import {ThemeProvider, createTheme} from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import {Alert, AlertTitle, Button} from "@mui/material";
 import "./loginPageRightArea.css";
-import {login, loginTest, test} from "./api";
+import {login, loginTest} from "./api";
+import KeyboardContext from "../../../shared/componenets/ScreenKeyboard/context";
 
 const darkTheme = createTheme({
     palette: {
@@ -21,6 +22,11 @@ function LoginPageRightArea({dark = false}) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState(false)
+    const { handleElementClick, value } = useContext(KeyboardContext);
+    const loginInfo = {
+        username:value["username"]?value["username"]:username
+        ,password:value["password"]?value["password"]:password
+    };
 
     useEffect(() => {
         loginTest().then(response=>console.log(response.data)).catch(e => console.log(e));
@@ -28,8 +34,9 @@ function LoginPageRightArea({dark = false}) {
 
 
     const handleLogin = async () => {
+        console.log(loginInfo);
         try {
-            const response = await login({username,password})
+            const response = await login(loginInfo)
             if (response.status ==401){
                 setError(true);
             }else {
@@ -55,17 +62,19 @@ function LoginPageRightArea({dark = false}) {
                 <ThemeProvider theme={dark ? darkTheme : lightTheme}>
                     <CssBaseline/>
                     <TextField
-                        onChange={(event)=>setUsername(event.target.value)}
-                        autoComplete="current-password" id="outlined-basic" placeholder="Username" variant="outlined" size="small"/>
+                        onClick={handleElementClick}
+                        onChange={e=>setUsername(e.target.value)}
+                        autoComplete="current-password" id="username" placeholder="Username" variant="outlined" size="small"/>
                     <TextField
-                        onChange={(event)=>setPassword(event.target.value)}
-                        id="outlined-password-input"
-                        placeholder="password"
+                        id="password"
+                        onChange={e=>setPassword(e.target.value)}
+                        onClick={handleElementClick}
+                        placeholder="Password"
                         type="password"
                         autoComplete="current-password"
                         size="small"
                     />
-                    <Button onClick={handleLogin} disabled={(username.length&&password.length)<5} variant="contained">Login</Button>
+                    <Button disabled={(loginInfo.username.length&&loginInfo.password.length)<5} onClick={handleLogin}  variant="contained">Login</Button>
                     {error ?
                         <Alert severity="error">
                             <AlertTitle>Error</AlertTitle>
