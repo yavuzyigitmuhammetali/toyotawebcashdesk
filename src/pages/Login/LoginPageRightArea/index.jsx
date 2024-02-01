@@ -22,8 +22,8 @@ function LoginPageRightArea({dark = false, error = ""}) {
              className="login-page-right-area-container">
             <div className="login-page-right-area-info">
                 <div style={{color: dark ? "white" : "#5492F0"}} className="login-page-right-area-title">Login Account</div>
-                <div style={{color: dark ? "#5492F0" : "#E1E2E3"}}>Lorem ipsum dolor sit ame consectetur adipisicing
-                    elit Minima tenetur
+                <div style={{color: dark ? "#5492F0" : "#E1E2E3"}}>
+                    Lütfen Kullancı Adı ve Şifre Girin
                 </div>
             </div>
             <div className="login-page-right-area-inputs">

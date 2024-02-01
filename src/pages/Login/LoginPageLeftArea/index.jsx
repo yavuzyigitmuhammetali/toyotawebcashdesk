@@ -1,19 +1,24 @@
 import React, {useEffect, useState} from 'react';
 import "./loginPageLeftArea.css"
 import OnlineOfflineIndicator from "../../../shared/componenets/OnlineOfflineIndicator";
+import {checkOnline} from "../../../shared/functions/checkOnline";
 import {getStatus} from "./api";
 
-function LoginPageLeftArea({width = "400px", dark = false, online = false}) {
-    const [status, setStatus] = useState([]);
+function LoginPageLeftArea({width = "400px", dark = false}) {
+    const [status, setStatus] = useState({});
+    const [online, setOnline] = useState(true)
 
     useEffect(() => {
-        getStatus()
-            .then(response => {
-                setStatus(response.data);
-            })
-            .catch(error => {
-                console.error("There was an error!", error);
-            });
+        getStatus().then(response =>setStatus(response.data));
+        const handleOnline = async () => {
+            try {
+                const result = await checkOnline();
+                setOnline(result);
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        };
+        handleOnline();
     }, []);
 
     return (
@@ -22,7 +27,7 @@ function LoginPageLeftArea({width = "400px", dark = false, online = false}) {
                 <OnlineOfflineIndicator online={online}/>
             </div>
             {dark ?
-                <span ><svg
+                <span><svg
                     xmlns="http://www.w3.org/2000/svg"
                     xmlnsXlink="http://www.w3.org/1999/xlink"
                     version="1.1"
@@ -1643,10 +1648,9 @@ function LoginPageLeftArea({width = "400px", dark = false, online = false}) {
 
 </span>
             }
-
-            <span className="login-page-left-area-texts good-wish">Lorem ipsum dolor sit amet.</span>
+            <span className="login-page-left-area-texts good-wish">Store Number: {status.store_number}</span>
             <span className="login-page-left-area-texts welcome">WELCOME BACK</span>
-            <span className="login-page-left-area-texts explanation">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi, eligendi!</span>
+            <span className="login-page-left-area-texts explanation">{status.version}</span>
         </div>
     );
 }
