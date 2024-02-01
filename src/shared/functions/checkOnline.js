@@ -10,10 +10,10 @@ export async function checkOnline() {
 
         // İkinci fonksiyonu çağır ve sonucu ekrana yazdır
         const isOnline = checkDayAndTime(apiData.schedule, currentDay, currentTime);
-        console.log('API verisi:', apiData);
+/*        console.log('API verisi:', apiData);
         console.log('Şu anki gün:', currentDay);
         console.log('Şu anki saat:', currentTime);
-        console.log('Sonuç:', isOnline);
+        console.log('Sonuç:', isOnline);*/
         return isOnline;
     } catch (error) {
         console.error('Bir hata oluştu:', error.message);

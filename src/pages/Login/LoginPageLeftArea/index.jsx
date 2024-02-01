@@ -10,7 +10,7 @@ function LoginPageLeftArea({width = "400px", dark = false}) {
     const [online, setOnline] = useState(true)
 
     useEffect(() => {
-        getStatus().then(response =>setStatus(response.data));
+        getStatus().then(response =>setStatus(response.data)).catch(err=>console.log(err));
         const handleOnline = async () => {
             try {
                 const result = await checkOnline();
