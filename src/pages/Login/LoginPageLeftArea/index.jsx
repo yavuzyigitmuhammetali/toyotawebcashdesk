@@ -1,9 +1,20 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import "./loginPageLeftArea.css"
 import OnlineOfflineIndicator from "../../../shared/componenets/OnlineOfflineIndicator";
+import {getStatus} from "./api";
 
 function LoginPageLeftArea({width = "400px", dark = false, online = false}) {
+    const [status, setStatus] = useState([]);
 
+    useEffect(() => {
+        getStatus()
+            .then(response => {
+                setStatus(response.data);
+            })
+            .catch(error => {
+                console.error("There was an error!", error);
+            });
+    }, []);
 
     return (
         <div style={{color: dark ? "white" : "#111418", width: width}} className="login-page-left-area-container">
