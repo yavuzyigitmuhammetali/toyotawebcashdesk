@@ -1,0 +1,35 @@
+.main-screen-item-container{
+    color: #111418;
+    position: relative;
+    user-select: none;
+    cursor: pointer;
+    background-color: white;
+    height: 60px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: row;
+    box-sizing: border-box;
+    padding: 10px;
+    transition: transform 0.2s;
+    flex-grow: 1;
+    border: 1px solid black;
+}
+.main-screen-item-container:hover{
+    transform: scale(1.05);
+}
+.main-screen-item-icon{
+    filter: brightness(1.7);
+    transform: translate(-20%, -20%);
+    color: white;
+    display: flex;
+    background-color: green;
+    justify-content: center;
+    align-items: center;
+    height: 65px;
+    width: 65px;
+    border-radius: 10px;
+}
+.main-screen-item-text{
+    display: flex;
+    align-items: center;
+}

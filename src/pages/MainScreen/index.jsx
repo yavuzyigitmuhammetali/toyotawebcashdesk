@@ -5,6 +5,7 @@ import {getIp, getStatus} from "./api";
 import SettingsIcon from '@mui/icons-material/Settings';
 import LogoutIcon from '@mui/icons-material/Logout';
 import {IconButton} from "@mui/material";
+import MainScreenItem from "./components/MainScreenItem";
 
 function MainScreen() {
     const [userIP, setUserIP] = useState('');
@@ -33,16 +34,14 @@ function MainScreen() {
             <div className="main-screen-container">
                 <div className="main-screen-active-area">
                     <div className="main-screen-sides">
-                        <div>DENEME</div>
-                        <div>DENEME</div>
-                        <div>DENEME</div>
-                        <div>DENEME</div>
+                        <MainScreenItem>DENEME</MainScreenItem>
+                        <MainScreenItem>DENEME</MainScreenItem>
+                        <MainScreenItem>DENEME</MainScreenItem>
                     </div>
                     <div className="main-screen-sides">
-                        <div>DENEME</div>
-                        <div>DENEME</div>
-                        <div>DENEME</div>
-                        <div>DENEME</div>
+                        <MainScreenItem>DENEME</MainScreenItem>
+                        <MainScreenItem>DENEME</MainScreenItem>
+                        <MainScreenItem>DENEME</MainScreenItem>
                     </div>
                 </div>
             </div>
