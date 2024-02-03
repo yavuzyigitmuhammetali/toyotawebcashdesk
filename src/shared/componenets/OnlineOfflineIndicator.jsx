@@ -1,7 +1,23 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
+import {checkOnline} from "../functions/checkOnline";
 
 
-function OnlineOfflineIndicator({online = false}) {
+
+
+function OnlineOfflineIndicator() {
+    const [online, setOnline] = useState()
+
+    useEffect(() => {
+        const handleOnline = async () => {
+            try {
+                const result = await checkOnline();
+                setOnline(result);
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        };
+        handleOnline();
+    }, []);
     const circleSize = 5;
     return (
         <div style={{display:"inline-block",position: "relative",boxSizing:"border-box",paddingLeft:"10px"}}>

@@ -8,7 +8,6 @@ export async function checkOnline() {
         const currentDay = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'][currentDate.getDay()];
         const currentTime = `${currentDate.getHours()}:${currentDate.getMinutes()}`;
 
-        // İkinci fonksiyonu çağır ve sonucu ekrana yazdır
         const isOnline = checkDayAndTime(apiData.schedule, currentDay, currentTime);
 /*        console.log('API verisi:', apiData);
         console.log('Şu anki gün:', currentDay);

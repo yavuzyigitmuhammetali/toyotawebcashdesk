@@ -37,7 +37,7 @@ function LoginPageRightArea({dark = false}) {
         console.log(loginInfo);
         try {
             const response = await login(loginInfo)
-            if (response.status ==401){
+            if (response.status ===401){
                 setError(true);
             }else {
                 setError(false);

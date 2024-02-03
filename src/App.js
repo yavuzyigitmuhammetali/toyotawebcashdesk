@@ -1,10 +1,10 @@
 import React from 'react';
-import LoginPage from "./pages/Login";
+import MainScreen from "./pages/MainScreen";
 
 function App() {
   return (
     <div >
-      <LoginPage/>
+        <MainScreen/>
     </div>
   );
 }

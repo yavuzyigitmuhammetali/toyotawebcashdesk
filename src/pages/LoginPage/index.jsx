@@ -3,7 +3,6 @@ import "./loginPage.css"
 import LoginPageLeftArea from "./LoginPageLeftArea";
 import LoginPageRightArea from "./LoginPageRightArea";
 import {KeyboardProvider} from "../../shared/componenets/ScreenKeyboard/context";
-import ScreenKeyboard from "../../shared/componenets/ScreenKeyboard/ScreenKeyboard";
 
 
 function LoginPage({dark = true}) {
