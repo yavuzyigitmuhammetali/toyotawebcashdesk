@@ -20,7 +20,7 @@ function OnlineOfflineIndicator() {
     }, []);
     const circleSize = 5;
     return (
-        <div style={{display:"inline-block",position: "relative",boxSizing:"border-box",paddingLeft:"10px"}}>
+        <div style={{display:"inline-block",position: "relative",boxSizing:"border-box",paddingLeft:"10px",userSelect:"none"}}>
             <div style={online ? {color: "green"} : {color: "red"}}>{online ? "Online" : "Offline"}</div>
             <div style={{height:"20px",position:"absolute",left:"0",top:"50%",transform:"translate(-50%, -50%)"}}>
                 <svg width="20" height="20">

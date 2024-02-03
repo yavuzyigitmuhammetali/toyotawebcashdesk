@@ -1,6 +1,6 @@
 .main-screen-container{
     position: relative;
-    background-color: #1D2229;
+    background-color: #F8FAFB;
     box-sizing: border-box;
     display: flex;
     width: 100vw;
@@ -23,10 +23,11 @@
 }
 .main-screen-lower-left{
     position: absolute;
-    left: 10px;
+    left: 15px;
     bottom: 10px;
 }
 .main-screen-upper-left{
+    user-select: none;
     position: absolute;
     left: 10px;
     top: 10px;
