@@ -2,7 +2,7 @@ import React from 'react';
 import "./loginPage.css"
 import LoginPageLeftArea from "./LoginPageLeftArea";
 import LoginPageRightArea from "./LoginPageRightArea";
-import {KeyboardProvider} from "../../shared/componenets/ScreenKeyboard/context";
+import {KeyboardProvider} from "../../shared/components/ScreenKeyboard/context";
 
 
 function LoginPage({dark = true}) {

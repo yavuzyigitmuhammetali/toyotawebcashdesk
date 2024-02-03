@@ -5,7 +5,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import {Alert, AlertTitle, Button} from "@mui/material";
 import "./loginPageRightArea.css";
 import {login, loginTest} from "./api";
-import KeyboardContext from "../../../shared/componenets/ScreenKeyboard/context";
+import KeyboardContext from "../../../shared/components/ScreenKeyboard/context";
 
 const darkTheme = createTheme({
     palette: {

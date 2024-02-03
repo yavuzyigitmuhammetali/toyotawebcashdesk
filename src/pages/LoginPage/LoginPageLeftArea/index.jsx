@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import "./loginPageLeftArea.css"
-import OnlineOfflineIndicator from "../../../shared/componenets/OnlineOfflineIndicator";
+import OnlineOfflineIndicator from "../../../shared/components/OnlineOfflineIndicator";
 import {getStatus} from "./api";
-import LoginSrc from "./componenets/LoginSrc";
+import LoginSrc from "./components/LoginSrc";
 
 function LoginPageLeftArea({width = "400px", dark = false}) {
     const [status, setStatus] = useState({});

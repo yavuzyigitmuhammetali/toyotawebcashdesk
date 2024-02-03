@@ -1,5 +1,6 @@
 .main-screen-container{
     position: relative;
+    background-color: #F8FAFB;
     box-sizing: border-box;
     display: flex;
     width: 100vw;
@@ -29,6 +30,9 @@
     position: absolute;
     left: 10px;
     top: 10px;
+    background-color: white;
+    border: 1px solid black;
+    padding: 10px;
 }
 .main-screen-upper-right{
     position: absolute;
