@@ -20,7 +20,7 @@ const lightTheme = createTheme({
 });
 
 
-function SalesDashboardLeftArea({dark = true}) {
+function SalesDashboardLeftArea({dark = false}) {
     const [categories, setCategories] = useState([]);
     const [map,setMap] = useState("categories");
 

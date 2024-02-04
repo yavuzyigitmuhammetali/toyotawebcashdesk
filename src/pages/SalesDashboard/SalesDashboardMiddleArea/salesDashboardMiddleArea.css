@@ -1,0 +1,49 @@
+.sales-dashboard-middle-area-container{
+    background-color: #F8FAFB;
+    min-width: 33vw !important;
+    max-width: 33vw !important;
+    min-height: 90vh !important;
+    max-height: 190vh !important;
+    box-sizing: border-box;
+    top: 5vh;
+    position: relative;
+    overflow: hidden !important;
+    display: flex;
+    gap: 2px;
+    flex-direction: column;
+    padding: 10px;
+    border: 1px solid black;
+}
+.sales-dashboard-middle-area-products-scroll{
+    border: 1px solid black;
+    box-sizing: border-box;
+    overflow-y: auto;
+    /*overflow-x: clip;*/
+    padding: 0;
+    max-width: 100%;
+    flex-grow: 1;
+    flex-basis: 0;
+    max-height: 100%;
+}
+.sales-dashboard-middle-area-products-scroll::-webkit-scrollbar {
+    width: 0;
+}
+.sales-dashboard-middle-area-products{
+    display: flex;
+    gap: 0.9px;
+    flex-wrap: wrap;
+}
+.sales-dashboard-middle-area-texts{
+    user-select: none;
+    box-sizing: border-box;
+    padding: 10px;
+    background-color: white;
+    width: 100%;
+    color: black;
+    border-radius: 20px;
+    border: 0.2px solid black;
+}
+.sales-dashboard-middle-area-amount{
+    display: flex;
+    justify-content: space-between;
+}
