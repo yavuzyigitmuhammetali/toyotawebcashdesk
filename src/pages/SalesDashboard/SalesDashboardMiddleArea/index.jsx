@@ -1,5 +1,6 @@
 import React from 'react';
 import "./salesDashboardMiddleArea.css"
+import ShoppingCartItem from "./components/ShoppingCartItem/ShoppingCartItem";
 
 function SalesDashboardMiddleArea({dark = false}) {
     return (
@@ -7,7 +8,7 @@ function SalesDashboardMiddleArea({dark = false}) {
              className="sales-dashboard-middle-area-container">
             <div style={{borderColor:dark&&"white",backgroundColor:dark?"#111923":"white"}} className="sales-dashboard-middle-area-products-scroll">
                 <div className="sales-dashboard-middle-area-products">
-
+                    <ShoppingCartItem/>
                 </div>
             </div>
             <div style={dark ? { backgroundColor: "black", color: "white", borderColor: "white" } : {}} className="sales-dashboard-middle-area-texts">
