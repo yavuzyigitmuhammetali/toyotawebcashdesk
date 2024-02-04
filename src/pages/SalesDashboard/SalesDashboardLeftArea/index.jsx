@@ -1,5 +1,4 @@
-import React, {useEffect, useState} from 'react';
-import axios from "axios";
+import React, {useContext, useState} from 'react';
 import {createTheme, ThemeProvider} from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
@@ -7,6 +6,7 @@ import {Button, IconButton, InputAdornment} from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
 import "./salesDashboardLeftArea.css"
 import ProductCard from "../../../shared/components/ProductCard/ProductCard";
+import NumericKeyboardContext from "../components/NumericKeyboard/context";
 
 const darkTheme = createTheme({
     palette: {
@@ -21,8 +21,8 @@ const lightTheme = createTheme({
 
 
 function SalesDashboardLeftArea({dark = false}) {
-    const [categories, setCategories] = useState([]);
     const [map,setMap] = useState("categories");
+    const {data} = useContext(NumericKeyboardContext);
 
     const [value, setValue] = useState('');
 
@@ -32,14 +32,18 @@ function SalesDashboardLeftArea({dark = false}) {
     };
 
     return (
-        <div style={{backgroundColor:dark&&"#111418",borderColor:dark&&"white"}} className="left-container">
+        <div style={{
+            backgroundColor: dark ? "#111418" : "",
+            borderColor: dark ? "white" : ""
+        }} className="left-container">
             <ThemeProvider theme={dark ? darkTheme : lightTheme}>
                 <CssBaseline/>
-                <div className="left-one"><TextField
+                <div className="left-one">
+                    <TextField
                     fullWidth
                     id="standard-name"
                     label="Klavyede Barkod Girişi"
-                    value={value}
+                    value={data||value}
                     onChange={handleInputChange}
                     InputProps={{
                         startAdornment: (

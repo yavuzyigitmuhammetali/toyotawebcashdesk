@@ -1,0 +1,11 @@
+.numeric-keyboard-container{
+    box-sizing: border-box;
+    aspect-ratio: 308 / 312!important;
+    padding: 10px;
+    background-color: #FDFDFE;
+    border: 1px solid black;
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+    gap: 10px;
+}

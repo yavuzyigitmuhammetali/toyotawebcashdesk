@@ -1,21 +1,23 @@
 import React from 'react';
 import "./salesDashboardRightArea.css"
 import {Button} from "@mui/material";
+import NumericKeyboard from "../components/NumericKeyboard/NumericKeyboard";
 
 
-function SalesDashboardRightArea(props) {
+function SalesDashboardRightArea() {
 
 
     return (
-        <div className="right-container">
-            <div className="right-one">
+        <div className="sales-dashboard-right-area-container">
+            <div className="sales-dashboard-right-area-control">
                 <Button color="success" variant="contained">Yeni İşlem</Button>
                 <Button color="error" variant="contained">İşlem İptal Et</Button>
                 <Button color="info" variant="contained">İsimden Ara</Button>
                 <Button color="secondary" variant="contained">Kampanyalar</Button>
-            </div>
-            <div className="right-two">
 
+            </div>
+            <div className="sales-dashboard-right-area-keyboard">
+                <NumericKeyboard/>
             </div>
         </div>
     );

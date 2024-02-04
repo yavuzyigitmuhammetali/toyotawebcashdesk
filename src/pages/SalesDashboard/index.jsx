@@ -2,6 +2,7 @@ import React from 'react';
 import SalesDashboardLeftArea from "./SalesDashboardLeftArea";
 import SalesDashboardMiddleArea from "./SalesDashboardMiddleArea";
 import SalesDashboardRightArea from "./SalesDashboardRightArea";
+import {NumericKeyboardProvider} from "./components/NumericKeyboard/context";
 
 function SalesDashboard() {
     return (
@@ -11,9 +12,11 @@ function SalesDashboard() {
                     context test
                 </div>
             </div>*/}
-            <SalesDashboardLeftArea/>
-            <SalesDashboardMiddleArea/>
-            <SalesDashboardRightArea/>
+            <NumericKeyboardProvider>
+                <SalesDashboardLeftArea/>
+                <SalesDashboardMiddleArea/>
+                <SalesDashboardRightArea/>
+            </NumericKeyboardProvider>
         </div>
     );
 }
