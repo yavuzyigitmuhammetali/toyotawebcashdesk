@@ -1,10 +1,10 @@
 import React from 'react';
-import MainScreen from "./pages/MainScreen";
+import SalesDashboard from "./pages/SalesDashboard";
 
 function App() {
   return (
     <div >
-        <MainScreen/>
+        <SalesDashboard/>
     </div>
   );
 }
