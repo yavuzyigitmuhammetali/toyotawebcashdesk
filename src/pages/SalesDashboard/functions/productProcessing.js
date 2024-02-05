@@ -25,3 +25,15 @@ export function filterSubcategories(subcategories, categoryID) {
         return subcategories.filter(category => category.categoryId === categoryID);
     }
 }
+
+export function filterProductsByBarcode(products, barcodePrefix) {
+    const filteredProducts = [];
+
+    for (const product of products) {
+        if (product.barcode.toString().startsWith(barcodePrefix)) {
+            filteredProducts.push(product);
+        }
+    }
+
+    return filteredProducts;
+}

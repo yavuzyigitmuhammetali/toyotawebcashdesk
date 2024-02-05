@@ -1,5 +1,5 @@
 import React from "react";
-import {filterProducts, filterSubcategories} from "./functions/productProcessing";
+import {filterProducts, filterProductsByBarcode, filterSubcategories} from "./functions/productProcessing";
 import {getCategories, getProducts, getSubCategories} from "./api";
 
 
@@ -20,16 +20,20 @@ const CartProvider = ({children}) => {
         }));
     };
 
+    const getProductsByBarcode = (barcode) =>{
+        return  setProducts(filterProductsByBarcode(_products,barcode));
+    };
+
 
     React.useEffect(() => {
         getCategories()
             .then(response => setCategories(response.data))
             .catch(error => console.log(error));
         getSubCategories()
-            .then(response => _setSubCategories(response.data)).then(() => setSubCategories(_subCategories))
+            .then(response =>{ _setSubCategories(response.data);setSubCategories(response.data)})
             .catch(error => console.log(error));
         getProducts()
-            .then(response => _setProducts(response.data)).then(() => setProducts(_products))
+            .then(response =>{_setProducts(response.data);setProducts(response.data)})
             .catch(error => console.log(error));
     }, []);
 
@@ -53,7 +57,7 @@ const CartProvider = ({children}) => {
 
     return (<CartContext.Provider
             value={{
-                categories, subCategories, products, updateSelectedMap
+                categories, subCategories, products, updateSelectedMap, getProductsByBarcode
             }}
         >
             {children}

@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {createTheme, ThemeProvider} from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
@@ -28,12 +28,32 @@ function SalesDashboardLeftArea({dark = false}) {
         categories,
         subCategories,
         products,
-        updateSelectedMap} = useContext(CartContext);
+        updateSelectedMap,
+        getProductsByBarcode} = useContext(CartContext);
 
     const [value, setValue] = useState('');
 
+    useEffect(() => {
+        if (data){
+            setValue(data)
+            getProductsByBarcode(data);
+            setMap("products");
+        }
+        else{
+            setValue("")
+            setMap("categories");
+        }
+
+    }, [data]);
+
     const handleInputChange = (event) => {
         const inputValue = event.target.value.replace(/[^0-9]/g, '');
+        if(inputValue){
+            getProductsByBarcode(inputValue);
+            setMap("products");
+        }else {
+            setMap("categories");
+        }
         setValue(inputValue);
     };
 
@@ -49,7 +69,7 @@ function SalesDashboardLeftArea({dark = false}) {
                     fullWidth
                     id="standard-name"
                     label="Klavyede Barkod Girişi"
-                    value={data||value}
+                    value={value}
                     onChange={handleInputChange}
                     InputProps={{
                         startAdornment: (
