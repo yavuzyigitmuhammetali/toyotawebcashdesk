@@ -3,6 +3,7 @@ import SalesDashboardLeftArea from "./SalesDashboardLeftArea";
 import SalesDashboardMiddleArea from "./SalesDashboardMiddleArea";
 import SalesDashboardRightArea from "./SalesDashboardRightArea";
 import {NumericKeyboardProvider} from "./components/NumericKeyboard/context";
+import {CartProvider} from "./context";
 
 function SalesDashboard() {
     return (
@@ -12,11 +13,14 @@ function SalesDashboard() {
                     context test
                 </div>
             </div>*/}
-            <NumericKeyboardProvider>
-                <SalesDashboardLeftArea/>
-                <SalesDashboardMiddleArea/>
-                <SalesDashboardRightArea/>
-            </NumericKeyboardProvider>
+            <CartProvider>
+                <NumericKeyboardProvider>
+                    <SalesDashboardLeftArea/>
+                    <SalesDashboardMiddleArea/>
+                    <SalesDashboardRightArea/>
+                </NumericKeyboardProvider>
+            </CartProvider>
+
         </div>
     );
 }

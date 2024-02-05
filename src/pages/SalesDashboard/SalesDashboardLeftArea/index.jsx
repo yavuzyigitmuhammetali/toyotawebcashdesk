@@ -7,6 +7,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import "./salesDashboardLeftArea.css"
 import ProductCard from "../../../shared/components/ProductCard/ProductCard";
 import NumericKeyboardContext from "../components/NumericKeyboard/context";
+import CartContext from "../context";
 
 const darkTheme = createTheme({
     palette: {
@@ -23,6 +24,11 @@ const lightTheme = createTheme({
 function SalesDashboardLeftArea({dark = false}) {
     const [map,setMap] = useState("categories");
     const {data} = useContext(NumericKeyboardContext);
+    const {
+        categories,
+        subCategories,
+        products,
+        updateSelectedMap} = useContext(CartContext);
 
     const [value, setValue] = useState('');
 
@@ -59,15 +65,24 @@ function SalesDashboardLeftArea({dark = false}) {
                     }}
                 /></div>
                 <div className="left-two">
-                    <Button onClick={()=>setMap("categories")} size="small" variant="contained">Kategoriler</Button>
-                    <Button onClick={()=>setMap("subcategories")} size="small"
+                    <Button onClick={()=>{setMap("categories");updateSelectedMap(0,"category");updateSelectedMap(0,"subcategory");}} size="small" variant="contained">Kategoriler</Button>
+                    <Button onClick={()=>{setMap("subcategories");updateSelectedMap(0,"subcategory");}}  size="small"
                             variant={map==="subcategories"||map==="products"?"contained":"outlined"}>
                         Alt Kategoriler</Button>
                     <Button onClick={()=>setMap("products")} size="small" variant={map==="products"?"contained":"outlined"}>Ürünler</Button>
                 </div>
                 <div className="left-three-scroll">
                     <div className="left-three">
-                        <ProductCard dark={dark} />
+                        {map === "categories" ? (
+                            categories.map((category,key)=><ProductCard key={key} onClick={()=>{updateSelectedMap(category.id,"category");setMap("subcategories")}} dark={dark} category name={category.name} src={category.image}/>)
+                        ) : map === "subcategories" ? (
+                            subCategories.map((subcategory,key)=><ProductCard key={key} onClick={()=>{updateSelectedMap(subcategory.id,"subcategory");setMap("products")}} dark={dark} category name={subcategory.name} src={subcategory.image}/>)
+                        ) : map === "products" ? (
+                            products.map((product,key)=>
+                                <ProductCard key={key} dark={dark} name={product.name} src={product.image} barcode={product.barcode} favorite={product.isfavourites} price={product.price} stock={product.stock} />)
+                        ) : (
+                            <div></div>
+                        )}
                     </div>
                 </div>
             </ThemeProvider>

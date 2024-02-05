@@ -11,19 +11,21 @@ function ProductCard({
                          dark = false,
                          discount = 0,
                          src = "",
-                         favorite = false
+                         favorite = false,
+                         onClick
                      }) {
     return (
-        <div style={{
+        <div onClick={onClick} style={{
             cursor: !stock ? "default" : "pointer",
             transform: !stock && "scale(1)",
             width: category ? "140px" : "102px",
-            fontSize: category ? "1em" : "0.7em",
+            fontSize: category ? "0.8em" : "0.6em",
             backgroundColor: dark && "#1E1E1E",
             borderColor: favorite ? "gold" : dark && "white"
         }} className="product-card-container">
             {src ?
-                <img className="product-card-img" style={{filter: (!stock && !category) && "grayscale(100%)"}} src={src} alt="Görsel"
+                <img className="product-card-img" style={{filter: (!stock && !category) && "grayscale(100%)"}} src={src}
+                     alt="Görsel"
                      loading={"lazy"}/>
                 :
                 <ImageNotSupportedIcon className="product-card-img"/>
