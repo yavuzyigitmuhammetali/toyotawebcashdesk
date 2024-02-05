@@ -3,9 +3,12 @@ import {filterProducts, filterSubcategories} from "./functions/productProcessing
 import {getCategories, getProducts, getSubCategories} from "./api";
 
 
-const CartContext = React.createContext();
+const CartContext = React.createContext(undefined);
 
 const CartProvider = ({children}) => {
+    const [_subCategories, _setSubCategories] = React.useState([])
+    const [_products, _setProducts] = React.useState([])
+
     const [categories, setCategories] = React.useState([])
     const [subCategories, setSubCategories] = React.useState([])
     const [products, setProducts] = React.useState([])
@@ -13,8 +16,7 @@ const CartProvider = ({children}) => {
 
     const updateSelectedMap = (value, field) => {
         setSelectedMap((prevSelectedMap) => ({
-            ...prevSelectedMap,
-            [field]: value,
+            ...prevSelectedMap, [field]: value,
         }));
     };
 
@@ -23,52 +25,39 @@ const CartProvider = ({children}) => {
         getCategories()
             .then(response => setCategories(response.data))
             .catch(error => console.log(error));
+        getSubCategories()
+            .then(response => _setSubCategories(response.data)).then(() => setSubCategories(_subCategories))
+            .catch(error => console.log(error));
+        getProducts()
+            .then(response => _setProducts(response.data)).then(() => setProducts(_products))
+            .catch(error => console.log(error));
     }, []);
 
 
     React.useEffect(() => {
         if (selectedMap.category && !selectedMap.subcategory) {
-            getSubCategories()
-                .then(response => setSubCategories(filterSubcategories(response.data, selectedMap.category)))
-                .catch(error => console.log(error));
-            getProducts()
-                .then(response => setProducts(filterProducts(response.data, selectedMap.category)))
-                .catch(error => console.log(error));
+            setSubCategories(filterSubcategories(_subCategories, selectedMap.category))
+            setProducts(filterProducts(_products, selectedMap.category))
         } else if (selectedMap.category && selectedMap.subcategory) {
-            getProducts()
-                .then(response => setProducts(filterProducts(response.data, selectedMap.category, selectedMap.subcategory)))
-                .catch(error => console.log(error));
+            setProducts(filterProducts(_products, selectedMap.category, selectedMap.subcategory))
         } else if (!selectedMap.category && selectedMap.subcategory) {
-            getSubCategories()
-                .then(response => setSubCategories(response.data))
-                .catch(error => console.log(error));
-            getProducts()
-                .then(response => setProducts(filterProducts(response.data, null, selectedMap.subcategory)))
-                .catch(error => console.log(error));
+            setSubCategories(_subCategories)
+            setProducts(filterProducts(_products, null, selectedMap.subcategory))
         } else {
-            getSubCategories()
-                .then(response => setSubCategories(response.data))
-                .catch(error => console.log(error));
-
-            getProducts()
-                .then(response => setProducts(response.data))
-                .catch(error => console.log(error));
+            setSubCategories(_subCategories);
+            setProducts(_products);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [selectedMap]);
 
 
-    return (
-        <CartContext.Provider
+    return (<CartContext.Provider
             value={{
-                categories,
-                subCategories,
-                products,
-                updateSelectedMap
+                categories, subCategories, products, updateSelectedMap
             }}
         >
             {children}
-        </CartContext.Provider>
-    );
+        </CartContext.Provider>);
 };
 
 export default CartContext;

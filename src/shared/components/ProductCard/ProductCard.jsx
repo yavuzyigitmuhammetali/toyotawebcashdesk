@@ -10,6 +10,7 @@ function ProductCard({
                          barcode = 120340344,
                          dark = false,
                          discount = 0,
+                         discountText = "", //onSale
                          src = "",
                          favorite = false,
                          onClick
@@ -57,7 +58,7 @@ function ProductCard({
                 :
                 null
             }
-            {discount ? <div className="product-card-on-sale">onSale</div> : null}
+            {discount || discountText ? <div className="product-card-on-sale">{discountText}</div> : null}
         </div>
     );
 }
