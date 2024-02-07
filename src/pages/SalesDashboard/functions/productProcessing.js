@@ -37,3 +37,43 @@ export function filterProductsByBarcode(products, barcodePrefix) {
 
     return filteredProducts;
 }
+
+export function applyBuy3Pay2(unitPrice, quantity,active = true) {
+    if (quantity<3 || !active){
+        return 0;
+    }
+    const freeProducts = Math.floor(quantity / 3);
+    const totalPayable = (quantity - freeProducts) * unitPrice;
+    const averagePricePerProduct = totalPayable / quantity;
+    return averagePricePerProduct.toFixed(2);
+}
+
+export function applyStudentTaxFree(priceWithTax, taxRatePercent,active = true) {
+    if (!active){
+        return 0;
+    }
+    const taxRate = taxRatePercent / 100;
+    return (priceWithTax / (1 + taxRate)).toFixed(2);
+}
+
+export function applyPerCentDiscount(price, discountPercentage,active = true) {
+    if (price <= 0 || discountPercentage < 0 || discountPercentage > 100 || !active) {
+        return 0;
+    }
+
+    const discountAmount = price * (discountPercentage / 100);
+    return price - discountAmount;
+}
+
+export function calculateSubtotalAndTotal(cart) {
+    let subtotal = 0;
+    let total = 0;
+
+    cart.forEach(item => {
+        subtotal += item.price * item.quantity;
+        total += (item.discountedPrice !== 0 ? item.discountedPrice : item.price) * item.quantity;
+    });
+    subtotal = subtotal.toFixed(2);
+    total = total.toFixed(2);
+    return { subtotal, total };
+}

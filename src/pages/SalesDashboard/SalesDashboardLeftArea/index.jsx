@@ -29,7 +29,8 @@ function SalesDashboardLeftArea({dark = false}) {
         subCategories,
         products,
         updateSelectedMap,
-        getProductsByBarcode} = useContext(CartContext);
+        getProductsByBarcode,
+        addToCart} = useContext(CartContext);
 
     const [value, setValue] = useState('');
 
@@ -99,7 +100,7 @@ function SalesDashboardLeftArea({dark = false}) {
                             subCategories.map((subcategory,key)=><ProductCard key={key} onClick={()=>{updateSelectedMap(subcategory.id,"subcategory");setMap("products")}} dark={dark} category name={subcategory.name} src={subcategory.image}/>)
                         ) : map === "products" ? (
                             products.map((product,key)=>
-                                <ProductCard key={key} dark={dark} name={product.name} src={product.image} barcode={product.barcode} favorite={product.isfavourites} price={product.price} stock={product.stock} />)
+                                <ProductCard discountText={product.campaign} onClick={()=>addToCart(product)} key={key} dark={dark} name={product.name} src={product.image} barcode={product.barcode} favorite={product.isfavourites} price={product.price} stock={product.stock} />)
                         ) : (
                             <div></div>
                         )}

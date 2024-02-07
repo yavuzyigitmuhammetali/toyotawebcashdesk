@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
 import "./shoppingCartItem.css"
 import {IconButton} from "@mui/material";
-import DeleteIcon from '@mui/icons-material/Delete';
+import RemoveIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
-import RemoveIcon from '@mui/icons-material/Remove';
+import DeleteIcon from '@mui/icons-material/Remove';
 import {createTheme, ThemeProvider} from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 
@@ -19,9 +19,10 @@ const lightTheme = createTheme({
 });
 
 
-function ShoppingCartItem({ index = 1,discountedPrice = 0,dark = false ,price = 1, tax = 8, quantity = 1, barcode = 120340344, productName = "EKMEK" }) {
-    const taxFreePrice = (price/(1+(tax/100))).toFixed(2);
-    const finalPrice = quantity * price;
+function ShoppingCartItem({ onDelete,onRemove,onAdd,campaign="",index = 1,discountedPrice = 0,dark = false ,price = 1, tax = 8, quantity = 1, barcode = 120340344, productName = "EKMEK" }) {
+    const taxFreePrice = ((discountedPrice?discountedPrice:price)/(1+(tax/100))).toFixed(2);
+    const finalPrice = (quantity * price).toFixed(2);
+    const finalDiscountedPrice = discountedPrice?(discountedPrice*quantity).toFixed(2):0;
     const [isElementVisible, setElementVisibility] = useState(false);
     const [firstLoad,setFirstLoad] = useState(false);
     const toggleElementVisibility = () => {
@@ -30,7 +31,6 @@ function ShoppingCartItem({ index = 1,discountedPrice = 0,dark = false ,price = 
         }
         return setElementVisibility(!isElementVisible)
     }
-
     return (
         <div style={{backgroundColor:dark&&"#12161B", color:dark&&"white",borderColor:dark&&"white"}} className="shopping-cart-item-container">
             <ThemeProvider theme={dark?darkTheme:lightTheme}>
@@ -43,10 +43,10 @@ function ShoppingCartItem({ index = 1,discountedPrice = 0,dark = false ,price = 
                     </div>
                     <div className="shopping-cart-item-content">
                         <span style={{fontSize: "1.5em", fontWeight: "700"}}>{index}.{productName}</span>
-                        <span>3 al 2 öde</span>
+                        <div>{campaign}</div>
                         <span style={{color: "red", fontWeight: "700"}}>
                             <span style={discountedPrice ? { textDecoration: "line-through", color: dark ? "white" : "black",fontSize:"0.8em" } : {}}>{finalPrice}₺</span>
-                            {discountedPrice ? <span> {discountedPrice}₺</span>:null}
+                            {discountedPrice ? <span> {finalDiscountedPrice}₺</span>:null}
                             </span>
                     </div>
                 </div>
@@ -54,14 +54,14 @@ function ShoppingCartItem({ index = 1,discountedPrice = 0,dark = false ,price = 
                     <div
                         style={{animation: isElementVisible ? "jell-in 0.5s ease-in-out forwards" : "jell-out 0.5s ease-in-out forwards",backgroundColor:dark&&"rgba(0,0,0,0.9)"}}
                         className="shopping-cart-item-editor">
-                        <IconButton color="success" aria-label="delete">
+                        <IconButton onClick={onAdd} color="success" aria-label="delete">
                             <AddIcon/>
                         </IconButton>
-                        <IconButton color="warning" aria-label="delete">
-                            <RemoveIcon/>
-                        </IconButton>
-                        <IconButton color="error" aria-label="delete">
+                        <IconButton onClick={onDelete} color="warning" aria-label="delete">
                             <DeleteIcon/>
+                        </IconButton>
+                        <IconButton onClick={onRemove} color="error" aria-label="delete">
+                            <RemoveIcon/>
                         </IconButton>
                     </div>
                 }

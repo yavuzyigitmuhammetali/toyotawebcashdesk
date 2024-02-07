@@ -58,7 +58,7 @@ function ProductCard({
                 :
                 null
             }
-            {discount || discountText ? <div className="product-card-on-sale">{discountText}</div> : null}
+            {discount || discountText ? <div className="product-card-on-sale">{discountText.toUpperCase()}</div> : null}
         </div>
     );
 }

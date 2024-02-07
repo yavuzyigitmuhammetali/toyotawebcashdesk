@@ -30,7 +30,7 @@
 }
 .sales-dashboard-middle-area-products{
     display: flex;
-    gap: 0.9px;
+    gap: 2px;
     flex-wrap: wrap;
 }
 .sales-dashboard-middle-area-texts{
