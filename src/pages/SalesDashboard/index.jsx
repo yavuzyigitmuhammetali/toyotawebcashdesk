@@ -5,7 +5,7 @@ import SalesDashboardRightArea from "./SalesDashboardRightArea";
 import {NumericKeyboardProvider} from "./components/NumericKeyboard/context";
 import {CartProvider} from "./context";
 
-function SalesDashboard() {
+function SalesDashboard({dark = true}) {
     return (
         <div style={{display: "flex", flexDirection: "row", justifyContent: "space-between"}}>
 {/*            <div style={{cursor: "not-allowed"}}>
@@ -15,9 +15,9 @@ function SalesDashboard() {
             </div>*/}
             <CartProvider>
                 <NumericKeyboardProvider>
-                    <SalesDashboardLeftArea/>
-                    <SalesDashboardMiddleArea/>
-                    <SalesDashboardRightArea/>
+                    <SalesDashboardLeftArea dark={dark}/>
+                    <SalesDashboardMiddleArea dark={dark}/>
+                    <SalesDashboardRightArea dark={dark}/>
                 </NumericKeyboardProvider>
             </CartProvider>
 
