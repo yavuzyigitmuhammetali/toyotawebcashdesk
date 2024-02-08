@@ -2,8 +2,9 @@ import React, {useContext, useRef, useState} from 'react';
 import {createTheme, ThemeProvider} from "@mui/material/styles";
 import KeyboardContext from "./context";
 import CssBaseline from "@mui/material/CssBaseline";
-import {Button} from "@mui/material";
+import {Button, IconButton} from "@mui/material";
 import LanguageIcon from '@mui/icons-material/Language';
+import KeyboardAltIcon from '@mui/icons-material/KeyboardAlt';
 import "./screenKeyboard.css"
 
 const darkTheme = createTheme({
@@ -31,10 +32,10 @@ const lightTheme = createTheme({
     },
 });
 
-function ScreenKeyboard({dark = false, defaultLang  = "tr"}) {
+function ScreenKeyboard({dark = false, defaultLang  = "tr",style}) {
     const [isDragging, setIsDragging] = useState(false);
     const [keyboardType, setKeyboardType] = useState(defaultLang)
-    const [position, setPosition] = useState({ x: 0, bottom: -20 });
+    const [onOff, setOnOff] = useState(true)
     const { handleDelete, handleValue, handleEnter } = useContext(KeyboardContext);
 
     const textInputRef = useRef(null);
@@ -107,73 +108,86 @@ function ScreenKeyboard({dark = false, defaultLang  = "tr"}) {
         }
     }
 
-    const handleCloseButtonClick = () => {
-        const container = textInputRef.current;
-        if (container && container.parentNode) {
-            container.parentNode.removeChild(container);
-        }
-    };
-
-    return (
-        <div
-            className="screen-keyboard-container"
-            onMouseDown={handleMouseDown}
-            onMouseMove={handleMouseMove}
-            onMouseUp={handleMouseUp}
-            ref={textInputRef}
-            style={{
-                position: 'fixed',
-                left: position.x + 'px',
-                bottom: position.bottom + 'px', // bottom değeri ekleniyor
-                cursor: isDragging ? 'grabbing' : 'grab',
-                backgroundColor: dark?"#12161B":"white",
-                borderColor: dark?"white":"black",
-            }}
-        >
-
-            {/* Kırmızı yuvarlak düğme */}
-            <button className="screen-keyboard-close-button" style={{backgroundColor:dark?"red":"#E33E4D"}} onClick={handleCloseButtonClick}></button>
+    if (onOff){
+        return (
             <ThemeProvider theme={dark?darkTheme:lightTheme}>
-                <CssBaseline />
-                {keyboard().map((item, index) => {
-                    if (item === 'del') {
-                        return (
-                            <Button onClick={handleDelete} variant="outlined" className="screen-keyboard-double" key={index}>
-                                del
-                            </Button>
-                        );
-                    } else if (item === 'enter') {
-                        return (
-                            <Button
-                                onClick={handleEnter}
-                                variant="outlined"
-                                style={{ gridRowEnd: 'span 4', gridColumnEnd: '-1' }}
-                                key={index}
-                            >
-                                enter
-                            </Button>
-                        );
-                    } else if (item === 'space') {
-                        return (
-                            <Button onClick={() => handleValue(' ')} variant="outlined" className="screen-keyboard-triple" key={index}>
-                                space
-                            </Button>
-                        );
-                    } else if (item === '') {
-                        return <Button className="screen-keyboard-empty-space" disabled key={index}></Button>;
-                    }  else if (item === 'language') {
-                        return <Button onClick={handleKeyboardType} variant="outlined" startIcon={<LanguageIcon/>} key={index}></Button>;
-                    }else {
-                        return (
-                            <Button onClick={() => handleValue(item)} variant="outlined" key={index}>
-                                {item}
-                            </Button>
-                        );
-                    }
-                })}
+                <IconButton style={style} onClick={()=>setOnOff(!onOff)}>
+                    <KeyboardAltIcon />
+                </IconButton>
             </ThemeProvider>
-        </div>
+        )
+    }else{
+    return (
+        <>
+            <IconButton disabled style={style} onClick={()=>setOnOff(!onOff)}>
+                <KeyboardAltIcon />
+            </IconButton>
+            <div
+                className="screen-keyboard-container"
+                onMouseDown={handleMouseDown}
+                onMouseMove={handleMouseMove}
+                onMouseUp={handleMouseUp}
+                ref={textInputRef}
+                style={{
+                    position: 'fixed',
+                    left: 0,
+                    bottom: "-20px",
+                    cursor: isDragging ? 'grabbing' : 'grab',
+                    backgroundColor: dark ? "#12161B" : "white",
+                    borderColor: dark ? "white" : "black",
+                }}
+            >
+
+                {/* Kırmızı yuvarlak düğme */}
+                <button className="screen-keyboard-close-button" style={{backgroundColor: dark ? "red" : "#E33E4D"}}
+                        onClick={() => setOnOff(true)}></button>
+                <ThemeProvider theme={dark ? darkTheme : lightTheme}>
+                    <CssBaseline/>
+                    {keyboard().map((item, index) => {
+                        if (item === 'del') {
+                            return (
+                                <Button onClick={handleDelete} variant="outlined" className="screen-keyboard-double"
+                                        key={index}>
+                                    del
+                                </Button>
+                            );
+                        } else if (item === 'enter') {
+                            return (
+                                <Button
+                                    onClick={handleEnter}
+                                    variant="outlined"
+                                    style={{gridRowEnd: 'span 4', gridColumnEnd: '-1'}}
+                                    key={index}
+                                >
+                                    enter
+                                </Button>
+                            );
+                        } else if (item === 'space') {
+                            return (
+                                <Button onClick={() => handleValue(' ')} variant="outlined"
+                                        className="screen-keyboard-triple" key={index}>
+                                    space
+                                </Button>
+                            );
+                        } else if (item === '') {
+                            return <Button className="screen-keyboard-empty-space" disabled key={index}></Button>;
+                        } else if (item === 'language') {
+                            return <Button onClick={handleKeyboardType} variant="outlined" startIcon={<LanguageIcon/>}
+                                           key={index}></Button>;
+                        } else {
+                            return (
+                                <Button onClick={() => handleValue(item)} variant="outlined" key={index}>
+                                    {item}
+                                </Button>
+                            );
+                        }
+                    })}
+                </ThemeProvider>
+            </div>
+        </>
+
     );
+    }
 }
 
 export default ScreenKeyboard;

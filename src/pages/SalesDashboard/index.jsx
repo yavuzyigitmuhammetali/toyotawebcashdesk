@@ -19,8 +19,8 @@ function SalesDashboard({dark = false}) {
                     <SalesDashboardMiddleArea dark={dark}/>
                     <SalesDashboardRightArea dark={dark}/>
                 </NumericKeyboardProvider>
-            </CartProvider>
 
+            </CartProvider>
         </div>
     );
 }

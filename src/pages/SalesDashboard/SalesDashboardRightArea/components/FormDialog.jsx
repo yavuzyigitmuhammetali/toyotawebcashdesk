@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
@@ -21,7 +21,7 @@ const lightTheme = createTheme({
     },
 });
 
-function FormDialog({buttonName,dialog,func=(data)=>{},disabled=false,dark=false,onOff=false,style}) {
+function FormDialog({buttonName,dialog,func=()=>{},disabled=false,dark=false,onOff=false,style}) {
     const { handleElementClick, value,onChangeValue,enter } = React.useContext(KeyboardContext);
     const [open, setOpen] = React.useState(false);
     const [error, setError] = React.useState(false)
@@ -79,6 +79,7 @@ function FormDialog({buttonName,dialog,func=(data)=>{},disabled=false,dark=false
                         />
                     </DialogContent>
                     <DialogActions>
+                        <ScreenKeyboard/>
                         <Button onClick={handleClose}>İptal</Button>
                         <Button ref={enter} type="submit">Uygula</Button>
                     </DialogActions>

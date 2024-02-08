@@ -7,16 +7,12 @@ export function checkIdentityNumber(inputValue) {
         return false;
     }
 
-    var total = 0;
-    for (var i = 0; i < 10; i++) {
+    let total = 0;
+    for (let i = 0; i < 10; i++) {
         total += parseInt(inputValue[i]);
     }
 
-    var onesDigit = total % 10;
+    const onesDigit = total % 10;
 
-    if (onesDigit === parseInt(inputValue[10])) {
-        return true;
-    } else {
-        return false;
-    }
+    return onesDigit === parseInt(inputValue[10]);
 }

@@ -3,7 +3,6 @@ import "./loginPage.css"
 import LoginPageLeftArea from "./LoginPageLeftArea";
 import LoginPageRightArea from "./LoginPageRightArea";
 import {KeyboardProvider} from "../../shared/components/ScreenKeyboard/context";
-import ScreenKeyboard from "../../shared/components/ScreenKeyboard/ScreenKeyboard";
 
 
 function LoginPage({dark = true}) {
@@ -12,7 +11,6 @@ function LoginPage({dark = true}) {
             <div className="login-page-left-area"><LoginPageLeftArea dark={dark}/></div>
             <KeyboardProvider>
                 <div className="login-page-right-area"><LoginPageRightArea dark={dark}/></div>
-                <ScreenKeyboard/>
             </KeyboardProvider>
 
         </div>

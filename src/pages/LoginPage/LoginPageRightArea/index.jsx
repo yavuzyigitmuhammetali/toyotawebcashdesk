@@ -6,6 +6,7 @@ import {Alert, AlertTitle, Button} from "@mui/material";
 import "./loginPageRightArea.css";
 import {login, loginTest} from "./api";
 import KeyboardContext from "../../../shared/components/ScreenKeyboard/context";
+import ScreenKeyboard from "../../../shared/components/ScreenKeyboard/ScreenKeyboard";
 
 const darkTheme = createTheme({
     palette: {
@@ -70,6 +71,7 @@ function LoginPageRightArea({dark = false}) {
                 <ThemeProvider theme={dark ? darkTheme : lightTheme}>
                     <CssBaseline/>
                     <TextField
+                        error={error}
                         onClick={handleElementClick}
                         value={value["username"]?value["username"]:""}
                         label="Kullanıcı Adı"
@@ -77,6 +79,7 @@ function LoginPageRightArea({dark = false}) {
                         onChange={e=>onChangeValue(e.target.value)}
                         autoComplete="current-password" id="username"  variant="outlined" size="small"/>
                     <TextField
+                        error={error}
                         id="password"
                         label="Şifre"
                         focused
@@ -87,7 +90,8 @@ function LoginPageRightArea({dark = false}) {
                         autoComplete="current-password"
                         size="small"
                     />
-                    <Button ref={enter} onClick={handleLogin} disabled={!buttonState}  variant="contained">Login</Button>
+                    <Button ref={enter} onClick={handleLogin} disabled={!buttonState} color={error?"error":"info"}  variant="contained">Login</Button>
+                    <ScreenKeyboard style={{width:"40px",height:"40px",alignSelf:"center"}}/>
                     {error ?
                         <Alert severity="error">
                             <AlertTitle>Hata</AlertTitle>
