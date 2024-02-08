@@ -19,24 +19,31 @@ const lightTheme = createTheme({
 });
 
 function LoginPageRightArea({dark = false}) {
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
     const [error, setError] = useState(false)
-    const { handleElementClick, value } = useContext(KeyboardContext);
-    const loginInfo = {
-        username:value["username"]?value["username"]:username
-        ,password:value["password"]?value["password"]:password
-    };
-
+    const [buttonState, setButtonState] = useState(false)
+    const { handleElementClick, value,onChangeValue,enter } = useContext(KeyboardContext);
     useEffect(() => {
         loginTest().then(response=>console.log(response.data)).catch(e => console.log(e));
     }, []);
 
+    useEffect(() => {
+        if (value["username"]&&value["password"]){
+            if ((value["username"].length&&value["password"].length)>5){
+                setButtonState(true)
+            }
+            else {
+                setButtonState(false)
+            }
+        }else {
+            setButtonState(false)
+        }
+        setError(false);
+    }, [value]);
 
     const handleLogin = async () => {
-        console.log(loginInfo);
+
         try {
-            const response = await login(loginInfo)
+            const response = await login({username:value["username"],password:value["password"]})
             if (response.status ===401){
                 setError(true);
             }else {
@@ -48,6 +55,7 @@ function LoginPageRightArea({dark = false}) {
 
         }
     };
+
 
     return (
         <div style={{width: "400px", backgroundColor: dark ? "#1C1F25" : "white", border: "2px solid #1A2027"}}
@@ -63,21 +71,26 @@ function LoginPageRightArea({dark = false}) {
                     <CssBaseline/>
                     <TextField
                         onClick={handleElementClick}
-                        onChange={e=>setUsername(e.target.value)}
-                        autoComplete="current-password" id="username" placeholder="Username" variant="outlined" size="small"/>
+                        value={value["username"]?value["username"]:""}
+                        label="Kullanıcı Adı"
+                        focused
+                        onChange={e=>onChangeValue(e.target.value)}
+                        autoComplete="current-password" id="username"  variant="outlined" size="small"/>
                     <TextField
                         id="password"
-                        onChange={e=>setPassword(e.target.value)}
+                        label="Şifre"
+                        focused
+                        value={value["password"]?value["password"]:""}
+                        onChange={e=>onChangeValue(e.target.value)}
                         onClick={handleElementClick}
-                        placeholder="Password"
                         type="password"
                         autoComplete="current-password"
                         size="small"
                     />
-                    <Button disabled={(loginInfo.username.length&&loginInfo.password.length)<5} onClick={handleLogin}  variant="contained">Login</Button>
+                    <Button ref={enter} onClick={handleLogin} disabled={!buttonState}  variant="contained">Login</Button>
                     {error ?
                         <Alert severity="error">
-                            <AlertTitle>Error</AlertTitle>
+                            <AlertTitle>Hata</AlertTitle>
                             Kullanıcı adı veya şifre hatalı!
                         </Alert>
                         :

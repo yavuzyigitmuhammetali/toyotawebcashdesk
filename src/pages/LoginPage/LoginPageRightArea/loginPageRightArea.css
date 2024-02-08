@@ -18,6 +18,9 @@
     margin-bottom: 20px;
 }
 .login-page-right-area-inputs{
+    box-sizing: border-box;
+    padding: 50px;
+    width: 100%;
     display: flex;
     flex-direction: column;
     gap: 20px;
