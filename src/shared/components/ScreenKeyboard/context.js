@@ -1,36 +1,50 @@
 import React from "react";
 
-const KeyboardContext = React.createContext();
+const KeyboardContext = React.createContext(undefined);
 
 const KeyboardProvider = ({children}) => {
     const [value, setValue] = React.useState({});
     const [id, setId] = React.useState("")
-    const htmlElement = document.getElementById(id);
+    const enter = React.useRef(null)
 
+    const handleEnter = () => {
+        enter?.current?.click();
+    };
 
+    React.useEffect(() => {
+        if (!value[id]) {
+            const updatedState = {...value};
+            updatedState[id] = "";
+            setValue(updatedState);
+        }
+    }, [id]);
+    const onChangeValue = (updatedValue) => {
+        if (id) {
+            const updatedState = {...value};
+                updatedState[id] = updatedValue;
+            setValue(updatedState);
+        }
+    };
     const handleValue = (updatedValue) => {
         if (id) {
             const updatedState = {...value};
-            updatedState[id] = htmlElement.value + updatedValue;
+                updatedState[id] = value[id] + updatedValue;
             setValue(updatedState);
         }
     };
     const handleDelete = () => {
         const updatedState = {...value};
         if (updatedState[id]) {
-            updatedState[id] = htmlElement.value.slice(0, -1);
+            updatedState[id] = updatedState[id].slice(0, -1);
             setValue(updatedState);
         }
     }
-    React.useEffect(() => {
-        if (htmlElement) {
-            htmlElement.value = value[id];
-        }
-    }, [value]);
 
     const handleElementClick = (e) => {
         setId(e.target.id);
     };
+
+
 
 
     return (
@@ -39,8 +53,11 @@ const KeyboardProvider = ({children}) => {
                 handleValue,
                 handleElementClick,
                 handleDelete,
+                onChangeValue,
+                handleEnter,
                 value,
-                id
+                id,
+                enter
             }}
         >
             {children}

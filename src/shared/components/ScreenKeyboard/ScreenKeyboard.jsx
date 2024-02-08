@@ -35,21 +35,11 @@ function ScreenKeyboard({dark = false, defaultLang  = "tr"}) {
     const [isDragging, setIsDragging] = useState(false);
     const [keyboardType, setKeyboardType] = useState(defaultLang)
     const [position, setPosition] = useState({ x: 0, bottom: -20 });
-    const { handleDelete, handleValue } = useContext(KeyboardContext);
+    const { handleDelete, handleValue, handleEnter } = useContext(KeyboardContext);
 
     const textInputRef = useRef(null);
     const dragStartRef = useRef(null);
 
-    const simulateEnterKey = () => {
-        if (textInputRef.current) {
-            const event = new KeyboardEvent('keydown', {
-                key: 'Enter',
-                keyCode: 13,
-                which: 13,
-            });
-            textInputRef.current.dispatchEvent(event);
-        }
-    };
 
     const handleMouseDown = (e) => {
         const target = e.target;
@@ -155,7 +145,7 @@ function ScreenKeyboard({dark = false, defaultLang  = "tr"}) {
                     } else if (item === 'enter') {
                         return (
                             <Button
-                                onClick={simulateEnterKey}
+                                onClick={handleEnter}
                                 variant="outlined"
                                 style={{ gridRowEnd: 'span 4', gridColumnEnd: '-1' }}
                                 key={index}
