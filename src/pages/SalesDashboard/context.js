@@ -39,7 +39,6 @@ const CartProvider = ({children}) => {
 
     const getProductsByBarcode = (barcode) =>{
         const item = _products.filter(item=>item.barcode.toString() === barcode)
-        console.log(typeof barcode);
        if(item.length===1){
            addToCart(item[0]);
        } else {
@@ -112,7 +111,6 @@ const CartProvider = ({children}) => {
     const totalCampaignQuantity = cart.filter(item=>item.campaign).map(item=>item.quantity).reduce((acc,quantity)=>acc+quantity,0)
     React.useEffect(() => {
         updateDiscountedPrices();
-        console.log(cart)
     }, [totalCampaignQuantity,discounts]);
 
     const totalQuantity = cart.map(item=>item.quantity).reduce((acc,quantity)=>acc+quantity,0)

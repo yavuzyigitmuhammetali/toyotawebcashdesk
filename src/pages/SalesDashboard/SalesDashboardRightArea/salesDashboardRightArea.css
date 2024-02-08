@@ -7,7 +7,7 @@
     box-sizing: border-box;
     top: 5vh;
     position: relative;
-    overflow: hidden !important;
+    overflow: clip !important;
     display: flex;
     flex-direction: column;
     gap: 50px;
@@ -22,4 +22,34 @@
 }
 .sales-dashboard-right-area-keyboard{
 
+}
+.sales-dashboard-right-area-campaigns{
+    border-bottom: 1px solid black;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+    top: 0;
+    left: 0;
+    padding: 10px;
+    width: 100%;
+    gap: 5px;
+    background-color: #E8F5FC;
+}
+@keyframes jell-in-top {
+    0% {
+        top: -50%;
+    }
+    100% {
+        top: 0;
+    }
+}
+@keyframes jell-out-top {
+    0% {
+        top: 0;
+    }
+    100% {
+        top: -50%;
+    }
 }

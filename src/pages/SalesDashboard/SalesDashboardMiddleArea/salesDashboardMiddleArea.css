@@ -30,7 +30,6 @@
 }
 .sales-dashboard-middle-area-products{
     display: flex;
-    gap: 2px;
     flex-wrap: wrap;
 }
 .sales-dashboard-middle-area-texts{
@@ -42,6 +41,7 @@
     color: black;
     border-radius: 20px;
     border: 0.2px solid black;
+    border-top: none;
 }
 .sales-dashboard-middle-area-amount{
     display: flex;

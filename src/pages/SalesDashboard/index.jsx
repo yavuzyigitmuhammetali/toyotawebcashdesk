@@ -5,9 +5,9 @@ import SalesDashboardRightArea from "./SalesDashboardRightArea";
 import {NumericKeyboardProvider} from "./components/NumericKeyboard/context";
 import {CartProvider} from "./context";
 
-function SalesDashboard({dark = true}) {
+function SalesDashboard({dark = false}) {
     return (
-        <div style={{display: "flex", flexDirection: "row", justifyContent: "space-between"}}>
+        <div style={{display: "flex", flexDirection: "row", justifyContent: "space-between",padding:"1px"}}>
 {/*            <div style={{cursor: "not-allowed"}}>
                 <div style={{cursor: "not-allowed", pointerEvents: "none"}}>
                     context test
