@@ -4,8 +4,6 @@ import SalesDashboardMiddleArea from "./SalesDashboardMiddleArea";
 import SalesDashboardRightArea from "./SalesDashboardRightArea";
 import {NumericKeyboardProvider} from "./components/NumericKeyboard/context";
 import {CartProvider} from "./context";
-import ProductShowcase from "../../shared/components/ProductShowcase/ProductShowcase";
-import {KeyboardProvider} from "../../shared/components/ScreenKeyboard/context";
 
 function SalesDashboard({dark = false}) {
     return (
@@ -21,9 +19,6 @@ function SalesDashboard({dark = false}) {
                     <SalesDashboardMiddleArea dark={dark}/>
                     <SalesDashboardRightArea dark={dark}/>
                 </NumericKeyboardProvider>
-                <KeyboardProvider>
-                    <ProductShowcase/>
-                </KeyboardProvider>
             </CartProvider>
         </div>
     );

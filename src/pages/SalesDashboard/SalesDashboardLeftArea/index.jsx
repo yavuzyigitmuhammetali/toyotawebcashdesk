@@ -8,6 +8,7 @@ import "./salesDashboardLeftArea.css"
 import ProductCard from "../../../shared/components/ProductCard/ProductCard";
 import NumericKeyboardContext from "../components/NumericKeyboard/context";
 import CartContext from "../context";
+import {filterProducts, filterProductsByBarcode, filterSubcategories} from "../functions/productProcessing";
 
 const darkTheme = createTheme({
     palette: {
@@ -22,15 +23,52 @@ const lightTheme = createTheme({
 
 
 function SalesDashboardLeftArea({dark = false}) {
-    const [map,setMap] = useState("categories");
-    const {data} = useContext(NumericKeyboardContext);
     const {
         categories,
-        subCategories,
-        products,
-        updateSelectedMap,
-        getProductsByBarcode,
+        subCategories:_subCategories,
+        products:_products,
         addToCart} = useContext(CartContext);
+
+    const [map,setMap] = useState("categories");
+    const {data} = useContext(NumericKeyboardContext);
+    const [selectedMap, setSelectedMap] = useState({category: 0, subcategory: 0})
+    const [subCategories, setSubCategories] = useState([])
+    const [products, setProducts] = useState([])
+    const updateSelectedMap = (value, field) => {
+        setSelectedMap((prevSelectedMap) => ({
+            ...prevSelectedMap, [field]: value,
+        }));
+    };
+    const getProductsByBarcode = (barcode) =>{
+        const item = _products.filter(item=>item.barcode.toString() === barcode)
+        if(item.length===1){
+            addToCart(item[0]);
+        } else {
+            return  setProducts(filterProductsByBarcode(_products,barcode));
+        }
+    };
+    useEffect(() => {
+        console.log("deneme")
+        setProducts(_products);
+        setSubCategories(_subCategories);
+    }, [_products,_subCategories]);
+
+    useEffect(() => {
+        if (selectedMap.category && !selectedMap.subcategory) {
+            setSubCategories(filterSubcategories(_subCategories, selectedMap.category))
+            setProducts(filterProducts(_products, selectedMap.category))
+        } else if (selectedMap.category && selectedMap.subcategory) {
+            setProducts(filterProducts(_products, selectedMap.category, selectedMap.subcategory))
+        } else if (!selectedMap.category && selectedMap.subcategory) {
+            setSubCategories(_subCategories)
+            setProducts(filterProducts(_products, null, selectedMap.subcategory))
+        } else {
+            setSubCategories(_subCategories);
+            setProducts(_products);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [selectedMap]);
+
 
     const [value, setValue] = useState('');
 
