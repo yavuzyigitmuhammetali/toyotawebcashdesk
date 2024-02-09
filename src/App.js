@@ -4,7 +4,7 @@ import SalesDashboard from "./pages/SalesDashboard";
 function App() {
   return (
     <div >
-        <SalesDashboard/>
+        <SalesDashboard dark/>
     </div>
   );
 }

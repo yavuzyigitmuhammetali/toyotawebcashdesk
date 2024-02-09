@@ -79,7 +79,7 @@ function FormDialog({buttonName,dialog,func=()=>{},disabled=false,dark=false,onO
                         />
                     </DialogContent>
                     <DialogActions>
-                        <ScreenKeyboard/>
+                        <ScreenKeyboard dark={dark}/>
                         <Button onClick={handleClose}>İptal</Button>
                         <Button ref={enter} type="submit">Uygula</Button>
                     </DialogActions>

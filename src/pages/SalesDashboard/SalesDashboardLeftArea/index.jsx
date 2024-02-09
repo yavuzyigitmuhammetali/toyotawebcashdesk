@@ -34,6 +34,7 @@ function SalesDashboardLeftArea({dark = false}) {
     const [selectedMap, setSelectedMap] = useState({category: 0, subcategory: 0})
     const [subCategories, setSubCategories] = useState([])
     const [products, setProducts] = useState([])
+
     const updateSelectedMap = (value, field) => {
         setSelectedMap((prevSelectedMap) => ({
             ...prevSelectedMap, [field]: value,

@@ -7,9 +7,23 @@ import ScreenKeyboard from "../ScreenKeyboard/ScreenKeyboard";
 import ProductCard from "../ProductCard/ProductCard";
 import {filterDataByAlphabetGroups} from "./dataProcessing";
 
-function ProductShowcase({data=[],addToCart,dark=false}) {
 
-    const { handleElementClick, value,onChangeValue } = React.useContext(KeyboardContext);
+const useKeyboard = () => {
+    const context = React.useContext(KeyboardContext);
+
+    if (!context) {
+        return {
+            handleElementClick: () => {},
+            value: "",
+            onChangeValue: () => {},
+        };
+    }
+
+    return context;
+};
+function ProductShowcase({data=[],addToCart,dark=false,screenKeyboard = true}) {
+
+    const { handleElementClick, value, onChangeValue } = useKeyboard();
     const [map, setMap] = useState(1)
     const favourites = useMemo(() => data.filter(item => item.isfavourites), [data]);
     const alphabeticalFilteredData = useMemo(()=>filterDataByAlphabetGroups(data),[data])
@@ -27,10 +41,10 @@ function ProductShowcase({data=[],addToCart,dark=false}) {
 
     return (
         <div className="product-showcase-container">
-            <div className="product-showcase-active-area">
+            <div style={{backgroundColor:dark?"rgba(19, 25, 34,0.85)":"",borderColor:dark?"white":""}} className="product-showcase-active-area">
                 <div className="product-showcase-search-area">
                     <TextField onClick={handleElementClick} onChange={event => onChangeValue(event.target.value)} value={value["prodcutSearch"]} focused fullWidth color="secondary" label="Ürün İsmi" id="prodcutSearch" />
-                    <ScreenKeyboard style={{width:"40px",height:"40px"}}/>
+                    {screenKeyboard&&<ScreenKeyboard dark={dark} />}
                 </div>
                 <div className="product-showcase-filter-area">
                     <Button onClick={()=>setMap(1)} color="secondary" variant={map===1?"contained":"outlined"}>Tümü</Button>
