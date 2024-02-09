@@ -18,6 +18,14 @@ const CartProvider = ({children}) => {
         buy3pay2: false, studentTaxFree: false, percentageDiscounts: false
     })
 
+    const cancelTransaction = ()=>{
+        setCart([]);
+        setTotal(0);
+        setSubTotal(0);
+        setDiscounts({buy3pay2: false, studentTaxFree: false, percentageDiscounts: false})
+        console.log(cart)
+    }
+
     const toggleDiscounts = (discountKey) => {
         setDiscounts(prevDiscounts => ({
             ...prevDiscounts, [discountKey]: !prevDiscounts[discountKey]
@@ -124,7 +132,8 @@ const CartProvider = ({children}) => {
             decreaseQuantityById,
             increaseQuantityById,
             removeFromCartById,
-            toggleDiscounts
+            toggleDiscounts,
+            cancelTransaction
         }}
     >
         {children}

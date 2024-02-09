@@ -33,7 +33,7 @@ const lightTheme = createTheme({
 
 
 function SalesDashboardRightArea({dark = false}) {
-    const {discounts, toggleDiscounts, products, addToCart} = useContext(CartContext);
+    const {discounts, toggleDiscounts, products, addToCart,cancelTransaction,cart} = useContext(CartContext);
     const [campaignsWindow, setCampaignsWindow] = useState({first: false, other: true});
     const [productShowcaseWindow, setProductShowcaseWindow] = useState(false);
 
@@ -51,7 +51,7 @@ function SalesDashboardRightArea({dark = false}) {
                  className="sales-dashboard-right-area-container">
                 <div className="sales-dashboard-right-area-control">
 
-                    <Button color="error" variant="contained">İşlem İptal Et</Button>
+                    <Button onClick={cancelTransaction} disabled={!cart.length} color="error" variant="contained">İşlem İptal Et</Button>
                     <Button onClick={()=>setProductShowcaseWindow(!productShowcaseWindow)} color="info" variant="contained">İsimden Ara</Button>
                     <Button onClick={() => setCampaignsWindow({first: true, other: true})} color="secondary"
                             variant="contained">Kampanyalar</Button>
