@@ -9,7 +9,7 @@
     position: relative;
     overflow: hidden !important;
     display: flex;
-    gap: 2px;
+    gap: 10vh;
     flex-direction: column;
     padding: 10px;
     border: 1px solid black;

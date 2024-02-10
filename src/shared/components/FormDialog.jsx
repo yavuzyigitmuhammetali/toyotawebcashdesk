@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
@@ -6,8 +6,8 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import KeyboardContext from "../../../../shared/components/ScreenKeyboard/context";
-import ScreenKeyboard from "../../../../shared/components/ScreenKeyboard/ScreenKeyboard";
+import KeyboardContext from "./ScreenKeyboard/context";
+import ScreenKeyboard from "./ScreenKeyboard/ScreenKeyboard";
 import {createTheme, ThemeProvider} from "@mui/material/styles";
 
 const darkTheme = createTheme({
@@ -21,8 +21,12 @@ const lightTheme = createTheme({
     },
 });
 
-function FormDialog({buttonName,dialog,func=()=>{},disabled=false,dark=false,onOff=false,style}) {
-    const { handleElementClick, value,onChangeValue,enter } = React.useContext(KeyboardContext);
+
+
+function FormDialog({screenKeyboard=true,buttonName,dialog,func=()=>{},disabled=false,dark=false,onOff=false,label,errorText,style}) {
+
+
+    const { handleElementClick, value,onChangeValue,enter } = useContext(KeyboardContext);
     const [open, setOpen] = React.useState(false);
     const [error, setError] = React.useState(false)
 
@@ -63,7 +67,7 @@ function FormDialog({buttonName,dialog,func=()=>{},disabled=false,dark=false,onO
                         </DialogContentText>
                         <TextField
                             error={error}
-                            helperText={error?"Kimlik numarası hatalı veya bir öğrenciye ait değil!":""}
+                            helperText={error?errorText:""}
                             focused
                             onClick={handleElementClick}
                             onChange={(e)=>{onChangeValue(e.target.value);setError(false)}}
@@ -73,13 +77,13 @@ function FormDialog({buttonName,dialog,func=()=>{},disabled=false,dark=false,onO
                             margin="dense"
                             id="deneme"
                             name="email"
-                            label="Öğrenci Kimlik Numarası"
+                            label={label}
                             fullWidth
                             variant="standard"
                         />
                     </DialogContent>
                     <DialogActions>
-                        <ScreenKeyboard dark={dark}/>
+                        {screenKeyboard&&<ScreenKeyboard dark={dark}/>}
                         <Button onClick={handleClose}>İptal</Button>
                         <Button ref={enter} type="submit">Uygula</Button>
                     </DialogActions>

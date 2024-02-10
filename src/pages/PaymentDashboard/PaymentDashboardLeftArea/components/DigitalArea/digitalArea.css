@@ -1,0 +1,29 @@
+.digital-area-container{
+    font-family: 'VT323', 'Noto Emoji', serif !important;
+    box-sizing: border-box;
+    padding-top: 20px;
+    max-width: 33vw;
+    min-width: 200px;
+    display: flex;
+    flex-direction: column;
+    overflow-x: clip;
+    height: 32vh;
+    align-items: center;
+    text-align: center;
+    border: 1px dotted white;
+    user-select: none;
+
+}
+.digital-area-scroll{
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    flex: 1;
+    max-width: 100%;
+    max-height: 100%;
+    overflow-y: scroll;
+    text-align: left;
+
+}
+.digital-area-scroll::-webkit-scrollbar{
+    display: none;
+}

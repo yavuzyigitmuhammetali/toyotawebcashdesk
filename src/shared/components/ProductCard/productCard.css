@@ -76,7 +76,7 @@
     border-radius: 3px;
 }
 .product-card-click {
-    --c: green; /* the border color */
+    --c: gray; /* the border color */
     --b: 10px;    /* the border thickness*/
     --g: 5px;     /* the gap on hover */
 
@@ -90,9 +90,12 @@
     transition: .1s, background-position .1s .1s;
     cursor: pointer;
 }
-.product-card-click:active {
+.product-card-click:hover {
     --_i: 100%;
-    transition: .02s, background-size .02s .02s;
+    transition: .1s, background-size .1s .1s;
+}
+.product-card-click:active {
+    --c: green;
 }
 .product-card-disabled{
     pointer-events: none;

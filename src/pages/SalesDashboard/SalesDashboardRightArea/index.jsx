@@ -5,7 +5,7 @@ import SendIcon from '@mui/icons-material/Send';
 import NumericKeyboard from "../components/NumericKeyboard/NumericKeyboard";
 import CartContext from "../context";
 import {createTheme, ThemeProvider} from "@mui/material/styles";
-import FormDialog from "./components/FormDialog";
+import FormDialog from "../../../shared/components/FormDialog";
 import {KeyboardProvider} from "../../../shared/components/ScreenKeyboard/context";
 import {checkIdentityNumber} from "../functions/studentValidate";
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
@@ -77,6 +77,8 @@ function SalesDashboardRightArea({dark = false}) {
                         <FormDialog
                             dialog="Öğrenciler seçili ürünlerde 1 tane almak ve bir kez yararlanma şartıyla vergisiz ürün!"
                             dark={dark}
+                            errorText={"Kimlik numarası hatalı veya bir öğrenciye ait değil!"}
+                            label={"Öğrenci Kimlik Numarası"}
                             disabled={discounts.studentTaxFree}
                             onOff={discounts.studentTaxFree}
                             buttonName="ÖĞERNCİYE VERGİSİZ"

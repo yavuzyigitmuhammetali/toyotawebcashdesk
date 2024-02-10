@@ -14,3 +14,35 @@
     padding: 10px;
     border: 1px solid black;
 }
+.payment-dashboard-middle-area-products-scroll{
+    border: 1px solid black;
+    box-sizing: border-box;
+    overflow-y: auto;
+    padding: 0;
+    max-width: 100%;
+    flex-grow: 1;
+    flex-basis: 0;
+    max-height: 100%;
+}
+.payment-dashboard-middle-area-products-scroll::-webkit-scrollbar {
+    width: 0;
+}
+.payment-dashboard-middle-area-products{
+    display: flex;
+    flex-wrap: wrap;
+}
+.payment-dashboard-middle-area-texts{
+    user-select: none;
+    box-sizing: border-box;
+    padding: 10px;
+    background-color: white;
+    width: 100%;
+    color: black;
+    border-radius: 20px;
+    border: 0.2px solid black;
+    border-top: none;
+}
+.payment-dashboard-middle-area-amount{
+    display: flex;
+    justify-content: space-between;
+}
