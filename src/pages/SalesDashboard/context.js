@@ -104,7 +104,6 @@ const CartProvider = ({children}) => {
         setSubTotal(subtotal);
     }, [totalQuantity, discounts]);
 
-
     React.useEffect(() => {
         getCategories()
             .then(response => setCategories(response.data))
@@ -117,7 +116,16 @@ const CartProvider = ({children}) => {
             .catch(error => console.log(error));
     }, []);
 
-
+    const confirmCart = ()=>{
+        const test = {
+            total:total,
+            subTotal:subTotal,
+            cart:cart,
+        }
+        if (cart.length){
+            console.log(test);
+        }
+    }
 
     return (<CartContext.Provider
         value={{
@@ -133,7 +141,8 @@ const CartProvider = ({children}) => {
             increaseQuantityById,
             removeFromCartById,
             toggleDiscounts,
-            cancelTransaction
+            cancelTransaction,
+            confirmCart
         }}
     >
         {children}

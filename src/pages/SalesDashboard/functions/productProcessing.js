@@ -45,7 +45,7 @@ export function applyBuy3Pay2(unitPrice, quantity,active = true) {
     const freeProducts = Math.floor(quantity / 3);
     const totalPayable = (quantity - freeProducts) * unitPrice;
     const averagePricePerProduct = totalPayable / quantity;
-    return averagePricePerProduct.toFixed(2);
+    return Math.round(averagePricePerProduct * 100) / 100
 }
 
 export function applyStudentTaxFree(priceWithTax, taxRatePercent,active = true) {
@@ -53,7 +53,7 @@ export function applyStudentTaxFree(priceWithTax, taxRatePercent,active = true) 
         return 0;
     }
     const taxRate = taxRatePercent / 100;
-    return (priceWithTax / (1 + taxRate)).toFixed(2);
+    return Math.round(priceWithTax / (1 + taxRate) * 100) / 100;
 }
 
 export function applyPerCentDiscount(price, discountPercentage,active = true) {
@@ -62,7 +62,7 @@ export function applyPerCentDiscount(price, discountPercentage,active = true) {
     }
 
     const discountAmount = price * (discountPercentage / 100);
-    return price - discountAmount;
+    return Math.round((price - discountAmount) * 100) / 100;;
 }
 
 export function calculateSubtotalAndTotal(cart) {
@@ -73,7 +73,8 @@ export function calculateSubtotalAndTotal(cart) {
         subtotal += item.price * item.quantity;
         total += (item.discountedPrice !== 0 ? item.discountedPrice : item.price) * item.quantity;
     });
-    subtotal = subtotal.toFixed(2);
-    total = total.toFixed(2);
-    return { subtotal, total };
+    return {
+        subtotal: Math.round(subtotal * 100) / 100,
+        total: Math.round(total * 100) / 100
+    };
 }

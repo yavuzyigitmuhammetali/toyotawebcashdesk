@@ -2,12 +2,13 @@ import React from "react";
 
 const PaymentContext = React.createContext(undefined);
 const PaymentProvider = ({children, data ={}}) =>{
-    const [tempData, setTempData] = React.useState({id: 0, subtotal: 0, total: 0, cart:[]})
-    const { total, subtotal: subTotal, cart } = tempData;
+    const [tempData, setTempData] = React.useState({id: 0, subTotal: 0, total: 0, cart:[]})
+    const { total, subTotal, cart } = tempData;
     const [paymentTransactions, setPaymentTransactions] = React.useState([]);
-    const amountPaid = paymentTransactions.reduce((total, item) => total + item.price, 0)
-    const amountRemaining = (total-amountPaid)<0?(0):(total-amountPaid);
-    const change = (total-amountPaid)<0?(amountPaid-total):(0);
+    const amountPaid = paymentTransactions.reduce((total, item) => Math.round((total + item.price) * 100) / 100, 0)
+    const amountRemaining = (total-amountPaid)<0?(0):(Math.round((total - amountPaid) * 100) / 100);
+    const change = (total-amountPaid)<0?(Math.round((amountPaid - total) * 100) / 100):(0);
+    const totalTax = Math.round(cart.reduce((acc, curr) => acc + ((curr.discountedPrice || curr.price) * curr.tax / 100), 0) * 100) / 100
 
     React.useEffect(() => {
         if (typeof data !== 'undefined' && data !== null && Object.keys(data).length !== 0){
@@ -42,7 +43,7 @@ const PaymentProvider = ({children, data ={}}) =>{
         const _amountPaid = amountPaid;
         localStorage.removeItem('paymentData');
         localStorage.removeItem('paymentTransactions');
-        setTempData({id: 0, subtotal: 0,total: 0, cart:[]})
+        setTempData({id: 0, subTotal: 0,total: 0, cart:[]})
         setPaymentTransactions([])
         return _amountPaid;
     }
@@ -54,6 +55,7 @@ const PaymentProvider = ({children, data ={}}) =>{
                 total: total,
                 subTotal: subTotal,
                 amountPaid:amountPaid,
+                totalTax:totalTax,
                 change:change,
                 cart: cart,
                 transactions:paymentTransactions
@@ -62,7 +64,7 @@ const PaymentProvider = ({children, data ={}}) =>{
             return true;
 /*            localStorage.removeItem('paymentData');
             localStorage.removeItem('paymentTransactions');
-            setTempData({id: 0, subtotal: 0,total: 0, cart:[]})
+            setTempData({id: 0, subTotal: 0,total: 0, cart:[]})
             setPaymentTransactions([])*/
         }else {
             return false;

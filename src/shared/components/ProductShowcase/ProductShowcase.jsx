@@ -21,7 +21,7 @@ const useKeyboard = () => {
 
     return context;
 };
-function ProductShowcase({data=[],addToCart,dark=false,screenKeyboard = true}) {
+function ProductShowcase({data=[],onClick,dark=false,screenKeyboard = true}) {
 
     const { handleElementClick, value, onChangeValue } = useKeyboard();
     const [map, setMap] = useState(1)
@@ -60,10 +60,10 @@ function ProductShowcase({data=[],addToCart,dark=false,screenKeyboard = true}) {
                 </div>
                 <div className="product-showcase-products-scroll-area">
                     <div className="product-showcase-products-area">
-                        {map===0?filteredByName.map((product,key)=><ProductCard discountText={product.campaign} onClick={()=>addToCart(product)} key={key} dark={dark} name={product.name} src={product.image} barcode={product.barcode} favorite={product.isfavourites} price={product.price} stock={product.stock} />)
-                            :map===1?data.map((product,key)=><ProductCard discountText={product.campaign} onClick={()=>addToCart(product)} key={key} dark={dark} name={product.name} src={product.image} barcode={product.barcode} favorite={product.isfavourites} price={product.price} stock={product.stock} />)
-                        :map===2?favourites.map((product,key)=><ProductCard discountText={product.campaign} onClick={()=>addToCart(product)} key={key} dark={dark} name={product.name} src={product.image} barcode={product.barcode} favorite={product.isfavourites} price={product.price} stock={product.stock} />)
-                                :alphabeticalFilteredData[map-3].map((product,key)=><ProductCard discountText={product.campaign} onClick={()=>addToCart(product)} key={key} dark={dark} name={product.name} src={product.image} barcode={product.barcode} favorite={product.isfavourites} price={product.price} stock={product.stock} />)}
+                        {map===0?filteredByName.map((product,key)=><ProductCard discountText={product.campaign} onClick={()=>onClick(product)} key={key} dark={dark} name={product.name} src={product.image} barcode={product.barcode} favorite={product.isfavourites} price={product.price} stock={product.stock} />)
+                            :map===1?data.map((product,key)=><ProductCard discountText={product.campaign} onClick={()=>onClick(product)} key={key} dark={dark} name={product.name} src={product.image} barcode={product.barcode} favorite={product.isfavourites} price={product.price} stock={product.stock} />)
+                        :map===2?favourites.map((product,key)=><ProductCard discountText={product.campaign} onClick={()=>onClick(product)} key={key} dark={dark} name={product.name} src={product.image} barcode={product.barcode} favorite={product.isfavourites} price={product.price} stock={product.stock} />)
+                                :alphabeticalFilteredData[map-3].map((product,key)=><ProductCard discountText={product.campaign} onClick={()=>onClick(product)} key={key} dark={dark} name={product.name} src={product.image} barcode={product.barcode} favorite={product.isfavourites} price={product.price} stock={product.stock} />)}
                     </div>
                 </div>
             </div>

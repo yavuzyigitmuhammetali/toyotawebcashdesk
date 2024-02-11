@@ -33,7 +33,7 @@ const lightTheme = createTheme({
 
 
 function SalesDashboardRightArea({dark = false}) {
-    const {discounts, toggleDiscounts, products, addToCart,cancelTransaction,cart} = useContext(CartContext);
+    const {discounts, toggleDiscounts, products, addToCart,cancelTransaction,cart,confirmCart} = useContext(CartContext);
     const [campaignsWindow, setCampaignsWindow] = useState({first: false, other: true});
     const [productShowcaseWindow, setProductShowcaseWindow] = useState(false);
 
@@ -55,7 +55,7 @@ function SalesDashboardRightArea({dark = false}) {
                     <Button onClick={()=>setProductShowcaseWindow(!productShowcaseWindow)} color="info" variant="contained">İsimden Ara</Button>
                     <Button onClick={() => setCampaignsWindow({first: true, other: true})} color="secondary"
                             variant="contained">Kampanyalar</Button>
-                    <Button color="success" variant="contained" endIcon={<SendIcon/>}>Ödeme Ekranı</Button>
+                    <Button disabled={cart.length===0} color="success" onClick={confirmCart} variant="contained" endIcon={<SendIcon/>}>Ödeme Ekranı</Button>
 
 
                 </div>
@@ -96,7 +96,7 @@ function SalesDashboardRightArea({dark = false}) {
                         </IconButton>
                     </div>
                     <KeyboardProvider>
-                        <ProductShowcase dark={dark} addToCart={addToCart} data={products}/>
+                        <ProductShowcase dark={dark} onClick={addToCart} data={products}/>
                     </KeyboardProvider>
                 </>
                     :

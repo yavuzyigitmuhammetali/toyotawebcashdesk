@@ -1,5 +1,7 @@
 import React from 'react';
+// eslint-disable-next-line
 import SalesDashboard from "./pages/SalesDashboard";
+// eslint-disable-next-line
 import PaymentDashboard from "./pages/PaymentDashboard";
 
 
