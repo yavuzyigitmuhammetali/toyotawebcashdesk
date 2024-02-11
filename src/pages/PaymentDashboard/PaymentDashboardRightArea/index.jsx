@@ -1,9 +1,13 @@
-import React, {useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import "./paymentDashboardRightArea.css"
 import {Button} from "@mui/material";
 import NumericKeyboard from "../../../shared/components/NumericKeyboard/NumericKeyboard";
-import {NumericKeyboardProvider} from "../../../shared/components/NumericKeyboard/context";
+import NumericKeyboardContext from "../../../shared/components/NumericKeyboard/context";
 import {createTheme, ThemeProvider} from "@mui/material/styles";
+import PaymentContext from "../context";
+import SendIcon from '@mui/icons-material/Send';
+import ResponsiveDialog from "../../../shared/components/ResponsiveDialog";
+
 
 const darkTheme = createTheme({
     palette: {
@@ -17,28 +21,42 @@ const lightTheme = createTheme({
 });
 
 function PaymentDashboardRightArea({dark=false}) {
-    const [paymentMethod , setPaymentMethod] = useState("")
+    const [paymentDialog,setPaymentDialog] = useState(0)
+    const {setTransaction,amountRemaining,amountPaid,cancelTransaction,confirmTransaction} = useContext(PaymentContext)
+    const {data:numericKeyboardData} = useContext(NumericKeyboardContext)
+    const [paymentMethod , setPaymentMethod] = useState("cash")
+    useEffect(() => {
+        if (numericKeyboardData){
+           // setTransaction(numericKeyboardData,paymentMethod)
+            setPaymentDialog(paymentDialog+1);
+        }
+        return()=>{
+            setPaymentDialog(0);
+        }
+    }, [numericKeyboardData]);
+
     return (
         <ThemeProvider theme={dark?darkTheme:lightTheme}>
             <div style={dark ? {backgroundColor: "#121418", borderColor: "white"} : {}} className="payment-dashboard-right-area-container">
                 <div className="payment-dashboard-right-area-operator">
-                    <Button color="error" variant="contained">İşlem İptal Et</Button>
-                    <Button color="success" variant="contained">Ödeme Onayala</Button>
+                    <ResponsiveDialog onConfirm={cancelTransaction} title={"İade Tutarı : "+ (amountPaid.toFixed(0) +"$")}
+                    text={"Şu anda siparişi iptal etmek üzeresiniz onaylamanızı durumunda ödenmiş olan tutar iade edilip, ürünler müşteriye teslim edilemeyecektir"}>
+                        <Button disabled={(amountRemaining+amountPaid)===0} style={{width:"100%"}} color="error" variant="contained">İşlem İptal Et</Button>
+                    </ResponsiveDialog>
+                    <Button disabled={amountRemaining!==0||amountPaid===0} color="success" onClick={confirmTransaction} variant="contained" endIcon={<SendIcon />}>Ödeme Onayala</Button>
                 </div>
-                <NumericKeyboardProvider>
-
                     <div className="payment-dashboard-right-area-pay">
-                        <NumericKeyboard dark={dark}/>
+                        <NumericKeyboard allowDecimal recurringValues disabled={(amountRemaining+amountPaid)===0} dark={dark}/>
                         <div style={{display: "flex", flexDirection: "column", flex: "1 1"}}>
-                            <Button onClick={() => setPaymentMethod("cash")} style={{flex: 1}} color="info"
+                            <Button disabled={(amountRemaining+amountPaid)===0} onClick={() => setPaymentMethod("cash")} style={{flex: 1}} color="info"
                                     variant={paymentMethod === "cash" ? "contained" : "outlined"}>Nakit</Button>
-                            <Button onClick={() => setPaymentMethod("card")} style={{flex: 1}} color="warning"
+                            <Button disabled={(amountRemaining+amountPaid)===0} onClick={() => setPaymentMethod("card")} style={{flex: 1}} color="warning"
                                     variant={paymentMethod === "card" ? "contained" : "outlined"}>Kredi Kartı</Button>
+                            <ResponsiveDialog title={"Ödeme Simüle Et"} text={"Bu uygulama gerçek bir uygulama değil, bundan ötürü ödemenin doğru gerçekleşip gerçekleşmediğini varsayaymalıyız!"} onConfirm={()=>setTransaction(numericKeyboardData,paymentMethod)}  manualOpen={paymentDialog}/>
                         </div>
 
                     </div>
 
-                </NumericKeyboardProvider>
             </div>
         </ThemeProvider>
     );

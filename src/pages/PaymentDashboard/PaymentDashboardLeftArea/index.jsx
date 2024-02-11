@@ -1,11 +1,12 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import "./paymentDashboardLeftArea.css"
 import DigitalArea from "./components/DigitalArea/DigitalArea";
 import FormDialog from "../../../shared/components/FormDialog";
 import {KeyboardProvider} from "../../../shared/components/ScreenKeyboard/context";
+import PaymentContext from "../context";
 
 function PaymentDashboardLeftArea({dark = false}) {
-
+    const {total,paymentTransactions} = useContext(PaymentContext)
     const isValidEmail=(email)=>{
         const regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         if (!email || email.length === 0) {
@@ -17,11 +18,11 @@ function PaymentDashboardLeftArea({dark = false}) {
     return (
         <div style={{backgroundColor:dark?"#121418":"",borderColor:dark?"white":""}} className="payment-dashboard-left-area-container">
             <div>
-                <DigitalArea dark={dark} totalPrice={150} data={[{price:10,type:"cash"},{price:100,type:"card"}]}/>
+                <DigitalArea dark={dark} totalPrice={total} data={paymentTransactions}/>
             </div>
             <div>
                 <KeyboardProvider>
-                    <FormDialog style={{width:"100%"}} buttonName={"E-fatura"}
+                    <FormDialog disabled={!total} style={{width:"100%"}} buttonName={"E-fatura"}
                                 func={isValidEmail}
                                 label={"Müşteri Mail"}
                                 errorText={"Bu geçerli bir mail adresi değil!"}

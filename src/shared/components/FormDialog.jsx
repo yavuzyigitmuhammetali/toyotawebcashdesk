@@ -54,7 +54,6 @@ function FormDialog({screenKeyboard=true,buttonName,dialog,func=()=>{},disabled=
                             const formData = new FormData(event.currentTarget);
                             const formJson = Object.fromEntries(formData.entries());
                             const email = formJson.email;
-                            console.log(email);
                             func(email)?handleClose():setError(true);
 
                         },

@@ -49,7 +49,6 @@ function SalesDashboardLeftArea({dark = false}) {
         }
     };
     useEffect(() => {
-        console.log("deneme")
         setProducts(_products);
         setSubCategories(_subCategories);
     }, [_products,_subCategories]);

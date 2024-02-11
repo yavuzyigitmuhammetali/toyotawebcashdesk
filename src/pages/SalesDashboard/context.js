@@ -23,7 +23,6 @@ const CartProvider = ({children}) => {
         setTotal(0);
         setSubTotal(0);
         setDiscounts({buy3pay2: false, studentTaxFree: false, percentageDiscounts: false})
-        console.log(cart)
     }
 
     const toggleDiscounts = (discountKey) => {
@@ -65,7 +64,6 @@ const CartProvider = ({children}) => {
         setCart(currentCart => currentCart.filter(item => item.id !== id));
     };
 
-    console.log(cart)
     const updateDiscountedPrices = () => {
         const updatedCart = cart.map(item => {
             if (item.campaign) {
@@ -118,6 +116,7 @@ const CartProvider = ({children}) => {
             .then(response => setProducts(response.data))
             .catch(error => console.log(error));
     }, []);
+
 
 
     return (<CartContext.Provider

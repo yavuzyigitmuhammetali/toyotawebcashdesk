@@ -8,12 +8,16 @@ function DigitalArea({dark = false,totalPrice=2000,data=[]}) {
     const amountPaid = data.reduce((total, item) => total + item.price, 0)
     const amountRemaining = (totalPrice-amountPaid)<0?(0):(totalPrice-amountPaid);
     const change = (totalPrice-amountPaid)<0?(amountPaid-totalPrice):(0);
-
     useEffect(() => {
         if (scrollRef.current) {
-            scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+            const timeout = setTimeout(() => {
+                scrollRef.current.scrollTop = scrollRef.current.scrollHeight + 200;
+            }, 1);
+
+            return () => clearTimeout(timeout);
         }
-    }, [data]);
+    }, [amountPaid]);
+
     return (
         <div style={{borderColor:dark?"white":"black",color:dark?"white":"black"}} className="digital-area-container">
             <div style={{}}>

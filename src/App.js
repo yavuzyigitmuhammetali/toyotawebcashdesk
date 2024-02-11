@@ -7,7 +7,7 @@ function App() {
     const dark = true
   return (
     <div style={{backgroundColor:dark?"#121212":"white",height:"100vh"}} >
-        <SalesDashboard dark={dark}/>
+        <PaymentDashboard dark={dark}/>
     </div>
   );
 }
