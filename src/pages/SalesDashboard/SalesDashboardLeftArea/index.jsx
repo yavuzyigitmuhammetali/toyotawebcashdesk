@@ -6,7 +6,7 @@ import {Button, IconButton, InputAdornment} from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
 import "./salesDashboardLeftArea.css"
 import ProductCard from "../../../shared/components/ProductCard/ProductCard";
-import NumericKeyboardContext from "../components/NumericKeyboard/context";
+import NumericKeyboardContext from "../../../shared/components/NumericKeyboard/context";
 import CartContext from "../context";
 import {filterProducts, filterProductsByBarcode, filterSubcategories} from "../functions/productProcessing";
 
@@ -103,7 +103,6 @@ function SalesDashboardLeftArea({dark = false}) {
             borderColor: dark ? "white" : ""
         }} className="left-container">
             <ThemeProvider theme={dark ? darkTheme : lightTheme}>
-                <CssBaseline/>
                 <div className="left-one">
                     <TextField
                     fullWidth

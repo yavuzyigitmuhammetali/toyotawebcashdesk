@@ -7,7 +7,7 @@
     box-sizing: border-box;
     top: 5vh;
     position: relative;
-    overflow: hidden !important;
+    overflow: clip !important;
     display: flex;
     gap: 2px;
     flex-direction: column;
@@ -30,6 +30,7 @@
 .payment-dashboard-middle-area-products{
     display: flex;
     flex-wrap: wrap;
+    overflow: clip;
 }
 .payment-dashboard-middle-area-texts{
     user-select: none;

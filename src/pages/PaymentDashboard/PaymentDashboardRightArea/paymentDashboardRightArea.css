@@ -13,4 +13,15 @@
     flex-direction: column;
     padding: 10px;
     border: 1px solid black;
+    align-content: space-between;
+    justify-content: space-between;
+}
+.payment-dashboard-right-area-operator{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.payment-dashboard-right-area-pay{
+    display: flex;
+    flex-direction: row;
 }

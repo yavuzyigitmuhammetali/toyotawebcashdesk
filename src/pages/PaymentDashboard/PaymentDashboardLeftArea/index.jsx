@@ -15,11 +15,11 @@ function PaymentDashboardLeftArea({dark = false}) {
     }
 
     return (
-        <div className="payment-dashboard-left-area-container">
+        <div style={{backgroundColor:dark?"#121418":"",borderColor:dark?"white":""}} className="payment-dashboard-left-area-container">
             <div>
                 <DigitalArea dark={dark} totalPrice={150} data={[{price:10,type:"cash"},{price:100,type:"card"}]}/>
             </div>
-            <div style={{flex:"1 1 100%"}}>
+            <div>
                 <KeyboardProvider>
                     <FormDialog style={{width:"100%"}} buttonName={"E-fatura"}
                                 func={isValidEmail}

@@ -5,7 +5,7 @@ import RemoveIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Remove';
 import {createTheme, ThemeProvider} from "@mui/material/styles";
-import CssBaseline from "@mui/material/CssBaseline";
+
 
 const darkTheme = createTheme({
     palette: {
@@ -19,7 +19,7 @@ const lightTheme = createTheme({
 });
 
 
-function ShoppingCartItem({ onDelete,onRemove,onAdd,campaign="",index = 1,discountedPrice = 0,dark = false ,price = 1, tax = 8, quantity = 1, barcode = 120340344, productName = "EKMEK" }) {
+function ShoppingCartItem({ disabled=false, onDelete,onRemove,onAdd,campaign="",index = 1,discountedPrice = 0,dark = false ,price = 1, tax = 8, quantity = 1, barcode = 120340344, productName = "EKMEK" }) {
     const taxFreePrice = ((discountedPrice?discountedPrice:price)/(1+(tax/100))).toFixed(2);
     const finalPrice = (quantity * price).toFixed(2);
     const finalDiscountedPrice = discountedPrice?(discountedPrice*quantity).toFixed(2):0;
@@ -32,9 +32,8 @@ function ShoppingCartItem({ onDelete,onRemove,onAdd,campaign="",index = 1,discou
         return setElementVisibility(!isElementVisible)
     }
     return (
-        <div style={{backgroundColor:dark&&"#12161B", color:dark&&"white",borderColor:dark&&"white"}} className="shopping-cart-item-container">
+        <div style={{backgroundColor:dark&&"#12161B", color:dark&&"white",borderColor:dark&&"white"}} className={disabled?"shopping-cart-item-container shopping-cart-item-disabled":"shopping-cart-item-container"}>
             <ThemeProvider theme={dark?darkTheme:lightTheme}>
-                <CssBaseline/>
                 <div onClick={toggleElementVisibility} className="shopping-cart-item-content-container">
                     <div className="shopping-cart-item-content">
                         <span>#{barcode}</span>
@@ -43,7 +42,7 @@ function ShoppingCartItem({ onDelete,onRemove,onAdd,campaign="",index = 1,discou
                     </div>
                     <div className="shopping-cart-item-content">
                         <span style={{fontSize: "1.5em", fontWeight: "700"}}>{index}.{productName}</span>
-                        <div>{campaign}</div>
+                        <div>{discountedPrice?campaign:""}</div>
                         <span style={{color: "red", fontWeight: "700"}}>
                             <span style={discountedPrice ? { textDecoration: "line-through", color: dark ? "white" : "black",fontSize:"0.8em" } : {}}>{finalPrice}₺</span>
                             {discountedPrice ? <span> {finalDiscountedPrice}₺</span>:null}

@@ -1,13 +1,14 @@
 import React from 'react';
 import "./paymentDashboardMiddleArea.css"
-import ProductSummaryCard from "./components/ProductSummaryCard/ProductSummaryCard";
+import ShoppingCartItem
+    from "../../../shared/components/ShoppingCartItem/ShoppingCartItem";
 
 function PaymentDashboardMiddleArea({dark = false}) {
     return (
-        <div className="payment-dashboard-middle-area-container">
-            <div className="payment-dashboard-middle-area-products-scroll">
+        <div style={dark ? {backgroundColor: "#121418", borderColor: "white"} : {}} className="payment-dashboard-middle-area-container">
+            <div style={{borderColor: dark? "white":"", backgroundColor: dark ? "#111923" : "white"}} className="payment-dashboard-middle-area-products-scroll">
                 <div className="payment-dashboard-middle-area-products">
-                    <ProductSummaryCard/>
+                    <ShoppingCartItem disabled dark={dark}/>
                 </div>
             </div>
             <div style={dark ? {backgroundColor: "black", color: "white", borderColor: "white"} : {}}

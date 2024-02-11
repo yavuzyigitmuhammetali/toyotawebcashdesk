@@ -39,6 +39,11 @@
     background-color: rgba(255,255,255,0.7);
     border-radius: 0 10px 10px 0;
 }
+.shopping-cart-item-disabled{
+    pointer-events: none;
+    user-select: none;
+    filter: contrast(250%);
+}
 @keyframes jell-in {
     0% {
         left: -50%;

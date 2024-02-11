@@ -2,7 +2,7 @@ import React, {useContext, useState} from 'react';
 import "./salesDashboardRightArea.css"
 import {Button, IconButton} from "@mui/material";
 import SendIcon from '@mui/icons-material/Send';
-import NumericKeyboard from "../components/NumericKeyboard/NumericKeyboard";
+import NumericKeyboard from "../../../shared/components/NumericKeyboard/NumericKeyboard";
 import CartContext from "../context";
 import {createTheme, ThemeProvider} from "@mui/material/styles";
 import FormDialog from "../../../shared/components/FormDialog";

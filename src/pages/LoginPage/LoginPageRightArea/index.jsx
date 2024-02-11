@@ -69,7 +69,6 @@ function LoginPageRightArea({dark = false}) {
             </div>
             <form className="login-page-right-area-inputs">
                 <ThemeProvider theme={dark ? darkTheme : lightTheme}>
-                    <CssBaseline/>
                     <TextField
                         error={error}
                         onClick={handleElementClick}
@@ -91,7 +90,7 @@ function LoginPageRightArea({dark = false}) {
                         size="small"
                     />
                     <Button ref={enter} onClick={handleLogin} disabled={!buttonState} color={error?"error":"info"}  variant="contained">Login</Button>
-                    <ScreenKeyboard style={{width:"40px",height:"40px",alignSelf:"center"}}/>
+                    <ScreenKeyboard dark={dark} style={{width:"40px",height:"40px",alignSelf:"center"}}/>
                     {error ?
                         <Alert severity="error">
                             <AlertTitle>Hata</AlertTitle>

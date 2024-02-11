@@ -65,6 +65,7 @@ const CartProvider = ({children}) => {
         setCart(currentCart => currentCart.filter(item => item.id !== id));
     };
 
+    console.log(cart)
     const updateDiscountedPrices = () => {
         const updatedCart = cart.map(item => {
             if (item.campaign) {

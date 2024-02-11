@@ -19,7 +19,7 @@ const lightTheme = createTheme({
 });
 
 
-function NumericKeyboard({width = "auto",dark = false}) {
+function NumericKeyboard({width = "auto",dark = false,disabled = false}) {
     const [value, setValue] = useState("")
     const {setData} = useContext(NumericKeyboardContext);
 
@@ -53,7 +53,7 @@ function NumericKeyboard({width = "auto",dark = false}) {
                 <Button onClick={()=>setValue(value+"8")} variant="contained">8</Button>
                 <Button onClick={()=>setValue(value+"9")} variant="contained">9</Button>
                 <Button onClick={()=>setValue(value+"0")} style={{gridColumnEnd: "span 2"}} variant="contained">0</Button>
-                <Button
+                <Button disabled={disabled}
                     onClick={submitData}
                     style={{gridColumn:"4",gridRow:"3 / span 3"}} endIcon={<DoneOutlineIcon/>} color="success" variant="contained"></Button>
                 <Button disabled onClick={()=>setValue(value+".")} style={{gridColumnEnd: "span 2"}} variant="contained">.</Button>
