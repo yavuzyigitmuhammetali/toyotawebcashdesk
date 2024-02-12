@@ -3,7 +3,7 @@ import React from 'react';
 import SalesDashboard from "./pages/SalesDashboard";
 // eslint-disable-next-line
 import PaymentDashboard from "./pages/PaymentDashboard";
-import ResponsiveReceipt from "./shared/components/ResponsiveReceipt/ResponsiveReceipt";
+import Receipt from "./shared/components/Receipt/Receipt";
 import FullScreenAlert from "./shared/components/FullScreenAlert";
 
 
@@ -14,7 +14,7 @@ function App() {
         <PaymentDashboard dark={dark}/>
     </div>*/
       <div>
-          <ResponsiveReceipt/>
+          <Receipt/>
       </div>
   );
 }
