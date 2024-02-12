@@ -1,8 +1,8 @@
-.responsive-receipt-container {
+.receipt-container {
     font-family: 'VT323', 'Noto Emoji', serif !important;
+    position: relative;
     background-color: white;
     width: 400px !important;
-    height: max-content;
     box-sizing: border-box;
     padding: 50px 25px;
     display: flex;
@@ -11,8 +11,7 @@
     overflow-x: clip!important;
     border: .1px solid black;
 }
-
-.responsive-receipt-header {
+.receipt-header {
     display: flex;
     width: 100%;
     justify-content: center;
@@ -21,21 +20,21 @@
     gap: 6px;
 }
 
-.responsive-receipt-footer {
+.receipt-footer {
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
     width: 100%;
 }
 
-.responsive-receipt-footer div {
+.receipt-footer div {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
 }
 
-.responsive-receipt-main {
+.receipt-main {
     display: flex;
     flex-direction: column;
     flex-grow: 1;
@@ -43,13 +42,13 @@
     margin: 30px 0 10px 0;
 }
 
-.responsive-receipt-product {
+.receipt-product {
     margin-bottom: 8px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 }
-.responsive-receipt-product *{
+.receipt-product *{
     display: flex;
     justify-content: right;
     flex-grow: 1;
@@ -58,8 +57,13 @@
     overflow: hidden;
     text-overflow: ellipsis;
 }
-.responsive-receipt-header-time{
+.receipt-header-time{
     width: 100%;
     display: flex;
     justify-content: space-between;
+}
+hr{
+    width: 100%;
+    color: black;
+    border-style: dashed;
 }

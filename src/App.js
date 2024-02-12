@@ -5,6 +5,7 @@ import SalesDashboard from "./pages/SalesDashboard";
 import PaymentDashboard from "./pages/PaymentDashboard";
 import Receipt from "./shared/components/Receipt/Receipt";
 import FullScreenAlert from "./shared/components/FullScreenAlert";
+import ResponsiveReceipt from "./pages/ResponsiveReceipt";
 
 
 function App() {
@@ -14,7 +15,7 @@ function App() {
         <PaymentDashboard dark={dark}/>
     </div>*/
       <div>
-          <Receipt/>
+          <ResponsiveReceipt/>
       </div>
   );
 }
