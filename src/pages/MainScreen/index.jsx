@@ -63,7 +63,7 @@ function MainScreen({dark = false}) {
                     <OnlineOfflineIndicator/>
                 </div>
                 <div style={{backgroundColor:dark?"#1E1E1E":"white",color:dark?"white":"black",borderColor:dark?"white":"black"}} className="main-screen-upper-left">
-                    <div>Mağaza No: {status.store_number}</div>
+                    <div>Mağaza No: {status.storeNumber}</div>
                     <div>Kasa No: {status.case} (KASA {status.case})</div>
                     <div>İp No: {userIP}</div>
                     <div>Versiyon: {status.version}</div>

@@ -17,7 +17,7 @@ function LoginPageLeftArea({width = "400px", dark = false}) {
                 <OnlineOfflineIndicator/>
             </div>
             <LoginSrc dark={dark}/>
-            <span className="login-page-left-area-texts good-wish">Store Number: {status.store_number}</span>
+            <span className="login-page-left-area-texts good-wish">Store Number: {status.storeNumber}</span>
             <span className="login-page-left-area-texts welcome">WELCOME BACK</span>
             <span className="login-page-left-area-texts explanation">{status.version}</span>
         </div>

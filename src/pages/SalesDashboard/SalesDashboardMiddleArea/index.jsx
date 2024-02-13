@@ -41,7 +41,7 @@ function SalesDashboardMiddleArea({dark = false}) {
                     <span>Ara Toplam: </span>
                     <span>{subTotalPrice.toFixed(2)}$</span>
                 </div>
-                <hr style={{borderColor: "Background"}}/>
+                <hr style={{borderColor: dark?"white":"black"}}/>
                 <div className="sales-dashboard-middle-area-amount">
                     <span>Toplam Tutar</span>
                     <span>{totalPrice.toFixed(2)}$</span>

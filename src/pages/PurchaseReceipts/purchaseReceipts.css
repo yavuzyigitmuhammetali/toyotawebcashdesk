@@ -1,0 +1,6 @@
+.purchase-receipts-container{
+    position: relative;
+    top: 5vh;
+    max-height: 90vh;
+    overflow-x: auto;
+}

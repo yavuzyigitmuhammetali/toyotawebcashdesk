@@ -5,7 +5,7 @@ import LoginPageRightArea from "./LoginPageRightArea";
 import {KeyboardProvider} from "../../shared/components/ScreenKeyboard/context";
 
 
-function LoginPage({dark = true}) {
+function LoginPage({dark = false}) {
     return (
         <div style={{backgroundColor: dark ? "#111418" : "#E9ECF7"}} className="login-page-container">
             <div className="login-page-left-area"><LoginPageLeftArea dark={dark}/></div>
