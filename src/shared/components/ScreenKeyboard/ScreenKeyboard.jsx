@@ -79,8 +79,8 @@ function ScreenKeyboard({dark = false, defaultLang  = "tr",style}) {
 
     const turkishKeyboard = [
         "1","2","3","4","5","6","7","8","9","0","del","enter",
-        "q","w","e","r","t","y","u","ı","o","p","ğ","ü",
-        "a","s","d","f","g","h","j","k","l","ş","i",
+        "q","w","e","r","t","y","u","ı","o","p","ğ","a",
+        "s","d","ü","f","g","h","j","k","l","ş","i",
         "z","x","c","v","b","n","m","ö","ç","language","@","space","."
     ];
 
@@ -131,7 +131,7 @@ function ScreenKeyboard({dark = false, defaultLang  = "tr",style}) {
                 style={{
                     position: 'fixed',
                     left: 0,
-                    bottom: "-20px",
+                    bottom: 0,
                     cursor: isDragging ? 'grabbing' : 'grab',
                     backgroundColor: dark ? "#12161B" : "white",
                     borderColor: dark ? "white" : "black",
@@ -142,11 +142,10 @@ function ScreenKeyboard({dark = false, defaultLang  = "tr",style}) {
                 <button className="screen-keyboard-close-button" style={{backgroundColor: dark ? "red" : "#E33E4D"}}
                         onClick={() => setOnOff(true)}></button>
                 <ThemeProvider theme={dark ? darkTheme : lightTheme}>
-                    <CssBaseline/>
                     {keyboard().map((item, index) => {
                         if (item === 'del') {
                             return (
-                                <Button onClick={handleDelete} variant="outlined" className="screen-keyboard-double"
+                                <Button size="small" onClick={handleDelete} variant="outlined" className="screen-keyboard-double"
                                         key={index}>
                                     del
                                 </Button>
@@ -154,6 +153,7 @@ function ScreenKeyboard({dark = false, defaultLang  = "tr",style}) {
                         } else if (item === 'enter') {
                             return (
                                 <Button
+                                    size="small"
                                     onClick={handleEnter}
                                     variant="outlined"
                                     style={{gridRowEnd: 'span 4', gridColumnEnd: '-1'}}
@@ -164,7 +164,7 @@ function ScreenKeyboard({dark = false, defaultLang  = "tr",style}) {
                             );
                         } else if (item === 'space') {
                             return (
-                                <Button onClick={() => handleValue(' ')} variant="outlined"
+                                <Button size="small" onClick={() => handleValue(' ')} variant="outlined"
                                         className="screen-keyboard-triple" key={index}>
                                     space
                                 </Button>
@@ -172,11 +172,11 @@ function ScreenKeyboard({dark = false, defaultLang  = "tr",style}) {
                         } else if (item === '') {
                             return <Button className="screen-keyboard-empty-space" disabled key={index}></Button>;
                         } else if (item === 'language') {
-                            return <Button onClick={handleKeyboardType} variant="outlined" startIcon={<LanguageIcon/>}
+                            return <Button size="small" onClick={handleKeyboardType} variant="outlined" startIcon={<LanguageIcon/>}
                                            key={index}></Button>;
                         } else {
                             return (
-                                <Button onClick={() => handleValue(item)} variant="outlined" key={index}>
+                                <Button size="small" onClick={() => handleValue(item)} variant="outlined" key={index}>
                                     {item}
                                 </Button>
                             );

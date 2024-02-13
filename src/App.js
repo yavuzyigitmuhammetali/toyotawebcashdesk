@@ -18,7 +18,7 @@ function App() {
         <PaymentDashboard dark={dark}/>
     </div>*/
       <div>
-          <PurchaseReceipts/>
+          <LoginPage/>
       </div>
   );
 }

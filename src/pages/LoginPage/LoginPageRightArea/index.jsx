@@ -1,7 +1,6 @@
 import React, {useContext, useEffect, useState} from 'react';
 import TextField from '@mui/material/TextField';
 import {ThemeProvider, createTheme} from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline';
 import {Alert, AlertTitle, Button} from "@mui/material";
 import "./loginPageRightArea.css";
 import {login, loginTest} from "./api";
@@ -29,7 +28,7 @@ function LoginPageRightArea({dark = false}) {
 
     useEffect(() => {
         if (value["username"]&&value["password"]){
-            if ((value["username"].length&&value["password"].length)>5){
+            if ((value["username"].length>5&&value["password"].length)>5){
                 setButtonState(true)
             }
             else {
