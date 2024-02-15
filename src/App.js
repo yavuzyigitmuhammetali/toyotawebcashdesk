@@ -9,6 +9,7 @@ import ResponsiveReceipt from "./pages/ResponsiveReceipt";
 import LoginPage from "./pages/LoginPage";
 import MainScreen from "./pages/MainScreen";
 import PurchaseReceipts from "./pages/PurchaseReceipts";
+import RefundDashboard from "./pages/RefundDashboard";
 
 
 function App() {
@@ -18,7 +19,7 @@ function App() {
         <PaymentDashboard dark={dark}/>
     </div>*/
       <div>
-          <LoginPage/>
+          <RefundDashboard/>
       </div>
   );
 }

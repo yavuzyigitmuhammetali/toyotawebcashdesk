@@ -1,3 +1,16 @@
+/*#root{
+    background-color: black;
+    width: 100vw;
+    height: 100vh;
+    box-sizing: border-box;
+    overflow: clip;
+}*/
+
+
+::-webkit-scrollbar {
+    width: 0;
+}
+
 /* http://meyerweb.com/eric/tools/css/reset/
    v2.0 | 20110126
    License: none (public domain)

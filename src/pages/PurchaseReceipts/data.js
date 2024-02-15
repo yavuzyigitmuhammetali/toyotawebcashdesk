@@ -1,4 +1,4 @@
-export const exampleReceipts = [
+export const    exampleReceipts = [
     {
         active: true,
         receiptNumber: "797b5fbc-68ad-40af-b393-3a3808ec2e97",

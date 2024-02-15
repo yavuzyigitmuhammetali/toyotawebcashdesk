@@ -25,9 +25,6 @@
     flex-basis: 0;
     max-height: 100%;
 }
-.sales-dashboard-middle-area-products-scroll::-webkit-scrollbar {
-    width: 0;
-}
 .sales-dashboard-middle-area-products{
     display: flex;
     flex-wrap: wrap;

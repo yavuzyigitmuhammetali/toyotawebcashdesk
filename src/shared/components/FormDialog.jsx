@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect} from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
@@ -23,13 +23,18 @@ const lightTheme = createTheme({
 
 
 
-function FormDialog({screenKeyboard=true,buttonName,dialog,func=()=>{},disabled=false,dark=false,onOff=false,label,errorText,style}) {
+function FormDialog({children,openManual = 0,screenKeyboard=true,buttonName,dialog,func=()=>{},disabled=false,dark=false,onOff=false,label,errorText,style}) {
 
 
     const { handleElementClick, value,onChangeValue,enter } = useContext(KeyboardContext);
     const [open, setOpen] = React.useState(false);
     const [error, setError] = React.useState(false)
 
+    useEffect(() => {
+        if (openManual>0){
+            setOpen(true)
+        }
+    }, [openManual]);
     const handleClickOpen = () => {
         setOpen(true);
     };
@@ -41,9 +46,18 @@ function FormDialog({screenKeyboard=true,buttonName,dialog,func=()=>{},disabled=
     return (
         <ThemeProvider theme={dark?darkTheme:lightTheme}>
             <React.Fragment>
-                <Button style={style} color={onOff?"success":"error"} disabled={disabled} variant="contained" onClick={handleClickOpen}>
-                    {buttonName}
-                </Button>
+                    {children?
+                        <div style={style} color={onOff?"success":"error"} onClick={handleClickOpen} >
+                            {children}
+                        </div>
+
+                        :
+                        <div>
+                            <Button style={style} color={onOff?"success":"error"} disabled={disabled} variant="contained" onClick={handleClickOpen}>
+                                {buttonName}
+                            </Button>
+                        </div>
+           }
                 <Dialog
                     open={open}
                     onClose={handleClose}
