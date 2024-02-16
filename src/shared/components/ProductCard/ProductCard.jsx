@@ -13,6 +13,7 @@ function ProductCard({
                          discountText = "", //onSale
                          src = "",
                          favorite = false,
+                         style,
                          onClick
                      }) {
     stock = stock.toString()
@@ -22,7 +23,8 @@ function ProductCard({
         width: category ? "140px" : "102px",
         fontSize: category ? "0.8em" : "0.6em",
         backgroundColor: dark && "#1E1E1E",
-        borderColor: favorite ? "gold" : dark && "white"
+        borderColor: favorite ? "gold" : dark && "white",
+            ...style
     }}
                     className={stock !== "0" ? "product-card-container product-card-click" : "product-card-container product-card-click product-card-disabled"}>
         {src ? <img className="product-card-img" style={{filter: (!stock && !category) && "grayscale(100%)"}} src={src}

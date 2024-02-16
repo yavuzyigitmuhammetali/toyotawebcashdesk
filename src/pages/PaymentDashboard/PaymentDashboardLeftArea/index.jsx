@@ -2,13 +2,12 @@ import React, {useContext} from 'react';
 import "./paymentDashboardLeftArea.css"
 import DigitalArea from "./components/DigitalArea/DigitalArea";
 import FormDialog from "../../../shared/components/FormDialog";
-import {KeyboardProvider} from "../../../shared/components/ScreenKeyboard/context";
 import PaymentContext from "../context";
 
 function PaymentDashboardLeftArea({dark = false}) {
     const {total,paymentTransactions} = useContext(PaymentContext)
     const isValidEmail=(email)=>{
-        const regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        const regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         if (!email || email.length === 0) {
             return false;
         }
@@ -21,7 +20,6 @@ function PaymentDashboardLeftArea({dark = false}) {
                 <DigitalArea dark={dark} totalPrice={total} data={paymentTransactions}/>
             </div>
             <div>
-                <KeyboardProvider>
                     <FormDialog disabled={!total} style={{width:"100%"}} buttonName={"E-fatura"}
                                 func={isValidEmail}
                                 label={"Müşteri Mail"}
@@ -29,7 +27,6 @@ function PaymentDashboardLeftArea({dark = false}) {
                         //onOff={}
                                 dark={dark}
                                 dialog={"Doğaya katkıda bulunuyorsun!  E-faturanızla gereksiz kağıt kullanımı azalttın. Teşekkürler! "}/>
-                </KeyboardProvider>
                 </div>
         </div>
     );

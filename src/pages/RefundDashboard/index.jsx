@@ -2,12 +2,10 @@ import React, {useEffect, useMemo, useState} from 'react';
 import "./refundDashboard.css"
 import ShoppingCartItem from "../../shared/components/ShoppingCartItem/ShoppingCartItem";
 import {Button} from "@mui/material";
-import SendIcon from '@mui/icons-material/Send';
 import {exampleReceipts} from "../PurchaseReceipts/data";
 import ResponsiveDialog from "../../shared/components/ResponsiveDialog";
 import {createTheme, ThemeProvider} from "@mui/material/styles";
 import FormDialog from "../../shared/components/FormDialog";
-import {KeyboardProvider} from "../../shared/components/ScreenKeyboard/context";
 const darkTheme = createTheme({
     palette: {
         mode: 'dark',
@@ -154,9 +152,7 @@ function RefundDashboard({dark =false}) {
     return (
         <>
             <ThemeProvider theme={dark?darkTheme:lightTheme}>
-                <KeyboardProvider>
                     <FormDialog label={"Fatura Numarası"} dark={dark} dialog={"Lütfen devam etmeden önce bir fatura numarası girin"} openManual={1}> </FormDialog>
-                </KeyboardProvider>
                 <div style={{color:dark?"white":"black"}} className="refund-dashboard-upper-area-container">
                     <div style={{backgroundColor:dark?"#121418":"#F8FAFB"}} className="refund-dashboard-upper-area-item">
                         <div style={{backgroundColor:dark?"#131922":"white"}} className="refund-dashboard-upper-area-scroll">

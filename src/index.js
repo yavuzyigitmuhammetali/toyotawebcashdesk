@@ -4,12 +4,15 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import "./index.css"
 import {StatusProvider} from "./shared/state/context";
+import {KeyboardProvider} from "./shared/components/ScreenKeyboard/context";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
       <StatusProvider>
-          <App />
+          <KeyboardProvider>
+              <App />
+          </KeyboardProvider>
       </StatusProvider>
   </React.StrictMode>
 );

@@ -6,7 +6,6 @@ import NumericKeyboard from "../../../shared/components/NumericKeyboard/NumericK
 import CartContext from "../context";
 import {createTheme, ThemeProvider} from "@mui/material/styles";
 import FormDialog from "../../../shared/components/FormDialog";
-import {KeyboardProvider} from "../../../shared/components/ScreenKeyboard/context";
 import {checkIdentityNumber} from "../functions/studentValidate";
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ProductShowcase from "../../../shared/components/ProductShowcase/ProductShowcase";
@@ -73,7 +72,6 @@ function SalesDashboardRightArea({dark = false}) {
                     </IconButton>
                     <Button onClick={() => toggleDiscounts("buy3pay2")} style={{fontSize: 14}}
                             color={discounts.buy3pay2 ? "success" : "error"} variant="contained">3 AL 2 ÖDE</Button>
-                    <KeyboardProvider>
                         <FormDialog
                             dialog="Öğrenciler seçili ürünlerde 1 tane almak ve bir kez yararlanma şartıyla vergisiz ürün!"
                             dark={dark}
@@ -83,7 +81,6 @@ function SalesDashboardRightArea({dark = false}) {
                             onOff={discounts.studentTaxFree}
                             buttonName="ÖĞERNCİYE VERGİSİZ"
                             func={handleStudentTaxFree}/>
-                    </KeyboardProvider>
                     <Button onClick={() => toggleDiscounts("percentageDiscounts")} style={{fontSize: 14}}
                             color={discounts.percentageDiscounts ? "success" : "error"} variant="contained">YÜZDELİK
                         İNDİRİMLER</Button>
@@ -95,9 +92,7 @@ function SalesDashboardRightArea({dark = false}) {
                             <CloseOutlinedIcon/>
                         </IconButton>
                     </div>
-                    <KeyboardProvider>
                         <ProductShowcase dark={dark} onClick={addToCart} data={products}/>
-                    </KeyboardProvider>
                 </>
                     :
                     <></>}

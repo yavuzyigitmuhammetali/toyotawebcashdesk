@@ -28,7 +28,7 @@ function LoginPageRightArea({dark = false}) {
 
     useEffect(() => {
         if (value["username"]&&value["password"]){
-            if ((value["username"].length>5&&value["password"].length)>5){
+            if ((value["username"].length>=5&&value["password"].length)>5){
                 setButtonState(true)
             }
             else {

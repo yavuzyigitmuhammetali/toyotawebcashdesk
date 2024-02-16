@@ -1,7 +1,6 @@
 import React, {useContext, useRef, useState} from 'react';
 import {createTheme, ThemeProvider} from "@mui/material/styles";
 import KeyboardContext from "./context";
-import CssBaseline from "@mui/material/CssBaseline";
 import {Button, IconButton} from "@mui/material";
 import LanguageIcon from '@mui/icons-material/Language';
 import KeyboardAltIcon from '@mui/icons-material/KeyboardAlt';
