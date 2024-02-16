@@ -48,13 +48,13 @@ function MainScreen({dark = false}) {
                 <div style={{backgroundColor:dark?"#111418":"#F8FAFB"}} className="main-screen-container">
                     <div className="main-screen-active-area">
                         <div className="main-screen-sides">
-                            <MainScreenItem dark={dark} customIcon={LogoutIcon}>DENEME</MainScreenItem>
+                            <MainScreenItem to={"/order/create"} dark={dark} customIcon={LogoutIcon}>Sipariş Oluşturma</MainScreenItem>
                             <MainScreenItem dark={dark}>DENEME</MainScreenItem>
                             <MainScreenItem dark={dark}>DENEME</MainScreenItem>
                         </div>
                         <div className="main-screen-sides">
-                            <MainScreenItem dark={dark}>DENEME</MainScreenItem>
-                            <MainScreenItem dark={dark}>DENEME</MainScreenItem>
+                            <MainScreenItem to={"/refund/create"} dark={dark}>İade İşlemleri</MainScreenItem>
+                            <MainScreenItem to={"/purchase/list"} dark={dark}>Makbuzlar</MainScreenItem>
                             <MainScreenItem dark={dark}>DENEME</MainScreenItem>
                         </div>
                     </div>

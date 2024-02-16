@@ -13,8 +13,9 @@ root.render(
   <React.StrictMode>
       <StatusProvider>
           <KeyboardProvider>
-              {/*<RouterProvider router={router} />*/}
-              <App />
+              <RouterProvider router={router}>
+                  <App />
+              </RouterProvider>
           </KeyboardProvider>
       </StatusProvider>
   </React.StrictMode>
