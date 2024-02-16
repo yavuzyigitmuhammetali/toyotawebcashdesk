@@ -4,7 +4,6 @@
     width: 100vw;
     height: 20vh;
     background-color: #F8FAFB;
-    top: 5vh;
     display: flex;
     flex-direction: row;
     border: 1px solid;
@@ -26,7 +25,6 @@
     width: 100vw;
     height: 70vh;
     background-color: #F8FAFB;
-    top: 5vh;
     display: flex;
     flex-direction: row;
 }

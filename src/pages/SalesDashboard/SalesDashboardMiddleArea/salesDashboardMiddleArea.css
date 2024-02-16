@@ -5,7 +5,6 @@
     min-height: 90vh !important;
     max-height: 190vh !important;
     box-sizing: border-box;
-    top: 5vh;
     position: relative;
     overflow: hidden !important;
     display: flex;
