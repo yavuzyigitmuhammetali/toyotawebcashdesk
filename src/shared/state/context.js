@@ -1,5 +1,5 @@
 import React from "react";
-import {getStatus} from "../functions/api";
+import {getStatus} from "./api";
 import {checkOnline} from "../functions/checkOnline";
 import FullScreenAlert from "../components/FullScreenAlert";
 import OnlineOfflineIndicator from "../components/OnlineOfflineIndicator";

@@ -45,6 +45,10 @@ function MainContainer() {
             pageTitle = 'Ürün Görüntüle';
             prevLink = '/';
             break;
+        case '/product/add':
+            pageTitle = 'Ürün Ekleme Ekranı';
+            prevLink = '/';
+            break;
         default:
             if (location.pathname.startsWith('/products/list/')) {
                 pageTitle = `${productId} Numaralı Ürününü Görüntüleniyor`;

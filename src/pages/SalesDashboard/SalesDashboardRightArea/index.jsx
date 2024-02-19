@@ -87,7 +87,7 @@ function SalesDashboardRightArea({dark = false}) {
                 </div>}
                 {productShowcaseWindow?
                     <>
-                    <div style={{position:"fixed",left:0,top:0,zIndex:12}}>
+                    <div style={{position:"fixed",left:0,top:"4vh",zIndex:12}}>
                         <IconButton onClick={()=>setProductShowcaseWindow(false)}  color="error">
                             <CloseOutlinedIcon/>
                         </IconButton>
