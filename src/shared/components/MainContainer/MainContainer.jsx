@@ -5,7 +5,7 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import SettingsIcon from '@mui/icons-material/Settings';
 import OnlineOfflineIndicator from "../OnlineOfflineIndicator";
 import StatusContext from "../../state/context";
-import {Link, Outlet, useLocation} from 'react-router-dom';
+import {Link, Outlet, useLocation, useParams} from 'react-router-dom';
 
 function MainContainer() {
     const {status,online} = useContext(StatusContext)
@@ -13,6 +13,7 @@ function MainContainer() {
     const formattedDate = `${(today.getMonth() + 1).toString().padStart(2, '0')}/${today.getDate().toString().padStart(2, '0')}/${today.getFullYear()}`;
 
     const location = useLocation();
+    const { productId } = useParams();
     let pageTitle;
     let prevLink;
     switch (location.pathname) {
@@ -37,11 +38,21 @@ function MainContainer() {
             prevLink = '/';
             break;
         case '/products/list':
-            pageTitle = 'İade Ekranı';
+            pageTitle = 'Ürün Listeleme Ekranı';
+            prevLink = '/';
+            break;
+        case '/products/list/':
+            pageTitle = 'Ürün Görüntüle';
             prevLink = '/';
             break;
         default:
-            pageTitle = 'Başlık';
+            if (location.pathname.startsWith('/products/list/')) {
+                pageTitle = `${productId} Numaralı Ürününü Görüntüleniyor`;
+                prevLink = '/products/list';
+            } else {
+                pageTitle = 'Başlık';
+                prevLink = '/';
+            }
     }
     return (
         <div className="main-container-body">

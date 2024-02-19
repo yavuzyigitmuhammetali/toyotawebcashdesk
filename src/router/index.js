@@ -10,6 +10,7 @@ import PurchaseReceipts from "../pages/PurchaseReceipts";
 import MainContainer from "../shared/components/MainContainer/MainContainer";
 import ProductsDashboard from "../pages/ProductsDashboard";
 import ProductEditor from "../pages/ProductsDashboard/components/ProductEditor/ProductEditor";
+import ProductEntryPanel from "../pages/ProductEntryPanel";
 
 export default createBrowserRouter(
     [
@@ -54,6 +55,10 @@ export default createBrowserRouter(
                             Component: ProductEditor,
                         },
                     ]
+                },
+                {
+                    path: "product/add",
+                    Component: ProductEntryPanel,
                 },
             ]
         },

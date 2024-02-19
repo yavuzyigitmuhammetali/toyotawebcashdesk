@@ -50,7 +50,7 @@ function MainScreen({dark = false}) {
                         <div className="main-screen-sides">
                             <MainScreenItem to={"/order/create"} dark={dark} customIcon={LogoutIcon}>Sipariş Oluşturma</MainScreenItem>
                             <MainScreenItem to={"/products/list"} dark={dark}>Ürünler</MainScreenItem>
-                            <MainScreenItem dark={dark}>DENEME</MainScreenItem>
+                            <MainScreenItem to={"/product/add"} dark={dark}>Ürün Girişi</MainScreenItem>
                         </div>
                         <div className="main-screen-sides">
                             <MainScreenItem to={"/refund/create"} dark={dark}>İade İşlemleri</MainScreenItem>
