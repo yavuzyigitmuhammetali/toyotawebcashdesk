@@ -37,15 +37,15 @@ function ShoppingCartItem({ disabled=false, onDelete,onRemove,onAdd,campaign="",
                 <div onClick={toggleElementVisibility} className="shopping-cart-item-content-container">
                     <div className="shopping-cart-item-content">
                         <span>#{barcode}</span>
-                        <span>{taxFreePrice}₺ + KDV %{tax}</span>
+                        <span>{taxFreePrice}$ + KDV %{tax}</span>
                         <span>{quantity} adet</span>
                     </div>
                     <div className="shopping-cart-item-content">
                         <span style={{fontSize: "1.5em", fontWeight: "700"}}>{index}.{productName}</span>
                         <div>{discountedPrice?campaign:""}</div>
                         <span style={{color: "red", fontWeight: "700"}}>
-                            <span style={discountedPrice ? { textDecoration: "line-through", color: dark ? "white" : "black",fontSize:"0.8em" } : {}}>{finalPrice}₺</span>
-                            {discountedPrice ? <span> {finalDiscountedPrice}₺</span>:null}
+                            <span style={discountedPrice ? { textDecoration: "line-through", color: dark ? "white" : "black",fontSize:"0.8em" } : {}}>{finalPrice}$</span>
+                            {discountedPrice ? <span> {finalDiscountedPrice}$</span>:null}
                             </span>
                     </div>
                 </div>

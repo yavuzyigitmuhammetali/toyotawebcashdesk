@@ -10,7 +10,7 @@ import { useTheme } from '@mui/material/styles';
 import {useEffect} from "react";
 
 
-export default function ResponsiveDialog({children,title="",text="",onConfirm=()=>{},manualOpen=0}) {
+export default function ResponsiveDialog({children,style,className,disabled=false,title="",text="",onConfirm=()=>{},manualOpen=0}) {
     const [open, setOpen] = React.useState(false);
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
@@ -30,10 +30,10 @@ export default function ResponsiveDialog({children,title="",text="",onConfirm=()
 
     return (
         <React.Fragment>
-            <div onClick={handleClickOpen}>
+            <div style={style} className={className} onClick={disabled?()=>{}:handleClickOpen}>
                             {children}
             </div>
-            <Dialog
+            {disabled?null:            <Dialog
                 fullScreen={fullScreen}
                 open={open}
                 onClose={handleClose}
@@ -53,12 +53,13 @@ export default function ResponsiveDialog({children,title="",text="",onConfirm=()
                     </Button>
                     <Button onClick={()=>{
                         setOpen(false)
-                         onConfirm();
+                        onConfirm();
                     }} autoFocus>
                         Onayla
                     </Button>
                 </DialogActions>
-            </Dialog>
+            </Dialog>}
+
         </React.Fragment>
     );
 }

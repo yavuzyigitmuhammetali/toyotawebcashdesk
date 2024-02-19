@@ -157,6 +157,7 @@ function ProductEntryPanel({dark = false}) {
                     <ProductCard style={{width: "50%", fontSize: "20px",borderWidth:"3px"}}
                                  name={formData.name}
                                  stock={formData.stock}
+                                 discountText={formData.campaign}
                                  dark={dark}
                                  price={formData.price}
                                  src={formData.image} barcode={formData.barcode} favorite={formData.isFavourite}/>

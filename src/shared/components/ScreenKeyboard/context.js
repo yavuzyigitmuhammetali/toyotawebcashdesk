@@ -35,10 +35,17 @@ const KeyboardProvider = ({children}) => {
     const handleDelete = () => {
         const updatedState = {...value};
         if (updatedState[id]) {
-            updatedState[id] = updatedState[id].slice(0, -1);
+            if (typeof updatedState[id] === 'string') {
+                updatedState[id] = updatedState[id].slice(0, -1);
+            } else if (typeof updatedState[id] === 'number') {
+                let numStr = updatedState[id].toString();
+                numStr = numStr.slice(0, -1);
+                updatedState[id] = numStr === '' ? 0 : Number(numStr);
+            }
             setValue(updatedState);
         }
     }
+
 
     const handleElementClick = (e) => {
         setId(e.target.id);
