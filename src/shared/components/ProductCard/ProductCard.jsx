@@ -14,7 +14,8 @@ function ProductCard({
                          src = "",
                          favorite = false,
                          style,
-                         onClick
+                         onClick,
+    className
                      }) {
     stock = stock.toString()
     return (<button onClick={onClick} style={{
@@ -22,7 +23,7 @@ function ProductCard({
         transform: !stock && "scale(1)",
         width: category ? "140px" : "102px",
         fontSize: category ? "0.8em" : "0.6em",
-        backgroundColor: dark && "#1E1E1E",
+        backgroundColor: dark ? "#1E1E1E":"whitesmoke",
         borderColor: favorite ? "gold" : dark && "white",
             ...style
     }}
@@ -38,9 +39,9 @@ function ProductCard({
         </div>
         {(price && !category) ? <>
             <div style={{color: dark && "white", textDecoration: discount && "line-through"}}
-                 className="product-card-price">{price}₺
+                 className="product-card-price">{price}$
             </div>
-            {discount ? <span className="product-card-discount">{discount}₺</span> : null}
+            {discount ? <span className="product-card-discount">{discount}$</span> : null}
         </> : null}
 
         {(stock && !category) ? <div style={{color: stock < 10 ? "red" : dark ? "white" : "#111418"}}
