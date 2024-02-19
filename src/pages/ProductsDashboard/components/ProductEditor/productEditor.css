@@ -1,0 +1,115 @@
+.product-editor-container {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: rgba(0,0,0,0.4);
+    z-index: 10;
+}
+
+.product-editor-data:hover {
+    transform: scale(1.04);
+}
+.product-editor-data{
+    position: relative;
+}
+
+.product-editor-container > * {
+    z-index: 12;
+}
+.product-editor-name{
+    left: 0;
+    text-align: center;
+    bottom: 16%;
+    font-size: 2vw;
+    position: absolute;
+    width: 100%;
+}
+.product-editor-barcode{
+    left: 50%;
+    bottom: 6%;
+    font-size: 2vw;
+    position: absolute;
+    transform: translate(-50%, -50%);
+}
+.product-editor-price{
+    left: 4%;
+    top: 3%;
+    font-size: 1.5vw;
+    position: absolute;
+    width: 15%;
+}
+.product-editor-price-label{
+    left: 1%;
+    top: 3%;
+    font-size: 1.5vw;
+    position: absolute;
+}
+.product-editor-tax{
+    left: 52%;
+    top: 3%;
+    font-size: 1.5vw;
+    position: absolute;
+    width: 6%;
+}
+.product-editor-tax-label{
+    left: 48%;
+    top: 3%;
+    font-size: 1.5vw;
+    position: absolute;
+}
+.product-editor-stock{
+    right: 10%;
+    top: 3%;
+    font-size: 1.5vw;
+    position: absolute;
+    max-width: 10%;
+}
+.product-editor-stock-label{
+    right: 1%;
+    top: 3%;
+    font-size: 1.5vw;
+    position: absolute;
+}
+.product-editor-image-placeholder{
+    left: 2%;
+    top: 30%;
+    font-size: 1.5vw;
+    width: 12%;
+    overflow: hidden;
+    position: absolute;
+    color: transparent;
+    z-index: 21;
+}
+.product-editor-photo-icon{
+    left: 3%;
+    top: 30%;
+    font-size: 1.5vw;
+    position: absolute;
+}
+.product-editor-campaign-section{
+    left: 0;
+    bottom: 27%;
+    width: 100%;
+    position: absolute;
+}
+.product-editor-campaign-text{
+    left: 0;
+    bottom: 31%;
+    width: 100%;
+    position: absolute;
+    font-size: 2vw;
+    text-align: center;
+    color: white;
+    user-select: none;
+    min-height: 2vw;
+}
+.product-editor-actions{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    margin-top: 2%;
+}
