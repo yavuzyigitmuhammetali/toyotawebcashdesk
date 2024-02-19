@@ -7,6 +7,9 @@ import PaymentDashboard from "../pages/PaymentDashboard";
 import ResponsiveReceipt from "../pages/ResponsiveReceipt";
 import RefundDashboard from "../pages/RefundDashboard";
 import PurchaseReceipts from "../pages/PurchaseReceipts";
+import MainContainer from "../shared/components/MainContainer/MainContainer";
+import ProductsDashboard from "../pages/ProductsDashboard";
+import ProductEditor from "../pages/ProductsDashboard/components/ProductEditor/ProductEditor";
 
 export default createBrowserRouter(
     [
@@ -24,23 +27,33 @@ export default createBrowserRouter(
         },
         {
             path: "/",
-            Component: App,
+            Component: MainContainer,
             children: [
                 {
-                    path: "/order/create",
+                    path: "order/create",
                     Component: SalesDashboard,
                 },
                 {
-                    path: "/order/payment",
+                    path: "order/payment",
                     Component: PaymentDashboard,
                 },
                 {
-                    path: "/refund/create",
+                    path: "refund/create",
                     Component: RefundDashboard,
                 },
                 {
-                    path: "/purchase/list",
+                    path: "purchase/list",
                     Component: PurchaseReceipts,
+                },
+                {
+                    path: "products/list",
+                    Component: ProductsDashboard,
+                    children: [
+                        {
+                            path: ":productId",
+                            Component: ProductEditor,
+                        },
+                    ]
                 },
             ]
         },

@@ -12,6 +12,7 @@ const StatusProvider = ({children}) => {
     const [dark, setDark] =React.useState(false)
 
     React.useEffect(() => {
+        console.log("deneme")
         getStatus().then(response =>setStatus(response.data)).catch(err=>console.log(err))
        // checkOnline().then(res=>setOnline(res))
     }, []);

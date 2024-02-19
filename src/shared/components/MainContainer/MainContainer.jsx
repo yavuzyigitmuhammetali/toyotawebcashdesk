@@ -5,9 +5,9 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import SettingsIcon from '@mui/icons-material/Settings';
 import OnlineOfflineIndicator from "../OnlineOfflineIndicator";
 import StatusContext from "../../state/context";
-import {Link, useLocation} from 'react-router-dom';
+import {Link, Outlet, useLocation} from 'react-router-dom';
 
-function MainContainer({children}) {
+function MainContainer() {
     const {status,online} = useContext(StatusContext)
     const today = new Date();
     const formattedDate = `${(today.getMonth() + 1).toString().padStart(2, '0')}/${today.getDate().toString().padStart(2, '0')}/${today.getFullYear()}`;
@@ -36,6 +36,10 @@ function MainContainer({children}) {
             pageTitle = 'İade Ekranı';
             prevLink = '/';
             break;
+        case '/products/list':
+            pageTitle = 'İade Ekranı';
+            prevLink = '/';
+            break;
         default:
             pageTitle = 'Başlık';
     }
@@ -57,7 +61,7 @@ function MainContainer({children}) {
                 </div>
             </header>
             <main className="main-container-main">
-                {children}
+                <Outlet/>
             </main>
             <footer className="main-container-footer">
                 <div><OnlineOfflineIndicator/></div>

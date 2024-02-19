@@ -49,7 +49,7 @@ function MainScreen({dark = false}) {
                     <div className="main-screen-active-area">
                         <div className="main-screen-sides">
                             <MainScreenItem to={"/order/create"} dark={dark} customIcon={LogoutIcon}>Sipariş Oluşturma</MainScreenItem>
-                            <MainScreenItem dark={dark}>DENEME</MainScreenItem>
+                            <MainScreenItem to={"/products/list"} dark={dark}>Ürünler</MainScreenItem>
                             <MainScreenItem dark={dark}>DENEME</MainScreenItem>
                         </div>
                         <div className="main-screen-sides">

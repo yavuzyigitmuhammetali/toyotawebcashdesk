@@ -1,8 +1,9 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import ProductShowcase from "../../shared/components/ProductShowcase/ProductShowcase";
 import axios from "axios";
 import ProductEditor from "./components/ProductEditor/ProductEditor";
 import {createTheme, ThemeProvider} from "@mui/material/styles";
+import {Outlet, useNavigate} from "react-router-dom";
 const darkTheme = createTheme({
     palette: {
         mode: 'dark',
@@ -17,16 +18,23 @@ const lightTheme = createTheme({
 function ProductsDashboard({dark = false}) {
     const [products,setProducts] = useState([])
     const [selectedProduct,setSelectedProduct] = useState({})
+    const navigate = useNavigate();
+
 
     useEffect(() => {
         axios.get("/api/v1/products").then(response => setProducts(response.data)).catch(reason => console.log(reason))
     }, []);
 
+    const onProductShowcaseClick = useCallback((event) => {
+        navigate(`/products/list/${event.id}`)
+    }, [navigate]);
+
+
     return (
         <ThemeProvider theme={dark ? darkTheme : lightTheme}>
             <div style={{cursor: "pointer", position: "relative"}}>
                 <div style={{zIndex: "-1"}}>
-                    <ProductShowcase dark={dark} data={products} onClick={setSelectedProduct}/>
+                    <ProductShowcase dark={dark} data={products} onClick={onProductShowcaseClick}/>
                 </div>
                 <div style={{
                     width: "100vw",
@@ -37,7 +45,7 @@ function ProductsDashboard({dark = false}) {
                     justifyContent: "center"
                 }}>
                 </div>
-
+                <Outlet/>
             </div>
         </ThemeProvider>
     );
