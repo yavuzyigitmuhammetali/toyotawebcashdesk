@@ -11,59 +11,69 @@ import MainContainer from "../shared/components/MainContainer/MainContainer";
 import ProductsDashboard from "../pages/ProductsDashboard";
 import ProductEditor from "../pages/ProductsDashboard/components/ProductEditor/ProductEditor";
 import ProductEntryPanel from "../pages/ProductEntryPanel";
+import RequireAuth from "../shared/state/RequireAuth";
+
 
 export default createBrowserRouter(
     [
         {
             path: "/",
-            Component: MainScreen,
+            Component: RequireAuth,
+            children:
+                [
+                    {
+                        path: "/login",
+                        Component: LoginPage,
+                    },
+                    {
+                        path: "/",
+                        Component: MainScreen,
+                    },
+                    {
+                        path: "/receipt/:receiptNumber",
+                        Component: ResponsiveReceipt,
+                    },
+
+                    {
+                        path: "/",
+                        Component: MainContainer,
+                        children: [
+                            {
+                                path: "order/create",
+                                Component: SalesDashboard,
+                            },
+                            {
+                                path: "order/payment",
+                                Component: PaymentDashboard,
+                            },
+                            {
+                                path: "refund/create",
+                                Component: RefundDashboard,
+                            },
+                            {
+                                path: "purchase/list",
+                                Component: PurchaseReceipts,
+                            },
+                            {
+                                path: "products/list",
+                                Component: ProductsDashboard,
+                                children: [
+                                    {
+                                        path: ":productId",
+                                        Component: ProductEditor,
+                                    },
+                                ]
+                            },
+                            {
+                                path: "product/add",
+                                Component: ProductEntryPanel,
+                            },
+                        ]
+                    },
+                    {
+                        path: "*",
+                        Component: MainScreen,
+                    },
+                ]
         },
-        {
-            path: "/login",
-            Component: LoginPage,
-        },
-        {
-            path: "/receipt/:receiptNumber",
-            Component: ResponsiveReceipt,
-        },
-        {
-            path: "/",
-            Component: MainContainer,
-            children: [
-                {
-                    path: "order/create",
-                    Component: SalesDashboard,
-                },
-                {
-                    path: "order/payment",
-                    Component: PaymentDashboard,
-                },
-                {
-                    path: "refund/create",
-                    Component: RefundDashboard,
-                },
-                {
-                    path: "purchase/list",
-                    Component: PurchaseReceipts,
-                },
-                {
-                    path: "products/list",
-                    Component: ProductsDashboard,
-                    children: [
-                        {
-                            path: ":productId",
-                            Component: ProductEditor,
-                        },
-                    ]
-                },
-                {
-                    path: "product/add",
-                    Component: ProductEntryPanel,
-                },
-            ]
-        },
-        {
-            path: "*",
-            Component: MainScreen,
-        }
     ])

@@ -1,5 +1,5 @@
 import React from "react";
-import {getStatus} from "./api";
+import {getStatus, testLogin} from "./api";
 import {checkOnline} from "../functions/checkOnline";
 import FullScreenAlert from "../components/FullScreenAlert";
 import OnlineOfflineIndicator from "../components/OnlineOfflineIndicator";
@@ -10,10 +10,14 @@ const StatusProvider = ({children}) => {
     const [status, setStatus] = React.useState({})
     const [online,setOnline] = React.useState(true)
     const [dark, setDark] =React.useState(false)
+    const [loggedIn, setLoggedIn] =React.useState(true)
 
     React.useEffect(() => {
         console.log("deneme")
         getStatus().then(response =>setStatus(response.data)).catch(err=>console.log(err))
+        testLogin()
+            .then(response => setLoggedIn(response.status === 200))
+            .catch(reason => setLoggedIn(false));
        // checkOnline().then(res=>setOnline(res))
     }, []);
 
@@ -23,7 +27,8 @@ const StatusProvider = ({children}) => {
                 value={{
                     dark,
                     status,
-                    online
+                    online,
+                    loggedIn
                 }}
             >
                 {children}

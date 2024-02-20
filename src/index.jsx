@@ -7,6 +7,7 @@ import {StatusProvider} from "./shared/state/context";
 import {KeyboardProvider} from "./shared/components/ScreenKeyboard/context";
 import {RouterProvider} from "react-router-dom";
 import router from "./router";
+import RequireAuth from "./shared/state/RequireAuth";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

@@ -6,6 +6,7 @@ import "./loginPageRightArea.css";
 import {login, loginTest} from "./api";
 import KeyboardContext from "../../../shared/components/ScreenKeyboard/context";
 import ScreenKeyboard from "../../../shared/components/ScreenKeyboard/ScreenKeyboard";
+import {useNavigate} from "react-router-dom";
 
 const darkTheme = createTheme({
     palette: {
@@ -22,6 +23,7 @@ function LoginPageRightArea({dark = false}) {
     const [error, setError] = useState(false)
     const [buttonState, setButtonState] = useState(false)
     const { handleElementClick, value,onChangeValue,enter } = useContext(KeyboardContext);
+    const navigate = useNavigate();
     useEffect(() => {
         loginTest().then(response=>console.log(response.data)).catch(e => console.log(e));
     }, []);
@@ -41,13 +43,13 @@ function LoginPageRightArea({dark = false}) {
     }, [value]);
 
     const handleLogin = async () => {
-
         try {
             const response = await login({username:value["username"],password:value["password"]})
             if (response.status ===401){
                 setError(true);
             }else {
                 setError(false);
+                navigate('/', {replace: true, state: {successMessage:"Oturum Açma İşlemi Başarılı, Hoşgeldiniz."}});
             }
         } catch (axiosError) {
             setError(true);

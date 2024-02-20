@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import "./mainScreen.css"
 import OnlineOfflineIndicator from "../../shared/components/OnlineOfflineIndicator";
 import {getIp, getStatus} from "./api";
@@ -7,6 +7,8 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import {IconButton} from "@mui/material";
 import MainScreenItem from "./components/MainScreenItem";
 import {createTheme, ThemeProvider} from "@mui/material/styles";
+import AlertComponent from "../../shared/components/AlertComponent";
+import {useLocation, useNavigate} from "react-router-dom";
 
 const darkTheme = createTheme({
     palette: {
@@ -23,6 +25,19 @@ const lightTheme = createTheme({
 function MainScreen({dark = false}) {
     const [userIP, setUserIP] = useState('');
     const [status, setStatus] = useState({})
+
+    const location = useLocation();
+    const navigate = useNavigate();
+    const [message, setMessage] = useState(location.state?.errorMessage || location.state?.successMessage);
+    const [severity, setSeverity] = useState(location.state?.successMessage ? 'success' : 'error');
+
+    useEffect(() => {
+        if (location.state?.errorMessage || location.state?.successMessage) {
+            setMessage(location.state?.errorMessage || location.state?.successMessage);
+            setSeverity(location.state?.successMessage ? 'success' : 'error');
+            navigate(location.pathname, { replace: true, state: {} });
+        }
+    }, [navigate, location]);
 
 
     useEffect(() => {
@@ -41,10 +56,14 @@ function MainScreen({dark = false}) {
                 console.error(error);
             });
     }, []);
-
+    const logOut = useCallback((event) => {
+        document.cookie = "auth=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/api/v1;";
+        navigate("/login");
+    }, [navigate]);
     return (
         <>
             <ThemeProvider theme={dark?darkTheme:lightTheme}>
+                <AlertComponent message={message} severity={severity} open={Boolean(message)}/>
                 <div style={{backgroundColor:dark?"#111418":"#F8FAFB"}} className="main-screen-container">
                     <div className="main-screen-active-area">
                         <div className="main-screen-sides">
@@ -74,7 +93,7 @@ function MainScreen({dark = false}) {
                     </IconButton>
                 </div>
                 <div className="main-screen-lower-right">
-                    <IconButton color="error" aria-label="delete">
+                    <IconButton onClick={logOut} color="error" aria-label="delete">
                         <LogoutIcon/>
                     </IconButton>
                 </div>
