@@ -9,41 +9,18 @@ import axios from "axios";
 import ResponsiveDialog from "../../../../shared/components/ResponsiveDialog";
 import ScreenKeyboard from "../../../../shared/components/ScreenKeyboard/ScreenKeyboard";
 import KeyboardContext from "../../../../shared/components/ScreenKeyboard/context";
-import {useNavigate, useParams} from "react-router-dom";
+import {useLocation, useNavigate, useParams} from "react-router-dom";
 
-function ProductEditor({ dark = false, id: productI = 5 }) {
+function ProductEditor({ dark = false}) {
     const { productId:_productId } = useParams();
-    const navigate = useNavigate();
     const productId = parseInt(_productId);
+    const location = useLocation();
+    const navigate = useNavigate();
     const [selectState, setSelectState] = useState(false);
-    const [tempProduct, setTempProduct] = useState({});
     const [changeData, setChangeData] = useState(false);
     const { handleElementClick, value, onChangeValue, enter } = useContext(KeyboardContext);
-    const [product, setProduct] = useState({
-        id: 0,
-        barcode: 0,
-        name: "",
-        stock: 0,
-        price: 0,
-        tax: 0,
-        campaign: "",
-        isfavourites: false,
-        image: "",
-        categoryId: 0,
-        subCategoryId: 0
-    });
-
-    useEffect(() => {
-        axios.get("/api/v1/products")
-            .then(response => {
-                const product = response.data.find(item => item.id === productId);
-                setProduct(product);
-                setTempProduct(product);
-            })
-            .catch(error => console.log(error));
-    }, [productId]);
-
-
+    const tempProduct = location.state?.products.find(value => value.id === productId);
+    const [product, setProduct] = useState(tempProduct);
 
 
     const handleTextChange = (value, key) => {
@@ -54,7 +31,6 @@ function ProductEditor({ dark = false, id: productI = 5 }) {
                     const updatedValue = parseFloat(value);
                     return { ...prevProduct, [key]: updatedValue };
                 } else {
-                    console.log(`${key} should be a numeric value, received: ${value}`);
                     return prevProduct;
                 }
             } else {
@@ -83,7 +59,6 @@ function ProductEditor({ dark = false, id: productI = 5 }) {
         Object.keys(value).forEach(key => {
             value[key] = product[key]
         });
-        console.log(product)
     }, [product, tempProduct]);
 
     const onButtonClick = useCallback(() => {
@@ -100,7 +75,7 @@ function ProductEditor({ dark = false, id: productI = 5 }) {
 
     const updateData = () => {
         if (JSON.stringify(product) !== JSON.stringify(tempProduct)) {
-            axios.patch(`/api/v1/products/${productId}`, product).catch(reason => console.log(reason));
+            axios.patch(`/api/v1/products/${productId}`, product).then(()=>{navigate('/products/list');window.location.reload();}).catch(reason => console.log(reason));
         }
     };
 
@@ -145,7 +120,7 @@ function ProductEditor({ dark = false, id: productI = 5 }) {
             <div className="product-editor-actions">
                 <Button style={{ flex: 1 }} size="small" onClick={onButtonClick} color="error" variant="contained">İptal Et</Button>
                 <ResponsiveDialog onConfirm={updateData} title="Ürün Güncelleme" text="Onaylamanız durumunda ürün girilen değerler ile güncellenecektir, kategori ve alt kategori gibi temel detaylar güncellenemez!" disabled={!changeData} style={{ flex: 1 }}>
-                    <Button disabled={!changeData} style={{ width: "100%" }} size="small" color="success" variant="contained">Kaydet</Button>
+                    <Button ref={enter} disabled={!changeData} style={{ width: "100%" }} size="small" color="success" variant="contained">Kaydet</Button>
                 </ResponsiveDialog>
             </div>
         </div>

@@ -1,7 +1,6 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import ProductShowcase from "../../shared/components/ProductShowcase/ProductShowcase";
 import axios from "axios";
-import ProductEditor from "./components/ProductEditor/ProductEditor";
 import {createTheme, ThemeProvider} from "@mui/material/styles";
 import {Outlet, useNavigate} from "react-router-dom";
 const darkTheme = createTheme({
@@ -17,7 +16,6 @@ const lightTheme = createTheme({
 
 function ProductsDashboard({dark = false}) {
     const [products,setProducts] = useState([])
-    const [selectedProduct,setSelectedProduct] = useState({})
     const navigate = useNavigate();
 
 
@@ -26,8 +24,8 @@ function ProductsDashboard({dark = false}) {
     }, []);
 
     const onProductShowcaseClick = useCallback((event) => {
-        navigate(`/products/list/${event.id}`)
-    }, [navigate]);
+        navigate(`/products/list/${event.id}`, {replace: true, state: {products:products}})
+    }, [navigate,products]);
 
 
     return (
