@@ -9,6 +9,7 @@ import Receipt from "../../shared/components/Receipt/Receipt";
 import {ToggleButtonGroup} from "@mui/material";
 import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
 import PaperIcon from '@mui/icons-material/Feed';
+import {exampleReceipt} from "./data";
 
 
 
@@ -71,7 +72,7 @@ function ResponsiveReceipt() {
             <div style={{left:alignment==="right"?"100%":alignment==="center"?"50%":"0",
                 transform:alignment==="right"?"translate(-100%, 0)":alignment==="center"?"translate(-50%, 0)":"translate(0, 0)"}}
                  className={alignment2==="left"?"printable-content responsive-receipt-receipt":"printable-content-full responsive-receipt-receipt"}>
-                <Receipt/>
+                <Receipt data={exampleReceipt}/>
             </div>
         </div>
     );

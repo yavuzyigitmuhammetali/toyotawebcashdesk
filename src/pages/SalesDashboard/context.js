@@ -18,13 +18,6 @@ const CartProvider = ({children}) => {
         buy3pay2: false, studentTaxFree: false, percentageDiscounts: false
     })
 
-    const cancelTransaction = ()=>{
-        setCart([]);
-        setTotal(0);
-        setSubTotal(0);
-        setDiscounts({buy3pay2: false, studentTaxFree: false, percentageDiscounts: false})
-    }
-
     const toggleDiscounts = (discountKey) => {
         setDiscounts(prevDiscounts => ({
             ...prevDiscounts, [discountKey]: !prevDiscounts[discountKey]
@@ -114,16 +107,35 @@ const CartProvider = ({children}) => {
         getProducts()
             .then(response => setProducts(response.data))
             .catch(error => console.log(error));
+
+        const salesDataString = localStorage.getItem('salesData')
+        if (salesDataString){
+            const {cart} = JSON.parse(salesDataString)
+            setCart(cart);
+        }
     }, []);
 
+
+    const cancelTransaction = ()=>{
+        setCart([]);
+        setTotal(0);
+        setSubTotal(0);
+        setDiscounts({buy3pay2: false, studentTaxFree: false, percentageDiscounts: false})
+        localStorage.removeItem('salesData');
+        localStorage.removeItem('paymentTransactions');
+    }
+
     const confirmCart = ()=>{
-        const test = {
-            total:total,
-            subTotal:subTotal,
-            cart:cart,
-        }
-        if (cart.length){
-            console.log(test);
+        if (total&&subTotal&&cart.length){
+            const data = {
+                total,
+                subTotal,
+                cart
+            }
+            localStorage.setItem('salesData', JSON.stringify(data));
+            return true;
+        }else {
+            return false;
         }
     }
 

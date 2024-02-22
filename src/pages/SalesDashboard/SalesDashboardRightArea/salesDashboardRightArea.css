@@ -19,8 +19,9 @@
     gap: 10px;
     flex-wrap: nowrap;
 }
-.sales-dashboard-right-area-keyboard{
-
+.sales-dashboard-right-area-control>*{
+    min-width: 0!important;
+    min-height: 0!important;
 }
 .sales-dashboard-right-area-campaigns{
     border-bottom: 1px solid black;

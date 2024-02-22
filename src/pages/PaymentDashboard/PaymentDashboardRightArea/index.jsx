@@ -22,15 +22,20 @@ const lightTheme = createTheme({
 
 function PaymentDashboardRightArea({dark=false}) {
     const [paymentDialog,setPaymentDialog] = useState(0)
-    const {setTransaction,amountRemaining,amountPaid,cancelTransaction,confirmTransaction} = useContext(PaymentContext)
+    const {setTransaction,amountRemaining,amountPaid,cancelTransaction,confirmTransaction,receipt} = useContext(PaymentContext)
     const {data:numericKeyboardData,setData:setNumericKeyboardData} = useContext(NumericKeyboardContext)
     const [paymentMethod , setPaymentMethod] = useState("cash")
     useEffect(() => {
         if (numericKeyboardData){
-           // setTransaction(numericKeyboardData,paymentMethod)
             setPaymentDialog(prevState => prevState+1);
         }
     }, [numericKeyboardData]);
+
+    useEffect(() => {
+        if (Object.values(receipt).length !== 0){
+
+        }
+    }, [receipt]);
     return (
         <ThemeProvider theme={dark?darkTheme:lightTheme}>
             <div style={dark ? {backgroundColor: "#121418", borderColor: "white"} : {}} className="payment-dashboard-right-area-container">
@@ -42,7 +47,9 @@ function PaymentDashboardRightArea({dark=false}) {
                     <Button disabled={amountRemaining!==0||amountPaid===0} color="success" onClick={confirmTransaction} variant="contained" endIcon={<SendIcon />}>Ödeme Onayala</Button>
                 </div>
                     <div className="payment-dashboard-right-area-pay">
-                        <NumericKeyboard allowDecimal disabled={(amountRemaining+amountPaid)===0} dark={dark}/>
+                        <div style={{flex:2}}>
+                            <NumericKeyboard allowDecimal disabled={(amountRemaining+amountPaid)===0} dark={dark}/>
+                        </div>
                         <div style={{display: "flex", flexDirection: "column", flex: "1 1"}}>
                             <Button disabled={(amountRemaining+amountPaid)===0} onClick={() => setPaymentMethod("cash")} style={{flex: 1}} color="info"
                                     variant={paymentMethod === "cash" ? "contained" : "outlined"}>Nakit</Button>

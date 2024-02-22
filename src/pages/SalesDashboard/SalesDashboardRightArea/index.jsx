@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useCallback, useContext, useState} from 'react';
 import "./salesDashboardRightArea.css"
 import {Button, IconButton} from "@mui/material";
 import SendIcon from '@mui/icons-material/Send';
@@ -10,6 +10,8 @@ import {checkIdentityNumber} from "../functions/studentValidate";
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ProductShowcase from "../../../shared/components/ProductShowcase/ProductShowcase";
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
+import {useNavigate} from "react-router-dom";
+import ResponsiveDialog from "../../../shared/components/ResponsiveDialog";
 
 const darkTheme = createTheme({
     typography: {
@@ -32,9 +34,19 @@ const lightTheme = createTheme({
 
 
 function SalesDashboardRightArea({dark = false}) {
+    const navigate = useNavigate();
     const {discounts, toggleDiscounts, products, addToCart,cancelTransaction,cart,confirmCart} = useContext(CartContext);
     const [campaignsWindow, setCampaignsWindow] = useState({first: false, other: true});
     const [productShowcaseWindow, setProductShowcaseWindow] = useState(false);
+
+    const handleConfirmCart = useCallback(() => {
+        if (confirmCart()){
+            navigate('/order/payment', {replace: true});
+        }else {
+            navigate('/', {replace: true, state: {errorMessage: 'Sepete Ürün Eklenirken Bir Hata Oluştu!'}})
+        }
+    }, [confirmCart, navigate]);
+
 
     const handleStudentTaxFree = (val) => {
         if (checkIdentityNumber(val)) {
@@ -49,13 +61,13 @@ function SalesDashboardRightArea({dark = false}) {
             <div style={{backgroundColor: dark ? "#121418" : "", borderColor: dark ? "white" : ""}}
                  className="sales-dashboard-right-area-container">
                 <div className="sales-dashboard-right-area-control">
-
-                    <Button onClick={cancelTransaction} disabled={!cart.length} color="error" variant="contained">İşlem İptal Et</Button>
+                    <ResponsiveDialog title={"İşlemi İptal Et"} text={"Sepetteki ürünler etkin kampanyalar ile birlikte iptal edilmek üzere..."} onConfirm={cancelTransaction}>
+                        <Button color="error" variant="contained"> İşlem İptal Et</Button>
+                    </ResponsiveDialog>
                     <Button onClick={()=>setProductShowcaseWindow(!productShowcaseWindow)} color="info" variant="contained">İsimden Ara</Button>
                     <Button onClick={() => setCampaignsWindow({first: true, other: true})} color="secondary"
                             variant="contained">Kampanyalar</Button>
-                    <Button disabled={cart.length===0} color="success" onClick={confirmCart} variant="contained" endIcon={<SendIcon/>}>Ödeme Ekranı</Button>
-
+                    <Button disabled={cart.length===0} color="success" onClick={handleConfirmCart} variant="contained" endIcon={<SendIcon/>}>Ödeme Ekranı</Button>
 
                 </div>
                 <div className="sales-dashboard-right-area-keyboard">

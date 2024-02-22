@@ -9,3 +9,7 @@
     grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
     gap: 2%;
 }
+.numeric-keyboard-container *{
+    min-width: 0!important;
+    min-height: 0!important;
+}
