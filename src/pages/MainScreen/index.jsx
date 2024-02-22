@@ -1,7 +1,7 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import "./mainScreen.css"
 import OnlineOfflineIndicator from "../../shared/components/OnlineOfflineIndicator";
-import {getIp, getStatus} from "./api";
+import {getIp} from "./api";
 import SettingsIcon from '@mui/icons-material/Settings';
 import LogoutIcon from '@mui/icons-material/Logout';
 import {IconButton} from "@mui/material";
@@ -9,6 +9,7 @@ import MainScreenItem from "./components/MainScreenItem";
 import {createTheme, ThemeProvider} from "@mui/material/styles";
 import AlertComponent from "../../shared/components/AlertComponent";
 import {useLocation, useNavigate} from "react-router-dom";
+import StatusContext from "../../shared/state/context";
 
 const darkTheme = createTheme({
     palette: {
@@ -24,7 +25,7 @@ const lightTheme = createTheme({
 
 function MainScreen({dark = false}) {
     const [userIP, setUserIP] = useState('');
-    const [status, setStatus] = useState({})
+    const {online,status} = React.useContext(StatusContext);
 
     const location = useLocation();
     const navigate = useNavigate();
@@ -48,18 +49,11 @@ function MainScreen({dark = false}) {
             .catch(error => {
                 console.error(error);
             });
-        getStatus()
-            .then(response => {
-                setStatus(response.data);
-            })
-            .catch(error => {
-                console.error(error);
-            });
     }, []);
-    const logOut = useCallback((event) => {
+    const logOut = useCallback(() => {
         document.cookie = "auth=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/api/v1;";
-        navigate("/login");
-    }, [navigate]);
+        window.location.reload();
+    }, []);
     return (
         <>
             <ThemeProvider theme={dark?darkTheme:lightTheme}>
@@ -79,7 +73,7 @@ function MainScreen({dark = false}) {
                     </div>
                 </div>
                 <div className="main-screen-lower-left">
-                    <OnlineOfflineIndicator/>
+                    <OnlineOfflineIndicator online={online}/>
                 </div>
                 <div style={{backgroundColor:dark?"#1E1E1E":"white",color:dark?"white":"black",borderColor:dark?"white":"black"}} className="main-screen-upper-left">
                     <div>Mağaza No: {status.storeNumber}</div>

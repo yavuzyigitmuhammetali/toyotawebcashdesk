@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext} from 'react';
 import "./mainContainer.css"
 import {IconButton} from "@mui/material";
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
@@ -79,7 +79,7 @@ function MainContainer() {
                 <Outlet/>
             </main>
             <footer className="main-container-footer">
-                <div><OnlineOfflineIndicator/></div>
+                <div><OnlineOfflineIndicator online={online}/></div>
                 <div>{formattedDate}</div>
                 <div style={{display:"flex",flexDirection:"column"}}>
                     <span>Kasa: {status.case}</span>

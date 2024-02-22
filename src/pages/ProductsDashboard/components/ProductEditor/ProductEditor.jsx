@@ -56,10 +56,12 @@ function ProductEditor({ dark = false}) {
 
     useEffect(() => {
         setChangeData(JSON.stringify(product) !== JSON.stringify(tempProduct));
+        console.log(JSON.stringify(product), JSON.stringify(tempProduct))
         Object.keys(value).forEach(key => {
             value[key] = product[key]
         });
-    }, [product, tempProduct]);
+    }, [product, tempProduct,navigate]);
+
 
     const onButtonClick = useCallback(() => {
         navigate('/products/list');

@@ -3,7 +3,7 @@ import TextField from '@mui/material/TextField';
 import {ThemeProvider, createTheme} from '@mui/material/styles';
 import {Alert, AlertTitle, Button} from "@mui/material";
 import "./loginPageRightArea.css";
-import {login, loginTest} from "./api";
+import {login} from "./api";
 import KeyboardContext from "../../../shared/components/ScreenKeyboard/context";
 import ScreenKeyboard from "../../../shared/components/ScreenKeyboard/ScreenKeyboard";
 import {useNavigate} from "react-router-dom";
@@ -24,10 +24,6 @@ function LoginPageRightArea({dark = false}) {
     const [buttonState, setButtonState] = useState(false)
     const { handleElementClick, value,onChangeValue,enter } = useContext(KeyboardContext);
     const navigate = useNavigate();
-    useEffect(() => {
-        loginTest().then(response=>console.log(response.data)).catch(e => console.log(e));
-    }, []);
-
     useEffect(() => {
         if (value["username"]&&value["password"]){
             if ((value["username"].length>=5&&value["password"].length)>5){

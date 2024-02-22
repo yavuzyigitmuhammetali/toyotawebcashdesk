@@ -1,54 +1,59 @@
 import React from "react";
-import {getStatus, testLogin} from "./api";
+import {getStatus, setupAxiosInterceptors, testLogin} from "./api";
 import {checkOnline} from "../functions/checkOnline";
-import FullScreenAlert from "../components/FullScreenAlert";
-import OnlineOfflineIndicator from "../components/OnlineOfflineIndicator";
-
 const StatusContext = React.createContext(undefined);
 
 const StatusProvider = ({children}) => {
-    const [status, setStatus] = React.useState({})
-    const [online,setOnline] = React.useState(true)
-    const [dark, setDark] =React.useState(false)
-    const [loggedIn, setLoggedIn] =React.useState(true)
+    const [status, setStatus] = React.useState(JSON.parse(localStorage.getItem('status')));
+    const [online, setOnline] = React.useState(JSON.parse(localStorage.getItem('online')));
+    const [dark, setDark] = React.useState(false);
+    //const [lang, setLang] = React.useState("tr");
+    const [loggedIn, setLoggedIn] = React.useState(JSON.parse(localStorage.getItem('loggedIn')));
 
     React.useEffect(() => {
-        console.log("deneme")
-        getStatus().then(response =>setStatus(response.data)).catch(err=>console.log(err))
+        getStatus().then(response => {
+            setStatus(response.data)
+            localStorage.setItem('status', JSON.stringify(response.data));
+        }).catch(err => console.log(err))
+        checkOnline().then(res=> {
+            if (!res){
+                setOnline(false)
+                localStorage.setItem('online', JSON.stringify(false));
+                document.cookie = "auth=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/api/v1;";
+            }else {
+                setOnline(true)
+                localStorage.setItem('online', JSON.stringify(true));
+            }
+        })
         testLogin()
-            .then(response => setLoggedIn(response.status === 200))
-            .catch(reason => setLoggedIn(false));
-       // checkOnline().then(res=>setOnline(res))
+            .then(response =>{
+                setLoggedIn(response.status === 200)
+                localStorage.setItem('loggedIn', JSON.stringify(response.status === 200));
+            } )
+            .catch(reason => {
+                setLoggedIn(false)
+                localStorage.setItem('loggedIn', JSON.stringify(false));
+                console.log(reason)
+            });
     }, []);
 
-    if (online){
-        return (
-            <StatusContext.Provider
-                value={{
-                    dark,
-                    status,
-                    online,
-                    loggedIn
-                }}
-            >
-                {children}
-            </StatusContext.Provider>
-        );
-    } else {
-        return (
-            <div>
-                <div style={{position: "fixed", right: 10, bottom: 0}}>
-                <OnlineOfflineIndicator/>
-                </div>
-                <FullScreenAlert dark={dark}>
+    React.useEffect(() => {
+        setupAxiosInterceptors(online,setLoggedIn)
+    }, [online]);
 
-                    <div>Erişim Engellendi</div>
-                    <div>Aktif saatler dışında giriş yapmayı denediniz</div>
-                </FullScreenAlert>
-            </div>
-            );
-    }
 
+    return (
+        <StatusContext.Provider
+            value={{
+                dark,
+                status,
+                online,
+                loggedIn
+            }}
+        >
+            {children}
+        </StatusContext.Provider>
+    );
 };
 export default StatusContext;
 export {StatusProvider};

@@ -1,19 +1,13 @@
-import axios from "axios";
+import {getStatus} from "../state/api";
 
 export async function checkOnline() {
     try {
-        const apiData = await axios.get('/api/v1/getstatus').then(response => response.data);
+        const apiData = await getStatus().then(response => response.data);
 
         const currentDate = new Date();
         const currentDay = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'][currentDate.getDay()];
         const currentTime = `${currentDate.getHours()}:${currentDate.getMinutes()}`;
-
-        const isOnline = checkDayAndTime(apiData.schedule, currentDay, currentTime);
-/*        console.log('API verisi:', apiData);
-        console.log('Şu anki gün:', currentDay);
-        console.log('Şu anki saat:', currentTime);
-        console.log('Sonuç:', isOnline);*/
-        return isOnline;
+        return checkDayAndTime(apiData.schedule, currentDay, currentTime);
     } catch (error) {
         console.error('Bir hata oluştu:', error.message);
     }
