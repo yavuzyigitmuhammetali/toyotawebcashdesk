@@ -11,6 +11,12 @@
     overflow-x: clip!important;
     border: .1px solid black;
 }
+.receipt-refund{
+    color: red;
+    border: 1px dashed red;
+    width: 100%;
+    text-align: center;
+}
 .receipt-header {
     display: flex;
     width: 100%;
@@ -66,4 +72,12 @@
     width: 100%;
     color: black;
     border-style: dashed;
+}
+.receipt-thanks{
+    text-align: center;
+    font-size: 1.5em;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }

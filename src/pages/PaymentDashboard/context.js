@@ -1,6 +1,5 @@
 import React from "react";
 import StatusContext from "../../shared/state/context";
-import axios from "axios";
 import {postTransaction} from "./api";
 
 const PaymentContext = React.createContext(undefined);
@@ -43,7 +42,6 @@ const PaymentProvider = ({children}) => {
         localStorage.removeItem('salesData');
         localStorage.removeItem('paymentTransactions');
         setTempData({id: 0, subTotal: 0, total: 0, cart: []})
-        setPaymentTransactions([])
         return _amountPaid;
     }
 

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import "./responsiveReceipt.css"
 import AlignHorizontalRightIcon from '@mui/icons-material/AlignHorizontalRight';
 import AlignHorizontalCenterIcon from '@mui/icons-material/AlignHorizontalCenter';
@@ -9,17 +9,28 @@ import Receipt from "../../shared/components/Receipt/Receipt";
 import {ToggleButtonGroup} from "@mui/material";
 import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
 import PaperIcon from '@mui/icons-material/Feed';
-import {exampleReceipt} from "./data";
+import {useParams} from "react-router-dom";
+import {getReceipt} from "./api";
 
 
-
-function ResponsiveReceipt() {
+function ResponsiveReceipt({dark = false}) {
+    const [receipt,setReceipt] = useState({})
     const [alignment, setAlignment] = useState('left');
     const [alignment2, setAlignment2] = useState('left');
+    const { receiptNumber } = useParams();
+
 
     useEffect(() => {
+        getReceipt(receiptNumber).then(value => setReceipt(value.data)).catch(reason => console.log(reason))
+    }, [receiptNumber]);
+    const handlePrint = useCallback(() => {
+        if (receipt.active){
+            window.print();
+        }else{
+            alert('İade edilmiş fiş ve faturalar tekrar talep edilemez!');
+        }
+    }, [receipt.active]);
 
-    }, [alignment]);
 
     const handleAlignment = (event, newAlignment) => {
         if (newAlignment !== null) {
@@ -32,7 +43,7 @@ function ResponsiveReceipt() {
         }
     };
     return (
-        <div className="responsive-receipt-container">
+        <div style={{backgroundColor:dark?"#111418":"transparent"}} className="responsive-receipt-container">
             <div className="responsive-receipt-controller">
                 <ToggleButtonGroup
                     value={alignment}
@@ -51,7 +62,7 @@ function ResponsiveReceipt() {
                     </ToggleButton>
                 </ToggleButtonGroup>
                 <ToggleButtonGroup value={"egg"}>
-                    <ToggleButton onChange={()=>window.print()} aria-label="right aligned" value={"egg"}>
+                    <ToggleButton onChange={handlePrint} aria-label="right aligned" value={"egg"}>
                         <PrintIcon/>
                     </ToggleButton>
                 </ToggleButtonGroup>
@@ -72,7 +83,7 @@ function ResponsiveReceipt() {
             <div style={{left:alignment==="right"?"100%":alignment==="center"?"50%":"0",
                 transform:alignment==="right"?"translate(-100%, 0)":alignment==="center"?"translate(-50%, 0)":"translate(0, 0)"}}
                  className={alignment2==="left"?"printable-content responsive-receipt-receipt":"printable-content-full responsive-receipt-receipt"}>
-                <Receipt data={exampleReceipt}/>
+                <Receipt data={receipt}/>
             </div>
         </div>
     );

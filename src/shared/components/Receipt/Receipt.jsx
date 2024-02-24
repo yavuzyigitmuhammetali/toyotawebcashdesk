@@ -1,88 +1,95 @@
 import React from 'react';
 import "./receipt.css"
+import {convertToDateFormat} from "./functions";
 
-function Receipt() {
-    return (
-            <div className="receipt-container">
-                <div className="receipt-header">
-                    <h1 style={{fontSize:"2em"}}>Lorem İpsum</h1>
-                    <div>Mağaza Numarası:1001(Web)</div>
-                    <div>Kasa Numarası: 1</div>
-                    <div>Fiş Numarası: 797b5fbc-68ad-40af-b393-3a3808ec2e97</div>
-                    <div className="receipt-header-time">
-                        <span>Fiş Tarih: </span>
-                        <span>Fiş Saat: </span>
-                    </div>
+function Receipt({
+                     storeName = "Lorem Ipsum", data = {}
+                 }) {
+
+    const defaultData = {
+        receiptNumber: "",
+        active: false,
+        storeNumber: "",
+        case: 0,
+        date: "",
+        total: 0,
+        subTotal: 0,
+        amountPaid: 0,
+        totalTax: 0,
+        change: 0,
+        cart: [{
+            id: 0,
+            barcode: 0,
+            name: "",
+            stock: 0,
+            price: 0,
+            tax: 0,
+            campaign: "",
+            isFavourites: false,
+            image: "",
+            categoryId: 0,
+            subCategoryId: 0,
+            quantity: 0,
+            discountedPrice: 0
+        }],
+        transactions: [{
+            price: 0, type: ""
+        }]
+    };
+
+    const validatedData = {
+        ...defaultData, ...data,
+        cart: data.cart && data.cart.length > 0 ? data.cart.map(item => ({
+            ...defaultData.cart[0], ...item
+        })) : defaultData.cart,
+        transactions: data.transactions && data.transactions.length > 0 ? data.transactions.map(item => ({
+            ...defaultData.transactions[0], ...item
+        })) : defaultData.transactions
+    };
+
+    const {day, time} = convertToDateFormat(validatedData.date, "tr")
+
+    return (<div className="receipt-container">
+            {!validatedData.active ? <div className="receipt-refund">İADE GÖRMÜŞ</div> : null}
+            <div className="receipt-header">
+                <h1 style={{fontSize: "2em"}}>{storeName}</h1>
+                <div>Mağaza Numarası: {validatedData.storeNumber}</div>
+                <div>Kasa Numarası: {validatedData.case}</div>
+                <div>Fiş Numarası: {validatedData.receiptNumber}</div>
+                <div className="receipt-header-time">
+                    <span>Fiş Tarih: {day}</span>
+                    <span>Fiş Saat: {time}</span>
                 </div>
-
-                <div className="receipt-main">
-                    <div className="receipt-product">
-                        <span style={{justifyContent: "left"}}>uzuzn ve kalitleri çelik halat</span>
-                        <span>5 adet</span>
-                        <span>%08</span>
-                        <span>15.05$</span>
-                    </div>
-                    <div className="receipt-product">
-                        <span style={{justifyContent: "left"}}>uzuzn ve </span>
-                        <span>500 adet</span>
-                        <span>%8</span>
-                        <span>15.05$</span>
-                    </div>
-
-                    <div className="receipt-product">
-                        <span style={{justifyContent: "left"}}>uzuzn ve </span>
-                        <span>5 adet</span>
-                        <span>%08</span>
-                        <span>150000000.05$</span>
-                    </div>
-
-
-                    <div className="receipt-product">
-                        <span style={{justifyContent: "left"}}>uzuzn ve </span>
-                        <span>5 adet</span>
-                        <span>%08</span>
-                        <span>15.05$</span>
-                    </div>
-
-                    <div className="receipt-product">
-                        <span style={{justifyContent: "left"}}>uzuzn ve </span>
-                        <span>5 adet</span>
-                        <span>%08</span>
-                        <span>15.05$</span>
-                    </div>
-
-                    <div className="receipt-product">
-                        <span style={{justifyContent: "left"}}>uzuzn ve </span>
-                        <span>5 adet</span>
-                        <span>%08</span>
-                        <span>15.05$</span>
-                    </div>
-
-
-                </div>
-                <div className="receipt-footer">
-                    <hr/>
-                    <div><span>TPLKDV:</span> <span>*55.25$</span></div>
-                    <div><span>TOPLAM:</span> <span>*1200.00$</span></div>
-                    <hr/>
-                    <br/>
-                    <h3 style={{fontSize: "1.5em"}}>Ödeme</h3>
-                    <hr/>
-                    <div><span>Kart</span> <span>*1200.00$</span></div>
-                    <hr/>
-                    <div><span>Kart</span> <span>*1200.00$</span></div>
-                    <hr/>
-                    <div><span>Nakit</span> <span>*1200.00$</span></div>
-                    <hr/>
-                    <br/>
-                    <div><span>ÖDENTPLM:</span> <span>*1200.00$</span></div>
-                    <div><span>PARAÜSTÜ:</span> <span>*1200.00$</span></div>
-                </div>
-                <h2 style={{
-                    textAlign: "center",
-                    fontSize: "1.5em",position:"absolute",bottom:0,left:"50%",transform: "translate(-50%, -50%)"}}>TEŞEKKÜRLER</h2>
             </div>
-    );
+
+            <div className="receipt-main">
+                {validatedData.cart.map((item, key) => <div key={key} className="receipt-product">
+                    <span style={{justifyContent: "left"}}>{item.name}</span>
+                    <span>{item.quantity} adet</span>
+                    <span>%{item.tax < 10 ? "0" + item.tax : item.tax.toString()}</span>
+                    <span>{item.price.toFixed(2)}$</span>
+                </div>)}
+            </div>
+        <div className="receipt-footer">
+            <hr/>
+            <div><span>TPLKDV:</span> <span>*{validatedData.totalTax.toFixed(2)}$</span></div>
+            <div><span>TOPLAM:</span> <span>*{validatedData.total.toFixed(2)}$</span></div>
+            <hr/>
+            <br/>
+            <h3 style={{fontSize: "1.5em"}}>Ödeme</h3>
+            {validatedData.transactions.map((item, key) => <React.Fragment key={key}>
+                <hr/>
+                <div>
+                    <span>{item.type === "cash" ? "Nakit" : "Kart"}</span><span>*{item.price.toFixed(2)}$</span>
+                </div>
+            </React.Fragment>)}
+            <hr/>
+            <br/>
+            <div><span>ÖDENTPLM:</span> <span>*{validatedData.amountPaid.toFixed(2)}$</span></div>
+            <div><span>PARAÜSTÜ:</span> <span>*{validatedData.change.toFixed(2)}$</span></div>
+        </div>
+        <h2 className="receipt-thanks">TEŞEKKÜRLER</h2>
+        </div>);
 }
 
 export default Receipt;

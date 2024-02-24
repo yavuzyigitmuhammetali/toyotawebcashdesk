@@ -7,6 +7,7 @@ import {createTheme, ThemeProvider} from "@mui/material/styles";
 import PaymentContext from "../context";
 import SendIcon from '@mui/icons-material/Send';
 import ResponsiveDialog from "../../../shared/components/ResponsiveDialog";
+import {useNavigate} from "react-router-dom";
 
 
 const darkTheme = createTheme({
@@ -21,6 +22,7 @@ const lightTheme = createTheme({
 });
 
 function PaymentDashboardRightArea({dark=false}) {
+    const navigate = useNavigate();
     const [paymentDialog,setPaymentDialog] = useState(0)
     const {setTransaction,amountRemaining,amountPaid,cancelTransaction,confirmTransaction,receipt} = useContext(PaymentContext)
     const {data:numericKeyboardData,setData:setNumericKeyboardData} = useContext(NumericKeyboardContext)
@@ -33,7 +35,7 @@ function PaymentDashboardRightArea({dark=false}) {
 
     useEffect(() => {
         if (Object.values(receipt).length !== 0){
-
+            navigate('/receipt/'+receipt.receiptNumber, {replace: true});
         }
     }, [receipt]);
     return (

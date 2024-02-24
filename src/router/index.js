@@ -1,4 +1,3 @@
-import App from "../App";
 import MainScreen from "../pages/MainScreen";
 import {createBrowserRouter} from "react-router-dom";
 import LoginPage from "../pages/LoginPage";
@@ -29,10 +28,7 @@ export default createBrowserRouter(
                         path: "/",
                         Component: MainScreen,
                     },
-                    {
-                        path: "/receipt/:receiptNumber",
-                        Component: ResponsiveReceipt,
-                    },
+
 
                     {
                         path: "/",
@@ -67,6 +63,10 @@ export default createBrowserRouter(
                             {
                                 path: "product/add",
                                 Component: ProductEntryPanel,
+                            },
+                            {
+                                path: "/receipt/:receiptNumber",
+                                Component: ResponsiveReceipt,
                             },
                         ]
                     },
