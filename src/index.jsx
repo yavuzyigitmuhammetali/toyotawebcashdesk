@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import reportWebVitals from './reportWebVitals';
 import "./index.css"
-import {StatusProvider} from "./shared/state/context";
+import {DataFetchingProvider} from "./shared/state/context";
 import {KeyboardProvider} from "./shared/components/ScreenKeyboard/context";
 import {RouterProvider} from "react-router-dom";
 import router from "./router";
@@ -10,11 +10,11 @@ import router from "./router";
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-      <StatusProvider>
+      <DataFetchingProvider>
           <KeyboardProvider>
               <RouterProvider router={router}/>
           </KeyboardProvider>
-      </StatusProvider>
+      </DataFetchingProvider>
   </React.StrictMode>
 );
 

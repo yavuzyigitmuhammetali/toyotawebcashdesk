@@ -1,9 +1,10 @@
 import React from "react";
 import {getStatus, setupAxiosInterceptors, testLogin} from "./api";
 import {checkOnline} from "../functions/checkOnline";
-const StatusContext = React.createContext(undefined);
+import {login} from "./api"
+const DataFetchingContext = React.createContext(undefined);
 
-const StatusProvider = ({children}) => {
+const DataFetchingProvider = ({children}) => {
     const [status, setStatus] = React.useState(JSON.parse(localStorage.getItem('status')));
     const [online, setOnline] = React.useState(JSON.parse(localStorage.getItem('online')));
     const [dark, setDark] = React.useState(false);
@@ -41,19 +42,29 @@ const StatusProvider = ({children}) => {
         setupAxiosInterceptors(online,setLoggedIn)
     }, [online]);
 
+    const loginFunction = async (body) => {
+        try {
+            await login(body);
+            return true;
+        } catch (error) {
+            console.error(error);
+            return false;
+        }
+    };
 
     return (
-        <StatusContext.Provider
+        <DataFetchingContext.Provider
             value={{
                 dark,
                 status,
                 online,
-                loggedIn
+                loggedIn,
+                loginFunction
             }}
         >
             {children}
-        </StatusContext.Provider>
+        </DataFetchingContext.Provider>
     );
 };
-export default StatusContext;
-export {StatusProvider};
+export default DataFetchingContext;
+export {DataFetchingProvider};

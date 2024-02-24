@@ -3,10 +3,10 @@ import TextField from '@mui/material/TextField';
 import {ThemeProvider, createTheme} from '@mui/material/styles';
 import {Alert, AlertTitle, Button} from "@mui/material";
 import "./loginPageRightArea.css";
-import {login} from "./api";
 import KeyboardContext from "../../../shared/components/ScreenKeyboard/context";
 import ScreenKeyboard from "../../../shared/components/ScreenKeyboard/ScreenKeyboard";
 import {useNavigate} from "react-router-dom";
+import DataFetchingContext from "../../../shared/state/context";
 
 const darkTheme = createTheme({
     palette: {
@@ -21,12 +21,19 @@ const lightTheme = createTheme({
 
 function LoginPageRightArea({dark = false}) {
     const [error, setError] = useState(false)
+    const [loginData,setLoginData] = useState({username:"",password:""})
     const [buttonState, setButtonState] = useState(false)
-    const { handleElementClick, value,onChangeValue,enter } = useContext(KeyboardContext);
     const navigate = useNavigate();
+    const { handleElementClick, value,onChangeValue,enter } = useContext(KeyboardContext);
+    const {loginFunction} = useContext(DataFetchingContext);
+
     useEffect(() => {
-        if (value["username"]&&value["password"]){
-            if ((value["username"].length>=5&&value["password"].length)>5){
+        setLoginData(prevState => {
+            return {username: value.username,password: value.password}
+        })
+
+        if (loginData.username&&loginData.password){
+            if ((loginData.username.length>=5)&&(loginData.password.length>=5)){
                 setButtonState(true)
             }
             else {
@@ -38,22 +45,25 @@ function LoginPageRightArea({dark = false}) {
         setError(false);
     }, [value]);
 
+
+
     const handleLogin = async () => {
+        //setLoading(true);
         try {
-            const response = await login({username:value["username"],password:value["password"]})
-            if (response.status ===401){
+            const result = await loginFunction(loginData);
+            if (result) {
+                setError(false); // Hata yoksa hatayı kaldır
+                navigate('/', { replace: true, state: { successMessage: "Oturum Açma İşlemi Başarılı, Hoşgeldiniz." }});
+            } else {
                 setError(true);
-            }else {
-                setError(false);
-                navigate('/', {replace: true, state: {successMessage:"Oturum Açma İşlemi Başarılı, Hoşgeldiniz."}});
             }
-        } catch (axiosError) {
+        } catch (error) {
+            console.error("Giriş işlemi sırasında bir hata oluştu:", error);
             setError(true);
         } finally {
-
+            //setLoading(false);
         }
     };
-
 
     return (
         <div style={{width: "400px", backgroundColor: dark ? "#1C1F25" : "white", border: "2px solid #1A2027"}}
@@ -69,7 +79,7 @@ function LoginPageRightArea({dark = false}) {
                     <TextField
                         error={error}
                         onClick={handleElementClick}
-                        value={value["username"]?value["username"]:""}
+                        value={loginData.username}
                         label="Kullanıcı Adı"
                         focused
                         onChange={e=>onChangeValue(e.target.value)}
@@ -79,7 +89,7 @@ function LoginPageRightArea({dark = false}) {
                         id="password"
                         label="Şifre"
                         focused
-                        value={value["password"]?value["password"]:""}
+                        value={loginData.password}
                         onChange={e=>onChangeValue(e.target.value)}
                         onClick={handleElementClick}
                         type="password"

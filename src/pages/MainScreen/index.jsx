@@ -9,7 +9,7 @@ import MainScreenItem from "./components/MainScreenItem";
 import {createTheme, ThemeProvider} from "@mui/material/styles";
 import AlertComponent from "../../shared/components/AlertComponent";
 import {useLocation, useNavigate} from "react-router-dom";
-import StatusContext from "../../shared/state/context";
+import DataFetchingContext from "../../shared/state/context";
 
 const darkTheme = createTheme({
     palette: {
@@ -25,7 +25,7 @@ const lightTheme = createTheme({
 
 function MainScreen({dark = false}) {
     const [userIP, setUserIP] = useState('');
-    const {online,status} = React.useContext(StatusContext);
+    const {online,status} = React.useContext(DataFetchingContext);
 
     const location = useLocation();
     const navigate = useNavigate();

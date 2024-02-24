@@ -2,10 +2,10 @@ import React from 'react';
 import "./loginPageLeftArea.css"
 import OnlineOfflineIndicator from "../../../shared/components/OnlineOfflineIndicator";
 import LoginSrc from "./components/LoginSrc";
-import StatusContext from "../../../shared/state/context";
+import DataFetchingContext from "../../../shared/state/context";
 
 function LoginPageLeftArea({width = "400px", dark = false}) {
-    const {online,status} = React.useContext(StatusContext);
+    const {online,status} = React.useContext(DataFetchingContext);
 
 
     return (

@@ -17,6 +17,10 @@ export function setupAxiosInterceptors(isOnline,setAuth,errorText='Offline - Una
     );
 }
 
+export function login(body){
+    return axios.post("/api/v1/login", body);
+}
+
 export function getStatus(){
     return  axios.get("/api/v1/getstatus");
 }

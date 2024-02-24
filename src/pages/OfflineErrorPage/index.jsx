@@ -4,12 +4,12 @@ import {ThemeProvider} from '@mui/material/styles';
 import ScheduleTable from './components/ScheduleTable';
 import {getTheme} from './theme';
 import CountdownTimer from "./components/CountdownTimer";
-import StatusContext from "../../shared/state/context";
+import DataFetchingContext from "../../shared/state/context";
 import OnlineOfflineIndicator from "../../shared/components/OnlineOfflineIndicator";
 
 const OfflineErrorPage = ({dark = true}) => {
     const theme = getTheme(dark ? "dark" : "light");
-    const {status,online} = React.useContext(StatusContext);
+    const {status,online} = React.useContext(DataFetchingContext);
     const [schedule, setSchedule] = useState(
         {
             "Monday": null,

@@ -1,5 +1,5 @@
 import React from "react";
-import StatusContext from "../../shared/state/context";
+import DataFetchingContext from "../../shared/state/context";
 import {postTransaction} from "./api";
 
 const PaymentContext = React.createContext(undefined);
@@ -12,7 +12,7 @@ const PaymentProvider = ({children}) => {
     const change = (total - amountPaid) < 0 ? (Math.round((amountPaid - total) * 100) / 100) : (0);
     const totalTax = Math.round(cart.reduce((acc, curr) => acc + ((curr.discountedPrice || curr.price) * curr.tax / 100), 0) * 100) / 100
     const [receipt,setReceipt] = React.useState({})
-    const {status} = React.useContext(StatusContext);
+    const {status} = React.useContext(DataFetchingContext);
 
     React.useEffect(() => {
         const salesDataString = localStorage.getItem('salesData')

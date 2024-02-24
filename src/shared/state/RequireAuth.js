@@ -1,10 +1,10 @@
 import React from 'react';
-import StatusContext from "./context";
+import DataFetchingContext from "./context";
 import {Navigate, Outlet, useLocation, useNavigate} from "react-router-dom";
 import OfflineErrorPage from "../../pages/OfflineErrorPage";
 
 export default function RequireAuth() {
-    const {loggedIn, online} = React.useContext(StatusContext);
+    const {loggedIn, online} = React.useContext(DataFetchingContext);
     const navigate = useNavigate();
     const location = useLocation();
 
