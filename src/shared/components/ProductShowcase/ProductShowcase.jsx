@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState} from 'react';
+import React, {useContext, useEffect, useMemo, useState} from 'react';
 import "./productShowcase.css"
 import TextField from "@mui/material/TextField";
 import {Button} from "@mui/material";
@@ -18,36 +18,24 @@ const lightTheme = createTheme({
     },
 });
 
-const useKeyboard = () => {
-    const context = React.useContext(KeyboardContext);
 
-    if (!context) {
-        return {
-            handleElementClick: () => {},
-            value: "",
-            onChangeValue: () => {},
-        };
-    }
-
-    return context;
-};
-function ProductShowcase({data=[],onClick,dark=false,screenKeyboard = true}) {
-
-    const { handleElementClick, value, onChangeValue } = useKeyboard();
+function ProductShowcase({data=[],onClick,dark=false}) {
+    const [inputValue, setInputValue] = useState("")
+    const { handleElementFocus, value,onChangeValue } = useContext(KeyboardContext);
     const [map, setMap] = useState(1)
     const favourites = useMemo(() => data.filter(item => item.isfavourites), [data]);
     const alphabeticalFilteredData = useMemo(()=>filterDataByAlphabetGroups(data),[data])
     const filteredByName = useMemo(()=>data.filter(item => item.name.toLowerCase().startsWith(value["prodcutSearch"]?.toLowerCase())),[data,value])
 
     useEffect(() => {
-        if (value["prodcutSearch"]){
+        setInputValue(value.prodcutSearch)
+        if (inputValue){
             setMap(0);
         }else{
             setMap(1)
         }
     }, [value]);
 
-    // const products = Array(1000).fill(<ProductCard />);
 
     return (
         <ThemeProvider theme={dark ? darkTheme : lightTheme}>
@@ -55,10 +43,10 @@ function ProductShowcase({data=[],onClick,dark=false,screenKeyboard = true}) {
                 <div style={{backgroundColor: dark ? "rgba(19, 25, 34,0.85)" : "", borderColor: dark ? "white" : ""}}
                      className="product-showcase-active-area">
                     <div className="product-showcase-search-area">
-                        <TextField onClick={handleElementClick} onChange={event => onChangeValue(event.target.value)}
-                                   value={value["prodcutSearch"]} focused fullWidth color="secondary" label="Ürün İsmi"
+                        <TextField onFocus={handleElementFocus} onChange={onChangeValue}
+                                   value={inputValue} fullWidth color="secondary" label="Ürün İsmi"
                                    id="prodcutSearch"/>
-                        {screenKeyboard && <ScreenKeyboard dark={dark}/>}
+                      <ScreenKeyboard dark={dark}/>
                     </div>
                     <div className="product-showcase-filter-area">
                         <Button onClick={() => setMap(1)} color="secondary"
@@ -81,6 +69,9 @@ function ProductShowcase({data=[],onClick,dark=false,screenKeyboard = true}) {
                                 variant={map === 9 ? "contained" : "outlined"}>T - Z</Button>
                         <Button onClick={() => setMap(10)} color="secondary"
                                 variant={map === 10 ? "contained" : "outlined"}>W - X</Button>
+
+                        <Button onClick={() => setMap(11)} color="secondary"
+                                variant={map === 11 ? "contained" : "outlined"}>Barkodsuz Ürünler</Button>
                     </div>
                     <div className="product-showcase-products-scroll-area">
                         <div className="product-showcase-products-area">
@@ -88,6 +79,10 @@ function ProductShowcase({data=[],onClick,dark=false,screenKeyboard = true}) {
                                     discountText={product.campaign} onClick={() => onClick(product)} key={key} dark={dark}
                                     name={product.name} src={product.image} barcode={product.barcode}
                                     favorite={product.isfavourites} price={product.price} stock={product.stock}/>)
+                                : map === 11? data.filter(product=>!product.barcode).map((product, key)=><ProductCard
+                                        discountText={product.campaign} onClick={() => onClick(product)} key={key} dark={dark}
+                                        name={product.name} src={product.image} barcode={product.barcode}
+                                        favorite={product.isfavourites} price={product.price} stock={product.stock}/>)
                                 : map === 1 ? data.map((product, key) => <ProductCard discountText={product.campaign}
                                                                                       onClick={() => onClick(product)}
                                                                                       key={key} dark={dark}
