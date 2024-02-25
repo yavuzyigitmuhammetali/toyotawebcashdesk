@@ -24,11 +24,11 @@ function LoginPageRightArea({dark = false}) {
     const [loginData,setLoginData] = useState({username:"",password:""})
     const [buttonState, setButtonState] = useState(false)
     const navigate = useNavigate();
-    const { handleElementClick, value,onChangeValue,enter } = useContext(KeyboardContext);
+    const { handleElementFocus, value,onChangeValue,enterRef } = useContext(KeyboardContext);
     const {loginFunction} = useContext(DataFetchingContext);
 
     useEffect(() => {
-        setLoginData(prevState => {
+        setLoginData(() => {
             return {username: value.username,password: value.password}
         })
 
@@ -78,25 +78,23 @@ function LoginPageRightArea({dark = false}) {
                 <ThemeProvider theme={dark ? darkTheme : lightTheme}>
                     <TextField
                         error={error}
-                        onClick={handleElementClick}
+                        onFocus={handleElementFocus}
                         value={loginData.username}
                         label="Kullanıcı Adı"
-                        focused
-                        onChange={e=>onChangeValue(e.target.value)}
+                        onChange={onChangeValue}
                         autoComplete="current-password" id="username"  variant="outlined" size="small"/>
                     <TextField
                         error={error}
                         id="password"
                         label="Şifre"
-                        focused
+                        onFocus={handleElementFocus}
                         value={loginData.password}
-                        onChange={e=>onChangeValue(e.target.value)}
-                        onClick={handleElementClick}
+                        onChange={onChangeValue}
                         type="password"
                         autoComplete="current-password"
                         size="small"
                     />
-                    <Button ref={enter} onClick={handleLogin} disabled={!buttonState} color={error?"error":"info"}  variant="contained">Login</Button>
+                    <Button ref={enterRef} onClick={handleLogin} disabled={!buttonState} color={error?"error":"info"}  variant="contained">Login</Button>
                     <ScreenKeyboard dark={dark} style={{width:"40px",height:"40px",alignSelf:"center"}}/>
                     {error ?
                         <Alert severity="error">

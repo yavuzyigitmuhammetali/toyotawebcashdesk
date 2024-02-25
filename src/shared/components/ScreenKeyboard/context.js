@@ -5,33 +5,35 @@ const KeyboardContext = React.createContext(undefined);
 const KeyboardProvider = ({children}) => {
     const [value, setValue] = React.useState({});
     const [id, setId] = React.useState("")
-    const enter = React.useRef(null)
+    const enterRef = React.useRef(null);
 
     const handleEnter = () => {
-        enter?.current?.click();
+        enterRef.current?.click();
     };
 
     React.useEffect(() => {
-        if (!value[id]) {
+        if (id&&!value[id]) {
             const updatedState = {...value};
             updatedState[id] = "";
             setValue(updatedState);
         }
     }, [id]);
-    const onChangeValue = (updatedValue) => {
-        if (id) {
-            const updatedState = {...value};
-                updatedState[id] = updatedValue;
-            setValue(updatedState);
-        }
+
+    const onChangeValue = (event) => {
+        const { id, value: inputValue } = event.target;
+        const updatedState = {...value};
+        updatedState[id] = inputValue;
+        setValue(updatedState);
     };
+
     const handleValue = (updatedValue) => {
         if (id) {
             const updatedState = {...value};
-                updatedState[id] = value[id] + updatedValue;
+            updatedState[id] = (value[id] || "") + updatedValue;
             setValue(updatedState);
         }
     };
+
     const handleDelete = () => {
         const updatedState = {...value};
         if (updatedState[id]) {
@@ -44,11 +46,12 @@ const KeyboardProvider = ({children}) => {
             }
             setValue(updatedState);
         }
-    }
+    };
 
 
-    const handleElementClick = (e) => {
-        setId(e.target.id);
+    const handleElementFocus = (event) => {
+        const { id: elementId } = event.target;
+        setId(elementId);
     };
 
 
@@ -58,13 +61,13 @@ const KeyboardProvider = ({children}) => {
         <KeyboardContext.Provider
             value={{
                 handleValue,
-                handleElementClick,
                 handleDelete,
                 onChangeValue,
                 handleEnter,
+                handleElementFocus,
                 value,
                 id,
-                enter
+                enterRef
             }}
         >
             {children}
