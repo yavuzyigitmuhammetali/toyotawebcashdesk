@@ -25,7 +25,7 @@ const lightTheme = createTheme({
 
 function FormDialog({children,openManual = 0,screenKeyboard=true,buttonName,dialog,func=()=>{},disabled=false,dark=false,onOff=false,label,errorText,style}) {
     const [inputValue, setInputValue] = useState("")
-    const { handleElementFocus, value,onChangeValue,enterRef } = useContext(KeyboardContext);
+    const { handleElementFocus, value,onChangeValue,enterRef,clearValues } = useContext(KeyboardContext);
     const [open, setOpen] = React.useState(false);
     const [error, setError] = React.useState(false)
 
@@ -42,10 +42,12 @@ function FormDialog({children,openManual = 0,screenKeyboard=true,buttonName,dial
     }, [openManual]);
     const handleClickOpen = () => {
         setOpen(true);
+        clearValues();
     };
 
     const handleClose = () => {
         setOpen(false);
+        clearValues();
     };
 
     return (

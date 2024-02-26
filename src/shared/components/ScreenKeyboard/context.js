@@ -1,71 +1,63 @@
-import React from "react";
+import React, {useCallback, useRef, useState} from "react";
 
 const KeyboardContext = React.createContext(undefined);
 
 const KeyboardProvider = ({children}) => {
-    const [value, setValue] = React.useState({});
-    const [id, setId] = React.useState("")
-    const enterRef = React.useRef(null);
+    const [value, setValue] = useState({});
+    const [id, setId] = useState("");
+    const enterRef = useRef(null);
 
-    const clearValues = ()=>{
-        setValue({})
-    }
+    const clearValues = useCallback(() => {
+        setValue({});
+        setId("");
+        enterRef.current = null;
+    }, []);
 
-    const handleEnter = () => {
+    const handleEnter = useCallback(() => {
         enterRef.current?.click();
-    };
+    }, []);
 
-    React.useEffect(() => {
-        if (id&&!value[id]) {
-            const updatedState = {...value};
-            updatedState[id] = "";
-            setValue(updatedState);
+
+    const onChangeValue = useCallback((event) => {
+        const {id: inputId, value: inputValue} = event.target;
+        setValue((prevValue) => ({
+            ...prevValue, [inputId ? inputId : id]: inputValue,
+        }));
+    }, [id]);
+
+    const handleValue = useCallback((updatedValue) => {
+        if (id) {
+            setValue((prevValue) => ({
+                ...prevValue, [id]: (prevValue[id] || "") + updatedValue,
+            }));
         }
     }, [id]);
 
-    const onChangeValue = (event) => {
-        const { id:inputId, value: inputValue } = event.target;
-        const updatedState = {...value};
-        updatedState[inputId?inputId:id] = inputValue;
-        setValue(updatedState);
-    };
-
-    const handleValue = (updatedValue) => {
-        if (id) {
-            const updatedState = {...value};
-            updatedState[id] = (value[id] || "") + updatedValue;
-            setValue(updatedState);
-        }
-    };
-
-    const handleDelete = () => {
-        const updatedState = {...value};
-        if (updatedState[id]) {
-            if (typeof updatedState[id] === 'string') {
-                updatedState[id] = updatedState[id].slice(0, -1);
-            } else if (typeof updatedState[id] === 'number') {
-                let numStr = updatedState[id].toString();
-                numStr = numStr.slice(0, -1);
-                updatedState[id] = numStr === '' ? 0 : Number(numStr);
+    const handleDelete = useCallback(() => {
+        setValue((prevValue) => {
+            const updatedState = {...prevValue};
+            if (updatedState[id]) {
+                if (typeof updatedState[id] === 'string') {
+                    updatedState[id] = updatedState[id].slice(0, -1);
+                } else if (typeof updatedState[id] === 'number') {
+                    let numStr = updatedState[id].toString();
+                    numStr = numStr.slice(0, -1);
+                    updatedState[id] = numStr === '' ? 0 : Number(numStr);
+                }
             }
-            setValue(updatedState);
-        }
-    };
+            return updatedState;
+        });
+    }, [id]);
 
-
-    const handleElementFocus = (event) => {
-        const { id: elementId,value: elementValue } = event.target;
-        const updatedState = {...value};
-        updatedState[elementId] = elementValue;
-        setValue(updatedState);
+    const handleElementFocus = useCallback((event) => {
+        const {id: elementId, value: elementValue} = event.target;
+        setValue((prevValue) => ({
+            ...prevValue, [elementId]: elementValue,
+        }));
         setId(elementId);
-    };
+    }, []);
 
-
-
-
-    return (
-        <KeyboardContext.Provider
+    return (<KeyboardContext.Provider
             value={{
                 handleValue,
                 handleDelete,
@@ -75,12 +67,11 @@ const KeyboardProvider = ({children}) => {
                 clearValues,
                 value,
                 id,
-                enterRef
+                enterRef,
             }}
         >
             {children}
-        </KeyboardContext.Provider>
-    );
+        </KeyboardContext.Provider>);
 };
 
 export default KeyboardContext;

@@ -24,7 +24,7 @@ function LoginPageRightArea({dark = false}) {
     const [loginData,setLoginData] = useState({username:"",password:""})
     const [buttonState, setButtonState] = useState(false)
     const navigate = useNavigate();
-    const { handleElementFocus, value,onChangeValue,enterRef } = useContext(KeyboardContext);
+    const { handleElementFocus, value,onChangeValue,enterRef,clearValues } = useContext(KeyboardContext);
     const {loginFunction} = useContext(DataFetchingContext);
 
     useEffect(() => {
@@ -52,7 +52,8 @@ function LoginPageRightArea({dark = false}) {
         try {
             const result = await loginFunction(loginData);
             if (result) {
-                setError(false); // Hata yoksa hatayı kaldır
+                setError(false);
+                clearValues();
                 navigate('/', { replace: true, state: { successMessage: "Oturum Açma İşlemi Başarılı, Hoşgeldiniz." }});
             } else {
                 setError(true);

@@ -21,7 +21,7 @@ const lightTheme = createTheme({
 
 function ProductShowcase({data=[],onClick,dark=false}) {
     const [inputValue, setInputValue] = useState("")
-    const { handleElementFocus, value,onChangeValue } = useContext(KeyboardContext);
+    const { handleElementFocus, value,onChangeValue,clearValues } = useContext(KeyboardContext);
     const [map, setMap] = useState(1)
     const favourites = useMemo(() => data.filter(item => item.isfavourites), [data]);
     const alphabeticalFilteredData = useMemo(()=>filterDataByAlphabetGroups(data),[data])
@@ -35,6 +35,10 @@ function ProductShowcase({data=[],onClick,dark=false}) {
             setMap(1)
         }
     }, [value,inputValue]);
+
+    useEffect(() => {
+        clearValues();
+    }, []);
 
 
     return (
