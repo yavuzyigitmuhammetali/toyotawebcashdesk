@@ -38,16 +38,19 @@ const DataFetchingProvider = ({children}) => {
             });
     }, []);
 
-    React.useEffect(() => {
-        setupAxiosInterceptors(online,setLoggedIn)
-    }, [online]);
+
+    // React.useEffect(() => {
+    //     setupAxiosInterceptors(online,setLoggedIn)
+    // }, [online]);
 
     const loginFunction = async (body) => {
         try {
-            await login(body);
+            await login(body)
+            setOnline(true);
             return true;
         } catch (error) {
             console.error(error);
+            setOnline(false);
             return false;
         }
     };

@@ -1,4 +1,4 @@
-import React, {useContext, useEffect} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
@@ -24,11 +24,16 @@ const lightTheme = createTheme({
 
 
 function FormDialog({children,openManual = 0,screenKeyboard=true,buttonName,dialog,func=()=>{},disabled=false,dark=false,onOff=false,label,errorText,style}) {
-
-
-    const { handleElementClick, value,onChangeValue,enter } = useContext(KeyboardContext);
+    const [inputValue, setInputValue] = useState("")
+    const { handleElementFocus, value,onChangeValue,enterRef } = useContext(KeyboardContext);
     const [open, setOpen] = React.useState(false);
     const [error, setError] = React.useState(false)
+
+    useEffect(() => {
+        setInputValue(value.formDialog);
+        setError(false);
+    }, [value]);
+
 
     useEffect(() => {
         if (openManual>0){
@@ -81,14 +86,13 @@ function FormDialog({children,openManual = 0,screenKeyboard=true,buttonName,dial
                         <TextField
                             error={error}
                             helperText={error?errorText:""}
-                            focused
-                            onClick={handleElementClick}
-                            onChange={(e)=>{onChangeValue(e.target.value);setError(false)}}
-                            value={value["deneme"]?value["deneme"]:""}
+                            onFocus={handleElementFocus}
+                            onChange={onChangeValue}
+                            value={inputValue}
                             autoFocus
                             required
                             margin="dense"
-                            id="deneme"
+                            id="formDialog"
                             name="email"
                             label={label}
                             fullWidth
@@ -98,7 +102,7 @@ function FormDialog({children,openManual = 0,screenKeyboard=true,buttonName,dial
                     <DialogActions>
                         {screenKeyboard&&<ScreenKeyboard dark={dark}/>}
                         <Button onClick={handleClose}>İptal</Button>
-                        <Button ref={enter} type="submit">Uygula</Button>
+                        <Button ref={enterRef} type="submit">Uygula</Button>
                     </DialogActions>
                 </Dialog>
 

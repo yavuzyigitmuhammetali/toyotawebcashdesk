@@ -9,10 +9,6 @@ export default function RequireAuth() {
     const location = useLocation();
 
     React.useEffect(() => {
-
-    }, [loggedIn, location,online]);
-
-    React.useEffect(() => {
         if (online && location.pathname === '/login' && loggedIn) {
             navigate('/', {replace: true, state: {errorMessage: 'Zaten giriş yapıldı'}});
         }
@@ -23,7 +19,7 @@ export default function RequireAuth() {
     } else {
         return (
             <>
-                {!loggedIn && online ? <Navigate to="/login"/> : <></>}
+                {!loggedIn && online && location.pathname !== '/login' ? <Navigate to="/login"/> : <></>}
                 <Outlet/>
             </>
 
