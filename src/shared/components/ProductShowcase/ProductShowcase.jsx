@@ -34,7 +34,7 @@ function ProductShowcase({data=[],onClick,dark=false}) {
         }else{
             setMap(1)
         }
-    }, [value]);
+    }, [value,inputValue]);
 
 
     return (

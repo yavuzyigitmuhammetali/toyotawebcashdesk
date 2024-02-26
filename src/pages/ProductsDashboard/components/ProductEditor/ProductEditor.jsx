@@ -1,4 +1,4 @@
-import React, {useCallback, useContext, useEffect, useRef, useState} from 'react';
+import React, {useCallback, useContext, useEffect, useState} from 'react';
 import ProductCard from "../../../../shared/components/ProductCard/ProductCard";
 import EditableText from "../EditableText";
 import "./productEditor.css";
@@ -18,7 +18,7 @@ function ProductEditor({ dark = false}) {
     const navigate = useNavigate();
     const [selectState, setSelectState] = useState(false);
     const [changeData, setChangeData] = useState(false);
-    const { handleElementClick, value, onChangeValue, enter } = useContext(KeyboardContext);
+    const { handleElementFocus, value:screenKeyboardValue,clearValues,enterRef } = useContext(KeyboardContext);
     const tempProduct = location.state?.products.find(value => value.id === productId);
     const [product, setProduct] = useState(tempProduct);
 
@@ -34,38 +34,23 @@ function ProductEditor({ dark = false}) {
                     return prevProduct;
                 }
             } else {
-                onChangeValue(value)
                 return { ...prevProduct, [key]: value };
             }
         });
     };
-    const prevValueRef = useRef();
 
-    useEffect(() => {
-        const prevValue = prevValueRef.current;
-        if (prevValue && value) {
-            Object.keys(value).forEach(key => {
-                if (value[key] !== prevValue[key]) {
-                    handleTextChange(value[key], key);
-                    value[key] = product[key]
-                }
-            });
-        }
-        prevValueRef.current = value;
-    }, [value]);
+
+
 
     useEffect(() => {
         setChangeData(JSON.stringify(product) !== JSON.stringify(tempProduct));
-        console.log(JSON.stringify(product), JSON.stringify(tempProduct))
-        Object.keys(value).forEach(key => {
-            value[key] = product[key]
-        });
     }, [product, tempProduct,navigate]);
 
 
     const onButtonClick = useCallback(() => {
         navigate('/products/list');
-    }, [navigate]);
+        clearValues();
+    }, [navigate, clearValues]);
 
 
     const changeFavorite = () => {
@@ -77,23 +62,38 @@ function ProductEditor({ dark = false}) {
 
     const updateData = () => {
         if (JSON.stringify(product) !== JSON.stringify(tempProduct)) {
-            axios.patch(`/api/v1/products/${productId}`, product).then(()=>{navigate('/products/list');window.location.reload();}).catch(reason => console.log(reason));
+            axios.patch(`/api/v1/products/${productId}`, product).then(()=>{navigate('/products/list');window.location.reload();clearValues();}).catch(reason => console.log(reason));
         }
     };
+
+
+    useEffect(() => {
+        const keys = ['name', 'price', 'tax', 'stock', 'photo'];
+
+        keys.forEach((key) => {
+            if (
+                screenKeyboardValue.hasOwnProperty(key) &&
+                screenKeyboardValue[key] !== undefined &&
+                screenKeyboardValue[key] !== product[key]
+            ) {
+                handleTextChange(screenKeyboardValue[key], key);
+            }
+        });
+    }, [screenKeyboardValue]);
 
     return (
         <div style={{ color: dark ? "white" : "black" }} className="product-editor-container">
             <div className="product-editor-data">
                 <ProductCard dark={dark} favorite={product.isfavourites} src={product.image} category name={""} style={{ width: "30vw", borderWidth: "3px" }} />
-                <EditableText id="name" onFocus={handleElementClick} className="product-editor-name" style={{ color: dark ? "#C595D4" : "#9031AA" }} text={product.name.toString()} name="name" onTextChange={handleTextChange} />
+                <EditableText id="name" onFocus={handleElementFocus} className="product-editor-name" style={{ color: dark ? "#C595D4" : "#9031AA" }} text={product.name.toString()} name="name" onTextChange={handleTextChange} />
                 <div className="product-editor-barcode">#{product.barcode}</div>
-                <EditableText id="price" onFocus={handleElementClick} className="product-editor-price" style={{ color: dark ? "#C595D4" : "#9031AA" }} text={product.price.toString()} name="price" onTextChange={handleTextChange} />
+                <EditableText id="price" onFocus={handleElementFocus} className="product-editor-price" style={{ color: dark ? "#C595D4" : "#9031AA" }} text={product.price.toString()} name="price" onTextChange={handleTextChange} />
                 <div className="product-editor-price-label">$</div>
-                <EditableText id="tax" onFocus={handleElementClick} className="product-editor-tax" style={{ color: dark ? "#C595D4" : "#9031AA" }} text={product.tax.toString()} name="tax" onTextChange={handleTextChange} />
+                <EditableText id="tax" onFocus={handleElementFocus} className="product-editor-tax" style={{ color: dark ? "#C595D4" : "#9031AA" }} text={product.tax.toString()} name="tax" onTextChange={handleTextChange} />
                 <div className="product-editor-tax-label">%</div>
-                <EditableText id="stock" onFocus={handleElementClick} className="product-editor-stock" style={{ color: dark ? "#C595D4" : "#9031AA" }} text={product.stock.toString()} name="stock" onTextChange={handleTextChange} />
+                <EditableText id="stock" onFocus={handleElementFocus} className="product-editor-stock" style={{ color: dark ? "#C595D4" : "#9031AA" }} text={product.stock.toString()} name="stock" onTextChange={handleTextChange} />
                 <div className="product-editor-stock-label">pcs.</div>
-                <EditableText id="photo" onFocus={handleElementClick} className="product-editor-image-placeholder" defaultText={"Photo"} text={product.image.toString()} name="image" onTextChange={handleTextChange} />
+                <EditableText id="photo" onFocus={handleElementFocus} className="product-editor-image-placeholder" defaultText={"Photo"} text={product.image.toString()} name="image" onTextChange={handleTextChange} />
                 <AddPhotoAlternateIcon className="product-editor-photo-icon" style={{ color: dark ? "#C595D4" : "#9031AA" }} />
                 <Checkbox onClick={changeFavorite} checked={product.isfavourites} style={{ right: "3%", top: "30%", fontSize: "1.5vw", position: "absolute", color: dark ? "#C595D4" : "#9031AA" }} color="error" icon={<FavoriteBorder style={{ width: "2vw" }} />} checkedIcon={<Favorite style={{ width: "2vw" }} />} />
                 <div className="product-editor-campaign-section">
@@ -122,7 +122,7 @@ function ProductEditor({ dark = false}) {
             <div className="product-editor-actions">
                 <Button style={{ flex: 1 }} size="small" onClick={onButtonClick} color="error" variant="contained">İptal Et</Button>
                 <ResponsiveDialog onConfirm={updateData} title="Ürün Güncelleme" text="Onaylamanız durumunda ürün girilen değerler ile güncellenecektir, kategori ve alt kategori gibi temel detaylar güncellenemez!" disabled={!changeData} style={{ flex: 1 }}>
-                    <Button ref={enter} disabled={!changeData} style={{ width: "100%" }} size="small" color="success" variant="contained">Kaydet</Button>
+                    <Button ref={enterRef} disabled={!changeData} style={{ width: "100%" }} size="small" color="success" variant="contained">Kaydet</Button>
                 </ResponsiveDialog>
             </div>
         </div>

@@ -46,11 +46,13 @@ const DataFetchingProvider = ({children}) => {
     const loginFunction = async (body) => {
         try {
             await login(body)
-            setOnline(true);
+            setLoggedIn(true);
+            localStorage.setItem('loggedIn', JSON.stringify(true));
             return true;
         } catch (error) {
             console.error(error);
-            setOnline(false);
+            setLoggedIn(false);
+            localStorage.setItem('loggedIn', JSON.stringify(false));
             return false;
         }
     };

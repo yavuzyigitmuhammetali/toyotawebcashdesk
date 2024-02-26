@@ -24,9 +24,9 @@ const KeyboardProvider = ({children}) => {
     }, [id]);
 
     const onChangeValue = (event) => {
-        const { id, value: inputValue } = event.target;
+        const { id:inputId, value: inputValue } = event.target;
         const updatedState = {...value};
-        updatedState[id] = inputValue;
+        updatedState[inputId?inputId:id] = inputValue;
         setValue(updatedState);
     };
 
@@ -54,7 +54,10 @@ const KeyboardProvider = ({children}) => {
 
 
     const handleElementFocus = (event) => {
-        const { id: elementId } = event.target;
+        const { id: elementId,value: elementValue } = event.target;
+        const updatedState = {...value};
+        updatedState[elementId] = elementValue;
+        setValue(updatedState);
         setId(elementId);
     };
 

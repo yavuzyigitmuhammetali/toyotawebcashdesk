@@ -89,6 +89,7 @@ function FormDialog({children,openManual = 0,screenKeyboard=true,buttonName,dial
                             onFocus={handleElementFocus}
                             onChange={onChangeValue}
                             value={inputValue}
+                            focused
                             autoFocus
                             required
                             margin="dense"

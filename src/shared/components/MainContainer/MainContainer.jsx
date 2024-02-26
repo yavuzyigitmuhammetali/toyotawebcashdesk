@@ -13,7 +13,7 @@ function MainContainer() {
     const formattedDate = `${(today.getMonth() + 1).toString().padStart(2, '0')}/${today.getDate().toString().padStart(2, '0')}/${today.getFullYear()}`;
 
     const location = useLocation();
-    const { productId } = useParams();
+    const { productId,receiptNumber } = useParams();
     let pageTitle;
     let prevLink;
     switch (location.pathname) {
@@ -53,7 +53,11 @@ function MainContainer() {
             if (location.pathname.startsWith('/products/list/')) {
                 pageTitle = `${productId} Numaralı Ürününü Görüntüleniyor`;
                 prevLink = '/products/list';
-            } else {
+            }else if(location.pathname.startsWith('/receipt/')){
+                pageTitle = `-${receiptNumber}-`;
+                prevLink = '/';
+            }
+            else {
                 pageTitle = 'Başlık';
                 prevLink = '/';
             }

@@ -45,7 +45,7 @@ function EditableText({ text, style, name,id, onFocus,defaultText = "", classNam
                     autoFocus
                 />
             ) : (
-                <span onDoubleClick={handleDoubleClick}>{defaultText?defaultText:text}</span>
+                <span  onDoubleClick={handleDoubleClick}>{defaultText?defaultText:text}</span>
             )}
         </div>
     );
