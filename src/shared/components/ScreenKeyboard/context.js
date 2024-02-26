@@ -7,6 +7,10 @@ const KeyboardProvider = ({children}) => {
     const [id, setId] = React.useState("")
     const enterRef = React.useRef(null);
 
+    const clearValues = ()=>{
+        setValue({})
+    }
+
     const handleEnter = () => {
         enterRef.current?.click();
     };
@@ -65,6 +69,7 @@ const KeyboardProvider = ({children}) => {
                 onChangeValue,
                 handleEnter,
                 handleElementFocus,
+                clearValues,
                 value,
                 id,
                 enterRef
