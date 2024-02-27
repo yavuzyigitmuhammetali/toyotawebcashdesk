@@ -30,7 +30,7 @@ function FormDialog({children,openManual = 0,screenKeyboard=true,buttonName,dial
     const [error, setError] = React.useState(false)
 
     useEffect(() => {
-        setInputValue(value.formDialog);
+        setInputValue(value.formDialog??"");
         setError(false);
     }, [value]);
 

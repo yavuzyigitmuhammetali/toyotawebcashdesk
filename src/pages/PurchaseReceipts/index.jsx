@@ -105,16 +105,19 @@ function Row({row,order,orderBy}) {
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                    {row.cart.map((product) => (
-                                        <TableRow key={product.date}>
-                                            <TableCell component="th" scope="row">
-                                                {product.name}
-                                            </TableCell>
-                                            <TableCell>{product.quantity}</TableCell>
-                                            <TableCell align="right">
-                                                {product.discountedPrice ? (product.discountedPrice * product.quantity) : (product.price * product.quantity)}
-                                            </TableCell>
-                                        </TableRow>
+                                    {row.cart.map((product,index) => (
+                                        <React.Fragment key={index}>
+                                            <TableRow key={product.date}>
+                                                <TableCell component="th" scope="row">
+                                                    {product.name}
+                                                </TableCell>
+                                                <TableCell>{product.quantity}</TableCell>
+                                                <TableCell align="right">
+                                                    {product.discountedPrice ? (product.discountedPrice * product.quantity) : (product.price * product.quantity)}
+                                                </TableCell>
+                                            </TableRow>
+                                        </React.Fragment>
+
                                     ))}
                                 </TableBody>
                             </Table>

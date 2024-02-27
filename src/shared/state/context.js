@@ -47,10 +47,21 @@ const DataFetchingProvider = ({children}) => {
             });
     }, []);
 
+     React.useEffect(() => {
+         if (!online){
+             logOut();
+         }
+     }, [online,loggedIn]);
+
 
     // React.useEffect(() => {
     //     setupAxiosInterceptors(online,setLoggedIn)
     // }, [online]);
+
+    const logOut = React.useCallback(() => {
+        document.cookie = "auth=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/api/v1;";
+        setLoggedIn(false);
+    }, [setLoggedIn]);
 
     const loginFunction = async (body) => {
         try {
@@ -73,7 +84,8 @@ const DataFetchingProvider = ({children}) => {
                 status,
                 online,
                 loggedIn,
-                loginFunction
+                loginFunction,
+                logOut
             }}
         >
             {children}

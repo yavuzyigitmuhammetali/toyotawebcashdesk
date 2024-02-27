@@ -23,7 +23,7 @@ const lightTheme = createTheme({
 
 
 function MainScreen({dark = false}) {
-    const {online, status} = React.useContext(DataFetchingContext);
+    const {online, status,logOut} = React.useContext(DataFetchingContext);
 
     const location = useLocation();
     const navigate = useNavigate();
@@ -38,10 +38,6 @@ function MainScreen({dark = false}) {
         }
     }, [navigate, location]);
 
-    const logOut = useCallback(() => {
-        document.cookie = "auth=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/api/v1;";
-        window.location.reload();
-    }, []);
     return (<>
             <ThemeProvider theme={dark ? darkTheme : lightTheme}>
                 <AlertComponent message={message} severity={severity} open={Boolean(message)}/>

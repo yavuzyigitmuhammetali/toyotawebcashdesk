@@ -29,7 +29,7 @@ function LoginPageRightArea({dark = false}) {
 
     useEffect(() => {
         setLoginData(() => {
-            return {username: value.username,password: value.password}
+            return {username: value.username??"",password: value.password??""}
         })
 
         if (loginData.username&&loginData.password){

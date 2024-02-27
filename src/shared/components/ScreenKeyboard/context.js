@@ -52,7 +52,7 @@ const KeyboardProvider = ({children}) => {
     const handleElementFocus = useCallback((event) => {
         const {id: elementId, value: elementValue} = event.target;
         setValue((prevValue) => ({
-            ...prevValue, [elementId]: elementValue,
+            ...prevValue, [elementId]: elementValue??"",
         }));
         setId(elementId);
     }, []);

@@ -25,10 +25,10 @@ function ProductShowcase({data=[],onClick,dark=false}) {
     const [map, setMap] = useState(1)
     const favourites = useMemo(() => data.filter(item => item.isfavourites), [data]);
     const alphabeticalFilteredData = useMemo(()=>filterDataByAlphabetGroups(data),[data])
-    const filteredByName = useMemo(()=>data.filter(item => item.name.toLowerCase().startsWith(value["prodcutSearch"]?.toLowerCase())),[data,value])
+    const filteredByName = useMemo(()=>data.filter(item => item.name.toLowerCase().startsWith(value.prodcutSearch?.toLowerCase())),[data, value.prodcutSearch])
 
     useEffect(() => {
-        setInputValue(value.prodcutSearch)
+        setInputValue(value.prodcutSearch??"")
         if (inputValue){
             setMap(0);
         }else{
