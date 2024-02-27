@@ -1,8 +1,8 @@
-import React from 'react';
+import React, {lazy} from 'react';
 import "./loginPageLeftArea.css"
 import OnlineOfflineIndicator from "../../../shared/components/OnlineOfflineIndicator";
-import LoginSrc from "./components/LoginSrc";
 import DataFetchingContext from "../../../shared/state/context";
+const LoginSrc = lazy(() => import('./components/LoginSrc'));
 
 function LoginPageLeftArea({width = "400px", dark = false}) {
     const {online,status} = React.useContext(DataFetchingContext);
