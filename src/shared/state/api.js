@@ -29,3 +29,7 @@ export function testLogin(){
     return  axios.get("/api/v1/test");
 }
 
+export function getIp(){
+    return axios.get('https://api.ipify.org?format=json')
+}
+

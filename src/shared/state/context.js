@@ -1,5 +1,5 @@
 import React from "react";
-import {getStatus, setupAxiosInterceptors, testLogin} from "./api";
+import {getIp, getStatus, setupAxiosInterceptors, testLogin} from "./api";
 import {checkOnline} from "../functions/checkOnline";
 import {login} from "./api"
 const DataFetchingContext = React.createContext(undefined);
@@ -12,10 +12,19 @@ const DataFetchingProvider = ({children}) => {
     const [loggedIn, setLoggedIn] = React.useState(JSON.parse(localStorage.getItem('loggedIn')));
 
     React.useEffect(() => {
-        getStatus().then(response => {
-            setStatus(response.data)
-            localStorage.setItem('status', JSON.stringify(response.data));
-        }).catch(err => console.log(err))
+        getStatus()
+            .then(response => {
+                const statusData = response.data;
+                return getIp().then(ipResponse => {
+                    const combinedData = {
+                        ...statusData,
+                        userIp: ipResponse.data.ip,
+                    };
+                    setStatus(combinedData);
+                    localStorage.setItem('status', JSON.stringify(combinedData));
+                }).catch(reason => console.log(reason));
+            })
+            .catch(err => console.log(err));
         checkOnline().then(res=> {
             if (!res){
                 setOnline(false)
