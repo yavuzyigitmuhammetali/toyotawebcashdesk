@@ -4,11 +4,11 @@ import {IconButton} from "@mui/material";
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import SettingsIcon from '@mui/icons-material/Settings';
 import OnlineOfflineIndicator from "../OnlineOfflineIndicator";
-import DataFetchingContext from "../../state/context";
+import AppStatusContext from "../../state/AppStatus/context";
 import {Link, Outlet, useLocation, useParams} from 'react-router-dom';
 
 function MainContainer() {
-    const {status,online} = useContext(DataFetchingContext)
+    const {status,isOnline} = useContext(AppStatusContext)
     const today = new Date();
     const formattedDate = `${(today.getMonth() + 1).toString().padStart(2, '0')}/${today.getDate().toString().padStart(2, '0')}/${today.getFullYear()}`;
 
@@ -83,7 +83,7 @@ function MainContainer() {
                 <Outlet/>
             </main>
             <footer className="main-container-footer">
-                <div><OnlineOfflineIndicator online={online}/></div>
+                <div><OnlineOfflineIndicator online={isOnline}/></div>
                 <div>{formattedDate}</div>
                 <div style={{display:"flex",flexDirection:"column"}}>
                     <span>Kasa: {status.case}</span>

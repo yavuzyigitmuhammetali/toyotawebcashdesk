@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import "./mainScreen.css"
 import OnlineOfflineIndicator from "../../shared/components/OnlineOfflineIndicator";
 import SettingsIcon from '@mui/icons-material/Settings';
@@ -8,7 +8,7 @@ import MainScreenItem from "./components/MainScreenItem";
 import {createTheme, ThemeProvider} from "@mui/material/styles";
 import AlertComponent from "../../shared/components/AlertComponent";
 import {useLocation, useNavigate} from "react-router-dom";
-import DataFetchingContext from "../../shared/state/context";
+import AppStatusContext from "../../shared/state/AppStatus/context";
 
 const darkTheme = createTheme({
     palette: {
@@ -23,7 +23,7 @@ const lightTheme = createTheme({
 
 
 function MainScreen({dark = false}) {
-    const {online, status,logOut} = React.useContext(DataFetchingContext);
+    const {isOnline, status,logOut} = React.useContext(AppStatusContext);
 
     const location = useLocation();
     const navigate = useNavigate();
@@ -57,7 +57,7 @@ function MainScreen({dark = false}) {
                     </div>
                 </div>
                 <div className="main-screen-lower-left">
-                    <OnlineOfflineIndicator online={online}/>
+                    <OnlineOfflineIndicator online={isOnline}/>
                 </div>
                 <div style={{
                     backgroundColor: dark ? "#1E1E1E" : "white",

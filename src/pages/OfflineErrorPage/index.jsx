@@ -4,12 +4,12 @@ import {ThemeProvider} from '@mui/material/styles';
 import ScheduleTable from './components/ScheduleTable';
 import {getTheme} from './theme';
 import CountdownTimer from "./components/CountdownTimer";
-import DataFetchingContext from "../../shared/state/context";
+import AppStatusContext from "../../shared/state/AppStatus/context";
 import OnlineOfflineIndicator from "../../shared/components/OnlineOfflineIndicator";
 
 const OfflineErrorPage = ({dark = true}) => {
     const theme = getTheme(dark ? "dark" : "light");
-    const {status,online} = React.useContext(DataFetchingContext);
+    const {status,isOnline} = React.useContext(AppStatusContext);
     const [schedule, setSchedule] = useState(
         {
             "Monday": null,
@@ -44,7 +44,7 @@ const OfflineErrorPage = ({dark = true}) => {
                     color: 'text.primary',
                 }}
             >
-                <OnlineOfflineIndicator online={online}/>
+                <OnlineOfflineIndicator online={isOnline}/>
                 <Typography variant="h4" component="h1" gutterBottom sx={{fontWeight: 'bold', mb: 4}}>
                     Oops! We're currently offline.
                 </Typography>

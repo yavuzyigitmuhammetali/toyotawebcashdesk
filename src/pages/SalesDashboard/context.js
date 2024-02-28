@@ -1,17 +1,15 @@
-import React from "react";
+import React, {useContext} from "react";
 import {
     applyBuy3Pay2, applyPerCentDiscount, applyStudentTaxFree, calculateSubtotalAndTotal
 } from "./functions/productProcessing";
-import {getCategories, getProducts, getSubCategories} from "./api";
+import AppDataContext from "../../shared/state/AppData/context";
 
 
 const CartContext = React.createContext(undefined);
 
 const CartProvider = ({children}) => {
     const [cart, setCart] = React.useState([])
-    const [categories, setCategories] = React.useState([])
-    const [subCategories, setSubCategories] = React.useState([])
-    const [products, setProducts] = React.useState([])
+    const {products,categories,subCategories} = useContext(AppDataContext);
     const [total, setTotal] = React.useState(0)
     const [subTotal, setSubTotal] = React.useState(0)
     const [discounts, setDiscounts] = React.useState({
@@ -98,16 +96,6 @@ const CartProvider = ({children}) => {
     }, [totalQuantity, discounts]);
 
     React.useEffect(() => {
-        getCategories()
-            .then(response => setCategories(response.data))
-            .catch(error => console.log(error));
-        getSubCategories()
-            .then(response => setSubCategories(response.data))
-            .catch(error => console.log(error));
-        getProducts()
-            .then(response => setProducts(response.data))
-            .catch(error => console.log(error));
-
         const salesDataString = localStorage.getItem('salesData')
         if (salesDataString){
             const {cart} = JSON.parse(salesDataString)

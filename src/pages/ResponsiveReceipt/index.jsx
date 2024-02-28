@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useCallback, useContext, useEffect, useState} from 'react';
 import "./responsiveReceipt.css"
 import AlignHorizontalRightIcon from '@mui/icons-material/AlignHorizontalRight';
 import AlignHorizontalCenterIcon from '@mui/icons-material/AlignHorizontalCenter';
@@ -10,26 +10,29 @@ import {ToggleButtonGroup} from "@mui/material";
 import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
 import PaperIcon from '@mui/icons-material/Feed';
 import {useParams} from "react-router-dom";
-import {getReceipt} from "./api";
+import AppDataContext from "../../shared/state/AppData/context";
 
 
 function ResponsiveReceipt({dark = false}) {
     const [receipt,setReceipt] = useState({})
+    const {receipts} = useContext(AppDataContext);
     const [alignment, setAlignment] = useState('left');
     const [alignment2, setAlignment2] = useState('left');
     const { receiptNumber } = useParams();
 
-
     useEffect(() => {
-        getReceipt(receiptNumber).then(value => setReceipt(value.data)).catch(reason => console.log(reason))
-    }, [receiptNumber]);
+        const filteredReceipt = receipts.filter(item => item.receiptNumber === receiptNumber)[0];
+        setReceipt(filteredReceipt);
+    }, [receiptNumber, receipts]);
+
+
     const handlePrint = useCallback(() => {
         if (receipt.active){
             window.print();
         }else{
             alert('İade edilmiş fiş ve faturalar tekrar talep edilemez!');
         }
-    }, [receipt.active]);
+    }, [receipt]);
 
 
     const handleAlignment = (event, newAlignment) => {

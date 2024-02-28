@@ -7,8 +7,10 @@ import {Favorite, FavoriteBorder} from "@mui/icons-material";
 import KeyboardContext from "../../shared/components/ScreenKeyboard/context";
 import ScreenKeyboard from "../../shared/components/ScreenKeyboard/ScreenKeyboard";
 import {createTheme, ThemeProvider} from "@mui/material/styles";
-import {getCategories, getProducts, getSubCategories, sendProduct} from "./api";
+import {sendProduct} from "./api";
 import ResponsiveDialog from "../../shared/components/ResponsiveDialog";
+import AppDataContext from "../../shared/state/AppData/context";
+import {generateBarcode} from "./functions";
 
 const darkTheme = createTheme({
     palette: {
@@ -23,9 +25,10 @@ const lightTheme = createTheme({
 
 function ProductEntryPanel({dark = false}) {
     const {handleElementFocus, value, onChangeValue, enterRef, clearValues} = useContext(KeyboardContext);
+    const {categories,subCategories:_subCategories,products} = useContext(AppDataContext);
     const [formData, setFormData] = useState({
         id: null,
-        barcode: '',
+        barcode: 0,
         name: '',
         stock: 0,
         price: 0,
@@ -36,42 +39,28 @@ function ProductEntryPanel({dark = false}) {
         categoryId: 0,
         subCategoryId: 0
     });
-    const [categories, setCategories] = useState([]);
     const [subCategories, setSubCategories] = useState([]);
     const [valid, setValid] = useState(false);
 
     useEffect(() => {
-        const isValid = formData.barcode !== '' && formData.name !== '' && formData.price !== 0 && formData.categoryId !== 0 && formData.subCategoryId !== 0;
+        const isValid = formData.barcode !== 0 && formData.name !== '' && formData.price !== 0 && formData.categoryId !== 0 && formData.subCategoryId !== 0;
         setValid(isValid);
     }, [formData]);
 
-    useEffect(() => {
-        getCategories()
-            .then((res) => setCategories(res.data))
-            .catch((error) => console.error('Error fetching categories:', error));
-    }, []);
 
     useEffect(() => {
         if (formData.categoryId !== 0) {
-            getSubCategories()
-                .then((res) => {
-                    setSubCategories(res.data.filter((r) => r.categoryId === formData.categoryId));
-                })
-                .catch((error) => console.error('Error fetching subcategories:', error));
+            setSubCategories(_subCategories.filter((r) => r.categoryId === formData.categoryId))
         }
     }, [formData.categoryId]);
 
     useEffect(() => {
-        getProducts().then((response) => {
-            const newId = response.data.length + 1;
+        const newId =  products.length+1;
             setFormData((prevFormData) => ({
                 ...prevFormData,
                 id: newId,
                 barcode: generateBarcode(prevFormData.categoryId, prevFormData.subCategoryId, newId)
             }));
-        }).catch((error) => {
-            console.error('Error fetching product count:', error);
-        });
     }, []);
 
 
@@ -89,39 +78,6 @@ function ProductEntryPanel({dark = false}) {
     }, [value]);
 
 
-    const generateBarcode = (categoryId, subCategoryId, id) => {
-        const categoryPart = `${categoryId}`.length === 1 ? `${categoryId}0` : `${categoryId}`;
-
-        let subCategoryPart;
-        if (`${subCategoryId}`.length === 1) {
-            subCategoryPart = `${subCategoryId}00`;
-        } else if (`${subCategoryId}`.length === 2) {
-            subCategoryPart = `${subCategoryId}0`;
-        } else {
-            subCategoryPart = `${subCategoryId}`;
-        }
-
-        let idPart;
-        switch (`${id}`.length) {
-            case 1:
-                idPart = `${id}0000`;
-                break;
-            case 2:
-                idPart = `${id}000`;
-                break;
-            case 3:
-                idPart = `${id}00`;
-                break;
-            case 4:
-                idPart = `${id}0`;
-                break;
-            default:
-                idPart = `${id}`;
-        }
-
-        const barcode = `${categoryPart}${subCategoryPart}${idPart}`;
-        return parseInt(barcode, 10);
-    };
 
     const handleInputChange = (event) => {
         const {name, value} = event.target;

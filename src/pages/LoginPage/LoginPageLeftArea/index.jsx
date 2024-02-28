@@ -1,17 +1,17 @@
 import React, {lazy} from 'react';
 import "./loginPageLeftArea.css"
 import OnlineOfflineIndicator from "../../../shared/components/OnlineOfflineIndicator";
-import DataFetchingContext from "../../../shared/state/context";
+import AppStatusContext from "../../../shared/state/AppStatus/context";
 const LoginSrc = lazy(() => import('./components/LoginSrc'));
 
 function LoginPageLeftArea({width = "400px", dark = false}) {
-    const {online,status} = React.useContext(DataFetchingContext);
+    const {isOnline,status} = React.useContext(AppStatusContext);
 
 
     return (
         <div style={{color: dark ? "white" : "#111418", width: width}} className="login-page-left-area-container">
             <div className="login-page-left-area-indicator">
-                <OnlineOfflineIndicator online={online}/>
+                <OnlineOfflineIndicator online={isOnline}/>
             </div>
             <LoginSrc dark={dark}/>
             <span className="login-page-left-area-texts good-wish">Store Number: {status.storeNumber}</span>

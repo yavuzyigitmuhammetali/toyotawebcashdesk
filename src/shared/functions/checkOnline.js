@@ -1,4 +1,4 @@
-import {getStatus} from "../state/api";
+import {getStatus} from "../state/AppStatus/api";
 
 export async function checkOnline() {
     try {
@@ -43,7 +43,6 @@ export function parseTimeToDate(timeString) {
 }
 
 export function updateOnlineStatus(setOnline,schedule) {
-    console.log(schedule)
     const now = new Date();
     const dayOfWeek = now.toLocaleString('en-US', { weekday: 'long' });
     const dailySchedule = schedule[dayOfWeek];

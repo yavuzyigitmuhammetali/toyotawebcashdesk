@@ -25,7 +25,7 @@ function Receipt({
             price: 0,
             tax: 0,
             campaign: "",
-            isFavourites: false,
+            isFavourite: false,
             image: "",
             categoryId: 0,
             subCategoryId: 0,

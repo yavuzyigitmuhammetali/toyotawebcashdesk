@@ -23,7 +23,7 @@ function ProductShowcase({data=[],onClick,dark=false}) {
     const [inputValue, setInputValue] = useState("")
     const { handleElementFocus, value,onChangeValue,clearValues } = useContext(KeyboardContext);
     const [map, setMap] = useState(1)
-    const favourites = useMemo(() => data.filter(item => item.isfavourites), [data]);
+    const favourites = useMemo(() => data.filter(item => item.isFavourite), [data]);
     const alphabeticalFilteredData = useMemo(()=>filterDataByAlphabetGroups(data),[data])
     const filteredByName = useMemo(()=>data.filter(item => item.name.toLowerCase().startsWith(value.prodcutSearch?.toLowerCase())),[data, value.prodcutSearch])
 
@@ -82,28 +82,28 @@ function ProductShowcase({data=[],onClick,dark=false}) {
                             {map === 0 ? filteredByName.map((product, key) => <ProductCard
                                     discountText={product.campaign} onClick={() => onClick(product)} key={key} dark={dark}
                                     name={product.name} src={product.image} barcode={product.barcode}
-                                    favorite={product.isfavourites} price={product.price} stock={product.stock}/>)
+                                    favorite={product.isFavourite} price={product.price} stock={product.stock}/>)
                                 : map === 11? data.filter(product=>!product.barcode).map((product, key)=><ProductCard
                                         discountText={product.campaign} onClick={() => onClick(product)} key={key} dark={dark}
                                         name={product.name} src={product.image} barcode={product.barcode}
-                                        favorite={product.isfavourites} price={product.price} stock={product.stock}/>)
+                                        favorite={product.isFavourite} price={product.price} stock={product.stock}/>)
                                 : map === 1 ? data.map((product, key) => <ProductCard discountText={product.campaign}
                                                                                       onClick={() => onClick(product)}
                                                                                       key={key} dark={dark}
                                                                                       name={product.name}
                                                                                       src={product.image}
                                                                                       barcode={product.barcode}
-                                                                                      favorite={product.isfavourites}
+                                                                                      favorite={product.isFavourite}
                                                                                       price={product.price}
                                                                                       stock={product.stock}/>)
                                     : map === 2 ? favourites.map((product, key) => <ProductCard
                                             discountText={product.campaign} onClick={() => onClick(product)} key={key}
                                             dark={dark} name={product.name} src={product.image} barcode={product.barcode}
-                                            favorite={product.isfavourites} price={product.price} stock={product.stock}/>)
+                                            favorite={product.isFavourite} price={product.price} stock={product.stock}/>)
                                         : alphabeticalFilteredData[map - 3].map((product, key) => <ProductCard
                                             discountText={product.campaign} onClick={() => onClick(product)} key={key}
                                             dark={dark} name={product.name} src={product.image}
-                                            barcode={product.barcode} favorite={product.isfavourites}
+                                            barcode={product.barcode} favorite={product.isFavourite}
                                             price={product.price} stock={product.stock}/>)}
                         </div>
                     </div>

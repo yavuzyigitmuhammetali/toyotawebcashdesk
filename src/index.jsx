@@ -2,19 +2,22 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import reportWebVitals from './reportWebVitals';
 import "./index.css"
-import {DataFetchingProvider} from "./shared/state/context";
+import {AppStatusProvider} from "./shared/state/AppStatus/context";
 import {KeyboardProvider} from "./shared/components/ScreenKeyboard/context";
 import {RouterProvider} from "react-router-dom";
 import router from "./router";
+import {AppDataProvider} from "./shared/state/AppData/context";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-      <DataFetchingProvider>
-          <KeyboardProvider>
-              <RouterProvider router={router}/>
-          </KeyboardProvider>
-      </DataFetchingProvider>
+      <AppStatusProvider>
+          <AppDataProvider>
+              <KeyboardProvider>
+                  <RouterProvider router={router}/>
+              </KeyboardProvider>
+          </AppDataProvider>
+      </AppStatusProvider>
   </React.StrictMode>
 );
 

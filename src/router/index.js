@@ -10,7 +10,7 @@ import MainContainer from "../shared/components/MainContainer/MainContainer";
 import ProductsDashboard from "../pages/ProductsDashboard";
 import ProductEditor from "../pages/ProductsDashboard/components/ProductEditor/ProductEditor";
 import ProductEntryPanel from "../pages/ProductEntryPanel";
-import RequireAuth from "../shared/state/RequireAuth";
+import RequireAuth from "../shared/state/AppStatus/RequireAuth";
 
 
 export default createBrowserRouter(

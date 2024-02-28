@@ -56,7 +56,7 @@ function ProductEditor({ dark = false}) {
     const changeFavorite = () => {
         setProduct(prevProduct => ({
             ...prevProduct,
-            isfavourites: !prevProduct.isfavourites
+            isFavourite: !prevProduct.isFavourite
         }));
     };
 
@@ -84,7 +84,7 @@ function ProductEditor({ dark = false}) {
     return (
         <div style={{ color: dark ? "white" : "black" }} className="product-editor-container">
             <div className="product-editor-data">
-                <ProductCard dark={dark} favorite={product.isfavourites} src={product.image} category name={""} style={{ width: "30vw", borderWidth: "3px" }} />
+                <ProductCard dark={dark} favorite={product.isFavourite} src={product.image} category name={""} style={{ width: "30vw", borderWidth: "3px" }} />
                 <EditableText id="name" onFocus={handleElementFocus} className="product-editor-name" style={{ color: dark ? "#C595D4" : "#9031AA" }} text={product.name.toString()} name="name" onTextChange={handleTextChange} />
                 <div className="product-editor-barcode">#{product.barcode}</div>
                 <EditableText id="price" onFocus={handleElementFocus} className="product-editor-price" style={{ color: dark ? "#C595D4" : "#9031AA" }} text={product.price.toString()} name="price" onTextChange={handleTextChange} />
@@ -95,7 +95,7 @@ function ProductEditor({ dark = false}) {
                 <div className="product-editor-stock-label">pcs.</div>
                 <EditableText id="photo" onFocus={handleElementFocus} className="product-editor-image-placeholder" defaultText={"Photo"} text={product.image.toString()} name="image" onTextChange={handleTextChange} />
                 <AddPhotoAlternateIcon className="product-editor-photo-icon" style={{ color: dark ? "#C595D4" : "#9031AA" }} />
-                <Checkbox onClick={changeFavorite} checked={product.isfavourites} style={{ right: "3%", top: "30%", fontSize: "1.5vw", position: "absolute", color: dark ? "#C595D4" : "#9031AA" }} color="error" icon={<FavoriteBorder style={{ width: "2vw" }} />} checkedIcon={<Favorite style={{ width: "2vw" }} />} />
+                <Checkbox onClick={changeFavorite} checked={product.isFavourite} style={{ right: "3%", top: "30%", fontSize: "1.5vw", position: "absolute", color: dark ? "#C595D4" : "#9031AA" }} color="error" icon={<FavoriteBorder style={{ width: "2vw" }} />} checkedIcon={<Favorite style={{ width: "2vw" }} />} />
                 <div className="product-editor-campaign-section">
                     <div className="product-editor-campaign-text" onClick={() => setSelectState(!selectState)} style={{ backgroundColor: dark ? "#C595D4" : "#9031AA" }}>
                         {product.campaign}

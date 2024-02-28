@@ -1,8 +1,9 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useCallback, useContext, useEffect, useState} from 'react';
 import ProductShowcase from "../../shared/components/ProductShowcase/ProductShowcase";
 import axios from "axios";
 import {createTheme, ThemeProvider} from "@mui/material/styles";
 import {Outlet, useNavigate} from "react-router-dom";
+import AppDataContext from "../../shared/state/AppData/context";
 const darkTheme = createTheme({
     palette: {
         mode: 'dark',
@@ -15,13 +16,8 @@ const lightTheme = createTheme({
 });
 
 function ProductsDashboard({dark = false}) {
-    const [products,setProducts] = useState([])
     const navigate = useNavigate();
-
-
-    useEffect(() => {
-        axios.get("/api/v1/products").then(response => setProducts(response.data)).catch(reason => console.log(reason))
-    }, []);
+    const {products} = useContext(AppDataContext);
 
     const onProductShowcaseClick = useCallback((event) => {
         navigate(`/products/list/${event.id}`, {replace: true, state: {products:products}})

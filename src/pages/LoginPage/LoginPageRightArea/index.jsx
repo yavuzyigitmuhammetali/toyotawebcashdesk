@@ -15,7 +15,7 @@ import "./loginPageRightArea.css";
 import KeyboardContext from "../../../shared/components/ScreenKeyboard/context";
 import ScreenKeyboard from "../../../shared/components/ScreenKeyboard/ScreenKeyboard";
 import {useNavigate} from "react-router-dom";
-import DataFetchingContext from "../../../shared/state/context";
+import AppStatusContext from "../../../shared/state/AppStatus/context";
 import {Visibility, VisibilityOff} from "@mui/icons-material";
 
 const darkTheme = createTheme({
@@ -36,7 +36,7 @@ function LoginPageRightArea({dark = false}) {
     const [buttonState, setButtonState] = useState(false)
     const navigate = useNavigate();
     const { handleElementFocus, value,onChangeValue,enterRef,clearValues } = useContext(KeyboardContext);
-    const {loginFunction} = useContext(DataFetchingContext);
+    const {loginFunction} = useContext(AppStatusContext);
 
     const handleClickShowPassword = () => setShowPassword((show) => !show);
 

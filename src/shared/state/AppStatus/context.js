@@ -1,23 +1,16 @@
 import React from "react";
 import {getIp, getStatus, testLogin} from "./api";
-import { setupTimer, updateOnlineStatus} from "../functions/checkOnline";
+import { setupTimer, updateOnlineStatus} from "../../functions/checkOnline";
 import {login} from "./api"
-const DataFetchingContext = React.createContext(undefined);
+const AppStatusContext = React.createContext(undefined);
 
-const DataFetchingProvider = ({children}) => {
+const AppStatusProvider = ({children}) => {
     const [status, setStatus] = React.useState(JSON.parse(localStorage.getItem('status')));
-    const [online, setOnline] = React.useState(JSON.parse(localStorage.getItem('online')));
+    const [isOnline, setIsOnline] = React.useState(JSON.parse(localStorage.getItem('online')));
+    const [isLoggedIn, setIsLoggedIn] = React.useState(JSON.parse(localStorage.getItem('loggedIn')));
     const [dark, setDark] = React.useState(false);
     //const [lang, setLang] = React.useState("tr");
-    const [loggedIn, setLoggedIn] = React.useState(JSON.parse(localStorage.getItem('loggedIn')));
 
-
-    React.useEffect(() => {
-        updateOnlineStatus(setOnline,status.schedule);
-        const timer = setupTimer(setOnline,status.schedule);
-        localStorage.setItem('online', JSON.stringify(online));
-        return () => timer && clearTimeout(timer);
-    }, [status]);
 
     React.useEffect(() => {
         getStatus()
@@ -33,75 +26,68 @@ const DataFetchingProvider = ({children}) => {
                 }).catch(reason => console.log(reason));
             })
             .catch(err => console.log(err));
-/*        checkOnline().then(res=> {
-            if (!res){
-                setOnline(false)
-                localStorage.setItem('online', JSON.stringify(false));
-                document.cookie = "auth=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/api/v1;";
-            }else {
-                setOnline(true)
-                localStorage.setItem('online', JSON.stringify(true));
-            }
-        })*/
         testLogin()
             .then(response =>{
-                setLoggedIn(response.status === 200)
+                setIsLoggedIn(response.status === 200)
                 localStorage.setItem('loggedIn', JSON.stringify(response.status === 200));
             } )
             .catch(reason => {
-                setLoggedIn(false)
+                setIsLoggedIn(false)
                 localStorage.setItem('loggedIn', JSON.stringify(false));
                 console.log(reason)
             });
     }, []);
 
-
+    React.useEffect(() => {
+        if (status){
+            updateOnlineStatus(setIsOnline,status.schedule);
+            const timer = setupTimer(setIsOnline,status.schedule??null);
+            localStorage.setItem('online', JSON.stringify(isOnline));
+            return () => timer && clearTimeout(timer);
+        }
+    }, [status]);
 
 
     React.useEffect(() => {
-         if (!online){
-             logOut();
+         if (!isOnline){
+            // logOut();
          }
-     }, [online,loggedIn]);
+     }, [isOnline,isLoggedIn]);
 
-
-    // React.useEffect(() => {
-    //     setupAxiosInterceptors(online,setLoggedIn)
-    // }, [online]);
 
     const logOut = React.useCallback(() => {
         document.cookie = "auth=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/api/v1;";
-        setLoggedIn(false);
-    }, [setLoggedIn]);
+        setIsLoggedIn(false);
+    }, [setIsLoggedIn]);
 
     const loginFunction = async (body) => {
         try {
             await login(body)
-            setLoggedIn(true);
+            setIsLoggedIn(true);
             localStorage.setItem('loggedIn', JSON.stringify(true));
             return true;
         } catch (error) {
             console.error(error);
-            setLoggedIn(false);
+            setIsLoggedIn(false);
             localStorage.setItem('loggedIn', JSON.stringify(false));
             return false;
         }
     };
 
     return (
-        <DataFetchingContext.Provider
+        <AppStatusContext.Provider
             value={{
                 dark,
                 status,
-                online,
-                loggedIn,
+                isOnline,
+                isLoggedIn,
                 loginFunction,
                 logOut
             }}
         >
             {children}
-        </DataFetchingContext.Provider>
+        </AppStatusContext.Provider>
     );
 };
-export default DataFetchingContext;
-export {DataFetchingProvider};
+export default AppStatusContext;
+export {AppStatusProvider};

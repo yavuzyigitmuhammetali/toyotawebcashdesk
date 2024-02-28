@@ -32,4 +32,3 @@ export function testLogin(){
 export function getIp(){
     return axios.get('https://api.ipify.org?format=json')
 }
-

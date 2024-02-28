@@ -57,9 +57,6 @@ function RefundDashboard({dark =false}) {
         })
     }
 
-    useEffect(() => {
-        console.log(receipt);
-    }, [receipt]);
     const handleOnDelete = (product) => {
         setCart(prevState => {
             const productIndex = prevState.findIndex(item => item.id === product.id);
