@@ -34,3 +34,50 @@ function checkDayAndTime(schedule, currentDay, currentTime) {
         (currentHour < endHour || (currentHour === endHour && currentMinute <= endMinute))
     );
 }
+
+export function parseTimeToDate(timeString) {
+    const [hours, minutes] = timeString.split(':').map(Number);
+    const date = new Date();
+    date.setHours(hours, minutes, 0, 0);
+    return date;
+}
+
+export function updateOnlineStatus(setOnline,schedule) {
+    console.log(schedule)
+    const now = new Date();
+    const dayOfWeek = now.toLocaleString('en-US', { weekday: 'long' });
+    const dailySchedule = schedule[dayOfWeek];
+
+    if (!dailySchedule) {
+        setOnline(false);
+        return;
+    }
+
+    const startTime = parseTimeToDate(dailySchedule.start);
+    const endTime = parseTimeToDate(dailySchedule.end);
+
+    setOnline(now >= startTime && now < endTime);
+}
+
+export function setupTimer(setOnline,schedule) {
+    const now = new Date();
+    const dayOfWeek = now.toLocaleString('en-US', { weekday: 'long' });
+    const dailySchedule = schedule[dayOfWeek];
+
+    if (!dailySchedule) return null;
+
+    const startTime = parseTimeToDate(dailySchedule.start);
+    const endTime = parseTimeToDate(dailySchedule.end);
+    let delay;
+
+    if (now < startTime) {
+        delay = startTime.getTime() - now.getTime();
+    } else if (now >= startTime && now < endTime) {
+        delay = endTime.getTime() - now.getTime();
+    } else {
+        delay = 24 * 60 * 60 * 1000 - now.getTime() + startTime.getTime();
+    }
+
+    return setTimeout(()=>updateOnlineStatus(setOnline,schedule), delay);
+}
+

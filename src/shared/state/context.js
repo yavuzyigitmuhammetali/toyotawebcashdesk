@@ -1,6 +1,6 @@
 import React from "react";
-import {getIp, getStatus, setupAxiosInterceptors, testLogin} from "./api";
-import {checkOnline} from "../functions/checkOnline";
+import {getIp, getStatus, testLogin} from "./api";
+import { setupTimer, updateOnlineStatus} from "../functions/checkOnline";
 import {login} from "./api"
 const DataFetchingContext = React.createContext(undefined);
 
@@ -10,6 +10,14 @@ const DataFetchingProvider = ({children}) => {
     const [dark, setDark] = React.useState(false);
     //const [lang, setLang] = React.useState("tr");
     const [loggedIn, setLoggedIn] = React.useState(JSON.parse(localStorage.getItem('loggedIn')));
+
+
+    React.useEffect(() => {
+        updateOnlineStatus(setOnline,status.schedule);
+        const timer = setupTimer(setOnline,status.schedule);
+        localStorage.setItem('online', JSON.stringify(online));
+        return () => timer && clearTimeout(timer);
+    }, [status]);
 
     React.useEffect(() => {
         getStatus()
@@ -25,7 +33,7 @@ const DataFetchingProvider = ({children}) => {
                 }).catch(reason => console.log(reason));
             })
             .catch(err => console.log(err));
-        checkOnline().then(res=> {
+/*        checkOnline().then(res=> {
             if (!res){
                 setOnline(false)
                 localStorage.setItem('online', JSON.stringify(false));
@@ -34,7 +42,7 @@ const DataFetchingProvider = ({children}) => {
                 setOnline(true)
                 localStorage.setItem('online', JSON.stringify(true));
             }
-        })
+        })*/
         testLogin()
             .then(response =>{
                 setLoggedIn(response.status === 200)
@@ -47,7 +55,10 @@ const DataFetchingProvider = ({children}) => {
             });
     }, []);
 
-     React.useEffect(() => {
+
+
+
+    React.useEffect(() => {
          if (!online){
              logOut();
          }

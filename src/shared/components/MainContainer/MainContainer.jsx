@@ -54,7 +54,7 @@ function MainContainer() {
                 pageTitle = `${productId} Numaralı Ürününü Görüntüleniyor`;
                 prevLink = '/products/list';
             }else if(location.pathname.startsWith('/receipt/')){
-                pageTitle = `-${receiptNumber}-`;
+                pageTitle = `***${receiptNumber}***`;
                 prevLink = '/';
             }
             else {
