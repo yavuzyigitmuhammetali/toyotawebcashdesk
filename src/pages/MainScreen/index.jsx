@@ -24,7 +24,6 @@ const lightTheme = createTheme({
 
 function MainScreen({dark = false}) {
     const {isOnline, status,logOut} = React.useContext(AppStatusContext);
-
     const location = useLocation();
     const navigate = useNavigate();
     const [message, setMessage] = useState(location.state?.errorMessage || location.state?.successMessage);

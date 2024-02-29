@@ -9,20 +9,21 @@ import Receipt from "../../shared/components/Receipt/Receipt";
 import {ToggleButtonGroup} from "@mui/material";
 import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
 import PaperIcon from '@mui/icons-material/Feed';
-import {useParams} from "react-router-dom";
+import {useLocation, useParams} from "react-router-dom";
 import AppDataContext from "../../shared/state/AppData/context";
+import {defaultReceipt} from "../../shared/state/AppData/defaultData";
 
 
 function ResponsiveReceipt({dark = false}) {
-    const [receipt,setReceipt] = useState({})
     const {receipts} = useContext(AppDataContext);
+    const location = useLocation();
+    const [receipt,setReceipt] = useState({})
     const [alignment, setAlignment] = useState('left');
     const [alignment2, setAlignment2] = useState('left');
     const { receiptNumber } = useParams();
-
     useEffect(() => {
         const filteredReceipt = receipts.filter(item => item.receiptNumber === receiptNumber)[0];
-        setReceipt(filteredReceipt);
+        setReceipt( location.state?.receipt??filteredReceipt??defaultReceipt);
     }, [receiptNumber, receipts]);
 
 
@@ -32,7 +33,7 @@ function ResponsiveReceipt({dark = false}) {
         }else{
             alert('İade edilmiş fiş ve faturalar tekrar talep edilemez!');
         }
-    }, [receipt]);
+    }, [receipt.active]);
 
 
     const handleAlignment = (event, newAlignment) => {

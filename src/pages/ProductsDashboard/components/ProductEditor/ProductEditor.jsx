@@ -10,6 +10,7 @@ import ResponsiveDialog from "../../../../shared/components/ResponsiveDialog";
 import ScreenKeyboard from "../../../../shared/components/ScreenKeyboard/ScreenKeyboard";
 import KeyboardContext from "../../../../shared/components/ScreenKeyboard/context";
 import {useLocation, useNavigate, useParams} from "react-router-dom";
+import AppDataContext from "../../../../shared/state/AppData/context";
 
 function ProductEditor({ dark = false}) {
     const { productId:_productId } = useParams();
@@ -19,6 +20,7 @@ function ProductEditor({ dark = false}) {
     const [selectState, setSelectState] = useState(false);
     const [changeData, setChangeData] = useState(false);
     const { handleElementFocus, value:screenKeyboardValue,clearValues,enterRef } = useContext(KeyboardContext);
+    const {fetchProducts} = useContext(AppDataContext);
     const tempProduct = location.state?.products.find(value => value.id === productId);
     const [product, setProduct] = useState(tempProduct);
 
@@ -47,7 +49,7 @@ function ProductEditor({ dark = false}) {
     }, [product, tempProduct,navigate]);
 
 
-    const onButtonClick = useCallback(() => {
+    const cancelChange = useCallback(() => {
         navigate('/products/list');
         clearValues();
     }, [navigate, clearValues]);
@@ -62,7 +64,7 @@ function ProductEditor({ dark = false}) {
 
     const updateData = () => {
         if (JSON.stringify(product) !== JSON.stringify(tempProduct)) {
-            axios.patch(`/api/v1/products/${productId}`, product).then(()=>{navigate('/products/list');window.location.reload();clearValues();}).catch(reason => console.log(reason));
+            axios.patch(`/api/v1/products/${productId}`, product).then(()=>{fetchProducts();navigate('/products/list');clearValues();}).catch(reason => console.log(reason));
         }
     };
 
@@ -120,7 +122,7 @@ function ProductEditor({ dark = false}) {
             </div>
             <div><ScreenKeyboard dark={dark} /></div>
             <div className="product-editor-actions">
-                <Button style={{ flex: 1 }} size="small" onClick={onButtonClick} color="error" variant="contained">İptal Et</Button>
+                <Button style={{ flex: 1 }} size="small" onClick={cancelChange} color="error" variant="contained">İptal Et</Button>
                 <ResponsiveDialog onConfirm={updateData} title="Ürün Güncelleme" text="Onaylamanız durumunda ürün girilen değerler ile güncellenecektir, kategori ve alt kategori gibi temel detaylar güncellenemez!" disabled={!changeData} style={{ flex: 1 }}>
                     <Button ref={enterRef} disabled={!changeData} style={{ width: "100%" }} size="small" color="success" variant="contained">Kaydet</Button>
                 </ResponsiveDialog>

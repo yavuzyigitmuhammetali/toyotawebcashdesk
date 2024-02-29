@@ -47,7 +47,7 @@ const PaymentProvider = ({children}) => {
 
     const confirmTransaction = () => {
         if (!amountRemaining && paymentTransactions.length && subTotal) {
-            const test = {
+            const receipt = {
                 active: true,
                 storeNumber: status.storeNumber,
                 case: status.case,
@@ -60,7 +60,7 @@ const PaymentProvider = ({children}) => {
                 cart: cart,
                 transactions: paymentTransactions
             };
-            return postTransaction(test)
+            return postTransaction(receipt)
                 .then(value => {
                     setReceipt(value.data);
                     cancelTransaction();

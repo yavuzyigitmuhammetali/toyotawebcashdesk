@@ -6,8 +6,8 @@ const AppStatusContext = React.createContext(undefined);
 
 const AppStatusProvider = ({children}) => {
     const [status, setStatus] = React.useState(JSON.parse(localStorage.getItem('status')));
-    const [isOnline, setIsOnline] = React.useState(JSON.parse(localStorage.getItem('online')));
-    const [isLoggedIn, setIsLoggedIn] = React.useState(JSON.parse(localStorage.getItem('loggedIn')));
+    const [isOnline, setIsOnline] = React.useState(JSON.parse(sessionStorage.getItem('online')));
+    const [isLoggedIn, setIsLoggedIn] = React.useState(JSON.parse(sessionStorage.getItem('loggedIn')));
     const [dark, setDark] = React.useState(false);
     //const [lang, setLang] = React.useState("tr");
 
@@ -29,11 +29,11 @@ const AppStatusProvider = ({children}) => {
         testLogin()
             .then(response =>{
                 setIsLoggedIn(response.status === 200)
-                localStorage.setItem('loggedIn', JSON.stringify(response.status === 200));
+                sessionStorage.setItem('loggedIn', JSON.stringify(response.status === 200));
             } )
             .catch(reason => {
                 setIsLoggedIn(false)
-                localStorage.setItem('loggedIn', JSON.stringify(false));
+                sessionStorage.setItem('loggedIn', JSON.stringify(false));
                 console.log(reason)
             });
     }, []);
@@ -42,7 +42,7 @@ const AppStatusProvider = ({children}) => {
         if (status){
             updateOnlineStatus(setIsOnline,status.schedule);
             const timer = setupTimer(setIsOnline,status.schedule??null);
-            localStorage.setItem('online', JSON.stringify(isOnline));
+            sessionStorage.setItem('online', JSON.stringify(isOnline));
             return () => timer && clearTimeout(timer);
         }
     }, [status]);
@@ -64,12 +64,12 @@ const AppStatusProvider = ({children}) => {
         try {
             await login(body)
             setIsLoggedIn(true);
-            localStorage.setItem('loggedIn', JSON.stringify(true));
+            sessionStorage.setItem('loggedIn', JSON.stringify(true));
             return true;
         } catch (error) {
             console.error(error);
             setIsLoggedIn(false);
-            localStorage.setItem('loggedIn', JSON.stringify(false));
+            sessionStorage.setItem('loggedIn', JSON.stringify(false));
             return false;
         }
     };

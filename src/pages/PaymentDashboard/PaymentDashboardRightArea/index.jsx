@@ -35,7 +35,7 @@ function PaymentDashboardRightArea({dark=false}) {
 
     useEffect(() => {
         if (Object.values(receipt).length !== 0){
-            navigate('/receipt/'+receipt.receiptNumber, {replace: true});
+            navigate('/receipt/'+receipt.receiptNumber, {replace: true,state: { receipt: receipt}});
         }
     }, [receipt]);
     return (
