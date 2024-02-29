@@ -1,11 +1,13 @@
-import React, {useEffect, useMemo, useState} from 'react';
+import React, {useCallback, useEffect, useMemo, useState} from 'react';
 import "./refundDashboard.css"
 import ShoppingCartItem from "../../shared/components/ShoppingCartItem/ShoppingCartItem";
 import {Button} from "@mui/material";
-import {exampleReceipts} from "../PurchaseReceipts/data";
 import ResponsiveDialog from "../../shared/components/ResponsiveDialog";
 import {createTheme, ThemeProvider} from "@mui/material/styles";
 import FormDialog from "../../shared/components/FormDialog";
+import {defaultReceipt} from "../../shared/state/AppData/defaultData";
+import {useNavigate} from "react-router-dom";
+import AlertComponent from "../../shared/components/AlertComponent";
 const darkTheme = createTheme({
     palette: {
         mode: 'dark',
@@ -18,8 +20,9 @@ const lightTheme = createTheme({
 });
 
 function RefundDashboard({dark =false}) {
-    const [receipt, setReceipt] = useState(exampleReceipts[0])
+    const [receipt, setReceipt] = useState(defaultReceipt)
     const [cart, setCart] = useState(receipt.cart);
+    const navigate = useNavigate();
     const [refundedProducts, setRefundedProducts] = useState([])
     const { total, subTotal, tax } = useMemo(() => {
         const total = refundedProducts.reduce((acc, {discountedPrice, price, quantity}) =>
@@ -37,6 +40,10 @@ function RefundDashboard({dark =false}) {
         return { subTotal: roundedSubTotal, tax: roundedTax, total: roundedTotal };
     }, [refundedProducts]);
 
+
+    const onFormDialogClose = useCallback(() => {
+        navigate('/', { replace: true, state: { errorMessage: "İade İşlemi İçin Fatura Numarası Zorunludur!" }})
+    }, [navigate]);
 
 
     const handleOnApproved = () => {
@@ -149,7 +156,7 @@ function RefundDashboard({dark =false}) {
     return (
         <>
             <ThemeProvider theme={dark?darkTheme:lightTheme}>
-                    <FormDialog label={"Fatura Numarası"} dark={dark} dialog={"Lütfen devam etmeden önce bir fatura numarası girin"} openManual={1}> </FormDialog>
+                    <FormDialog onClose={onFormDialogClose} label={"Fatura Numarası"} dark={dark} dialog={"Lütfen devam etmeden önce bir fatura numarası girin"} openManual={1}> </FormDialog>
                 <div style={{color:dark?"white":"black"}} className="refund-dashboard-upper-area-container">
                     <div style={{backgroundColor:dark?"#121418":"#F8FAFB"}} className="refund-dashboard-upper-area-item">
                         <div style={{backgroundColor:dark?"#131922":"white"}} className="refund-dashboard-upper-area-scroll">

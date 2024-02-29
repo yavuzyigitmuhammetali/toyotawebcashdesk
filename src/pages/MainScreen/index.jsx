@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import "./mainScreen.css"
 import OnlineOfflineIndicator from "../../shared/components/OnlineOfflineIndicator";
 import SettingsIcon from '@mui/icons-material/Settings';
@@ -7,7 +7,6 @@ import {IconButton} from "@mui/material";
 import MainScreenItem from "./components/MainScreenItem";
 import {createTheme, ThemeProvider} from "@mui/material/styles";
 import AlertComponent from "../../shared/components/AlertComponent";
-import {useLocation, useNavigate} from "react-router-dom";
 import AppStatusContext from "../../shared/state/AppStatus/context";
 
 const darkTheme = createTheme({
@@ -23,23 +22,10 @@ const lightTheme = createTheme({
 
 
 function MainScreen({dark = false}) {
-    const {isOnline, status,logOut} = React.useContext(AppStatusContext);
-    const location = useLocation();
-    const navigate = useNavigate();
-    const [message, setMessage] = useState(location.state?.errorMessage || location.state?.successMessage);
-    const [severity, setSeverity] = useState(location.state?.successMessage ? 'success' : 'error');
-
-    useEffect(() => {
-        if (location.state?.errorMessage || location.state?.successMessage) {
-            setMessage(location.state?.errorMessage || location.state?.successMessage);
-            setSeverity(location.state?.successMessage ? 'success' : 'error');
-            navigate(location.pathname, {replace: true, state: {}});
-        }
-    }, [navigate, location]);
-
+    const {isOnline, status, logOut} = React.useContext(AppStatusContext);
     return (<>
             <ThemeProvider theme={dark ? darkTheme : lightTheme}>
-                <AlertComponent message={message} severity={severity} open={Boolean(message)}/>
+                <AlertComponent/>
                 <div style={{backgroundColor: dark ? "#111418" : "#F8FAFB"}} className="main-screen-container">
                     <div className="main-screen-active-area">
                         <div className="main-screen-sides">

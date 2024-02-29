@@ -23,7 +23,7 @@ const lightTheme = createTheme({
 
 
 
-function FormDialog({children,openManual = 0,screenKeyboard=true,buttonName,dialog,func=()=>{},disabled=false,dark=false,onOff=false,label,errorText,style}) {
+function FormDialog({children,onClose=()=>{},openManual = 0,screenKeyboard=true,buttonName,dialog,func=()=>{},disabled=false,dark=false,onOff=false,label,errorText,style}) {
     const [inputValue, setInputValue] = useState("")
     const { handleElementFocus, value,onChangeValue,enterRef,clearValues } = useContext(KeyboardContext);
     const [open, setOpen] = React.useState(false);
@@ -46,6 +46,7 @@ function FormDialog({children,openManual = 0,screenKeyboard=true,buttonName,dial
     };
 
     const handleClose = () => {
+        onClose();
         setOpen(false);
         clearValues();
     };
