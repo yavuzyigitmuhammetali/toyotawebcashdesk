@@ -17,7 +17,11 @@ const lightTheme = createTheme({
 
 function ProductsDashboard({dark = false}) {
     const navigate = useNavigate();
-    const {products} = useContext(AppDataContext);
+    const {products,fetchProducts} = useContext(AppDataContext);
+
+    useEffect(() => {
+        fetchProducts()
+    }, []);
 
     const onProductShowcaseClick = useCallback((event) => {
         navigate(`/products/list/${event.id}`, {replace: true, state: {products:products}})

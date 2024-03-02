@@ -9,12 +9,24 @@ const CartContext = React.createContext(undefined);
 
 const CartProvider = ({children}) => {
     const [cart, setCart] = React.useState([])
-    const {products,categories,subCategories} = useContext(AppDataContext);
+    const {products,categories,subCategories, fetchProducts} = useContext(AppDataContext);
     const [total, setTotal] = React.useState(0)
     const [subTotal, setSubTotal] = React.useState(0)
+    const [tax, setTax] = React.useState(0);
     const [discounts, setDiscounts] = React.useState({
         buy3pay2: false, studentTaxFree: false, percentageDiscounts: false
     })
+
+
+    React.useEffect(() => {
+        fetchProducts();
+        const salesDataString = localStorage.getItem('salesData')
+        if (salesDataString){
+            const {cart} = JSON.parse(salesDataString)
+            setCart(cart);
+        }
+    }, []);
+
 
     const toggleDiscounts = (discountKey) => {
         setDiscounts(prevDiscounts => ({
@@ -90,24 +102,19 @@ const CartProvider = ({children}) => {
 
     const totalQuantity = cart.map(item => item.quantity).reduce((acc, quantity) => acc + quantity, 0)
     React.useEffect(() => {
-        const {subtotal, total} = calculateSubtotalAndTotal(cart);
+        const {subtotal, total,tax} = calculateSubtotalAndTotal(cart);
         setTotal(total);
+        setTax(tax);
         setSubTotal(subtotal);
     }, [totalQuantity, discounts]);
 
-    React.useEffect(() => {
-        const salesDataString = localStorage.getItem('salesData')
-        if (salesDataString){
-            const {cart} = JSON.parse(salesDataString)
-            setCart(cart);
-        }
-    }, []);
 
 
     const cancelTransaction = ()=>{
         setCart([]);
         setTotal(0);
         setSubTotal(0);
+        setTax(0);
         setDiscounts({buy3pay2: false, studentTaxFree: false, percentageDiscounts: false})
         localStorage.removeItem('salesData');
         localStorage.removeItem('paymentTransactions');
@@ -118,7 +125,8 @@ const CartProvider = ({children}) => {
             const data = {
                 total,
                 subTotal,
-                cart
+                cart,
+                tax
             }
             localStorage.setItem('salesData', JSON.stringify(data));
             return true;
@@ -134,6 +142,7 @@ const CartProvider = ({children}) => {
             products,
             total,
             subTotal,
+            tax,
             cart,
             discounts,
             addToCart,

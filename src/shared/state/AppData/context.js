@@ -1,4 +1,5 @@
 import React from "react";
+
 import {getCategories, getProducts, getReceipts, getSubCategories} from "./api";
 import {defaultCategory, defaultProduct, defaultReceipt, defaultSubCategory} from "./defaultData";
 
@@ -15,40 +16,85 @@ const AppDataProvider = ({children}) => {
     const [subCategories, setSubCategories] = React.useState(initialSubCategories);
     const [receipts, setReceipts] = React.useState(initialReceipts);
 
-    const fetchCategories = (query="") => {
-        getCategories(query)
-            .then((res) => {
-                setCategories(res.data);
-                sessionStorage.setItem('categories', JSON.stringify(res.data));
-            })
-            .catch((error) => console.error('Error fetching categories:', error));
+    const fetchCategories = async (query = "") => {
+        try {
+            const res = await getCategories(query);
+            const data = res.data;
+
+            if (query) {
+                return data;
+            } else if (JSON.stringify(data) !== JSON.stringify(categories)) {
+                setCategories(data);
+                sessionStorage.setItem('categories', JSON.stringify(data));
+                return categories;
+            } else {
+                return res;
+            }
+        } catch (error) {
+            console.error('Error fetching categories:', error);
+            return null;
+        }
+    }
+
+    const fetchSubCategories = async (query = "") => {
+        try {
+            const res = await getSubCategories(query);
+            const data = res.data;
+
+            if (query) {
+                return data;
+            } else if (JSON.stringify(data) !== JSON.stringify(subCategories)) {
+                setSubCategories(data);
+                sessionStorage.setItem('subCategories', JSON.stringify(data));
+                return subCategories;
+            } else {
+                return res;
+            }
+        } catch (error) {
+            console.error('Error fetching sub-categories:', error);
+            return null;
+        }
+    }
+
+    const fetchProducts = async (query = "") => {
+        try {
+            const res = await getProducts(query);
+            const data = res.data;
+
+            if (query) {
+                return data;
+            } else if (JSON.stringify(data) !== JSON.stringify(products)) {
+                setProducts(data);
+                sessionStorage.setItem('products', JSON.stringify(data));
+                return products;
+            } else {
+                return res;
+            }
+        } catch (error) {
+            console.error('Error fetching products:', error);
+            return null;
+        }
     };
 
-    const fetchSubCategories = (query="") => {
-        getSubCategories(query)
-            .then((res) => {
-                setSubCategories(res.data);
-                sessionStorage.setItem('subCategories', JSON.stringify(res.data));
-            })
-            .catch((error) => console.error('Error fetching sub-categories:', error));
-    };
 
-    const fetchProducts = (query="") => {
-        getProducts(query)
-            .then((res) => {
-                setProducts(res.data);
-                sessionStorage.setItem('products', JSON.stringify(res.data));
-            })
-            .catch((error) => console.error('Error fetching products:', error));
-    };
+    const fetchReceipts = async (query = "") => {
+        try {
+            const res = await getReceipts(query);
+            const data = res.data;
 
-    const fetchReceipts = (query="") => {
-        getReceipts(query)
-            .then((res) => {
-                setReceipts(res.data);
-                sessionStorage.setItem('receipts', JSON.stringify(res.data));
-            })
-            .catch((error) => console.error('Error fetching receipts:', error));
+            if (query) {
+                return data;
+            } else if (JSON.stringify(data) !== JSON.stringify(receipts)) {
+                setReceipts(data);
+                sessionStorage.setItem('receipts', JSON.stringify(data));
+                return receipts;
+            } else {
+                return res;
+            }
+        } catch (error) {
+            console.error('Error fetching receipts:', error);
+            return null;
+        }
     };
 
     const clearCategories = (hardRes = false) => {
@@ -71,32 +117,31 @@ const AppDataProvider = ({children}) => {
         hardRes && sessionStorage.removeItem('receipts');
 
     };
-
     React.useEffect(() => {
-        fetchCategories();
-        fetchReceipts();
-        fetchSubCategories();
-        fetchProducts();
+        Promise.all([fetchCategories(), fetchSubCategories(), fetchProducts(), fetchReceipts()]).catch(error => {
+            console.error('Error fetching data:', error);
+        });
     }, []);
 
+
     return (<AppDataContext.Provider
-            value={{
-                products,
-                categories,
-                subCategories,
-                receipts,
-                fetchCategories,
-                fetchSubCategories,
-                fetchProducts,
-                fetchReceipts,
-                clearCategories,
-                clearSubCategories,
-                clearProducts,
-                clearReceipts,
-            }}
-        >
-            {children}
-        </AppDataContext.Provider>);
+        value={{
+            products,
+            categories,
+            subCategories,
+            receipts,
+            fetchCategories,
+            fetchSubCategories,
+            fetchProducts,
+            fetchReceipts,
+            clearCategories,
+            clearSubCategories,
+            clearProducts,
+            clearReceipts,
+        }}
+    >
+        {children}
+    </AppDataContext.Provider>);
 };
 
 export default AppDataContext;

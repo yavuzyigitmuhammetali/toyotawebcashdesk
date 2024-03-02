@@ -11,6 +11,8 @@ import {sendProduct} from "./api";
 import ResponsiveDialog from "../../shared/components/ResponsiveDialog";
 import AppDataContext from "../../shared/state/AppData/context";
 import {generateBarcode} from "./functions";
+import {defaultProduct} from "../../shared/state/AppData/defaultData";
+import {useNavigate} from "react-router-dom";
 
 const darkTheme = createTheme({
     palette: {
@@ -24,21 +26,10 @@ const lightTheme = createTheme({
 });
 
 function ProductEntryPanel({dark = false}) {
+    const navigate = useNavigate();
     const {handleElementFocus, value, onChangeValue, enterRef, clearValues} = useContext(KeyboardContext);
-    const {categories,subCategories:_subCategories,products} = useContext(AppDataContext);
-    const [formData, setFormData] = useState({
-        id: null,
-        barcode: 0,
-        name: '',
-        stock: 0,
-        price: 0,
-        tax: 0,
-        campaign: '',
-        isFavourite: false,
-        image: '',
-        categoryId: 0,
-        subCategoryId: 0
-    });
+    const {categories,subCategories:_subCategories,products,fetchProducts} = useContext(AppDataContext);
+    const [formData, setFormData] = useState(defaultProduct);
     const [subCategories, setSubCategories] = useState([]);
     const [valid, setValid] = useState(false);
 
@@ -102,7 +93,17 @@ function ProductEntryPanel({dark = false}) {
 
     const handleSendData = () => {
         if (valid) {
-            sendProduct(formData);
+            fetchProducts().then(()=>{
+                const newId =  products.length+1;
+                setFormData((prevFormData) => ({
+                    ...prevFormData,
+                    id: newId,
+                    barcode: generateBarcode(prevFormData.categoryId, prevFormData.subCategoryId, newId)
+                }));
+                sendProduct(formData).then(value1 =>{
+                    navigate('/', { replace: true, state: { successMessage: "Ürün Girişi Yapıldı ID: "+value1.data.id}})
+                });
+            })
             clearValues();
             setFormData({
                 id: null,

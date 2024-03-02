@@ -62,19 +62,28 @@ export function applyPerCentDiscount(price, discountPercentage,active = true) {
     }
 
     const discountAmount = price * (discountPercentage / 100);
-    return Math.round((price - discountAmount) * 100) / 100;;
+    return Math.round((price - discountAmount) * 100) / 100;
 }
 
+
+export function calculateTaxAmount(inclusivePrice, taxPercentage) {
+    const taxRate = taxPercentage / 100;
+    const exclusivePrice = inclusivePrice / (1 + taxRate);
+    return inclusivePrice - exclusivePrice;
+}
 export function calculateSubtotalAndTotal(cart) {
     let subtotal = 0;
     let total = 0;
+    let tax = 0;
 
     cart.forEach(item => {
         subtotal += item.price * item.quantity;
-        total += (item.discountedPrice !== 0 ? item.discountedPrice : item.price) * item.quantity;
+        total += (item.discountedPrice > 0 ? item.discountedPrice : item.price) * item.quantity;
+        tax += calculateTaxAmount((item.discountedPrice > 0 ? item.discountedPrice : item.price),(item.tax))*item.quantity;
     });
     return {
         subtotal: Math.round(subtotal * 100) / 100,
-        total: Math.round(total * 100) / 100
+        total: Math.round(total * 100) / 100,
+        tax: Math.round(tax * 100) / 100
     };
 }

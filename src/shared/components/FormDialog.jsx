@@ -45,12 +45,11 @@ function FormDialog({children,onClose=()=>{},openManual = 0,screenKeyboard=true,
         clearValues();
     };
 
-    const handleClose = () => {
-        onClose();
+    const handleClose = (page = true) => {
+        page&&onClose();
         setOpen(false);
         clearValues();
     };
-
     return (
         <ThemeProvider theme={dark?darkTheme:lightTheme}>
             <React.Fragment>
@@ -76,7 +75,7 @@ function FormDialog({children,onClose=()=>{},openManual = 0,screenKeyboard=true,
                             const formData = new FormData(event.currentTarget);
                             const formJson = Object.fromEntries(formData.entries());
                             const email = formJson.email;
-                            func(email)?handleClose():setError(true);
+                            func(email)?handleClose(false):setError(true);
 
                         },
                     }}

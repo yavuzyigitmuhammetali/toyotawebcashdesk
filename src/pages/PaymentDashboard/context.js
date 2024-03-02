@@ -1,16 +1,16 @@
 import React from "react";
 import AppStatusContext from "../../shared/state/AppStatus/context";
 import {postTransaction} from "./api";
+import {updateStocksFromCart} from "./functions";
 
 const PaymentContext = React.createContext(undefined);
 const PaymentProvider = ({children}) => {
-    const [tempData, setTempData] = React.useState({subTotal: 0, total: 0, cart: []})
-    const {total, subTotal, cart} = tempData;
+    const [tempData, setTempData] = React.useState({subTotal: 0, total: 0, cart: [],tax:0})
+    const {total, subTotal, cart,tax} = tempData;
     const [paymentTransactions, setPaymentTransactions] = React.useState([]);
     const amountPaid = paymentTransactions.reduce((total, item) => Math.round((total + item.price) * 100) / 100, 0)
     const amountRemaining = (total - amountPaid) < 0 ? (0) : (Math.round((total - amountPaid) * 100) / 100);
     const change = (total - amountPaid) < 0 ? (Math.round((amountPaid - total) * 100) / 100) : (0);
-    const totalTax = Math.round(cart.reduce((acc, curr) => acc + ((curr.discountedPrice || curr.price) * curr.tax / 100), 0) * 100) / 100
     const [receipt,setReceipt] = React.useState({})
     const {status} = React.useContext(AppStatusContext);
 
@@ -41,11 +41,11 @@ const PaymentProvider = ({children}) => {
         const _amountPaid = amountPaid;
         localStorage.removeItem('salesData');
         localStorage.removeItem('paymentTransactions');
-        setTempData({id: 0, subTotal: 0, total: 0, cart: []})
+        setTempData({ subTotal: 0, total: 0, cart: [],tax:0})
         return _amountPaid;
     }
 
-    const confirmTransaction = () => {
+    const confirmTransaction = async () => {
         if (!amountRemaining && paymentTransactions.length && subTotal) {
             const receipt = {
                 active: true,
@@ -55,25 +55,27 @@ const PaymentProvider = ({children}) => {
                 total: total,
                 subTotal: subTotal,
                 amountPaid: amountPaid,
-                totalTax: totalTax,
+                totalTax: tax,
                 change: change,
                 cart: cart,
                 transactions: paymentTransactions
             };
-            return postTransaction(receipt)
-                .then(value => {
-                    setReceipt(value.data);
-                    cancelTransaction();
-                    return true;
-                })
-                .catch(reason => {
-                    console.log(reason);
-                    return false;
-                });
+
+            try {
+                const value = await postTransaction(receipt);
+                setReceipt(value.data);
+                cancelTransaction();
+                await updateStocksFromCart(value.data.cart);
+                return true;
+            } catch (reason) {
+                console.log(reason);
+                return false;
+            }
         } else {
             return false;
         }
     };
+
 
 
     return (
@@ -81,6 +83,7 @@ const PaymentProvider = ({children}) => {
             total,
             subTotal,
             cart,
+            tax,
             paymentTransactions,
             amountRemaining,
             amountPaid,
