@@ -1,9 +1,9 @@
-import React, {useCallback, useContext, useEffect, useState} from 'react';
+import React, {useCallback, useContext, useEffect} from 'react';
 import ProductShowcase from "../../shared/components/ProductShowcase/ProductShowcase";
-import axios from "axios";
 import {createTheme, ThemeProvider} from "@mui/material/styles";
 import {Outlet, useNavigate} from "react-router-dom";
 import AppDataContext from "../../shared/state/AppData/context";
+
 const darkTheme = createTheme({
     palette: {
         mode: 'dark',
@@ -17,19 +17,18 @@ const lightTheme = createTheme({
 
 function ProductsDashboard({dark = false}) {
     const navigate = useNavigate();
-    const {products,fetchProducts} = useContext(AppDataContext);
+    const {products, fetchProducts} = useContext(AppDataContext);
 
     useEffect(() => {
         fetchProducts()
     }, []);
 
     const onProductShowcaseClick = useCallback((event) => {
-        navigate(`/products/list/${event.id}`, {replace: true, state: {products:products}})
-    }, [navigate,products]);
+        navigate(`/products/list/${event.id}`, {replace: true, state: {products: products}})
+    }, [navigate, products]);
 
 
-    return (
-        <ThemeProvider theme={dark ? darkTheme : lightTheme}>
+    return (<ThemeProvider theme={dark ? darkTheme : lightTheme}>
             <div style={{cursor: "pointer", position: "relative"}}>
                 <div style={{zIndex: "-1"}}>
                     <ProductShowcase dark={dark} data={products} onClick={onProductShowcaseClick}/>
@@ -45,8 +44,7 @@ function ProductsDashboard({dark = false}) {
                 </div>
                 <Outlet/>
             </div>
-        </ThemeProvider>
-    );
+        </ThemeProvider>);
 }
 
 export default ProductsDashboard;
