@@ -1,13 +1,13 @@
-import React, {useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import "./purchaseReceipts.css"
 import {
     Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TableSortLabel, Typography
 } from '@mui/material';
 
-import {exampleReceipts} from "./data";
 import {createTheme, ThemeProvider} from "@mui/material/styles";
 import {getComparator, stableSort} from "./functions";
 import Row from "./components/Row";
+import AppDataContext from "../../shared/state/AppData/context";
 
 const darkTheme = createTheme({
     palette: {
@@ -24,8 +24,13 @@ const lightTheme = createTheme({
 function PurchaseReceipts({dark = false}) {
     const [order, setOrder] = useState('desc');
     const [orderBy, setOrderBy] = useState('date');
+    const {receipts,fetchReceipts} = useContext(AppDataContext);
 
-    const handleRequestSort = (property) => (event) => {
+    useEffect(() => {
+        fetchReceipts()
+    }, [fetchReceipts]);
+
+    const handleRequestSort = (property) => () => {
         const isAsc = orderBy === property && order === 'asc';
         setOrder(isAsc ? 'desc' : 'asc');
         setOrderBy(property);
@@ -87,7 +92,7 @@ function PurchaseReceipts({dark = false}) {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {stableSort(exampleReceipts, getComparator(order, orderBy)).map((row, index) => (
+                            {stableSort(receipts, getComparator(order, orderBy)).map((row) => (
                                 <Row key={row.receiptNumber} row={row} order={order} orderBy={orderBy}/>))}
                         </TableBody>
                     </Table>

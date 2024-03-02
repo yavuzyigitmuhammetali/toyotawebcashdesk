@@ -21,7 +21,7 @@ function ProductsDashboard({dark = false}) {
 
     useEffect(() => {
         fetchProducts()
-    }, []);
+    }, [fetchProducts]);
 
     const onProductShowcaseClick = useCallback((event) => {
         navigate(`/products/list/${event.id}`, {replace: true, state: {products: products}})

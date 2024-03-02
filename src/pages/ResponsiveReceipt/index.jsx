@@ -17,20 +17,20 @@ import {defaultReceipt} from "../../shared/state/AppData/defaultData";
 function ResponsiveReceipt({dark = false}) {
     const {receipts} = useContext(AppDataContext);
     const location = useLocation();
-    const [receipt,setReceipt] = useState({})
+    const [receipt, setReceipt] = useState({})
     const [alignment, setAlignment] = useState('left');
     const [alignment2, setAlignment2] = useState('left');
-    const { receiptNumber } = useParams();
+    const {receiptNumber} = useParams();
     useEffect(() => {
         const filteredReceipt = receipts.filter(item => item.receiptNumber === receiptNumber)[0];
-        setReceipt( location.state?.receipt??filteredReceipt??defaultReceipt);
+        setReceipt(location.state?.receipt ?? filteredReceipt ?? defaultReceipt);
     }, [receiptNumber, receipts]);
 
 
     const handlePrint = useCallback(() => {
-        if (receipt.active){
+        if (receipt.active) {
             window.print();
-        }else{
+        } else {
             alert('İade edilmiş fiş ve faturalar tekrar talep edilemez!');
         }
     }, [receipt.active]);
@@ -46,8 +46,7 @@ function ResponsiveReceipt({dark = false}) {
             setAlignment2(newAlignment);
         }
     };
-    return (
-        <div style={{backgroundColor:dark?"#111418":"transparent"}} className="responsive-receipt-container">
+    return (<div style={{backgroundColor: dark ? "#111418" : "transparent"}} className="responsive-receipt-container">
             <div className="responsive-receipt-controller">
                 <ToggleButtonGroup
                     value={alignment}
@@ -84,13 +83,14 @@ function ResponsiveReceipt({dark = false}) {
                     </ToggleButton>
                 </ToggleButtonGroup>
             </div>
-            <div style={{left:alignment==="right"?"100%":alignment==="center"?"50%":"0",
-                transform:alignment==="right"?"translate(-100%, 0)":alignment==="center"?"translate(-50%, 0)":"translate(0, 0)"}}
-                 className={alignment2==="left"?"printable-content responsive-receipt-receipt":"printable-content-full responsive-receipt-receipt"}>
+            <div style={{
+                left: alignment === "right" ? "100%" : alignment === "center" ? "50%" : "0",
+                transform: alignment === "right" ? "translate(-100%, 0)" : alignment === "center" ? "translate(-50%, 0)" : "translate(0, 0)"
+            }}
+                 className={alignment2 === "left" ? "printable-content responsive-receipt-receipt" : "printable-content-full responsive-receipt-receipt"}>
                 <Receipt data={receipt}/>
             </div>
-        </div>
-    );
+        </div>);
 }
 
 export default ResponsiveReceipt;

@@ -32,7 +32,7 @@ export const defaultSubCategory =
 export const defaultReceipt =
     {
         receiptNumber: "",
-        active: false,
+        active: true,
         storeNumber: "",
         case: 0,
         date: "2000-01-01T00:00:00.000Z",
