@@ -12,6 +12,7 @@ import PaperIcon from '@mui/icons-material/Feed';
 import {useLocation, useParams} from "react-router-dom";
 import AppDataContext from "../../shared/state/AppData/context";
 import {defaultReceipt} from "../../shared/state/AppData/defaultData";
+import AlertComponent from "../../shared/components/AlertComponent";
 
 
 function ResponsiveReceipt({dark = false}) {
@@ -47,6 +48,7 @@ function ResponsiveReceipt({dark = false}) {
         }
     };
     return (<div style={{backgroundColor: dark ? "#111418" : "transparent"}} className="responsive-receipt-container">
+        <AlertComponent/>
             <div className="responsive-receipt-controller">
                 <ToggleButtonGroup
                     value={alignment}

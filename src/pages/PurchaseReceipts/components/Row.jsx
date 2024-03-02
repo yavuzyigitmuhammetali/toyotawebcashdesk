@@ -1,14 +1,19 @@
-import React, {useState} from "react";
+import React, {useCallback, useState} from "react";
 import {
     Box, Button, Collapse, IconButton, Table, TableBody, TableCell, TableHead, TableRow, Typography
 } from "@mui/material";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import SendIcon from "@mui/icons-material/Send";
-import {Link} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 
 export default function Row({row, order, orderBy}) {
+    const navigate = useNavigate();
     const [open, setOpen] = useState(false);
+    const onClickReceipt = useCallback(() => {
+        console.log("deneme")
+        navigate('/receipt/'+row.receiptNumber, {replace: true,state: { receipt: row, warningMessage:row.active?"":"Bu fiş iade işlemi gerçekleşmiş bir siparişe ait!"}});
+    }, [row, navigate]);
 
 
     return (<>
@@ -25,8 +30,7 @@ export default function Row({row, order, orderBy}) {
             <TableCell align="right">{row.date}</TableCell>
             <TableCell align="right">
                 <Button
-                    component={Link}
-                    to={"/receipt/" + row.receiptNumber}
+                    onClick={onClickReceipt}
                     aria-label="view receipt"
                     size="large"
                     endIcon={<SendIcon/>}
