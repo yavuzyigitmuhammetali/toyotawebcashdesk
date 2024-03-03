@@ -17,13 +17,27 @@ const CartProvider = ({children}) => {
         buy3pay2: false, studentTaxFree: false, percentageDiscounts: false
     })
 
+    const totalCampaignQuantity = cart.filter(item => item.campaign).map(item => item.quantity).reduce((acc, quantity) => acc + quantity, 0)
+    React.useEffect(() => {
+        updateDiscountedPrices();
+    }, [totalCampaignQuantity, discounts]);
+
+    const totalQuantity = cart.map(item => item.quantity).reduce((acc, quantity) => acc + quantity, 0)
+    React.useEffect(() => {
+        const {subtotal, total,tax} = calculateSubtotalAndTotal(cart);
+        setTotal(total);
+        setTax(tax);
+        setSubTotal(subtotal);
+    }, [totalQuantity, discounts]);
 
     React.useEffect(() => {
         fetchProducts();
-        const salesDataString = localStorage.getItem('salesData')
+        const salesDataString = sessionStorage.getItem('salesData')
         if (salesDataString){
-            const {cart} = JSON.parse(salesDataString)
+            const {cart,discounts} = JSON.parse(salesDataString)
+            setDiscounts(discounts)
             setCart(cart);
+            console.log(discounts)
         }
     }, []);
 
@@ -95,18 +109,7 @@ const CartProvider = ({children}) => {
         });
         setCart(updatedCart);
     };
-    const totalCampaignQuantity = cart.filter(item => item.campaign).map(item => item.quantity).reduce((acc, quantity) => acc + quantity, 0)
-    React.useEffect(() => {
-        updateDiscountedPrices();
-    }, [totalCampaignQuantity, discounts]);
 
-    const totalQuantity = cart.map(item => item.quantity).reduce((acc, quantity) => acc + quantity, 0)
-    React.useEffect(() => {
-        const {subtotal, total,tax} = calculateSubtotalAndTotal(cart);
-        setTotal(total);
-        setTax(tax);
-        setSubTotal(subtotal);
-    }, [totalQuantity, discounts]);
 
 
 
@@ -116,8 +119,8 @@ const CartProvider = ({children}) => {
         setSubTotal(0);
         setTax(0);
         setDiscounts({buy3pay2: false, studentTaxFree: false, percentageDiscounts: false})
-        localStorage.removeItem('salesData');
-        localStorage.removeItem('paymentTransactions');
+        sessionStorage.removeItem('salesData');
+        sessionStorage.removeItem('paymentTransactions');
     }
 
     const confirmCart = ()=>{
@@ -126,14 +129,17 @@ const CartProvider = ({children}) => {
                 total,
                 subTotal,
                 cart,
-                tax
+                tax,
+                discounts
             }
-            localStorage.setItem('salesData', JSON.stringify(data));
+            sessionStorage.setItem('salesData', JSON.stringify(data));
             return true;
         }else {
             return false;
         }
     }
+
+
 
     return (<CartContext.Provider
         value={{
