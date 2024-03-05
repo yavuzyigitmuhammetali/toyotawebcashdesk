@@ -9,7 +9,7 @@ import axios from "axios";
 import ResponsiveDialog from "../../../../shared/components/ResponsiveDialog";
 import ScreenKeyboard from "../../../../shared/components/ScreenKeyboard/ScreenKeyboard";
 import KeyboardContext from "../../../../shared/components/ScreenKeyboard/context";
-import {useLocation, useNavigate, useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import AppDataContext from "../../../../shared/state/AppData/context";
 import {defaultProduct} from "../../../../shared/state/AppData/defaultData";
 
@@ -62,7 +62,7 @@ function ProductEditor({dark = false}) {
     const updateData = () => {
         if (JSON.stringify(product) !== JSON.stringify(tempProduct)) {
             axios.patch(`/api/v1/products/${productId}`, product).then(() => {
-                fetchProducts().then(()=>{
+                fetchProducts().then(() => {
                     navigate('/products/list');
                     clearValues();
                 });
