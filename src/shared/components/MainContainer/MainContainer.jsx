@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import "./mainContainer.css"
 import {IconButton} from "@mui/material";
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
@@ -12,7 +12,14 @@ function MainContainer() {
     const today = new Date();
     const formattedDate = `${(today.getMonth() + 1).toString().padStart(2, '0')}/${today.getDate().toString().padStart(2, '0')}/${today.getFullYear()}`;
 
+    const [pathHistory, setPathHistory] = useState(['/'])
+
     const location = useLocation();
+
+    useEffect(() => {
+        setPathHistory(prevState => [...prevState,location.pathname])
+    }, [location.pathname]);
+
     const { productId,receiptNumber } = useParams();
     let pageTitle;
     let prevLink;
@@ -55,7 +62,7 @@ function MainContainer() {
                 prevLink = '/products/list';
             }else if(location.pathname.startsWith('/receipt/')){
                 pageTitle = `***${receiptNumber}***`;
-                prevLink = '/';
+                prevLink = pathHistory[pathHistory.length-2]==='/purchase/list'?'/purchase/list':'/';
             }
             else {
                 pageTitle = 'Başlık';

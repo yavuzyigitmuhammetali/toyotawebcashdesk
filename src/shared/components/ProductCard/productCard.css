@@ -98,7 +98,6 @@
     --c: green;
 }
 .product-card-disabled{
-    pointer-events: none;
     user-select: none;
     filter: grayscale(1);
 }

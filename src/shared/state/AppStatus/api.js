@@ -22,7 +22,7 @@ export function login(body){
 }
 
 export function getStatus(){
-    return  axios.get("/api/v1/getstatus");
+    return  axios.get("/api/v1/status");
 }
 
 export function testLogin(){

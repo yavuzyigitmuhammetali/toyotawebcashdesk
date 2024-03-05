@@ -23,6 +23,8 @@ const lightTheme = createTheme({
     },
 });
 
+// İade işleminde iade edilen ürünler stokda gözükmemeli,
+// edindiğim bilgiye göre onlar manuel olarak sisteme giriliyor
 function RefundDashboard({dark = false}) {
     const {receipts} = useContext(AppDataContext);
     const {status} = useContext(AppStatusContext);
@@ -70,7 +72,8 @@ function RefundDashboard({dark = false}) {
                 subTotal: Math.round((prevState.subTotal - subTotal) * 100) / 100,
                 totalTax: Math.round((prevState.totalTax - tax) * 100) / 100,
                 date: new Date(),
-                transactions: [...prevState.transactions, {price: total * (-1), type: "payback"}]
+                transactions: [...prevState.transactions, {price: total * (-1), type: "payback"}],
+                refund:receiptNumber
             }
 
             inactivateReceipt(receiptNumber).then(() => {

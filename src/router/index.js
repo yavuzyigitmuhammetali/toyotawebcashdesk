@@ -11,6 +11,7 @@ import ProductsDashboard from "../pages/ProductsDashboard";
 import ProductEditor from "../pages/ProductsDashboard/components/ProductEditor/ProductEditor";
 import ProductEntryPanel from "../pages/ProductEntryPanel";
 import RequireAuth from "../shared/state/AppStatus/RequireAuth";
+import SummaryDashboard from "../pages/SummaryDashboard";
 
 
 export default createBrowserRouter(
@@ -67,6 +68,10 @@ export default createBrowserRouter(
                             {
                                 path: "/receipt/:receiptNumber",
                                 Component: ResponsiveReceipt,
+                            },
+                            {
+                                path: "summary/calculate",
+                                Component: SummaryDashboard,
                             },
                         ]
                     },

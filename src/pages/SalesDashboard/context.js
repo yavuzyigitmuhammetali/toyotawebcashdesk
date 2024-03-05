@@ -59,8 +59,10 @@ const CartProvider = ({children}) => {
                     quantity: (updatedCart[productIndex].stock > updatedCart[productIndex].quantity) ? (updatedCart[productIndex].quantity + 1) : (updatedCart[productIndex].quantity)
                 };
                 return updatedCart;
-            } else {
+            } else if (product.stock>0) {
                 return [...currentCart, {...product, quantity: 1, discountedPrice: 0}];
+            } else {
+                return currentCart;
             }
         });
     };

@@ -58,7 +58,8 @@ const PaymentProvider = ({children}) => {
                 totalTax: tax,
                 change: change,
                 cart: cart,
-                transactions: paymentTransactions
+                transactions: paymentTransactions,
+                refund:""
             };
 
             try {

@@ -67,5 +67,6 @@ export const defaultReceipt =
                 price: 0,
                 type: "card"
             }
-        ]
+        ],
+        refund:""
     }

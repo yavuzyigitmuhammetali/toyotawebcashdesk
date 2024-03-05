@@ -24,8 +24,8 @@ function ProductsDashboard({dark = false}) {
     }, [fetchProducts]);
 
     const onProductShowcaseClick = useCallback((event) => {
-        navigate(`/products/list/${event.id}`, {replace: true, state: {products: products}})
-    }, [navigate, products]);
+        navigate(`/products/list/${event.id}`, {replace: true})
+    }, [navigate]);
 
 
     return (<ThemeProvider theme={dark ? darkTheme : lightTheme}>
