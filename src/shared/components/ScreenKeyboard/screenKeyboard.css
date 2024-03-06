@@ -2,14 +2,15 @@
     z-index: 99999;
     position: fixed;
     box-sizing: border-box;
-    width: 785px;
+    width: 100%;
+    min-width: 750px;
     height: 255px;
     background-color: #12161B;
     border: 0.5px solid #1D2229;
     padding-top: 25px;
     padding-bottom: 5px;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(60px, 62px));
+    grid-template-columns: repeat(auto-fit, minmax(7%, 7.9%));
     gap: 3px;
     border-radius: 12px;
     justify-content: center;

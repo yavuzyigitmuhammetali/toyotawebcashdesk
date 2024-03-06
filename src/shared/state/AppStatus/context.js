@@ -1,8 +1,10 @@
 import React from "react";
+import config from '../../../config.json';
 import {getIp, getStatus, testLogin} from "./api";
 import { setupTimer, updateOnlineStatus} from "../../functions/checkOnline";
 import {login} from "./api"
 const AppStatusContext = React.createContext(undefined);
+
 
 const AppStatusProvider = ({children}) => {
     const [status, setStatus] = React.useState(JSON.parse(localStorage.getItem('status')));
@@ -20,6 +22,8 @@ const AppStatusProvider = ({children}) => {
                     const combinedData = {
                         ...statusData,
                         userIp: ipResponse.data.ip,
+                        case:config.caseNumber,
+                        storeNumber:config.storeNumber
                     };
                     setStatus(combinedData);
                     localStorage.setItem('status', JSON.stringify(combinedData));
