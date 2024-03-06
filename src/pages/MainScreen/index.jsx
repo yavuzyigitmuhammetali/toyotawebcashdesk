@@ -37,7 +37,7 @@ function MainScreen({dark = false}) {
                         <div className="main-screen-sides">
                             <MainScreenItem to={"/refund/create"} dark={dark}>İade İşlemleri</MainScreenItem>
                             <MainScreenItem to={"/purchase/list"} dark={dark}>Makbuzlar</MainScreenItem>
-                            <MainScreenItem dark={dark}>Raporlar</MainScreenItem>
+                            <MainScreenItem to={"/summary/calculate"} dark={dark}>Raporlar</MainScreenItem>
                         </div>
                     </div>
                 </div>

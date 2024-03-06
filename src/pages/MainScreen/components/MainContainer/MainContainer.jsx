@@ -3,8 +3,8 @@ import "./mainContainer.css"
 import {IconButton} from "@mui/material";
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import SettingsIcon from '@mui/icons-material/Settings';
-import OnlineOfflineIndicator from "../OnlineOfflineIndicator";
-import AppStatusContext from "../../state/AppStatus/context";
+import OnlineOfflineIndicator from "../../../../shared/components/OnlineOfflineIndicator";
+import AppStatusContext from "../../../../shared/state/AppStatus/context";
 import {Link, Outlet, useLocation, useParams} from 'react-router-dom';
 
 function MainContainer() {
@@ -56,10 +56,14 @@ function MainContainer() {
             pageTitle = 'Ürün Ekleme Ekranı';
             prevLink = '/';
             break;
+        case '/summary/calculate':
+            pageTitle = 'Raporlar';
+            prevLink = '/';
+            break;
         default:
             if (location.pathname.startsWith('/products/list/')) {
                 pageTitle = `${productId} Numaralı Ürününü Görüntüleniyor`;
-                prevLink = '/products/list';
+                prevLink = pathHistory[pathHistory.length-2]==='/summary/calculate'?'/summary/calculate':'/products/list';
             }else if(location.pathname.startsWith('/receipt/')){
                 pageTitle = `***${receiptNumber}***`;
                 prevLink = pathHistory[pathHistory.length-2]==='/purchase/list'?'/purchase/list':'/';

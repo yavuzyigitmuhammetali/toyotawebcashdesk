@@ -43,7 +43,9 @@ function ProductEditor({dark = false}) {
 
 
     useEffect(() => {
-        setChangeData(JSON.stringify(product) !== JSON.stringify(tempProduct));
+        if (product.id){
+            setChangeData(JSON.stringify(product) !== JSON.stringify(tempProduct));
+        }
     }, [product, tempProduct, navigate]);
 
 
