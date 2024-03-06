@@ -5,6 +5,7 @@ import {Button, IconButton} from "@mui/material";
 import LanguageIcon from '@mui/icons-material/Language';
 import KeyboardAltIcon from '@mui/icons-material/KeyboardAlt';
 import "./screenKeyboard.css"
+import CloseIcon from '@mui/icons-material/Close';
 
 const darkTheme = createTheme({
     typography: {
@@ -139,7 +140,7 @@ function ScreenKeyboard({dark = false, defaultLang  = "tr",style}) {
 
                 {/* Kırmızı yuvarlak düğme */}
                 <button className="screen-keyboard-close-button" style={{backgroundColor: dark ? "red" : "#E33E4D"}}
-                        onClick={() => setOnOff(true)}></button>
+                        onClick={() => setOnOff(true)}><CloseIcon/></button>
                 <ThemeProvider theme={dark ? darkTheme : lightTheme}>
                     {keyboard().map((item, index) => {
                         if (item === 'del') {

@@ -8,11 +8,6 @@ import {CartProvider} from "./context";
 function SalesDashboard({dark = false}) {
     return (
         <div style={{display: "flex", flexDirection: "row", justifyContent: "space-between",padding:"1px"}}>
-{/*            <div style={{cursor: "not-allowed"}}>
-                <div style={{cursor: "not-allowed", pointerEvents: "none"}}>
-                    context test
-                </div>
-            </div>*/}
             <CartProvider>
                 <NumericKeyboardProvider>
                     <SalesDashboardLeftArea dark={dark}/>

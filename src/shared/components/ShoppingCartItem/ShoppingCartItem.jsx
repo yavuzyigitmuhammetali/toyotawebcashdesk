@@ -53,13 +53,13 @@ function ShoppingCartItem({ disabled=false, onDelete,onRemove,onAdd,campaign="",
                     <div
                         style={{animation: isElementVisible ? "jell-in 0.5s ease-in-out forwards" : "jell-out 0.5s ease-in-out forwards",backgroundColor:dark&&"rgba(0,0,0,0.9)"}}
                         className="shopping-cart-item-editor">
-                        <IconButton onClick={onAdd} color="success" aria-label="delete">
+                        <IconButton onClick={onAdd} color="success" size="small" aria-label="delete">
                             <AddIcon/>
                         </IconButton>
-                        <IconButton onClick={onDelete} color="warning" aria-label="delete">
+                        <IconButton onClick={onDelete} color="warning" size="small" aria-label="delete">
                             <DeleteIcon/>
                         </IconButton>
-                        <IconButton onClick={onRemove} color="error" aria-label="delete">
+                        <IconButton onClick={onRemove} color="error" size="small" aria-label="delete">
                             <RemoveIcon/>
                         </IconButton>
                     </div>

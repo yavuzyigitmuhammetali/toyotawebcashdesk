@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useCallback, useContext, useEffect, useState} from 'react';
 import "./paymentDashboardRightArea.css"
 import {Button} from "@mui/material";
 import NumericKeyboard from "../../../shared/components/NumericKeyboard/NumericKeyboard";
@@ -38,6 +38,23 @@ function PaymentDashboardRightArea({dark=false}) {
             navigate('/receipt/'+receipt.receiptNumber, {replace: true,state: { receipt: receipt, successMessage:"Sipariş Onaylandı"}});
         }
     }, [receipt]);
+    const onResponsiveDialogConfirm = useCallback(() => {
+        if (paymentMethod==="card"){
+            setTransaction(amountRemaining,"card");
+            setNumericKeyboardData(0);
+            setPaymentMethod("cash")
+        }else{
+            setTransaction(numericKeyboardData,paymentMethod);
+            setNumericKeyboardData(0);
+        }
+    }, [setTransaction, numericKeyboardData, paymentMethod, setNumericKeyboardData, amountRemaining]);
+
+    useEffect(() => {
+        if (paymentMethod==="card"){
+            setPaymentDialog(prevState => prevState+1);
+        }
+    }, [paymentMethod]);
+
     return (
         <ThemeProvider theme={dark?darkTheme:lightTheme}>
             <div style={dark ? {backgroundColor: "#121418", borderColor: "white"} : {}} className="payment-dashboard-right-area-container">
@@ -53,11 +70,11 @@ function PaymentDashboardRightArea({dark=false}) {
                             <NumericKeyboard allowDecimal disabled={(amountRemaining+amountPaid)===0} dark={dark}/>
                         </div>
                         <div style={{display: "flex", flexDirection: "column", flex: "1 1"}}>
-                            <Button disabled={(amountRemaining+amountPaid)===0} onClick={() => setPaymentMethod("cash")} style={{flex: 1}} color="info"
+                            <Button disabled={amountRemaining===0} onClick={() => setPaymentMethod("cash")} style={{flex: 1}} color="info"
                                     variant={paymentMethod === "cash" ? "contained" : "outlined"}>Nakit</Button>
-                            <Button disabled={(amountRemaining+amountPaid)===0} onClick={() => setPaymentMethod("card")} style={{flex: 1}} color="warning"
+                            <Button disabled={amountRemaining===0} onClick={() => setPaymentMethod("card")} style={{flex: 1}} color="warning"
                                     variant={paymentMethod === "card" ? "contained" : "outlined"}>Kredi Kartı</Button>
-                            <ResponsiveDialog title={"Ödeme Simüle Et"} text={"Bu uygulama gerçek bir uygulama değil, bundan ötürü ödemenin doğru gerçekleşip gerçekleşmediğini varsayaymalıyız!"} onConfirm={()=>{setTransaction(numericKeyboardData,paymentMethod);setNumericKeyboardData(0)}}  manualOpen={paymentDialog}/>
+                            <ResponsiveDialog title={"Ödeme Simüle Et"} text={"Bu uygulama gerçek bir uygulama değil, bundan ötürü ödemenin doğru gerçekleşip gerçekleşmediğini varsayaymalıyız!"} onConfirm={onResponsiveDialogConfirm}  manualOpen={paymentDialog}/>
                         </div>
                     </div>
 
