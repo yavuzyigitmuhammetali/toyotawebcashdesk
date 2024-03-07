@@ -2,10 +2,13 @@ import React from "react";
 
 import {getCategories, getProducts, getReceipts, getSubCategories} from "./api";
 import {defaultCategory, defaultProduct, defaultReceipt, defaultSubCategory} from "./defaultData";
+import AppStatusContext from "../AppStatus/context";
 
 const AppDataContext = React.createContext(undefined);
 
 const AppDataProvider = ({children}) => {
+    const {isLoggedIn} = React.useContext(AppStatusContext);
+
     const initialProducts = JSON.parse(sessionStorage.getItem('products')) || [defaultProduct];
     const initialCategories = JSON.parse(sessionStorage.getItem('categories')) || [defaultCategory];
     const initialSubCategories = JSON.parse(sessionStorage.getItem('subCategories')) || [defaultSubCategory];
@@ -121,7 +124,7 @@ const AppDataProvider = ({children}) => {
         Promise.all([fetchCategories(), fetchSubCategories(), fetchProducts(), fetchReceipts()]).catch(error => {
             console.error('Error fetching data:', error);
         });
-    }, []);
+    }, [isLoggedIn]);
 
 
     return (<AppDataContext.Provider

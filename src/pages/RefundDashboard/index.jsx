@@ -213,6 +213,8 @@ function RefundDashboard({dark = false}) {
                             barcode={product.barcode}
                             index={key + 1}
                             productName={product.name}
+                            fraction={product.fraction}
+                            decimalValue={0}
                             onRemove={() => handleOnRemove(product)}
                             onAdd={() => handleOnAdd(product)}
                             onDelete={() => handleOnDelete(product)}/>)}

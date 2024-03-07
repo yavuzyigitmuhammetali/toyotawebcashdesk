@@ -25,6 +25,12 @@ const KeyboardProvider = ({children}) => {
         }));
     }, [id]);
 
+    const setChangedValue = useCallback((value) => {
+        setValue((prevValue) => ({
+            ...prevValue, [id]: value,
+        }));
+    }, [id]);
+
     const handleValue = useCallback((updatedValue) => {
         if (id) {
             setValue((prevValue) => ({
@@ -55,6 +61,7 @@ const KeyboardProvider = ({children}) => {
             ...prevValue, [elementId]: elementValue??"",
         }));
         setId(elementId);
+        return elementId;
     }, []);
 
     return (<KeyboardContext.Provider
@@ -64,6 +71,7 @@ const KeyboardProvider = ({children}) => {
                 onChangeValue,
                 handleEnter,
                 handleElementFocus,
+                setChangedValue,
                 clearValues,
                 value,
                 id,

@@ -29,6 +29,7 @@
 .shopping-cart-item-editor{
     position: absolute;
     display: flex;
+    align-items: center;
     flex-direction: row;
     justify-content: space-between;
     z-index: 2;

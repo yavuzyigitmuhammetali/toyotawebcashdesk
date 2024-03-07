@@ -52,6 +52,10 @@ function ProductEntryPanel({dark = false}) {
                 id: newId,
                 barcode: generateBarcode(prevFormData.categoryId, prevFormData.subCategoryId, newId)
             }));
+
+            return ()=>{
+                clearValues();
+            }
     }, []);
 
 

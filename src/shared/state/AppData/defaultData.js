@@ -10,7 +10,8 @@ export const defaultProduct =
         isFavourite: false,
         image: '',
         categoryId: 0,
-        subCategoryId: 0
+        subCategoryId: 0,
+        fraction:false
     }
 
 
@@ -55,7 +56,8 @@ export const defaultReceipt =
                 categoryId: 0,
                 subCategoryId: 0,
                 quantity: 0,
-                discountedPrice: 0
+                discountedPrice: 0,
+                fraction:false
             }
         ],
         transactions: [

@@ -1,6 +1,9 @@
 import React, {useContext} from "react";
 import {
-    applyBuy3Pay2, applyPerCentDiscount, applyStudentTaxFree, calculateSubtotalAndTotal
+    applyBuy3Pay2,
+    applyPerCentDiscount,
+    applyStudentTaxFree,
+    calculateSubtotalAndTotal
 } from "./functions/productProcessing";
 import AppDataContext from "../../shared/state/AppData/context";
 
@@ -37,7 +40,6 @@ const CartProvider = ({children}) => {
             const {cart,discounts} = JSON.parse(salesDataString)
             setDiscounts(discounts)
             setCart(cart);
-            console.log(discounts)
         }
     }, []);
 
@@ -51,14 +53,16 @@ const CartProvider = ({children}) => {
     const addToCart = (product) => {
         setCart(currentCart => {
             const productIndex = currentCart.findIndex(item => item.id === product.id);
-
-            if (productIndex > -1) {
+            if (productIndex > -1 && !product.fraction) {
                 const updatedCart = [...currentCart];
                 updatedCart[productIndex] = {
                     ...updatedCart[productIndex],
                     quantity: (updatedCart[productIndex].stock > updatedCart[productIndex].quantity) ? (updatedCart[productIndex].quantity + 1) : (updatedCart[productIndex].quantity)
                 };
                 return updatedCart;
+            }else if (product.fraction) {
+                    const fractionQuantity = currentCart.filter(value => value.id === product.id).reduce((previousValue, currentValue) => previousValue + currentValue?.quantity, 0)
+                    return  fractionQuantity<product.stock?[...currentCart, {...product, quantity: 0.01, discountedPrice: 0}]:currentCart;
             } else if (product.stock>0) {
                 return [...currentCart, {...product, quantity: 1, discountedPrice: 0}];
             } else {
@@ -67,21 +71,45 @@ const CartProvider = ({children}) => {
         });
     };
 
-    const decreaseQuantityById = (id) => {
-        setCart(currentCart => currentCart.map(item => item.id === id && item.quantity > 1 ? {
+    const decreaseQuantityByIndex = (index) => {
+        setCart(currentCart => currentCart.map((item, idx) => idx === index && item.quantity > 1 ? {
             ...item, quantity: item.quantity - 1
         } : item));
     };
 
-    const increaseQuantityById = (id) => {
-        setCart(currentCart => currentCart.map(item => item.id === id && item.quantity < item.stock ? {
+
+    const increaseQuantityByIndex = (index) => {
+        setCart(currentCart => currentCart.map((item, idx) => idx === index && item.quantity < item.stock ? {
             ...item, quantity: item.quantity + 1
         } : item));
     };
 
-    const removeFromCartById = (id) => {
-        setCart(currentCart => currentCart.filter(item => item.id !== id));
+
+    const removeFromCartByIndex = (index) => {
+        setCart(currentCart => currentCart.filter((_, i) => i !== index));
     };
+
+    const increaseQuantityDecimalByIndex = (index, decimal) => {
+        setCart(currentCart => {
+            const fractionQuantity = currentCart.filter((value,idx) =>value.id === currentCart[index].id && idx!==index).reduce((previousValue, currentValue) => previousValue + currentValue?.quantity, 0)
+
+            if (index >= 0 && index < currentCart.length && decimal >= 0.01) {
+                return currentCart.map((item, i) => {
+                    if (i === index && (parseFloat(decimal)+fractionQuantity) <= item.stock && item.fraction) {
+                        const roundedDecimal = Math.round(decimal * 100) / 100;
+                        return {
+                            ...item,
+                            quantity: Math.round(roundedDecimal * 100) / 100
+                        };
+                    } else {
+                        return item;
+                    }
+                });
+            } else {
+                return currentCart;
+            }
+        });
+    }
 
     const updateDiscountedPrices = () => {
         const updatedCart = cart.map(item => {
@@ -154,9 +182,10 @@ const CartProvider = ({children}) => {
             cart,
             discounts,
             addToCart,
-            decreaseQuantityById,
-            increaseQuantityById,
-            removeFromCartById,
+            decreaseQuantityByIndex,
+            increaseQuantityByIndex,
+            removeFromCartByIndex,
+            increaseQuantityDecimalByIndex,
             toggleDiscounts,
             cancelTransaction,
             confirmCart

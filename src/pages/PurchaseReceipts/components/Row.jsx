@@ -11,7 +11,6 @@ export default function Row({row, order, orderBy}) {
     const navigate = useNavigate();
     const [open, setOpen] = useState(false);
     const onClickReceipt = useCallback(() => {
-        console.log("deneme")
         navigate('/receipt/'+row.receiptNumber, {replace: true,state: { receipt: row, warningMessage:row.active?"":"Bu fiş iade işlemi gerçekleşmiş bir siparişe ait!"}});
     }, [row, navigate]);
 
@@ -52,7 +51,7 @@ export default function Row({row, order, orderBy}) {
                                     <TableCell><Typography variant="subtitle1" fontWeight="bold">Ürün
                                         İsmi</Typography></TableCell>
                                     <TableCell><Typography variant="subtitle1"
-                                                           fontWeight="bold">Adet</Typography></TableCell>
+                                                           fontWeight="bold">Birim</Typography></TableCell>
                                     <TableCell align="right"><Typography variant="subtitle1" fontWeight="bold">Ödenen
                                         Tutar</Typography> </TableCell>
                                 </TableRow>

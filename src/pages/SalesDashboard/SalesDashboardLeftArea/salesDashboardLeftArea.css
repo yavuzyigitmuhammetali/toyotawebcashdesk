@@ -14,7 +14,12 @@
 .left-one{
     box-sizing: border-box;
     padding: 10px;
+    display: flex;
+    flex-direction: row;
     border-bottom: 1px solid #E6EAF1;
+}
+.left-one>*{
+    flex-grow: 1;
 }
 .left-two{
     display: flex;
