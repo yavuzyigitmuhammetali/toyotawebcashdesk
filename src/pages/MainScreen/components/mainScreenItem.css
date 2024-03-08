@@ -11,6 +11,7 @@
     box-sizing: border-box;
     padding: 10px;
     transition: transform 0.2s;
+    justify-content: center;
     flex-grow: 1;
     border: 1px solid black;
 }
@@ -18,15 +19,18 @@
     transform: scale(1.05);
 }
 .main-screen-item-icon{
+    position: absolute;
+    left: 0;
+    top:50%;
+    transform: translate(-50%,-50%);
     filter: brightness(1.7);
-    transform: translate(-20%, -20%);
     color: white;
     display: flex;
     background-color: green;
     justify-content: center;
     align-items: center;
-    height: 65px;
-    width: 65px;
+    height: 120%;
+    aspect-ratio: 1!important;
     border-radius: 10px;
 }
 .main-screen-item-text{

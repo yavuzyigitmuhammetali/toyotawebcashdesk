@@ -45,7 +45,7 @@ function ProductCard({
         </> : null}
 
         {(stock && !category) ? <div style={{color: stock < 10 ? "red" : dark ? "white" : "#111418"}}
-                                     className="product-card-stock">{stock}{fraction?"lbs.":"pcs."}</div> : null}
+                                     className="product-card-stock">{fraction?parseFloat(stock).toFixed(2):stock}{fraction?"lbs.":"pcs."}</div> : null}
         {discount || discountText ? <div className="product-card-on-sale">{discountText.toUpperCase()}</div> : null}
     </button>);
 }

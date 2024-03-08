@@ -87,3 +87,4 @@ export function calculateSubtotalAndTotal(cart) {
         tax: Math.round(tax * 100) / 100
     };
 }
+

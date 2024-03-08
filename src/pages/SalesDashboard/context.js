@@ -1,4 +1,4 @@
-import React, {useContext} from "react";
+import React from "react";
 import {
     applyBuy3Pay2,
     applyPerCentDiscount,
@@ -6,19 +6,23 @@ import {
     calculateSubtotalAndTotal
 } from "./functions/productProcessing";
 import AppDataContext from "../../shared/state/AppData/context";
+import {defaultProduct} from "../../shared/state/AppData/defaultData";
 
 
 const CartContext = React.createContext(undefined);
 
 const CartProvider = ({children}) => {
     const [cart, setCart] = React.useState([])
-    const {products,categories,subCategories, fetchProducts} = useContext(AppDataContext);
+    const {products:_products,categories,subCategories, fetchProducts} = React.useContext(AppDataContext);
+    const [products, setProducts] = React.useState([defaultProduct])
     const [total, setTotal] = React.useState(0)
     const [subTotal, setSubTotal] = React.useState(0)
     const [tax, setTax] = React.useState(0);
     const [discounts, setDiscounts] = React.useState({
         buy3pay2: false, studentTaxFree: false, percentageDiscounts: false
     })
+
+
 
     const totalCampaignQuantity = cart.filter(item => item.campaign).map(item => item.quantity).reduce((acc, quantity) => acc + quantity, 0)
     React.useEffect(() => {
@@ -34,7 +38,9 @@ const CartProvider = ({children}) => {
     }, [totalQuantity, discounts]);
 
     React.useEffect(() => {
-        fetchProducts();
+        fetchProducts().then(()=>{
+            setProducts(_products);
+        })
         const salesDataString = sessionStorage.getItem('salesData')
         if (salesDataString){
             const {cart,discounts} = JSON.parse(salesDataString)
@@ -42,6 +48,30 @@ const CartProvider = ({children}) => {
             setCart(cart);
         }
     }, []);
+
+
+    const filteredCartQuantity = cart.reduce((totalQuantity, product) => {
+        return !product.fraction ? totalQuantity + product.quantity : totalQuantity;
+    }, 0);
+    React.useEffect(() => {
+        const result = Object.values(cart.reduce((acc, {id, quantity}) => {
+            acc[id] = acc[id] || {id, quantity: 0};
+            acc[id].quantity += quantity;
+            return acc;
+        }, {}))
+
+        const updatedProducts = _products.map(product => {
+            const updateItem = result.find(item => item.id === product.id);
+            if (updateItem) {
+                return {
+                    ...product,
+                    stock: product.stock - updateItem.quantity
+                };
+            }
+            return product;
+        });
+        setProducts(updatedProducts);
+    }, [filteredCartQuantity]);
 
 
     const toggleDiscounts = (discountKey) => {

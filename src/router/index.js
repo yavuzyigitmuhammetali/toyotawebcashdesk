@@ -29,8 +29,6 @@ export default createBrowserRouter(
                         path: "/",
                         Component: MainScreen,
                     },
-
-
                     {
                         path: "/",
                         Component: MainContainer,
