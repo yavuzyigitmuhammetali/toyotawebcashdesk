@@ -93,6 +93,7 @@ function ProductShowcase({data=[],onClick,dark=false}) {
                                                                                       name={product.name}
                                                                                       src={product.image}
                                                                                       barcode={product.barcode}
+                                                                                      fraction={product.fraction}
                                                                                       favorite={product.isFavourite}
                                                                                       price={product.price}
                                                                                       stock={product.stock}/>)

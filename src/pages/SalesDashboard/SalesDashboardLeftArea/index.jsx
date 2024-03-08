@@ -153,6 +153,7 @@ function SalesDashboardLeftArea({dark = false}) {
                         <ProductCard discountText={product.campaign} onClick={() => addToCart(product)}
                                      key={key} dark={dark} name={product.name} src={product.image}
                                      barcode={product.barcode} favorite={product.isFavourite}
+                                     fraction={product.fraction}
                                      price={product.price} stock={product.stock}/>)) : (<div></div>)}
                 </div>
             </div>

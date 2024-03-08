@@ -58,7 +58,7 @@ function ShoppingCartItem({
                 <div className="shopping-cart-item-content">
                     <span>#{barcode}</span>
                     <span>{taxFreePrice}$ + KDV %{tax}</span>
-                    <span>{quantity} birim</span>
+                    <span>{quantity} {fraction?"Kilo":"Adet"}</span>
                 </div>
                 <div className="shopping-cart-item-content">
                     <span style={{fontSize: "1.5em", fontWeight: "700"}}>{index}.{productName}</span>

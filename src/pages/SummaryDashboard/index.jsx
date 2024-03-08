@@ -209,6 +209,7 @@ function SummaryDashboard({dark = false}) {
                                                                                                    favorite={product.isFavourite}
                                                                                                    stock={product.stock}
                                                                                                    dark={dark}
+                                                                                                   fraction={product.fraction}
                                                                                                    name={product.name}
                                                                                                    src={product.image}
                                                                                                    discountText={product.campaign}

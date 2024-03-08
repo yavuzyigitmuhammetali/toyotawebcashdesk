@@ -85,13 +85,12 @@ function RefundDashboard({dark = false}) {
         })
     }
 
-    const handleOnDelete = (product) => {
+    const handleOnDelete = (product,index) => {
         setCart(prevState => {
-            const productIndex = prevState.findIndex(item => item.id === product.id);
-            if (productIndex > -1) {
+            if (index > -1) {
                 const updatedCart = [...prevState];
-                updatedCart[productIndex] = {
-                    ...updatedCart[productIndex],
+                updatedCart[index] = {
+                    ...updatedCart[index],
                     quantity: (product.quantity) > 0 ? (product.quantity - 1) : (product.quantity)
                 };
                 return updatedCart;
@@ -113,14 +112,13 @@ function RefundDashboard({dark = false}) {
             }
         })
     }
-    const handleOnAdd = (product) => {
-        const productQuantity = receipt.cart.filter(item => item.id === product.id)[0].quantity
+    const handleOnAdd = (product,index) => {
+        const productQuantity = receipt.cart[index].quantity
         setCart(prevState => {
-            const productIndex = prevState.findIndex(item => item.id === product.id);
-            if (productIndex > -1) {
+            if (index > -1) {
                 const updatedCart = [...prevState];
-                updatedCart[productIndex] = {
-                    ...updatedCart[productIndex],
+                updatedCart[index] = {
+                    ...updatedCart[index],
                     quantity: (productQuantity > product.quantity) ? (product.quantity + 1) : (product.quantity)
                 };
                 return updatedCart;
@@ -146,25 +144,25 @@ function RefundDashboard({dark = false}) {
             }
         });
     }
-    const handleOnRemove = (product) => {
+    const handleOnRemove = (product,index) => {
         setRefundedProducts(prevState => {
-            const productIndex = prevState.findIndex(item => item.id === product.id);
-            if (productIndex > -1) {
-                const updatedCart = [...prevState];
-                updatedCart[productIndex] = {
-                    ...updatedCart[productIndex], quantity: product.quantity + updatedCart[productIndex].quantity
-                };
-                return updatedCart;
-            } else {
-                return [...prevState, {...product, quantity: product.quantity}];
+                const productIndex = prevState.findIndex(item => item.id === product.id);
+                if (productIndex > -1) {
+                    const updatedCart = [...prevState];
+                    updatedCart[productIndex] = {
+                        ...updatedCart[productIndex], quantity: product.quantity + updatedCart[productIndex].quantity
+                    };
+                    return updatedCart;
+                } else {
+                    return [...prevState, {...product, quantity: product.quantity}];
+                }
             }
-        })
+        )
         setCart(prevState => {
-            const productIndex = prevState.findIndex(item => item.id === product.id);
-            if (productIndex > -1) {
+            if (index > -1) {
                 const updatedCart = [...prevState];
-                updatedCart[productIndex] = {
-                    ...updatedCart[productIndex], quantity: 0
+                updatedCart[index] = {
+                    ...updatedCart[index], quantity: 0
                 };
                 return updatedCart;
             } else {
@@ -215,9 +213,9 @@ function RefundDashboard({dark = false}) {
                             productName={product.name}
                             fraction={product.fraction}
                             decimalValue={0}
-                            onRemove={() => handleOnRemove(product)}
-                            onAdd={() => handleOnAdd(product)}
-                            onDelete={() => handleOnDelete(product)}/>)}
+                            onRemove={() => handleOnRemove(product,key)}
+                            onAdd={() => handleOnAdd(product,key)}
+                            onDelete={() => handleOnDelete(product,key)}/>)}
                     </div>
                 </div>
                 <div style={{backgroundColor: dark ? "#121418" : "#F8FAFB"}}

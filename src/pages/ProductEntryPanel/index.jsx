@@ -13,6 +13,8 @@ import AppDataContext from "../../shared/state/AppData/context";
 import {generateBarcode} from "./functions";
 import {defaultProduct} from "../../shared/state/AppData/defaultData";
 import {useNavigate} from "react-router-dom";
+import QrCodeIcon from '@mui/icons-material/QrCode';
+import DialpadIcon from '@mui/icons-material/Dialpad';
 
 const darkTheme = createTheme({
     palette: {
@@ -28,7 +30,7 @@ const lightTheme = createTheme({
 function ProductEntryPanel({dark = false}) {
     const navigate = useNavigate();
     const {handleElementFocus, value, onChangeValue, enterRef, clearValues} = useContext(KeyboardContext);
-    const {categories,subCategories:_subCategories,products,fetchProducts} = useContext(AppDataContext);
+    const {categories, subCategories: _subCategories, products, fetchProducts} = useContext(AppDataContext);
     const [formData, setFormData] = useState(defaultProduct);
     const [subCategories, setSubCategories] = useState([]);
     const [valid, setValid] = useState(false);
@@ -46,16 +48,16 @@ function ProductEntryPanel({dark = false}) {
     }, [formData.categoryId]);
 
     useEffect(() => {
-        const newId =  products.length+1;
-            setFormData((prevFormData) => ({
-                ...prevFormData,
-                id: newId,
-                barcode: generateBarcode(prevFormData.categoryId, prevFormData.subCategoryId, newId)
-            }));
+        const newId = products.length + 1;
+        setFormData((prevFormData) => ({
+            ...prevFormData,
+            id: newId,
+            barcode: generateBarcode(prevFormData.categoryId, prevFormData.subCategoryId, newId)
+        }));
 
-            return ()=>{
-                clearValues();
-            }
+        return () => {
+            clearValues();
+        }
     }, []);
 
 
@@ -73,7 +75,6 @@ function ProductEntryPanel({dark = false}) {
     }, [value]);
 
 
-
     const handleInputChange = (event) => {
         const {name, value} = event.target;
 
@@ -82,7 +83,7 @@ function ProductEntryPanel({dark = false}) {
                 ...prevFormData, [name]: value
             };
             if (name === 'categoryId' || name === 'subCategoryId') {
-                updatedFormData.barcode = generateBarcode(updatedFormData.categoryId, updatedFormData.subCategoryId, updatedFormData.id);
+                updatedFormData.barcode = formData.barcode&&generateBarcode(updatedFormData.categoryId, updatedFormData.subCategoryId, updatedFormData.id);
             }
             return updatedFormData;
         });
@@ -90,22 +91,29 @@ function ProductEntryPanel({dark = false}) {
 
     const handleCheckboxChange = (event) => {
         const {name, checked} = event.target;
-        setFormData({
-            ...formData, [name]: checked
-        });
+        if (name==="barcode"){
+            setFormData({
+                ...formData, [name]: checked?0:16000
+            });
+        }else{
+            setFormData({
+                ...formData, [name]: checked
+            });
+        }
+
     };
 
     const handleSendData = () => {
         if (valid) {
-            fetchProducts().then(()=>{
-                const newId =  products.length+1;
+            fetchProducts().then(() => {
+                const newId = products.length + 1;
                 setFormData((prevFormData) => ({
                     ...prevFormData,
                     id: newId,
-                    barcode: generateBarcode(prevFormData.categoryId, prevFormData.subCategoryId, newId)
+                    barcode: prevFormData.fraction?0:generateBarcode(prevFormData.categoryId, prevFormData.subCategoryId, newId)
                 }));
-                sendProduct(formData).then(value1 =>{
-                    navigate('/', { replace: true, state: { successMessage: "Ürün Girişi Yapıldı ID: "+value1.data.id}})
+                sendProduct(formData).then(value1 => {
+                    navigate('/', {replace: true, state: {successMessage: "Ürün Girişi Yapıldı ID: " + value1.data.id}})
                 });
             })
             clearValues();
@@ -135,12 +143,27 @@ function ProductEntryPanel({dark = false}) {
                              discountText={formData.campaign}
                              dark={dark}
                              price={formData.price}
+                             fraction={formData.fraction}
                              src={formData.image} barcode={formData.barcode} favorite={formData.isFavourite}/>
                 <div>
                     <span>Favorilere Ekle</span>
-                    <Checkbox style={{alignSelf: "flex-start"}} color="error" checked={formData.isFavourite}
-                              icon={<FavoriteBorder/>}
-                              checkedIcon={<Favorite/>} onChange={handleCheckboxChange} name="isFavourite"/>
+                    <Checkbox style={{alignSelf: "flex-start"}} color="success" checked={formData.isFavourite}
+                              icon={<FavoriteBorder color="error"/>}
+                              checkedIcon={<Favorite color="success"/>} onChange={handleCheckboxChange} name="isFavourite"/>
+                </div>
+                <div>
+                    <span>Barcodesuz Ürün</span>
+                    <Checkbox style={{alignSelf: "flex-start"}} color="success" checked={!formData.barcode}
+                              icon={<QrCodeIcon color="error"/>}
+                              checkedIcon={<QrCodeIcon color="success"/>} onChange={handleCheckboxChange}
+                              name="barcode"/>
+                </div>
+                <div>
+                    <span>Kiloya Satış</span>
+                    <Checkbox style={{alignSelf: "flex-start"}} color="success" checked={formData.fraction}
+                              icon={<DialpadIcon color="error"/>}
+                              checkedIcon={<DialpadIcon color="success"/>} onChange={handleCheckboxChange}
+                              name="fraction"/>
                 </div>
                 <div><ScreenKeyboard dark={dark}/></div>
 

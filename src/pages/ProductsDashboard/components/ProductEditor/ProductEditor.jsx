@@ -27,19 +27,41 @@ function ProductEditor({dark = false}) {
 
     const handleTextChange = (value, key) => {
         setProduct(prevProduct => {
+            let updatedValue;
             if (['price', 'stock', 'tax'].includes(key)) {
-                const isNumeric = /^-?\d+(\.\d+)?$/.test(value);
-                if (isNumeric) {
-                    const updatedValue = parseFloat(value);
-                    return {...prevProduct, [key]: updatedValue};
+                value = value.replace(/[^\d.]/g, '');
+
+                if (key === 'stock') {
+                    updatedValue = parseInt(value);
+                    if (isNaN(updatedValue) || updatedValue > 999) {
+                        updatedValue = 999;
+                    }
                 } else {
-                    return prevProduct;
+                    updatedValue = parseFloat(value);
+                    if (isNaN(updatedValue) || updatedValue > 999999) {
+                        updatedValue = 999999;
+                    }
+                }
+
+                if (key === 'tax') {
+                    if (isNaN(updatedValue) || updatedValue > 100) {
+                        updatedValue = 100;
+                    } else if (updatedValue < 0) {
+                        updatedValue = 0;
+                    }
+                } else {
+                    if (updatedValue < 0) {
+                        updatedValue = 0;
+                    }
                 }
             } else {
-                return {...prevProduct, [key]: value};
+                updatedValue = value;
             }
+
+            return {...prevProduct, [key]: updatedValue};
         });
     };
+
 
 
     useEffect(() => {
@@ -87,9 +109,8 @@ function ProductEditor({dark = false}) {
         <div className="product-editor-data">
             <ProductCard dark={dark} favorite={product.isFavourite} src={product.image} category name={""}
                          style={{width: "30vw", borderWidth: "3px"}}/>
-            <EditableText id="name" onFocus={handleElementFocus} className="product-editor-name"
-                          style={{color: dark ? "#C595D4" : "#9031AA"}} text={product.name.toString()} name="name"
-                          onTextChange={handleTextChange}/>
+
+            <div className="product-editor-name" style={{color: dark ? "#C595D4" : "#9031AA"}}>{product.name}</div>
             <div className="product-editor-barcode">#{product.barcode}</div>
             <EditableText id="price" onFocus={handleElementFocus} className="product-editor-price"
                           style={{color: dark ? "#C595D4" : "#9031AA"}} text={product.price.toString()} name="price"
@@ -102,7 +123,7 @@ function ProductEditor({dark = false}) {
             <EditableText id="stock" onFocus={handleElementFocus} className="product-editor-stock"
                           style={{color: dark ? "#C595D4" : "#9031AA"}} text={product.stock.toString()} name="stock"
                           onTextChange={handleTextChange}/>
-            <div className="product-editor-stock-label">pcs.</div>
+            <div className="product-editor-stock-label">{product.fraction?"lbs.":"pcs."}</div>
             <EditableText id="photo" onFocus={handleElementFocus} className="product-editor-image-placeholder"
                           defaultText={"Photo"} text={product.image.toString()} name="image"
                           onTextChange={handleTextChange}/>

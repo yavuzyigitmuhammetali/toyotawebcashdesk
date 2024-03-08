@@ -37,7 +37,7 @@ function Receipt({
         <div className="receipt-main">
             {validatedData.cart.map((item, key) => <div key={key} className="receipt-product">
                 <span style={{justifyContent: "left"}}>{item.name}</span>
-                <span>{item.quantity} birim</span>
+                <span>{item.quantity} {item.fraction?"kg":"adt."}</span>
                 <span>%{item.tax < 10 ? "0" + item.tax : item.tax.toString()}</span>
                 <span>{item.discountedPrice ? item.discountedPrice.toFixed(2) : item.price.toFixed(2)}$</span>
             </div>)}
