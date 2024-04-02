@@ -1,0 +1,48 @@
+.settings-item{
+    font-weight: 100;
+    box-sizing: border-box;
+    border: 2px solid black;
+    background: #3874CB;
+    padding: 10px 10px 10px 20px;
+    width: 100%;
+    border-radius: 15px;
+    transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55), box-shadow 0.3s ease, background-color 0.3s ease;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.settings-item:hover {
+    transform: translate(-3px, -3px) scale(1.001);
+    box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.settings-item.active {
+    background-color: green;
+    border-color: darkgreen;
+    animation: rippleEffect 1s ease;
+}
+
+.settings-item.inactive {
+    background-color: red;
+    border-color: darkred;
+    animation: fadeEffect 1s ease;
+}
+
+@keyframes rippleEffect {
+    0% {
+        box-shadow: 0 0 0 0 rgba(0, 128, 0, 0.7);
+    }
+    100% {
+        box-shadow: 0 0 0 10px rgba(0, 128, 0, 0);
+    }
+}
+
+@keyframes fadeEffect {
+    0% {
+        box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7);
+    }
+    100% {
+        box-shadow: 0 0 0 10px rgba(255, 0, 0, 0);
+    }
+}

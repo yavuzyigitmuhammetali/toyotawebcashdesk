@@ -1,76 +1,75 @@
-import React, {useContext, useEffect, useState} from 'react';
-import "./mainContainer.css"
-import {IconButton} from "@mui/material";
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import SettingsIcon from '@mui/icons-material/Settings';
+import React, { useContext, useEffect, useState } from "react";
+import "./mainContainer.css";
+import { IconButton } from "@mui/material";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import OnlineOfflineIndicator from "../../../../shared/components/OnlineOfflineIndicator";
 import AppStatusContext from "../../../../shared/state/AppStatus/context";
-import {Link, Outlet, useLocation, useParams} from 'react-router-dom';
+import { Link, Outlet, useLocation, useParams } from "react-router-dom";
+import SettingsDashboard from "../SettingsDashboard/SettingsDashboard";
 
 function MainContainer() {
-    const {status,isOnline} = useContext(AppStatusContext)
+    const { status, isOnline } = useContext(AppStatusContext);
     const today = new Date();
-    const formattedDate = `${(today.getMonth() + 1).toString().padStart(2, '0')}/${today.getDate().toString().padStart(2, '0')}/${today.getFullYear()}`;
+    const formattedDate = `${(today.getMonth() + 1).toString().padStart(2, "0")}/${today.getDate().toString().padStart(2, "0")}/${today.getFullYear()}`;
 
-    const [pathHistory, setPathHistory] = useState(['/'])
+    const [pathHistory, setPathHistory] = useState(["/"]);
 
     const location = useLocation();
 
     useEffect(() => {
-        setPathHistory(prevState => [...prevState,location.pathname])
+        setPathHistory((prevState) => [...prevState, location.pathname]);
     }, [location.pathname]);
 
-    const { productId,receiptNumber } = useParams();
+    const { productId, receiptNumber } = useParams();
     let pageTitle;
     let prevLink;
     switch (location.pathname) {
-        case '/':
-            pageTitle = 'Anasayfa';
-            prevLink = '/';
+        case "/":
+            pageTitle = "Anasayfa";
+            prevLink = "/";
             break;
-        case '/order/create':
-            pageTitle = 'Sipariş Oluşturma Ekranı';
-            prevLink = '/';
+        case "/order/create":
+            pageTitle = "Sipariş Oluşturma Ekranı";
+            prevLink = "/";
             break;
-        case '/order/payment':
-            pageTitle = 'Ödeme Ekranı';
-            prevLink = '/order/create';
+        case "/order/payment":
+            pageTitle = "Ödeme Ekranı";
+            prevLink = "/order/create";
             break;
-        case '/purchase/list':
-            pageTitle = 'Makbuzlar';
-            prevLink = '/';
+        case "/purchase/list":
+            pageTitle = "Makbuzlar";
+            prevLink = "/";
             break;
-        case '/refund/create':
-            pageTitle = 'İade Ekranı';
-            prevLink = '/';
+        case "/refund/create":
+            pageTitle = "İade Ekranı";
+            prevLink = "/";
             break;
-        case '/products/list':
-            pageTitle = 'Ürün Listeleme Ekranı';
-            prevLink = '/';
+        case "/products/list":
+            pageTitle = "Ürün Listeleme Ekranı";
+            prevLink = "/";
             break;
-        case '/products/list/':
-            pageTitle = 'Ürün Görüntüle';
-            prevLink = '/';
+        case "/products/list/":
+            pageTitle = "Ürün Görüntüle";
+            prevLink = "/";
             break;
-        case '/product/add':
-            pageTitle = 'Ürün Ekleme Ekranı';
-            prevLink = '/';
+        case "/product/add":
+            pageTitle = "Ürün Ekleme Ekranı";
+            prevLink = "/";
             break;
-        case '/summary/calculate':
-            pageTitle = 'Raporlar';
-            prevLink = '/';
+        case "/summary/calculate":
+            pageTitle = "Raporlar";
+            prevLink = "/";
             break;
         default:
-            if (location.pathname.startsWith('/products/list/')) {
+            if (location.pathname.startsWith("/products/list/")) {
                 pageTitle = `${productId} Numaralı Ürününü Görüntüleniyor`;
-                prevLink = pathHistory[pathHistory.length-2]==='/summary/calculate'?'/summary/calculate':'/products/list';
-            }else if(location.pathname.startsWith('/receipt/')){
+                prevLink = pathHistory[pathHistory.length - 2] === "/summary/calculate" ? "/summary/calculate" : "/products/list";
+            } else if (location.pathname.startsWith("/receipt/")) {
                 pageTitle = `***${receiptNumber}***`;
-                prevLink = pathHistory[pathHistory.length-2]==='/purchase/list'?'/purchase/list':'/';
-            }
-            else {
-                pageTitle = 'Başlık';
-                prevLink = '/';
+                prevLink = pathHistory[pathHistory.length - 2] === "/purchase/list" ? "/purchase/list" : "/";
+            } else {
+                pageTitle = "Başlık";
+                prevLink = "/";
             }
     }
     return (
@@ -78,25 +77,23 @@ function MainContainer() {
             <header className="main-container-header">
                 <div>
                     <IconButton color="error" component={Link} to={prevLink}>
-                        <ArrowBackIosIcon/>
+                        <ArrowBackIosIcon />
                     </IconButton>
                 </div>
+                <div>{pageTitle.toUpperCase()}</div>
                 <div>
-                    {pageTitle.toUpperCase()}
-                </div>
-                <div>
-                    <IconButton color="info">
-                        <SettingsIcon/>
-                    </IconButton>
+                    <SettingsDashboard/>
                 </div>
             </header>
             <main className="main-container-main">
-                <Outlet/>
+                <Outlet />
             </main>
             <footer className="main-container-footer">
-                <div><OnlineOfflineIndicator online={isOnline}/></div>
+                <div>
+                    <OnlineOfflineIndicator online={isOnline} />
+                </div>
                 <div>{formattedDate}</div>
-                <div style={{display:"flex",flexDirection:"column"}}>
+                <div style={{ display: "flex", flexDirection: "column" }}>
                     <span>Kasa: {status.case}</span>
                     <span>Mağza: {status.storeNumber}</span>
                 </div>

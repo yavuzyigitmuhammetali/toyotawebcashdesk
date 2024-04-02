@@ -10,8 +10,8 @@ const AppStatusProvider = ({children}) => {
     const [status, setStatus] = React.useState(JSON.parse(localStorage.getItem('status')));
     const [isOnline, setIsOnline] = React.useState(JSON.parse(sessionStorage.getItem('online')));
     const [isLoggedIn, setIsLoggedIn] = React.useState(JSON.parse(sessionStorage.getItem('loggedIn')));
-    const [dark, setDark] = React.useState(false);
-    //const [lang, setLang] = React.useState("tr");
+    const [dark, setDark] = React.useState(JSON.parse(localStorage.getItem('dark'))??false);
+    const [lang, setLang] = React.useState(JSON.parse(localStorage.getItem('lang'))??'tr');
 
 
     React.useEffect(() => {
@@ -59,6 +59,24 @@ const AppStatusProvider = ({children}) => {
      }, [isOnline,isLoggedIn]);
 
 
+     const changeDark = () => {
+        setDark(dark?false:true);
+        localStorage.setItem('dark', JSON.stringify(dark?false:true));
+     }
+
+     const changeLang = () => {
+        if (lang === "tr"){
+            setLang("en");
+            localStorage.setItem('lang', JSON.stringify("en"))
+        } else if (lang === "en") {
+            setLang("tr");
+            localStorage.setItem('lang', JSON.stringify("tr"))
+        }else{
+            setLang("tr");
+            localStorage.setItem('lang', JSON.stringify("tr"))
+        }
+     }
+
     const logOut = React.useCallback(() => {
         document.cookie = "auth=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/api/v1;";
         setIsLoggedIn(false);
@@ -82,11 +100,14 @@ const AppStatusProvider = ({children}) => {
         <AppStatusContext.Provider
             value={{
                 dark,
+                lang,
                 status,
                 isOnline,
                 isLoggedIn,
                 loginFunction,
-                logOut
+                logOut,
+                changeDark,
+                changeLang
             }}
         >
             {children}

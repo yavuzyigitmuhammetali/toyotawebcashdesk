@@ -22,6 +22,7 @@ function ResponsiveReceipt({dark = false}) {
     const [alignment, setAlignment] = useState('left');
     const [alignment2, setAlignment2] = useState('left');
     const {receiptNumber} = useParams();
+    
     useEffect(() => {
         const filteredReceipt = receipts.filter(item => item.receiptNumber === receiptNumber)[0];
         setReceipt(location.state?.receipt ?? filteredReceipt ?? defaultReceipt);
@@ -36,6 +37,12 @@ function ResponsiveReceipt({dark = false}) {
         }
     }, [receipt.active]);
 
+
+    useEffect(() => {
+        if(location.pathname==="/receipt/print-test"){
+            window.print();
+        }
+    }, [location.pathname])
 
     const handleAlignment = (event, newAlignment) => {
         if (newAlignment !== null) {
