@@ -1,13 +1,13 @@
 import React from 'react';
 
-const LoginSrc = React.memo(function LoginSrc({ dark }) {
+const LoginSrc = React.memo(function LoginSrc({ dark, style }) {
     return (
         <>
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 xmlnsXlink="http://www.w3.org/1999/xlink"
                 viewBox="0 0 450 540"
-                style={{filter:dark&&"invert(100%) hue-rotate(180deg)"}}
+                style={{filter:dark&&"invert(100%) hue-rotate(180deg)",...style}}
             >
                 <style>
                     {

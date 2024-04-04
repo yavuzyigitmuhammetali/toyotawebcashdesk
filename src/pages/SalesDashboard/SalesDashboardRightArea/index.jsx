@@ -12,6 +12,8 @@ import ProductShowcase from "../../../shared/components/ProductShowcase/ProductS
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import {useNavigate} from "react-router-dom";
 import ResponsiveDialog from "../../../shared/components/ResponsiveDialog";
+import KeyboardContext from '../../../shared/components/ScreenKeyboard/context';
+import ScreenKeyboard from '../../../shared/components/ScreenKeyboard/ScreenKeyboard';
 
 const darkTheme = createTheme({
     typography: {
@@ -35,6 +37,7 @@ const lightTheme = createTheme({
 
 function SalesDashboardRightArea({dark = false}) {
     const navigate = useNavigate();
+    const keyboardContext = useContext(KeyboardContext);
     const {discounts, toggleDiscounts, products, addToCart,cancelTransaction,cart,confirmCart} = useContext(CartContext);
     const [campaignsWindow, setCampaignsWindow] = useState({first: false, other: true});
     const [productShowcaseWindow, setProductShowcaseWindow] = useState(false);
@@ -91,6 +94,8 @@ function SalesDashboardRightArea({dark = false}) {
                             label={"Öğrenci Kimlik Numarası"}
                             disabled={discounts.studentTaxFree}
                             onOff={discounts.studentTaxFree}
+                            ScreenKeyboardComponent={ScreenKeyboard}
+                            keyboardContext={keyboardContext}
                             buttonName="ÖĞERNCİYE VERGİSİZ"
                             func={handleStudentTaxFree}/>
                     <Button onClick={() => toggleDiscounts("percentageDiscounts")} style={{fontSize: 14}}
@@ -104,7 +109,7 @@ function SalesDashboardRightArea({dark = false}) {
                             <CloseOutlinedIcon/>
                         </IconButton>
                     </div>
-                        <ProductShowcase dark={dark} onClick={addToCart} data={products}/>
+                        <ProductShowcase ScreenKeyboardComponent={ScreenKeyboard} keyboardContext={keyboardContext} dark={dark} onClick={addToCart} data={products}/>
                 </>
                     :
                     <></>}

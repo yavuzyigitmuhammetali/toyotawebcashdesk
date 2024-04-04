@@ -1,5 +1,9 @@
 import {getStatus} from "../state/AppStatus/api";
 
+/**
+ * Asynchronous function to check online status based on schedule
+ * @returns {boolean} - Returns true if the current time falls within the scheduled time, otherwise false
+ */
 export async function checkOnline() {
     try {
         const apiData = await getStatus().then(response => response.data);
@@ -9,11 +13,17 @@ export async function checkOnline() {
         const currentTime = `${currentDate.getHours()}:${currentDate.getMinutes()}`;
         return checkDayAndTime(apiData.schedule, currentDay, currentTime);
     } catch (error) {
-        console.error('Bir hata oluştu:', error.message);
+        console.error('An error occurred:', error.message);
     }
 }
 
-
+/**
+ * Function to check if the current time falls within the scheduled time for a specific day
+ * @param {Object} schedule - The schedule object containing day-wise time ranges
+ * @param {string} currentDay - The current day of the week
+ * @param {string} currentTime - The current time in HH:mm format
+ * @returns {boolean} - Returns true if the current time falls within the scheduled time for the current day, otherwise false
+ */
 function checkDayAndTime(schedule, currentDay, currentTime) {
     const daySchedule = schedule[currentDay];
 
@@ -35,6 +45,11 @@ function checkDayAndTime(schedule, currentDay, currentTime) {
     );
 }
 
+/**
+ * Function to parse a time string into a Date object
+ * @param {string} timeString - The time string in HH:mm format
+ * @returns {Date} - Returns a Date object with the parsed time
+ */
 export function parseTimeToDate(timeString) {
     const [hours, minutes] = timeString.split(':').map(Number);
     const date = new Date();
@@ -42,7 +57,12 @@ export function parseTimeToDate(timeString) {
     return date;
 }
 
-export function updateOnlineStatus(setOnline,schedule) {
+/**
+ * Function to update the online status based on the current schedule
+ * @param {function} setOnline - The function to set the online status
+ * @param {Object} schedule - The schedule object containing day-wise time ranges
+ */
+export function updateOnlineStatus(setOnline, schedule) {
     const now = new Date();
     const dayOfWeek = now.toLocaleString('en-US', { weekday: 'long' });
     const dailySchedule = schedule[dayOfWeek];
@@ -58,7 +78,13 @@ export function updateOnlineStatus(setOnline,schedule) {
     setOnline(now >= startTime && now < endTime);
 }
 
-export function setupTimer(setOnline,schedule) {
+/**
+ * Function to set up a timer for updating the online status based on the schedule
+ * @param {function} setOnline - The function to set the online status
+ * @param {Object} schedule - The schedule object containing day-wise time ranges
+ * @returns {number|null} - Returns the setTimeout ID if the timer is set, otherwise null
+ */
+export function setupTimer(setOnline, schedule) {
     const now = new Date();
     const dayOfWeek = now.toLocaleString('en-US', { weekday: 'long' });
     const dailySchedule = schedule[dayOfWeek];
@@ -77,6 +103,5 @@ export function setupTimer(setOnline,schedule) {
         delay = 24 * 60 * 60 * 1000 - now.getTime() + startTime.getTime();
     }
 
-    return setTimeout(()=>updateOnlineStatus(setOnline,schedule), delay);
+    return setTimeout(() => updateOnlineStatus(setOnline, schedule), delay);
 }
-

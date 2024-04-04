@@ -4,7 +4,7 @@ import OnlineOfflineIndicator from "../../../shared/components/OnlineOfflineIndi
 import AppStatusContext from "../../../shared/state/AppStatus/context";
 const LoginSrc = lazy(() => import('./components/LoginSrc'));
 
-function LoginPageLeftArea({width = "400px", dark = false}) {
+function LoginPageLeftArea({width = "400px", dark = false, warn = false}) {
     const {isOnline,status} = React.useContext(AppStatusContext);
 
 
@@ -13,7 +13,7 @@ function LoginPageLeftArea({width = "400px", dark = false}) {
             <div className="login-page-left-area-indicator">
                 <OnlineOfflineIndicator online={isOnline}/>
             </div>
-            <LoginSrc dark={dark}/>
+            <LoginSrc style={warn&&{filter:"hue-rotate(145deg)"}} dark={dark}/>
             <span className="login-page-left-area-texts good-wish">Store Number: {status.storeNumber}</span>
             <span className="login-page-left-area-texts welcome">WELCOME BACK</span>
             <span className="login-page-left-area-texts explanation">{status.version}</span>

@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
@@ -6,8 +6,6 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import KeyboardContext from "./ScreenKeyboard/context";
-import ScreenKeyboard from "./ScreenKeyboard/ScreenKeyboard";
 import {createTheme, ThemeProvider} from "@mui/material/styles";
 
 const darkTheme = createTheme({
@@ -21,19 +19,32 @@ const lightTheme = createTheme({
     },
 });
 
-
-
-function FormDialog({children,onClose=()=>{},openManual = 0,screenKeyboard=true,buttonName,dialog,func=()=>{},disabled=false,dark=false,onOff=false,label,errorText,style}) {
+function FormDialog({
+    children,
+    onClose = () => {},
+    openManual = 0,
+    screenKeyboard = true,
+    buttonName,
+    dialog,
+    func = () => {},
+    disabled = false,
+    dark = false,
+    onOff = false,
+    label,
+    errorText,
+    style,
+    keyboardContext = null, // Yeni eklenen prop
+    ScreenKeyboardComponent = null // Yeni eklenen prop
+}) {
     const [inputValue, setInputValue] = useState("")
-    const { handleElementFocus, value,onChangeValue,enterRef,clearValues } = useContext(KeyboardContext);
-    const [open, setOpen] = React.useState(false);
-    const [error, setError] = React.useState(false)
+    const { handleElementFocus, value, onChangeValue, enterRef, clearValues } = keyboardContext || {};
+    const [open, setOpen] = useState(false);
+    const [error, setError] = useState(false)
 
     useEffect(() => {
-        setInputValue(value.formDialog??"");
+        setInputValue(value?.formDialog??"");
         setError(false);
     }, [value]);
-
 
     useEffect(() => {
         if (openManual>0){
@@ -42,13 +53,13 @@ function FormDialog({children,onClose=()=>{},openManual = 0,screenKeyboard=true,
     }, [openManual]);
     const handleClickOpen = () => {
         setOpen(true);
-        clearValues();
+        clearValues?.();
     };
 
     const handleClose = (page = true) => {
         page&&onClose();
         setOpen(false);
-        clearValues();
+        clearValues?.();
     };
     return (
         <ThemeProvider theme={dark?darkTheme:lightTheme}>
@@ -103,7 +114,7 @@ function FormDialog({children,onClose=()=>{},openManual = 0,screenKeyboard=true,
                         />
                     </DialogContent>
                     <DialogActions>
-                        {screenKeyboard&&<ScreenKeyboard dark={dark}/>}
+                        {screenKeyboard && ScreenKeyboardComponent ? <ScreenKeyboardComponent dark={dark}/> : null}
                         <Button onClick={handleClose}>İptal</Button>
                         <Button ref={enterRef} type="submit">Uygula</Button>
                     </DialogActions>

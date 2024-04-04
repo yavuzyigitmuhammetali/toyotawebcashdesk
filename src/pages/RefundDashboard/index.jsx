@@ -11,6 +11,8 @@ import AppDataContext from "../../shared/state/AppData/context";
 import {inactivateReceipt, postReceipt} from "./api";
 import AppStatusContext from "../../shared/state/AppStatus/context";
 import {calculateTaxAmount} from "../SalesDashboard/functions/productProcessing";
+import KeyboardContext from "../../shared/components/ScreenKeyboard/context";
+import ScreenKeyboard from "../../shared/components/ScreenKeyboard/ScreenKeyboard";
 
 const darkTheme = createTheme({
     palette: {
@@ -28,6 +30,7 @@ const lightTheme = createTheme({
 function RefundDashboard({dark = false}) {
     const {receipts} = useContext(AppDataContext);
     const {status} = useContext(AppStatusContext);
+    const keyboardContext = useContext(KeyboardContext)
     const [receipt, setReceipt] = useState(defaultReceipt)
     const [cart, setCart] = useState(receipt.cart);
     const navigate = useNavigate();
@@ -192,7 +195,7 @@ function RefundDashboard({dark = false}) {
 
     return (<>
         <ThemeProvider theme={dark ? darkTheme : lightTheme}>
-            <FormDialog func={checkReceipt} errorText={error} onClose={onFormDialogClose} label={"Fatura Numarası"}
+            <FormDialog ScreenKeyboardComponent={ScreenKeyboard} keyboardContext={keyboardContext} func={checkReceipt} errorText={error} onClose={onFormDialogClose} label={"Fatura Numarası"}
                         dark={dark} dialog={"Lütfen devam etmeden önce bir fatura numarası girin"}
                         openManual={1}> </FormDialog>
             <div style={{color: dark ? "white" : "black"}} className="refund-dashboard-upper-area-container">

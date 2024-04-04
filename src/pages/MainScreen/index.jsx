@@ -1,13 +1,13 @@
 import React from 'react';
 import "./mainScreen.css"
 import OnlineOfflineIndicator from "../../shared/components/OnlineOfflineIndicator";
-import SettingsIcon from '@mui/icons-material/Settings';
 import LogoutIcon from '@mui/icons-material/Logout';
 import {IconButton} from "@mui/material";
-import MainScreenItem from "./components/MainScreenItem";
 import {createTheme, ThemeProvider} from "@mui/material/styles";
 import AlertComponent from "../../shared/components/AlertComponent";
 import AppStatusContext from "../../shared/state/AppStatus/context";
+import SettingsDashboard from "./components/SettingsDashboard/SettingsDashboard";
+import MainScreenItem from "./components/MainScreenItem/MainScreenItem";
 
 const darkTheme = createTheme({
     palette: {
@@ -19,7 +19,6 @@ const lightTheme = createTheme({
         mode: 'light',
     },
 });
-
 
 function MainScreen({dark = false}) {
     const {isOnline, status, logOut} = React.useContext(AppStatusContext);
@@ -55,9 +54,7 @@ function MainScreen({dark = false}) {
                     <div>Versiyon: {status.version}</div>
                 </div>
                 <div className="main-screen-upper-right">
-                    <IconButton color="info" aria-label="delete">
-                        <SettingsIcon/>
-                    </IconButton>
+                    <SettingsDashboard/>
                 </div>
                 <div className="main-screen-lower-right">
                     <IconButton onClick={logOut} color="error" aria-label="delete">

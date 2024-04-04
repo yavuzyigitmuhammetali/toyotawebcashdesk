@@ -3,9 +3,12 @@ import "./paymentDashboardLeftArea.css"
 import DigitalArea from "./components/DigitalArea/DigitalArea";
 import FormDialog from "../../../shared/components/FormDialog";
 import PaymentContext from "../context";
+import KeyboardContext from "../../../shared/components/ScreenKeyboard/context";
+import ScreenKeyboard from "../../../shared/components/ScreenKeyboard/ScreenKeyboard";
 
 function PaymentDashboardLeftArea({dark = false}) {
     const {total,paymentTransactions} = useContext(PaymentContext)
+    const keyboardContext = useContext(KeyboardContext)
     const isValidEmail=(email)=>{
         const regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         if (!email || email.length === 0) {
@@ -26,6 +29,8 @@ function PaymentDashboardLeftArea({dark = false}) {
                                 errorText={"Bu geçerli bir mail adresi değil!"}
                         //onOff={}
                                 dark={dark}
+                                ScreenKeyboardComponent={ScreenKeyboard}
+                                keyboardContext={keyboardContext}
                                 dialog={"Doğaya katkıda bulunuyorsun!  E-faturanızla gereksiz kağıt kullanımı azalttın. Teşekkürler! "}/>
                 </div>
         </div>
