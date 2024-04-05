@@ -1,4 +1,5 @@
 import React, {useContext} from 'react';
+import { useTranslation } from 'react-i18next';
 import "./paymentDashboardLeftArea.css"
 import DigitalArea from "./components/DigitalArea/DigitalArea";
 import FormDialog from "../../../shared/components/FormDialog";
@@ -9,6 +10,7 @@ import ScreenKeyboard from "../../../shared/components/ScreenKeyboard/ScreenKeyb
 function PaymentDashboardLeftArea({dark = false}) {
     const {total,paymentTransactions} = useContext(PaymentContext)
     const keyboardContext = useContext(KeyboardContext)
+    const { t } = useTranslation();
     const isValidEmail=(email)=>{
         const regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         if (!email || email.length === 0) {
@@ -23,15 +25,15 @@ function PaymentDashboardLeftArea({dark = false}) {
                 <DigitalArea dark={dark} totalPrice={total} data={paymentTransactions}/>
             </div>
             <div>
-                    <FormDialog disabled={!total} style={{width:"100%"}} buttonName={"E-fatura"}
+                    <FormDialog disabled={!total} style={{width:"100%"}} buttonName={t('eInvoice')}
                                 func={isValidEmail}
-                                label={"Müşteri Mail"}
-                                errorText={"Bu geçerli bir mail adresi değil!"}
+                                label={t('customerEmail')}
+                                errorText={t('invalidEmailError')}
                         //onOff={}
                                 dark={dark}
                                 ScreenKeyboardComponent={ScreenKeyboard}
                                 keyboardContext={keyboardContext}
-                                dialog={"Doğaya katkıda bulunuyorsun!  E-faturanızla gereksiz kağıt kullanımı azalttın. Teşekkürler! "}/>
+                                dialog={t('contributeToNature')}/>
                 </div>
         </div>
     );

@@ -1,4 +1,5 @@
 import React, {useCallback, useContext, useEffect, useState} from 'react';
+import { useTranslation } from 'react-i18next';
 import "./paymentDashboardRightArea.css"
 import {Button} from "@mui/material";
 import NumericKeyboard from "../../../shared/components/NumericKeyboard/NumericKeyboard";
@@ -27,6 +28,7 @@ function PaymentDashboardRightArea({dark=false}) {
     const {setTransaction,amountRemaining,amountPaid,cancelTransaction,confirmTransaction,receipt} = useContext(PaymentContext)
     const {data:numericKeyboardData,setData:setNumericKeyboardData} = useContext(NumericKeyboardContext)
     const [paymentMethod , setPaymentMethod] = useState("cash")
+    const { t } = useTranslation();
     useEffect(() => {
         if (numericKeyboardData){
             setPaymentDialog(prevState => prevState+1);
@@ -59,22 +61,22 @@ function PaymentDashboardRightArea({dark=false}) {
         <ThemeProvider theme={dark?darkTheme:lightTheme}>
             <div style={dark ? {backgroundColor: "#121418", borderColor: "white"} : {}} className="payment-dashboard-right-area-container">
                 <div className="payment-dashboard-right-area-operator">
-                    <ResponsiveDialog onConfirm={cancelTransaction} title={"İade Tutarı : "+ (amountPaid.toFixed(2) +"$")}
-                    text={"Şu anda siparişi iptal etmek üzeresiniz onaylamanızı durumunda ödenmiş olan tutar iade edilip, ürünler müşteriye teslim edilemeyecektir"}>
-                        <Button disabled={(amountRemaining+amountPaid)===0} style={{width:"100%"}} color="error" variant="contained">İşlem İptal Et</Button>
+                    <ResponsiveDialog onConfirm={cancelTransaction} title={t('refundAmount') + (amountPaid.toFixed(2) +"$")}
+                    text={t('cancelTransactionWarning')}>
+                        <Button disabled={(amountRemaining+amountPaid)===0} style={{width:"100%"}} color="error" variant="contained">{t('cancelTransaction')}</Button>
                     </ResponsiveDialog>
-                    <Button disabled={amountRemaining!==0||amountPaid===0} color="success" onClick={confirmTransaction} variant="contained" endIcon={<SendIcon />}>Ödeme Onayala</Button>
+                    <Button disabled={amountRemaining!==0||amountPaid===0} color="success" onClick={confirmTransaction} variant="contained" endIcon={<SendIcon />}>{t('confirmPayment')}</Button>
                 </div>
                     <div className="payment-dashboard-right-area-pay">
                         <div style={{flex:2}}>
-                            <NumericKeyboard allowDecimal disabled={(amountRemaining+amountPaid)===0} dark={dark}/>
+                            <NumericKeyboard allowDecimal disabled={(amountRemaining+amountPaid)===0 || paymentMethod==="card"} dark={dark}/>
                         </div>
                         <div style={{display: "flex", flexDirection: "column", flex: "1 1"}}>
                             <Button disabled={amountRemaining===0} onClick={() => setPaymentMethod("cash")} style={{flex: 1}} color="info"
-                                    variant={paymentMethod === "cash" ? "contained" : "outlined"}>Nakit</Button>
+                                    variant={paymentMethod === "cash" ? "contained" : "outlined"}>{t('cash')}</Button>
                             <Button disabled={amountRemaining===0} onClick={() => setPaymentMethod("card")} style={{flex: 1}} color="warning"
-                                    variant={paymentMethod === "card" ? "contained" : "outlined"}>Kredi Kartı</Button>
-                            <ResponsiveDialog title={"Ödeme Simüle Et"} text={"Bu uygulama gerçek bir uygulama değil, bundan ötürü ödemenin doğru gerçekleşip gerçekleşmediğini varsayaymalıyız!"} onConfirm={onResponsiveDialogConfirm}  manualOpen={paymentDialog}/>
+                                    variant={paymentMethod === "card" ? "contained" : "outlined"}>{t('creditCard')}</Button>
+                            <ResponsiveDialog title={t('simulatePayment')} text={t('simulatePaymentWarning')} onConfirm={onResponsiveDialogConfirm} manualOpen={paymentDialog}/>
                         </div>
                     </div>
 

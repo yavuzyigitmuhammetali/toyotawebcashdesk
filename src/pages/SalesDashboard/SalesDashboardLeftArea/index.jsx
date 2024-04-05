@@ -53,9 +53,13 @@ function SalesDashboardLeftArea({dark = false}) {
 
     useEffect(() => {
         setProducts(_products);
+        return ()=>clearValues();
+    }, [_products]);
+
+    useEffect(() => {
         setSubCategories(_subCategories);
         return ()=>clearValues();
-    }, [_products, _subCategories]);
+    }, [_subCategories]);
 
     useEffect(() => {
         if (selectedMap.category && !selectedMap.subcategory) {
