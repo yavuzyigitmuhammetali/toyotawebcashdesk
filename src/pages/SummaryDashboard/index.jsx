@@ -34,8 +34,11 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogActions from "@mui/material/DialogActions";
 import AppStatusContext from "../../shared/state/AppStatus/context";
+import {useTranslation} from "react-i18next";
 
 function SummaryDashboard({dark = false}) {
+    const {t} = useTranslation();
+
     const {
         receipts: _receipts, categories, subCategories, products, fetchReceipts,
     } = useContext(AppDataContext)
@@ -123,16 +126,16 @@ function SummaryDashboard({dark = false}) {
                     aria-labelledby="alert-dialog-title"
                     aria-describedby="alert-dialog-description"
                 >
-                    <DialogTitle id="alert-dialog-title">{"Uyarı"}</DialogTitle>
+                    <DialogTitle id="alert-dialog-title">{t("errorTitle")}</DialogTitle>
                     <DialogContent>
                         <DialogContentText id="alert-dialog-description">
-                            Bu işlem uzun sürebilir ve maliyetli olabilir. Devam etmek istiyor musunuz?
+                            {t("simulatePaymentWarning")}
                         </DialogContentText>
                     </DialogContent>
                     <DialogActions>
-                        <Button onClick={() => handleDialogClose(false)}>Hayır</Button>
+                        <Button onClick={() => handleDialogClose(false)}>{t("cancel")}</Button>
                         <Button onClick={() => handleDialogClose(true)} autoFocus>
-                            Evet
+                            {t("confirm")}
                         </Button>
                     </DialogActions>
                 </Dialog>
@@ -153,55 +156,50 @@ function SummaryDashboard({dark = false}) {
                         aria-label="Platform"
                         className="summary-dashboard-left-header"
                     >
-                        <ToggleButton size="small" value="hourly">Saatlik</ToggleButton>
-                        <ToggleButton size="small" value="daily">Günlük</ToggleButton>
-                        <ToggleButton size="small" value="monthly">Aylık</ToggleButton>
-                        <ToggleButton size="small" value="yearly">Yıllık</ToggleButton>
-                        <ToggleButton size="small" value="all">Tüm Zamanlar</ToggleButton>
+                        <ToggleButton size="small" value="hourly">{t("hourly")}</ToggleButton>
+                        <ToggleButton size="small" value="daily">{t("daily")}</ToggleButton>
+                        <ToggleButton size="small" value="monthly">{t("monthly")}</ToggleButton>
+                        <ToggleButton size="small" value="yearly">{t("yearly")}</ToggleButton>
+                        <ToggleButton size="small" value="all">{t("allTime")}</ToggleButton>
                     </ToggleButtonGroup>
 
                     <div className="summary-dashboard-tab">
                         <hr/>
-                        <div>Satış Özeti</div>
+                        <div>{t("salesSummary")}</div>
                         <hr/>
                         <ul>
-                            <li>Toplam Alişveriş Tutarı: {summary.totalAmount}$</li>
-                            <li>Toplam İndirimsiz Fiyat: {summary.totalAmountWithoutDiscount}$</li>
-                            <li>Toplam Ödenen Tutar: {summary.totalPaid}$</li>
-                            <li>Toplam Para Üstü: {summary.totalChange}$</li>
-                            <li>Toplam Vergi: {summary.totalTax}$</li>
-                            <li>Toplam Nakit Ödenen Tutar: {summary.totalAmountWithCard}$</li>
-                            <li>Toplam Kartla Ödenen Tutar: {summary.totalAmountWithCash}$</li>
-                            <li>Toplam İade Edilen Tutar: {-summary.totalPayback}$</li>
+                            <li>{t("totalShoppingAmount")}: {summary.totalAmount}$</li>
+                            <li>{t("totalPriceWithoutDiscount")}: {summary.totalAmountWithoutDiscount}$</li>
+                            <li>{t("totalPaidAmount")}: {summary.totalPaid}$</li>
+                            <li>{t("totalChange")}: {summary.totalChange}$</li>
+                            <li>{t("totalTax")}: {summary.totalTax}$</li>
+                            <li>{t("totalAmountPaidInCash")}: {summary.totalAmountWithCard}$</li>
+                            <li>{t("totalAmountPaidWithCard")}: {summary.totalAmountWithCash}$</li>
+                            <li>{t("totalRefundedAmount")}: {-summary.totalPayback}$</li>
                         </ul>
                         <br/>
                         <hr/>
                     </div>
                     <div className="summary-dashboard-tab">
-                        <div>Enler</div>
+                        <div>{t("bests")}</div>
                         <hr/>
                         <ul>
-                            <li>En Çok Satan Kategori: {findNameWithId(categories, summary.topSellingCategory)}</li>
-                            <li>En Çok Satan Alt
-                                Kategori: {findNameWithId(subCategories, summary.topSellingSubCategory)}</li>
-                            <li>En Çok Satan Ürün: {findNameWithId(products, summary.topSellingProduct)}</li>
-                            <li>En Çok Satan Kampanyalı
-                                Ürün: {findNameWithId(products, summary.topSellingCampaignProduct)}</li>
-                            <li>En Çok Kazandıran
-                                Kategori: {findNameWithId(categories, summary.mostProfitableCategory)}</li>
-                            <li>En Çok Kazandıran Alt
-                                Kategori: {findNameWithId(subCategories, summary.mostProfitableSubCategory)}</li>
-                            <li>En Çok Kazandıran Ürün: {findNameWithId(products, summary.mostProfitableProduct)}</li>
-                            <li>En Çok İade Edilen
-                                Ürün: {summary.mostRefundedProducts.refundedProducts.map(id => findNameWithId(products, id)).join(', ')} ({summary.mostRefundedProducts.quantity})
+                            <li>{t("topSellingCategory")}: {findNameWithId(categories, summary.topSellingCategory)}</li>
+                            <li>{t("topSellingSubCategory")}: {findNameWithId(subCategories, summary.topSellingSubCategory)}</li>
+                            <li>{t("topSellingProduct")}: {findNameWithId(products, summary.topSellingProduct)}</li>
+                            <li>{t("topSellingCampaignProduct")}: {findNameWithId(products, summary.topSellingCampaignProduct)}</li>
+                            <li>{t("mostProfitableCategory")}: {findNameWithId(categories, summary.mostProfitableCategory)}</li>
+                            <li>{t("mostProfitableSubCategory")}: {findNameWithId(subCategories, summary.mostProfitableSubCategory)}</li>
+                            <li>{t("mostProfitableProduct")}: {findNameWithId(products, summary.mostProfitableProduct)}</li>
+                            <li>{t("mostRefundedProduct")}: {summary.mostRefundedProducts.refundedProducts.map(id => findNameWithId(products, id)).join(', ')} ({summary.mostRefundedProducts.quantity})
                             </li>
-                            <li>En Çok Satan Saat: {summary.mostSoldHour}:00-{summary.mostSoldHour + 1}:00</li>
-                            <li>En Az Satan Saat: {summary.leastSoldHour}:00-{summary.leastSoldHour + 1}:00</li>
+                            <li>{t("mostSoldHour")}: {summary.mostSoldHour}:00-{summary.mostSoldHour + 1}:00</li>
+                            <li>{t("leastSoldHour")}: {summary.leastSoldHour}:00-{summary.leastSoldHour + 1}:00</li>
                         </ul>
                     </div>
                 </div>
                 <div className="summary-dashboard-right">
-                    <div className="summary-dashboard-right-header">Stoğu Bitmiş Ürünler</div>
+                    <div className="summary-dashboard-right-header">{t("outOfStockProducts")}</div>
                     <br/>
                     {products.filter(product => !product.stock).map((product, key) => <ProductCard key={key}
                                                                                                    price={product.price}
