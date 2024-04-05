@@ -129,7 +129,7 @@ function SummaryDashboard({dark = false}) {
                     <DialogTitle id="alert-dialog-title">{t("errorTitle")}</DialogTitle>
                     <DialogContent>
                         <DialogContentText id="alert-dialog-description">
-                            {t("simulatePaymentWarning")}
+                            {t("simulateSummaryLoadWarning")}
                         </DialogContentText>
                     </DialogContent>
                     <DialogActions>

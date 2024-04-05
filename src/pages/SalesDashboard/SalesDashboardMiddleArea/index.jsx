@@ -71,7 +71,7 @@ function SalesDashboardMiddleArea({dark = false}) {
             </div>
             <hr style={{borderColor: dark ? "white" : "black"}}/>
             <div className="sales-dashboard-middle-area-amount">
-                <span>{t('totalAmount')}</span>
+                <span>{t('totalAmount')}: </span>
                 <span>{totalPrice.toFixed(2)}$</span>
             </div>
         </div>

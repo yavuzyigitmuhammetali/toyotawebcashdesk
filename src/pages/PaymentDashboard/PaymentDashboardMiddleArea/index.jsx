@@ -26,12 +26,12 @@ function PaymentDashboardMiddleArea({dark = false}) {
             <div style={dark ? {backgroundColor: "black", color: "white", borderColor: "white"} : {}}
                  className="payment-dashboard-middle-area-texts">
                 <div className="payment-dashboard-middle-area-amount">
-                    <span>{t('subTotal')} </span>
+                    <span>{t('subTotal')}: </span>
                     <span>{subTotal.toFixed(2)}</span>
                 </div>
                 <hr style={{borderColor: "Background"}}/>
                 <div className="payment-dashboard-middle-area-amount">
-                    <span>{t('totalAmount')}</span>
+                    <span>{t('totalAmount')}: </span>
                     <span>{total.toFixed(2)}</span>
                 </div>
             </div>

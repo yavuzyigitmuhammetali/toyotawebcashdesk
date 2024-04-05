@@ -55,18 +55,20 @@ const OfflineErrorPage = ({dark = true}) => {
                 </Typography>
                 <ScheduleTable schedule={schedule}/>
                 <Box mt={5}>
-                    <Typography variant="body2" sx={{mt: 2}}>
-                        {t('nextShopOpeningTime')}
-                    </Typography>
-                    <CountdownTimer schedule={schedule}/>
-                    <Button
-                        variant="contained"
-                        color="primary"
-                        sx={{mt: 3, fontWeight: 'bold'}}
-                        onClick={() => window.location.reload()}
-                    >
-                        {t('tryRefreshing')}
-                    </Button>
+                    <Box sx={{textAlign: 'center', mt: 3}}>
+                        <Typography variant="body2">
+                            {t('nextShopOpeningTime')}
+                        </Typography>
+                        <CountdownTimer schedule={schedule}/>
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            sx={{mt: 3, fontWeight: 'bold'}}
+                            onClick={() => window.location.reload()}
+                        >
+                            {t('tryRefreshing')}
+                        </Button>
+                    </Box>
                 </Box>
             </Box>
         </ThemeProvider>

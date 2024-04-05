@@ -175,11 +175,11 @@
   "mostSoldHour": "Most Sold Hour",
   "leastSoldHour": "Least Sold Hour",
   "outOfStockProducts": "Out of Stock Products",
-  "hour": "Hourly",
+  "hourly": "Hourly",
   "daily": "Daily",
-  "month": "Monthly",
-  "year": "Yearly",
-  "all": "All Time",
-  "bests": "Bests"
+  "monthly": "Monthly",
+  "yearly": "Yearly",
+  "allTime": "All Time",
+  "bests": "Bests",
+  "simulateSummaryLoadWarning": "This process can take a long time and incur server costs, are you sure you want to continue!"
 }
-

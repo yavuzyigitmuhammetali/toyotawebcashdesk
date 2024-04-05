@@ -38,14 +38,14 @@ function DigitalArea({ dark = false, totalPrice = 2000, data = [] }) {
                 <Typewriter style={{fontSize: "1em"}}
                             speed={20}>................................................................................</Typewriter>
                 <div>
-                    <Typewriter span style={{fontSize: "1.3em"}} speed={100}>{t('paidAmount')}</Typewriter>
+                    <Typewriter span style={{fontSize: "1.3em"}} speed={100}>{t('paidAmount')+": "}</Typewriter>
                     <Typewriter span style={{fontSize: "1.3em"}} speed={100}>{amountPaid.toFixed(2).toString()+"$"}</Typewriter>
                 </div>
                 <div>
-                    <Typewriter span style={{fontSize: "1.3em"}} speed={100}>{t('remainingAmount')}</Typewriter>
+                    <Typewriter span style={{fontSize: "1.3em"}} speed={100}>{t('remainingAmount')+": "}</Typewriter>
                     <Typewriter span style={{fontSize: "1.3em"}} speed={100}>{amountRemaining.toFixed(2).toString()+"$"}</Typewriter>
                 </div>
-                {change?<Typewriter style={{fontSize: "1.3em",color:"greenyellow"}} speed={100}>{t('change')+change.toFixed(2).toString()+"$"}</Typewriter>:null}
+                {change?<Typewriter style={{fontSize: "1.3em",color:"greenyellow"}} speed={100}>{t('change')+": "+change.toFixed(2).toString()+"$"}</Typewriter>:null}
             </div>
         </div>
     );

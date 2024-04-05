@@ -50,10 +50,10 @@ function MainScreen({dark = false}) {
                     color: dark ? "white" : "black",
                     borderColor: dark ? "white" : "black"
                 }} className="main-screen-upper-left">
-                    <div>{t('storeNo')}{status.storeNumber}</div>
-                    <div>{t('cashRegisterNo')}{status.case} (KASA {status.case})</div>
-                    <div>{t('ipNo')}{status.userIp}</div>
-                    <div>{t('version')}{status.version}</div>
+                    <div>{t('storeNo')}: {status.storeNumber}</div>
+                    <div>{t('cashRegisterNo')}: {status.case} (KASA {status.case})</div>
+                    <div>{t('ipNo')}: {status.userIp}</div>
+                    <div>{t('version')}: {status.version}</div>
                 </div>
                 <div className="main-screen-upper-right">
                     <SettingsDashboard/>

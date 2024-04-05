@@ -59,10 +59,10 @@ function MainContainer() {
             break;
         default:
             if (location.pathname.startsWith("/products/list/")) {
-                pageTitle = t("viewingProduct") + productId;
+                pageTitle = t("viewingProduct")+ ": " + productId;
                 prevLink = pathHistory[pathHistory.length - 2] === "/summary/calculate" ? "/summary/calculate" : "/products/list";
             } else if (location.pathname.startsWith("/receipt/")) {
-                pageTitle = t("receiptNumber") + receiptNumber;
+                pageTitle = t("receiptNumber")+ ": "  + receiptNumber;
                 prevLink = pathHistory[pathHistory.length - 2] === "/purchase/list" ? "/purchase/list" : "/";
             } else {
                 pageTitle = t("title");
@@ -91,8 +91,8 @@ function MainContainer() {
                 </div>
                 <div>{formattedDate}</div>
                 <div style={{ display: "flex", flexDirection: "column" }}>
-                    <span>{t("cashRegister")}{status.case}</span>
-                    <span>{t("store")}{status.storeNumber}</span>
+                    <span>{t("cashRegister")}: {status.case}</span>
+                    <span>{t("store")}: {status.storeNumber}</span>
                 </div>
             </footer>
         </div>

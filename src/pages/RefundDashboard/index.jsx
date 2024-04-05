@@ -242,9 +242,9 @@ function RefundDashboard({dark = false}) {
             <div style={{backgroundColor: dark ? "#121418" : "#F8FAFB", color: dark ? "white" : "black"}}
                  className="refund-dashboard-lower-area-container">
                 <div>
-                    <div>{t('totalTaxPaid')}{(receipt.totalTax - tax).toFixed(2)}</div>
-                    <div>{t('subtotalAmount')}{(receipt.subTotal - subTotal).toFixed(2)}</div>
-                    <div>{t('totalAmount')}{(receipt.total - total).toFixed(2)}</div>
+                    <div>{t('totalTaxPaid')}: {(receipt.totalTax - tax).toFixed(2)}</div>
+                    <div>{t('subtotalAmount')}: {(receipt.subTotal - subTotal).toFixed(2)}</div>
+                    <div>{t('totalAmount')}: {(receipt.total - total).toFixed(2)}</div>
                 </div>
                 <div>
                     <div>{t('refundAmountUppercase')}</div>
@@ -256,9 +256,9 @@ function RefundDashboard({dark = false}) {
                     </ResponsiveDialog>
                 </div>
                 <div>
-                    <div>{t('totalTaxRefunded')}{tax}</div>
-                    <div>{t('refundSubtotal')}{subTotal}</div>
-                    <div>{t('refundTotal')}{total}</div>
+                    <div>{t('totalTaxRefunded')}: {tax}</div>
+                    <div>{t('refundSubtotal')}: {subTotal}</div>
+                    <div>{t('refundTotal')}: {total}</div>
                 </div>
             </div>
         </ThemeProvider>
