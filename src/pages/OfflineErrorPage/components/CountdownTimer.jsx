@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { Typography } from '@mui/material';
 import {getNextOpening} from "../functions";
+import { useTranslation } from "react-i18next";
 
 const CountdownTimer = ({ schedule }) => {
     const [timeLeft, setTimeLeft] = useState('');
+    const { t } = useTranslation(); 
 
     useEffect(() => {
         const updateCountdown = () => {
             const openingTime = getNextOpening(schedule);
             if (!openingTime) {
-                setTimeLeft('No opening times available');
+                setTimeLeft(t('noOpeningTimes'));
                 return;
             }
 
@@ -27,7 +29,7 @@ const CountdownTimer = ({ schedule }) => {
 
                 setTimeLeft(`${hours}:${minutes}:${seconds}`);
             } else {
-                setTimeLeft('Opening soon...');
+                setTimeLeft(t('openingSoon'));
             }
         };
 
@@ -35,7 +37,7 @@ const CountdownTimer = ({ schedule }) => {
         const interval = setInterval(updateCountdown, 1000);
 
         return () => clearInterval(interval);
-    }, [schedule]);
+    }, [schedule,t]);
 
     return (
         <Typography variant="h6">

@@ -35,5 +35,22 @@
   "settings": "SETTINGS",
   "dark-mode": "Dark Mode",
   "lang": "Language",
-  "print-test": "Print Test"
+  "print-test": "Print Test",
+  "noOpeningTimes": "No opening times available",
+  "openingSoon": "Opening soon...",
+  "day": "Day",
+  "startTime": "Start Time",
+  "endTime": "End Time",
+  "closed": "Closed",
+  "Monday": "Monday",
+  "Tuesday": "Tuesday",
+  "Wednesday": "Wednesday",
+  "Thursday": "Thursday",
+  "Friday": "Friday",
+  "Saturday": "Saturday",
+  "Sunday": "Sunday",
+  "offlineErrorTitle": "Oops! We're currently offline.",
+  "offlineErrorMessage": "Sorry for the inconvenience. Please check our operating hours below and visit us again during those times.",
+  "nextShopOpeningTime": "Next Shop Opening Time:",
+  "tryRefreshing": "Try refreshing the page"
 }

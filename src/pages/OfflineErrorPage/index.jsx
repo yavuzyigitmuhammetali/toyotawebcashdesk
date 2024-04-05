@@ -6,6 +6,7 @@ import {getTheme} from './theme';
 import CountdownTimer from "./components/CountdownTimer";
 import AppStatusContext from "../../shared/state/AppStatus/context";
 import OnlineOfflineIndicator from "../../shared/components/OnlineOfflineIndicator";
+import { useTranslation } from "react-i18next";
 
 const OfflineErrorPage = ({dark = true}) => {
     const theme = getTheme(dark ? "dark" : "light");
@@ -20,6 +21,7 @@ const OfflineErrorPage = ({dark = true}) => {
             "Saturday": null,
             "Sunday": null
         })
+    const { t } = useTranslation();
 
     useEffect(() => {
         if (status && status.schedule) {
@@ -46,16 +48,15 @@ const OfflineErrorPage = ({dark = true}) => {
             >
                 <OnlineOfflineIndicator online={isOnline}/>
                 <Typography variant="h4" component="h1" gutterBottom sx={{fontWeight: 'bold', mb: 4}}>
-                    Oops! We're currently offline.
+                    {t('offlineErrorTitle')}
                 </Typography>
                 <Typography variant="h6" sx={{mb: 3}}>
-                    Sorry for the inconvenience. Please check our operating hours below and visit us again during those
-                    times.
+                    {t('offlineErrorMessage')}
                 </Typography>
                 <ScheduleTable schedule={schedule}/>
                 <Box mt={5}>
                     <Typography variant="body2" sx={{mt: 2}}>
-                        Next Shop Opening Time:
+                        {t('nextShopOpeningTime')}
                     </Typography>
                     <CountdownTimer schedule={schedule}/>
                     <Button
@@ -64,7 +65,7 @@ const OfflineErrorPage = ({dark = true}) => {
                         sx={{mt: 3, fontWeight: 'bold'}}
                         onClick={() => window.location.reload()}
                     >
-                        Try refreshing the page
+                        {t('tryRefreshing')}
                     </Button>
                 </Box>
             </Box>
