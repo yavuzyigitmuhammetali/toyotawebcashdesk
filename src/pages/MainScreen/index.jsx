@@ -8,6 +8,7 @@ import AlertComponent from "../../shared/components/AlertComponent";
 import AppStatusContext from "../../shared/state/AppStatus/context";
 import SettingsDashboard from "./components/SettingsDashboard/SettingsDashboard";
 import MainScreenItem from "./components/MainScreenItem/MainScreenItem";
+import { useTranslation } from 'react-i18next';
 
 const darkTheme = createTheme({
     palette: {
@@ -22,21 +23,22 @@ const lightTheme = createTheme({
 
 function MainScreen({dark = false}) {
     const {isOnline, status, logOut} = React.useContext(AppStatusContext);
+    const { t } = useTranslation();
+
     return (<>
             <ThemeProvider theme={dark ? darkTheme : lightTheme}>
                 <AlertComponent/>
                 <div style={{backgroundColor: dark ? "#111418" : "#F8FAFB"}} className="main-screen-container">
                     <div className="main-screen-active-area">
                         <div className="main-screen-sides">
-                            <MainScreenItem to={"/order/create"} dark={dark} customIcon={LogoutIcon}>Sipariş
-                                Oluşturma</MainScreenItem>
-                            <MainScreenItem to={"/products/list"} dark={dark}>Ürünler</MainScreenItem>
-                            <MainScreenItem to={"/product/add"} dark={dark}>Ürün Girişi</MainScreenItem>
+                            <MainScreenItem to={"/order/create"} dark={dark} customIcon={LogoutIcon}>{t('orderCreation')}</MainScreenItem>
+                            <MainScreenItem to={"/products/list"} dark={dark}>{t('products')}</MainScreenItem>
+                            <MainScreenItem to={"/product/add"} dark={dark}>{t('productEntry')}</MainScreenItem>
                         </div>
                         <div className="main-screen-sides">
-                            <MainScreenItem to={"/refund/create"} dark={dark}>İade İşlemleri</MainScreenItem>
-                            <MainScreenItem to={"/purchase/list"} dark={dark}>Makbuzlar</MainScreenItem>
-                            <MainScreenItem to={"/summary/calculate"} dark={dark}>Raporlar</MainScreenItem>
+                            <MainScreenItem to={"/refund/create"} dark={dark}>{t('returnProcesses')}</MainScreenItem>
+                            <MainScreenItem to={"/purchase/list"} dark={dark}>{t('receipts')}</MainScreenItem>
+                            <MainScreenItem to={"/summary/calculate"} dark={dark}>{t('reports')}</MainScreenItem>
                         </div>
                     </div>
                 </div>
@@ -48,10 +50,10 @@ function MainScreen({dark = false}) {
                     color: dark ? "white" : "black",
                     borderColor: dark ? "white" : "black"
                 }} className="main-screen-upper-left">
-                    <div>Mağaza No: {status.storeNumber}</div>
-                    <div>Kasa No: {status.case} (KASA {status.case})</div>
-                    <div>İp No: {status.userIp}</div>
-                    <div>Versiyon: {status.version}</div>
+                    <div>{t('storeNo')}{status.storeNumber}</div>
+                    <div>{t('cashRegisterNo')}{status.case} (KASA {status.case})</div>
+                    <div>{t('ipNo')}{status.userIp}</div>
+                    <div>{t('version')}{status.version}</div>
                 </div>
                 <div className="main-screen-upper-right">
                     <SettingsDashboard/>

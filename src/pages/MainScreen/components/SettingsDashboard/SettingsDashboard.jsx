@@ -9,11 +9,13 @@ import DarkModeIcon from "@mui/icons-material/DarkMode";
 import PrintIcon from "@mui/icons-material/Print";
 import LanguageIcon from "@mui/icons-material/Translate";
 import { useNavigate } from "react-router-dom";
+import {useTranslation} from "react-i18next";
 
 function SettingsDashboard() {
     const { dark, changeDark, lang, changeLang } = useContext(AppStatusContext);
     const [showSettings, setShowSettings] = useState(false);
     const navigate = useNavigate();
+    const { t } = useTranslation();
 
     const toggleSettings = () => setShowSettings(!showSettings);
     return (
@@ -38,7 +40,7 @@ function SettingsDashboard() {
                     }}
                 >
                     <div className="settings-dashboard-container">
-                        <div className="settings-dashboard-header">AYARLAR</div>
+                        <div className="settings-dashboard-header">{t('settings')}</div>
                         <hr
                             style={{
                                 backgroundColor: dark ? "white" : "black",
@@ -54,7 +56,7 @@ function SettingsDashboard() {
                                     onClick={changeDark}
                                     onOff={dark}
                                 >
-                                    Dark Mode
+                                    {t("dark-mode")}
                                 </SettingsItem>
                                 <SettingsItem
                                     icon={<LanguageIcon />}
@@ -62,7 +64,7 @@ function SettingsDashboard() {
                                     onClick={changeLang}
                                     dark={dark}
                                 >
-                                    Language
+                                    {t("lang")}
                                 </SettingsItem>
                             </div>
                             <div className="settings-dashboard-active-area">
@@ -71,7 +73,7 @@ function SettingsDashboard() {
                                     onClick={() => navigate("/receipt/print-test")}
                                     dark={dark}
                                 >
-                                    Printer Test
+                                    {t("print-test")}
                                 </SettingsItem>
                             </div>
                         </div>

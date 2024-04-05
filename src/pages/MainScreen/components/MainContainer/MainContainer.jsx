@@ -6,69 +6,66 @@ import OnlineOfflineIndicator from "../../../../shared/components/OnlineOfflineI
 import AppStatusContext from "../../../../shared/state/AppStatus/context";
 import { Link, Outlet, useLocation, useParams } from "react-router-dom";
 import SettingsDashboard from "../SettingsDashboard/SettingsDashboard";
+import { useTranslation } from "react-i18next";
 
 function MainContainer() {
     const { status, isOnline } = useContext(AppStatusContext);
     const today = new Date();
     const formattedDate = `${(today.getMonth() + 1).toString().padStart(2, "0")}/${today.getDate().toString().padStart(2, "0")}/${today.getFullYear()}`;
-
     const [pathHistory, setPathHistory] = useState(["/"]);
-
     const location = useLocation();
+    const { productId, receiptNumber } = useParams();
+    const { t } = useTranslation();
 
     useEffect(() => {
         setPathHistory((prevState) => [...prevState, location.pathname]);
     }, [location.pathname]);
 
-    const { productId, receiptNumber } = useParams();
     let pageTitle;
     let prevLink;
     switch (location.pathname) {
         case "/":
-            pageTitle = "Anasayfa";
+            pageTitle = t("homepage");
             prevLink = "/";
             break;
         case "/order/create":
-            pageTitle = "Sipariş Oluşturma Ekranı";
+            pageTitle = t("orderCreationScreen");
             prevLink = "/";
             break;
         case "/order/payment":
-            pageTitle = "Ödeme Ekranı";
+            pageTitle = t("paymentScreen");
             prevLink = "/order/create";
             break;
         case "/purchase/list":
-            pageTitle = "Makbuzlar";
+            pageTitle = t("receipts");
             prevLink = "/";
             break;
         case "/refund/create":
-            pageTitle = "İade Ekranı";
+            pageTitle = t("returnScreen");
             prevLink = "/";
             break;
         case "/products/list":
-            pageTitle = "Ürün Listeleme Ekranı";
-            prevLink = "/";
-            break;
         case "/products/list/":
-            pageTitle = "Ürün Görüntüle";
+            pageTitle = t("productListingScreen");
             prevLink = "/";
             break;
         case "/product/add":
-            pageTitle = "Ürün Ekleme Ekranı";
+            pageTitle = t("productAddScreen");
             prevLink = "/";
             break;
         case "/summary/calculate":
-            pageTitle = "Raporlar";
+            pageTitle = t("reports");
             prevLink = "/";
             break;
         default:
             if (location.pathname.startsWith("/products/list/")) {
-                pageTitle = `${productId} Numaralı Ürününü Görüntüleniyor`;
+                pageTitle = t("viewingProduct") + productId;
                 prevLink = pathHistory[pathHistory.length - 2] === "/summary/calculate" ? "/summary/calculate" : "/products/list";
             } else if (location.pathname.startsWith("/receipt/")) {
-                pageTitle = `***${receiptNumber}***`;
+                pageTitle = t("receiptNumber") + receiptNumber;
                 prevLink = pathHistory[pathHistory.length - 2] === "/purchase/list" ? "/purchase/list" : "/";
             } else {
-                pageTitle = "Başlık";
+                pageTitle = t("title");
                 prevLink = "/";
             }
     }
@@ -94,8 +91,8 @@ function MainContainer() {
                 </div>
                 <div>{formattedDate}</div>
                 <div style={{ display: "flex", flexDirection: "column" }}>
-                    <span>Kasa: {status.case}</span>
-                    <span>Mağza: {status.storeNumber}</span>
+                    <span>{t("cashRegister")}{status.case}</span>
+                    <span>{t("store")}{status.storeNumber}</span>
                 </div>
             </footer>
         </div>
