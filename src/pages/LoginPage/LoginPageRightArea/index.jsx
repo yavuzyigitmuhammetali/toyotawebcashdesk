@@ -17,6 +17,7 @@ import ScreenKeyboard from "../../../shared/components/ScreenKeyboard/ScreenKeyb
 import {useNavigate} from "react-router-dom";
 import AppStatusContext from "../../../shared/state/AppStatus/context";
 import {Visibility, VisibilityOff} from "@mui/icons-material";
+import {useTranslation} from "react-i18next";
 
 const darkTheme = createTheme({
     palette: {
@@ -37,6 +38,7 @@ function LoginPageRightArea({dark = false}) {
     const navigate = useNavigate();
     const { handleElementFocus, value,onChangeValue,enterRef,clearValues } = useContext(KeyboardContext);
     const {loginFunction} = useContext(AppStatusContext);
+    const {t} = useTranslation();
 
     const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -71,12 +73,12 @@ function LoginPageRightArea({dark = false}) {
             if (result) {
                 setError(false);
                 clearValues();
-                navigate('/', { replace: true, state: { successMessage: "Oturum Açma İşlemi Başarılı, Hoşgeldiniz." }});
+                navigate('/', { replace: true, state: { successMessage: t('loginSuccessMessage') }});
             } else {
                 setError(true);
             }
         } catch (error) {
-            console.error("Giriş işlemi sırasında bir hata oluştu:", error);
+            console.error(t('errorTitle'), error);
             setError(true);
         } finally {
             //setLoading(false);
@@ -88,9 +90,9 @@ function LoginPageRightArea({dark = false}) {
         <div style={{ backgroundColor: dark ? "#1C1F25" : "white", border: "2px solid #1A2027"}}
              className="login-page-right-area-container">
             <div className="login-page-right-area-info">
-                <div style={{color: dark ? "white" : "#5492F0"}} className="login-page-right-area-title">Login Account</div>
+                <div style={{color: dark ? "white" : "#5492F0"}} className="login-page-right-area-title">{t('loginAccount')}</div>
                 <div style={{color: dark ? "#5492F0" : "#E1E2E3"}}>
-                    Lütfen Kullancı Adı ve Şifre Girin
+                    {t('enterUsernamePassword')}
                 </div>
             </div>
             <form className="login-page-right-area-inputs">
@@ -99,7 +101,7 @@ function LoginPageRightArea({dark = false}) {
                         error={error}
                         onFocus={handleElementFocus}
                         value={loginData.username}
-                        label="Kullanıcı Adı"
+                        label={t('username')}
                         onChange={onChangeValue}
                         autoComplete="current-password" id="username"  variant="outlined"/>
                     <FormControl variant="outlined">
@@ -107,7 +109,7 @@ function LoginPageRightArea({dark = false}) {
                         <OutlinedInput
                             error={error}
                             id="password"
-                            label="Password"
+                            label={t('password')}
                             onFocus={handleElementFocus}
                             value={loginData.password}
                             onChange={onChangeValue}
@@ -129,14 +131,14 @@ function LoginPageRightArea({dark = false}) {
                         />
                     </FormControl>
 
-                    <Button ref={enterRef} onClick={handleLogin} disabled={!buttonState} color={error?"error":"info"}  variant="contained">Login</Button>
+                    <Button ref={enterRef} onClick={handleLogin} disabled={!buttonState} color={error?"error":"info"}  variant="contained">{t('login')}</Button>
                     <ScreenKeyboard dark={dark} style={{width:"40px",height:"40px",alignSelf:"center"}}/>
 
             </form>
             {error ?
                 <Alert severity="error">
-                    <AlertTitle>Hata</AlertTitle>
-                    Kullanıcı adı veya şifre hatalı!
+                    <AlertTitle>{t('errorTitle')}</AlertTitle>
+                    {t('loginErrorMessage')}
                 </Alert>
                 :
                 null

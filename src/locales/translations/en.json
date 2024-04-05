@@ -1,0 +1,15 @@
+{
+  "test": "Welcome to React and react-i18next",
+  "storeNumber": "Store Number",
+  "welcomeBack": "WELCOME BACK!",
+  "loginAccount": "Login Account",
+  "enterUsernamePassword": "Please enter your username and password",
+  "username": "Username",
+  "password": "Password",
+  "login": "Login",
+  "errorTitle": "Error",
+  "loginErrorMessage": "Invalid username or password!",
+  "loginSuccessMessage": "Login Successful, Welcome.",
+
+  "":""
+}

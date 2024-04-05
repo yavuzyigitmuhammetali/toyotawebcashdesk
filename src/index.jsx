@@ -7,6 +7,7 @@ import {KeyboardProvider} from "./shared/components/ScreenKeyboard/context";
 import {RouterProvider} from "react-router-dom";
 import router from "./router";
 import {AppDataProvider} from "./shared/state/AppData/context";
+import "./locales";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
