@@ -28,7 +28,7 @@
   "productView": "Product View",
   "productAddScreen": "Product Add Screen",
   "viewingProduct": "Viewing Product No: ",
-  "receiptNumber": "Receipt No: ",
+  "receiptNumber": "Receipt No",
   "title": "Title",
   "cashRegister": "Cash Register: ",
   "store": "Store: ",
@@ -103,5 +103,13 @@
   "save": "Save",
   "pleaseEnterValue": "Please enter a value.",
   "productsDashboard": "Products Dashboard",
-  "viewProduct": "View Product"
+  "viewProduct": "View Product",
+  "cart": "Cart",
+  "unit": "Unit",
+  "amountPaid": "Amount Paid",
+  "viewReceipt": "View Receipt",
+  "returnProcessed": "-Return Processed!",
+  "productCount": "Product Count", 
+  "date": "Date"
 }
+

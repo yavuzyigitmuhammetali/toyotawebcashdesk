@@ -1,4 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import "./purchaseReceipts.css"
 import {
     Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TableSortLabel, Typography
@@ -20,11 +21,11 @@ const lightTheme = createTheme({
     },
 });
 
-
 function PurchaseReceipts({dark = false}) {
+    const {t} = useTranslation();
     const [order, setOrder] = useState('desc');
     const [orderBy, setOrderBy] = useState('date');
-    const {receipts,fetchReceipts} = useContext(AppDataContext);
+    const {receipts, fetchReceipts} = useContext(AppDataContext);
 
     useEffect(() => {
         fetchReceipts()
@@ -50,7 +51,7 @@ function PurchaseReceipts({dark = false}) {
                                         onClick={handleRequestSort('receiptNumber')}
                                     >
                                         <Typography variant="subtitle1" fontWeight="bold">
-                                            Fiş Numarası
+                                            {t('receiptNumber')}
                                         </Typography>
                                     </TableSortLabel>
                                 </TableCell>
@@ -61,7 +62,7 @@ function PurchaseReceipts({dark = false}) {
                                         onClick={handleRequestSort('cart.length')}
                                     >
                                         <Typography variant="subtitle1" fontWeight="bold">
-                                            Ürün Sayısı
+                                            {t('productCount')}
                                         </Typography>
                                     </TableSortLabel>
                                 </TableCell>
@@ -72,7 +73,7 @@ function PurchaseReceipts({dark = false}) {
                                         onClick={handleRequestSort('total')}
                                     >
                                         <Typography variant="subtitle1" fontWeight="bold">
-                                            Toplam Tutar
+                                            {t('totalAmount')}
                                         </Typography>
                                     </TableSortLabel>
                                 </TableCell>
@@ -83,7 +84,7 @@ function PurchaseReceipts({dark = false}) {
                                         onClick={handleRequestSort('date')}
                                     >
                                         <Typography variant="subtitle1" fontWeight="bold">
-                                            Tarih
+                                            {t('date')}
                                         </Typography>
                                     </TableSortLabel>
                                 </TableCell>
