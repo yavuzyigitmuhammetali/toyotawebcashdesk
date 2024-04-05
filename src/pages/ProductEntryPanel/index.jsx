@@ -15,6 +15,7 @@ import {defaultProduct} from "../../shared/state/AppData/defaultData";
 import {useNavigate} from "react-router-dom";
 import QrCodeIcon from '@mui/icons-material/QrCode';
 import DialpadIcon from '@mui/icons-material/Dialpad';
+import { useTranslation } from 'react-i18next';
 
 const darkTheme = createTheme({
     palette: {
@@ -29,6 +30,7 @@ const lightTheme = createTheme({
 
 function ProductEntryPanel({dark = false}) {
     const navigate = useNavigate();
+    const { t } = useTranslation();
     const {handleElementFocus, value, onChangeValue, enterRef, clearValues} = useContext(KeyboardContext);
     const {categories, subCategories: _subCategories, products, fetchProducts} = useContext(AppDataContext);
     const [formData, setFormData] = useState(defaultProduct);
@@ -113,7 +115,7 @@ function ProductEntryPanel({dark = false}) {
                     barcode: prevFormData.fraction?0:generateBarcode(prevFormData.categoryId, prevFormData.subCategoryId, newId)
                 }));
                 sendProduct(formData).then(value1 => {
-                    navigate('/', {replace: true, state: {successMessage: "Ürün Girişi Yapıldı ID: " + value1.data.id}})
+                    navigate('/', {replace: true, state: {successMessage: t('productEntrySuccessMessage') + " ID: " + value1.data.id}})
                 });
             })
             clearValues();
@@ -146,20 +148,20 @@ function ProductEntryPanel({dark = false}) {
                              fraction={formData.fraction}
                              src={formData.image} barcode={formData.barcode} favorite={formData.isFavourite}/>
                 <div>
-                    <span>Favorilere Ekle</span>
+                    <span>{t('addToFavorites')}</span>
                     <Checkbox style={{alignSelf: "flex-start"}} color="success" checked={formData.isFavourite}
                               icon={<FavoriteBorder color="error"/>}
                               checkedIcon={<Favorite color="success"/>} onChange={handleCheckboxChange} name="isFavourite"/>
                 </div>
                 <div>
-                    <span>Barcodesuz Ürün</span>
+                    <span>{t('productWithoutBarcode')}</span>
                     <Checkbox style={{alignSelf: "flex-start"}} color="success" checked={!formData.barcode}
                               icon={<QrCodeIcon color="error"/>}
                               checkedIcon={<QrCodeIcon color="success"/>} onChange={handleCheckboxChange}
                               name="barcode"/>
                 </div>
                 <div>
-                    <span>Kiloya Satış</span>
+                    <span>{t('sellByWeight')}</span>
                     <Checkbox style={{alignSelf: "flex-start"}} color="success" checked={formData.fraction}
                               icon={<DialpadIcon color="error"/>}
                               checkedIcon={<DialpadIcon color="success"/>} onChange={handleCheckboxChange}
@@ -170,25 +172,25 @@ function ProductEntryPanel({dark = false}) {
             </div>
 
             <div className="product-entry-panel-right-area">
-                <TextField onFocus={handleElementFocus} id="name" required label="Ürün İsmi" variant="outlined"
+                <TextField onFocus={handleElementFocus} id="name" required label={t('productName')} variant="outlined"
                            name="name"
                            value={formData.name} onChange={onChangeValue}/>
-                <TextField onFocus={handleElementFocus} id="stock" label="Stok Adedi" variant="outlined"
+                <TextField onFocus={handleElementFocus} id="stock" label={t('stockQuantity')} variant="outlined"
                            type="number"
                            name="stock" value={formData.stock} onChange={onChangeValue}/>
-                <TextField onFocus={handleElementFocus} id="price" required label="Ürün Tutarı" variant="outlined"
+                <TextField onFocus={handleElementFocus} id="price" required label={t('productPrice')} variant="outlined"
                            type="number"
                            name="price" value={formData.price} onChange={onChangeValue}/>
                 <TextField onFocus={handleElementFocus} id="tax" InputProps={{
                     startAdornment: <InputAdornment position="start">%</InputAdornment>,
-                }} label="Vergi Yüzdesi" variant="outlined" type="number" name="tax"
+                }} label={t('taxPercentage')} variant="outlined" type="number" name="tax"
                            value={formData.tax} onChange={onChangeValue}/>
-                <TextField onFocus={handleElementFocus} id="image" label="Ürün Resim URL" variant="outlined"
+                <TextField onFocus={handleElementFocus} id="image" label={t('productImageURL')} variant="outlined"
                            type="url"
                            name="image"
                            value={formData.image} onChange={onChangeValue}/>
                 <div>
-                    <InputLabel id="demo-simple-select-label">Kampanyalar</InputLabel>
+                    <InputLabel id="demo-simple-select-label">{t('campaigns')}</InputLabel>
                     <Select
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
@@ -197,13 +199,13 @@ function ProductEntryPanel({dark = false}) {
                         name="campaign"
                     >
                         <MenuItem value="">-</MenuItem>
-                        <MenuItem value="buy3pay2">3 Al 2 Öde</MenuItem>
-                        <MenuItem value="-20%">-%20</MenuItem>
-                        <MenuItem value="studentTaxFree">Öğrenciye Vergisiz</MenuItem>
+                        <MenuItem value="buy3pay2">buy3pay2</MenuItem>
+                        <MenuItem value="-20%">-20%</MenuItem>
+                        <MenuItem value="studentTaxFree">studentTaxFree</MenuItem>
                     </Select>
                 </div>
                 <div>
-                    <InputLabel required id="demo-simple-select-label">Kategori</InputLabel>
+                    <InputLabel required id="demo-simple-select-label">{t('category')}</InputLabel>
                     <Select
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
@@ -215,7 +217,7 @@ function ProductEntryPanel({dark = false}) {
                     </Select>
                 </div>
                 <div>
-                    <InputLabel required id="demo-simple-select-label">Alt Kategori</InputLabel>
+                    <InputLabel required id="demo-simple-select-label">{t('subCategory')}</InputLabel>
                     <Select
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
@@ -227,10 +229,9 @@ function ProductEntryPanel({dark = false}) {
                                                                key={item.id}>{item.name}</MenuItem>)}
                     </Select>
                 </div>
-                <ResponsiveDialog disabled={!valid} onConfirm={handleSendData} title={"Ürün Girişi"}
-                                  text={"Verileri veri tabanınına kaydetmek üzeresiniz"}>
+                <ResponsiveDialog disabled={!valid} onConfirm={handleSendData} title={t('saveProduct')} text={t('saveProductConfirmation')}>
                     <Button disabled={!valid} color={valid ? "success" : "error"} ref={enterRef}
-                            variant="outlined">Kaydet</Button>
+                            variant="outlined">{t('saveProduct')}</Button>
                 </ResponsiveDialog>
 
             </div>

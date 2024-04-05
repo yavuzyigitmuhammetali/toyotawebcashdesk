@@ -72,5 +72,19 @@
   "paidInCash": "Paid in cash!",
   "paidAmount": "Paid Amount:",
   "remainingAmount": "Remaining Amount:",
-  "change": "Change:"
+  "change": "Change:",
+  "productName": "Product Name",
+  "stockQuantity": "Stock Quantity",
+  "productPrice": "Product Price",
+  "taxPercentage": "Tax Percentage",
+  "productImageURL": "Product Image URL",
+  "campaigns": "Campaigns",
+  "category": "Category",
+  "subCategory": "Sub Category",
+  "saveProduct": "Save Product",
+  "saveProductConfirmation": "You are about to save the data to the database",
+  "addToFavorites": "Add to Favorites",
+  "productWithoutBarcode": "Product Without Barcode",
+  "sellByWeight": "Sell by Weight",
+  "productEntrySuccessMessage": "Product Entry Successful"
 }
