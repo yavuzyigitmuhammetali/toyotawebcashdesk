@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import TextField from "@mui/material/TextField";
+import { useTranslation } from 'react-i18next';
 
 function EditableText({ text, style, name,id, onFocus,defaultText = "", className, onTextChange = () => { } }) {
     const [isEditing, setIsEditing] = useState(false);
     const [inputValue, setInputValue] = useState('');
-
+    const { t } = useTranslation();
 
 
     const handleChange = (event) => {
@@ -19,7 +20,7 @@ function EditableText({ text, style, name,id, onFocus,defaultText = "", classNam
         setIsEditing(false);
         if (inputValue.trim() === '') {
             setInputValue(text);
-            alert('Lütfen bir değer girin.');
+            alert(t('pleaseEnterValue'));
         } else {
             onTextChange(inputValue,name);
         }

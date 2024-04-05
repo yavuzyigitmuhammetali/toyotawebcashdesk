@@ -86,5 +86,22 @@
   "addToFavorites": "Add to Favorites",
   "productWithoutBarcode": "Product Without Barcode",
   "sellByWeight": "Sell by Weight",
-  "productEntrySuccessMessage": "Product Entry Successful"
+  "productEntrySuccessMessage": "Product Entry Successful",
+  "price": "Price",
+  "tax": "Tax",
+  "stock": "Stock",
+  "photo": "Photo",
+  "pcs": "pcs.",
+  "lbs": "lbs.",
+  "none": "None",
+  "buy3pay2": "Buy 3 Pay 2",
+  "discount20": "20% Discount",
+  "studentTaxFree": "Tax Free for Students!!!",
+  "cancel": "Cancel",
+  "updateProduct": "Update Product",
+  "updateConfirmation": "If you confirm, the product will be updated with the entered values. Basic details such as category and subcategory cannot be updated!",
+  "save": "Save",
+  "pleaseEnterValue": "Please enter a value.",
+  "productsDashboard": "Products Dashboard",
+  "viewProduct": "View Product"
 }

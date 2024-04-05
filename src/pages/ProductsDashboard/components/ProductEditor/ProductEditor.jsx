@@ -12,6 +12,7 @@ import KeyboardContext from "../../../../shared/components/ScreenKeyboard/contex
 import {useNavigate, useParams} from "react-router-dom";
 import AppDataContext from "../../../../shared/state/AppData/context";
 import {defaultProduct} from "../../../../shared/state/AppData/defaultData";
+import { useTranslation } from 'react-i18next';
 
 function ProductEditor({dark = false}) {
     const {productId: _productId} = useParams();
@@ -23,6 +24,7 @@ function ProductEditor({dark = false}) {
     const {products, fetchProducts} = useContext(AppDataContext);
     const tempProduct = products.find(value => value.id === productId);
     const [product, setProduct] = useState(tempProduct ?? defaultProduct);
+    const { t } = useTranslation();
 
 
     const handleTextChange = (value, key) => {
@@ -123,7 +125,7 @@ function ProductEditor({dark = false}) {
             <EditableText id="stock" onFocus={handleElementFocus} className="product-editor-stock"
                           style={{color: dark ? "#C595D4" : "#9031AA"}} text={product.stock.toString()} name="stock"
                           onTextChange={handleTextChange}/>
-            <div className="product-editor-stock-label">{product.fraction?"lbs.":"pcs."}</div>
+            <div className="product-editor-stock-label">{product.fraction ? t('lbs') : t('pcs')}</div>
             <EditableText id="photo" onFocus={handleElementFocus} className="product-editor-image-placeholder"
                           defaultText={"Photo"} text={product.image.toString()} name="image"
                           onTextChange={handleTextChange}/>
@@ -152,22 +154,22 @@ function ProductEditor({dark = false}) {
                         setSelectState(!selectState);
                     }}
                 >
-                    <MenuItem value=""><em>None</em></MenuItem>
-                    <MenuItem value="buy3pay2">3 Al 2 Öde</MenuItem>
-                    <MenuItem value="-20%">Net %20 İndirim</MenuItem>
-                    <MenuItem value="studentTaxFree">Öğrenciye Vergisiz!!!</MenuItem>
+                    <MenuItem value=""><em>{t('none')}</em></MenuItem>
+                    <MenuItem value="buy3pay2">{t('buy3pay2')}</MenuItem>
+                    <MenuItem value="-20%">{t('discount20')}</MenuItem>
+                    <MenuItem value="studentTaxFree">{t('studentTaxFree')}</MenuItem>
                 </Select>
             </div>
         </div>
         <div><ScreenKeyboard dark={dark}/></div>
         <div className="product-editor-actions">
-            <Button style={{flex: 1}} size="small" onClick={cancelChange} color="error" variant="contained">İptal
-                Et</Button>
-            <ResponsiveDialog onConfirm={updateData} title="Ürün Güncelleme"
-                              text="Onaylamanız durumunda ürün girilen değerler ile güncellenecektir, kategori ve alt kategori gibi temel detaylar güncellenemez!"
+            <Button style={{flex: 1}} size="small" onClick={cancelChange} color="error" variant="contained">{t('cancel')}
+            </Button>
+            <ResponsiveDialog onConfirm={updateData} title={t('updateProduct')}
+                              text={t('updateConfirmation')}
                               disabled={!changeData} style={{flex: 1}}>
                 <Button ref={enterRef} disabled={!changeData} style={{width: "100%"}} size="small" color="success"
-                        variant="contained">Kaydet</Button>
+                        variant="contained">{t('save')}</Button>
             </ResponsiveDialog>
         </div>
     </div>);
