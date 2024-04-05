@@ -28,7 +28,6 @@
   "productView": "Product View",
   "productAddScreen": "Product Add Screen",
   "viewingProduct": "Viewing Product No: ",
-  "receiptNumber": "Receipt No",
   "title": "Title",
   "cashRegister": "Cash Register: ",
   "store": "Store: ",
@@ -113,6 +112,7 @@
   "date": "Date",
   "refundProcessing": "Refund Processing",
   "refundReceiptNumber": "Refund Receipt Number",
+  "receiptNumber": "Receipt Number",
   "pleaseEnterReceiptNumber": "Please enter a receipt number before proceeding",
   "invalidReceiptNumber": "Invalid receipt number or canceled receipt",
   "canceledReceipt": "The entered receipt has been canceled!",
@@ -124,7 +124,7 @@
   "totalTaxRefunded": "Total Tax Refunded: ",
   "refundSubtotal": "Refund Subtotal: ",
   "refundTotal": "Refund Total: ",
-  "refundReceiptRequired": "Receipt Number is Required for Refund Process!"
-
+  "refundReceiptRequired": "Receipt Number is Required for Refund Process!",
+  "printErrorMessage": "Returned receipts and invoices cannot be reissued!"
 }
 

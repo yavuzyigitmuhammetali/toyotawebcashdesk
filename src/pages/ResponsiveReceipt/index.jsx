@@ -13,6 +13,7 @@ import {useLocation, useParams} from "react-router-dom";
 import AppDataContext from "../../shared/state/AppData/context";
 import {defaultReceipt} from "../../shared/state/AppData/defaultData";
 import AlertComponent from "../../shared/components/AlertComponent";
+import {useTranslation} from "react-i18next";
 
 
 function ResponsiveReceipt({dark = false}) {
@@ -22,6 +23,7 @@ function ResponsiveReceipt({dark = false}) {
     const [alignment, setAlignment] = useState('left');
     const [alignment2, setAlignment2] = useState('left');
     const {receiptNumber} = useParams();
+    const {t} = useTranslation();
     
     useEffect(() => {
         const filteredReceipt = receipts.filter(item => item.receiptNumber === receiptNumber)[0];
@@ -33,7 +35,7 @@ function ResponsiveReceipt({dark = false}) {
         if (receipt.active) {
             window.print();
         } else {
-            alert('İade edilmiş fiş ve faturalar tekrar talep edilemez!');
+            alert(t('printErrorMessage'));
         }
     }, [receipt.active]);
 
