@@ -10,6 +10,7 @@ import CartContext from "../context";
 import {filterProducts, filterProductsByBarcode, filterSubcategories} from "../functions/productProcessing";
 import ScreenKeyboard from "../../../shared/components/ScreenKeyboard/ScreenKeyboard";
 import KeyboardContext from "../../../shared/components/ScreenKeyboard/context";
+import {useTranslation} from "react-i18next";
 
 const darkTheme = createTheme({
     palette: {
@@ -24,6 +25,9 @@ const lightTheme = createTheme({
 
 
 function SalesDashboardLeftArea({dark = false}) {
+
+    const {t} = useTranslation();
+
     const {
         categories, subCategories: _subCategories, products: _products, addToCart
     } = useContext(CartContext);
@@ -111,7 +115,7 @@ function SalesDashboardLeftArea({dark = false}) {
             <div className="left-one">
                 <TextField
                     id="barcodeArea"
-                    label="Klavyede Barkod Girişi"
+                    label={t('barcodeEntry')}
                     onFocus={handleElementFocus}
                     value={value}
                     onChange={onChangeValue}
@@ -130,15 +134,15 @@ function SalesDashboardLeftArea({dark = false}) {
                     setMap("categories");
                     updateSelectedMap(0, "category");
                     updateSelectedMap(0, "subcategory");
-                }} size="small" variant="contained">Kategoriler</Button>
+                }} size="small" variant="contained">{t('categories')}</Button>
                 <Button onClick={() => {
                     setMap("subcategories");
                     updateSelectedMap(0, "subcategory");
                 }} size="small"
                         variant={map === "subcategories" || map === "products" ? "contained" : "outlined"}>
-                    Alt Kategoriler</Button>
+                    {t('subCategories')}</Button>
                 <Button onClick={() => setMap("products")} size="small"
-                        variant={map === "products" ? "contained" : "outlined"}>Ürünler</Button>
+                        variant={map === "products" ? "contained" : "outlined"}>{t('products')}</Button>
             </div>
             <div className="left-three-scroll">
                 <div className="left-three">

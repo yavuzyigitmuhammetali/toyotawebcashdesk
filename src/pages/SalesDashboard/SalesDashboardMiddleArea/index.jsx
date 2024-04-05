@@ -3,11 +3,15 @@ import "./salesDashboardMiddleArea.css"
 import ShoppingCartItem from "../../../shared/components/ShoppingCartItem/ShoppingCartItem";
 import CartContext from "../context";
 import KeyboardContext from "../../../shared/components/ScreenKeyboard/context";
+import {useTranslation} from "react-i18next";
 
 function SalesDashboardMiddleArea({dark = false}) {
     const {
         handleElementFocus, value: keyboardValue, onChangeValue, clearValues
     } = useContext(KeyboardContext);
+
+    const {t} = useTranslation();
+
     const [decimalValue, setDecimalValue] = useState({value: "", id: 0})
     const {
         cart,
@@ -34,7 +38,6 @@ function SalesDashboardMiddleArea({dark = false}) {
             clearValues();
         }
     }, []);
-
 
     return (<div style={dark ? {backgroundColor: "#121418", borderColor: "white"} : {}}
                  className="sales-dashboard-middle-area-container">
@@ -63,12 +66,12 @@ function SalesDashboardMiddleArea({dark = false}) {
         <div style={dark ? {backgroundColor: "black", color: "white", borderColor: "white"} : {}}
              className="sales-dashboard-middle-area-texts">
             <div className="sales-dashboard-middle-area-amount">
-                <span>Ara Toplam: </span>
+                <span>{t('subTotal')}: </span>
                 <span>{subTotalPrice.toFixed(2)}$</span>
             </div>
             <hr style={{borderColor: dark ? "white" : "black"}}/>
             <div className="sales-dashboard-middle-area-amount">
-                <span>Toplam Tutar</span>
+                <span>{t('totalAmount')}</span>
                 <span>{totalPrice.toFixed(2)}$</span>
             </div>
         </div>

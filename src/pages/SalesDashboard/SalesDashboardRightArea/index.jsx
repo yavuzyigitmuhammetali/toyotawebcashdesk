@@ -14,6 +14,7 @@ import {useNavigate} from "react-router-dom";
 import ResponsiveDialog from "../../../shared/components/ResponsiveDialog";
 import KeyboardContext from '../../../shared/components/ScreenKeyboard/context';
 import ScreenKeyboard from '../../../shared/components/ScreenKeyboard/ScreenKeyboard';
+import {useTranslation} from "react-i18next";
 
 const darkTheme = createTheme({
     typography: {
@@ -36,6 +37,7 @@ const lightTheme = createTheme({
 
 
 function SalesDashboardRightArea({dark = false}) {
+    const {t} = useTranslation();
     const navigate = useNavigate();
     const keyboardContext = useContext(KeyboardContext);
     const {discounts, toggleDiscounts, products, addToCart,cancelTransaction,cart,confirmCart} = useContext(CartContext);
@@ -46,9 +48,9 @@ function SalesDashboardRightArea({dark = false}) {
         if (confirmCart()){
             navigate('/order/payment', {replace: true});
         }else {
-            navigate('/', {replace: true, state: {errorMessage: 'Sepete Ürün Eklenirken Bir Hata Oluştu!'}})
+            navigate('/', {replace: true, state: {errorMessage: t('errorAddingProductToCart')}})
         }
-    }, [confirmCart, navigate]);
+    }, [confirmCart, navigate, t]);
 
 
     const handleStudentTaxFree = (val) => {
@@ -64,13 +66,13 @@ function SalesDashboardRightArea({dark = false}) {
             <div style={{backgroundColor: dark ? "#121418" : "", borderColor: dark ? "white" : ""}}
                  className="sales-dashboard-right-area-container">
                 <div className="sales-dashboard-right-area-control">
-                    <ResponsiveDialog title={"İşlemi İptal Et"} text={"Sepetteki ürünler etkin kampanyalar ile birlikte iptal edilmek üzere..."} onConfirm={cancelTransaction}>
-                        <Button color="error" variant="contained"> İşlem İptal Et</Button>
+                    <ResponsiveDialog title={t('cancelTransaction')} text={t('cancelTransactionWarning')} onConfirm={cancelTransaction}>
+                        <Button color="error" variant="contained"> {t('cancelTransaction')}</Button>
                     </ResponsiveDialog>
-                    <Button onClick={()=>setProductShowcaseWindow(!productShowcaseWindow)} color="info" variant="contained">İsimden Ara</Button>
+                    <Button onClick={()=>setProductShowcaseWindow(!productShowcaseWindow)} color="info" variant="contained">{t('search')}</Button>
                     <Button onClick={() => setCampaignsWindow({first: true, other: true})} color="secondary"
-                            variant="contained">Kampanyalar</Button>
-                    <Button disabled={cart.length===0} color="success" onClick={handleConfirmCart} variant="contained" endIcon={<SendIcon/>}>Ödeme Ekranı</Button>
+                            variant="contained">{t('campaigns')}</Button>
+                    <Button disabled={cart.length===0} color="success" onClick={handleConfirmCart} variant="contained" endIcon={<SendIcon/>}>{t('confirmPayment')}</Button>
 
                 </div>
                 <div className="sales-dashboard-right-area-keyboard">
@@ -86,21 +88,20 @@ function SalesDashboardRightArea({dark = false}) {
                         <ArrowUpwardIcon/>
                     </IconButton>
                     <Button onClick={() => toggleDiscounts("buy3pay2")} style={{fontSize: 14}}
-                            color={discounts.buy3pay2 ? "success" : "error"} variant="contained">3 AL 2 ÖDE</Button>
+                            color={discounts.buy3pay2 ? "success" : "error"} variant="contained">{t('buy3Pay2')}</Button>
                         <FormDialog
-                            dialog="Öğrenciler seçili ürünlerde 1 tane almak ve bir kez yararlanma şartıyla vergisiz ürün!"
+                            dialog={t('taxFreeForStudents')}
                             dark={dark}
-                            errorText={"Kimlik numarası hatalı veya bir öğrenciye ait değil!"}
-                            label={"Öğrenci Kimlik Numarası"}
+                            errorText={t('errorInvalidStudentID')}
+                            label={t('studentID')}
                             disabled={discounts.studentTaxFree}
                             onOff={discounts.studentTaxFree}
                             ScreenKeyboardComponent={ScreenKeyboard}
                             keyboardContext={keyboardContext}
-                            buttonName="ÖĞERNCİYE VERGİSİZ"
+                            buttonName={t('studentTaxFree')}
                             func={handleStudentTaxFree}/>
                     <Button onClick={() => toggleDiscounts("percentageDiscounts")} style={{fontSize: 14}}
-                            color={discounts.percentageDiscounts ? "success" : "error"} variant="contained">YÜZDELİK
-                        İNDİRİMLER</Button>
+                            color={discounts.percentageDiscounts ? "success" : "error"} variant="contained">{t('percentageDiscounts')}</Button>
                 </div>}
                 {productShowcaseWindow?
                     <>
@@ -117,5 +118,4 @@ function SalesDashboardRightArea({dark = false}) {
             </div>
         </ThemeProvider>);
 }
-
 export default SalesDashboardRightArea;
