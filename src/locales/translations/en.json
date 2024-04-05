@@ -110,6 +110,21 @@
   "viewReceipt": "View Receipt",
   "returnProcessed": "-Return Processed!",
   "productCount": "Product Count", 
-  "date": "Date"
+  "date": "Date",
+  "refundProcessing": "Refund Processing",
+  "refundReceiptNumber": "Refund Receipt Number",
+  "pleaseEnterReceiptNumber": "Please enter a receipt number before proceeding",
+  "invalidReceiptNumber": "Invalid receipt number or canceled receipt",
+  "canceledReceipt": "The entered receipt has been canceled!",
+  "totalTaxPaid": "Total Tax Paid: ",
+  "subtotalAmount": "Subtotal Amount: ",
+  "refundAmountUppercase": "REFUND AMOUNT",
+  "approveRefund": "Approve Refund",
+  "refundApprovalMessage": "Upon approval of the transaction, the refund amount should be delivered in cash or gift voucher",
+  "totalTaxRefunded": "Total Tax Refunded: ",
+  "refundSubtotal": "Refund Subtotal: ",
+  "refundTotal": "Refund Total: ",
+  "refundReceiptRequired": "Receipt Number is Required for Refund Process!"
+
 }
 

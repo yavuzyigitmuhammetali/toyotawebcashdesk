@@ -13,6 +13,7 @@ import AppStatusContext from "../../shared/state/AppStatus/context";
 import {calculateTaxAmount} from "../SalesDashboard/functions/productProcessing";
 import KeyboardContext from "../../shared/components/ScreenKeyboard/context";
 import ScreenKeyboard from "../../shared/components/ScreenKeyboard/ScreenKeyboard";
+import { useTranslation } from 'react-i18next';
 
 const darkTheme = createTheme({
     palette: {
@@ -25,8 +26,6 @@ const lightTheme = createTheme({
     },
 });
 
-// İade işleminde iade edilen ürünler stokda gözükmemeli,
-// edindiğim bilgiye göre onlar manuel olarak sisteme giriliyor
 function RefundDashboard({dark = false}) {
     const {receipts} = useContext(AppDataContext);
     const {status} = useContext(AppStatusContext);
@@ -36,7 +35,7 @@ function RefundDashboard({dark = false}) {
     const navigate = useNavigate();
     const [refundedProducts, setRefundedProducts] = useState([])
     const [error, setError] = useState("")
-
+    const { t } = useTranslation();
 
     const {total, subTotal, tax} = useMemo(() => {
         const total = refundedProducts.reduce((acc, {
@@ -57,8 +56,8 @@ function RefundDashboard({dark = false}) {
 
 
     const onFormDialogClose = useCallback(() => {
-        navigate('/', {replace: true, state: {warningMessage: "İade İşlemi İçin Fatura Numarası Zorunludur!"}})
-    }, [navigate]);
+        navigate('/', {replace: true, state: {warningMessage: t('refundReceiptRequired')}})
+    }, [navigate, t]);
 
 
     const handleOnApproved = () => {
@@ -184,19 +183,19 @@ function RefundDashboard({dark = false}) {
                 setError("");
                 return true
             } else {
-                setError("Girilen fiş iptal edilmiş!")
+                setError(t('canceledReceipt'))
                 return false;
             }
         } else {
-            setError("Fatura numarası geçersiz yada iptal edilmiş")
+            setError(t('invalidReceiptNumber'))
             return false;
         }
     }
 
     return (<>
         <ThemeProvider theme={dark ? darkTheme : lightTheme}>
-            <FormDialog ScreenKeyboardComponent={ScreenKeyboard} keyboardContext={keyboardContext} func={checkReceipt} errorText={error} onClose={onFormDialogClose} label={"Fatura Numarası"}
-                        dark={dark} dialog={"Lütfen devam etmeden önce bir fatura numarası girin"}
+            <FormDialog ScreenKeyboardComponent={ScreenKeyboard} keyboardContext={keyboardContext} func={checkReceipt} errorText={error} onClose={onFormDialogClose} label={t('refundReceiptNumber')}
+                        dark={dark} dialog={t('pleaseEnterReceiptNumber')}
                         openManual={1}> </FormDialog>
             <div style={{color: dark ? "white" : "black"}} className="refund-dashboard-upper-area-container">
                 <div style={{backgroundColor: dark ? "#121418" : "#F8FAFB"}}
@@ -243,23 +242,23 @@ function RefundDashboard({dark = false}) {
             <div style={{backgroundColor: dark ? "#121418" : "#F8FAFB", color: dark ? "white" : "black"}}
                  className="refund-dashboard-lower-area-container">
                 <div>
-                    <div>Toplam Ödenen Vergi Tutarı: {(receipt.totalTax - tax).toFixed(2)}</div>
-                    <div>Ara Topalam Tutarı: {(receipt.subTotal - subTotal).toFixed(2)}</div>
-                    <div>Topalam Tutar: {(receipt.total - total).toFixed(2)}</div>
+                    <div>{t('totalTaxPaid')}{(receipt.totalTax - tax).toFixed(2)}</div>
+                    <div>{t('subtotalAmount')}{(receipt.subTotal - subTotal).toFixed(2)}</div>
+                    <div>{t('totalAmount')}{(receipt.total - total).toFixed(2)}</div>
                 </div>
                 <div>
-                    <div>İADE EDİLECEK TUTAR</div>
+                    <div>{t('refundAmountUppercase')}</div>
                     <div style={{color: "green"}}>{total}$</div>
                     <ResponsiveDialog
-                        text={"İşlemin onaylanması durumunda iade tutarı nakit veya hediye çeki olarak teslim edilmeli"}
-                        title={"İade Tutarı: " + (total + "$")} onConfirm={handleOnApproved}>
-                        <Button color="warning" variant="contained" size="small">İadeyi Onayla</Button>
+                        text={t('refundApprovalMessage')}
+                        title={t('refundAmount') + ": " + (total + "$")} onConfirm={handleOnApproved}>
+                        <Button color="warning" variant="contained" size="small">{t('approveRefund')}</Button>
                     </ResponsiveDialog>
                 </div>
                 <div>
-                    <div>Toplam Geri Ödenecek Vergi Tutarı: {tax}</div>
-                    <div>İade Ara Toplamı: {subTotal}</div>
-                    <div>İade Topalam Tutar: {total}</div>
+                    <div>{t('totalTaxRefunded')}{tax}</div>
+                    <div>{t('refundSubtotal')}{subTotal}</div>
+                    <div>{t('refundTotal')}{total}</div>
                 </div>
             </div>
         </ThemeProvider>
