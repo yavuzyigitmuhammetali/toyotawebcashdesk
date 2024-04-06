@@ -10,7 +10,7 @@ import { useTranslation } from "react-i18next";
 
 const OfflineErrorPage = ({dark = true}) => {
     const theme = getTheme(dark ? "dark" : "light");
-    const {status,isOnline} = React.useContext(AppStatusContext);
+    const {status,isOnline, lang} = React.useContext(AppStatusContext);
     const [schedule, setSchedule] = useState(
         {
             "Monday": null,
@@ -46,7 +46,7 @@ const OfflineErrorPage = ({dark = true}) => {
                     color: 'text.primary',
                 }}
             >
-                <OnlineOfflineIndicator online={isOnline}/>
+                <OnlineOfflineIndicator language={lang} online={isOnline}/>
                 <Typography variant="h4" component="h1" gutterBottom sx={{fontWeight: 'bold', mb: 4}}>
                     {t('offlineErrorTitle')}
                 </Typography>

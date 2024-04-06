@@ -22,7 +22,7 @@ const lightTheme = createTheme({
 });
 
 function MainScreen({dark = false}) {
-    const {isOnline, status, logOut} = React.useContext(AppStatusContext);
+    const {isOnline, status, logOut,lang} = React.useContext(AppStatusContext);
     const { t } = useTranslation();
 
     return (<>
@@ -43,7 +43,7 @@ function MainScreen({dark = false}) {
                     </div>
                 </div>
                 <div className="main-screen-lower-left">
-                    <OnlineOfflineIndicator online={isOnline}/>
+                    <OnlineOfflineIndicator language={lang} online={isOnline}/>
                 </div>
                 <div style={{
                     backgroundColor: dark ? "#1E1E1E" : "white",

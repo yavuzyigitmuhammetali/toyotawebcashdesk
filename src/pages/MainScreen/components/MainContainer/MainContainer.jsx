@@ -9,9 +9,9 @@ import SettingsDashboard from "../SettingsDashboard/SettingsDashboard";
 import { useTranslation } from "react-i18next";
 
 function MainContainer() {
-    const { status, isOnline } = useContext(AppStatusContext);
+    const { status, isOnline, lang } = useContext(AppStatusContext);
     const today = new Date();
-    const formattedDate = `${(today.getMonth() + 1).toString().padStart(2, "0")}/${today.getDate().toString().padStart(2, "0")}/${today.getFullYear()}`;
+    const formattedDate = lang === "tr" ? `${today.getDate().toString().padStart(2, "0")}/${(today.getMonth() + 1).toString().padStart(2, "0")}/${today.getFullYear()}` : `${(today.getMonth() + 1).toString().padStart(2, "0")}/${today.getDate().toString().padStart(2, "0")}/${today.getFullYear()}`;
     const [pathHistory, setPathHistory] = useState(["/"]);
     const location = useLocation();
     const { productId, receiptNumber } = useParams();
@@ -87,7 +87,7 @@ function MainContainer() {
             </main>
             <footer className="main-container-footer">
                 <div>
-                    <OnlineOfflineIndicator online={isOnline} />
+                    <OnlineOfflineIndicator language={lang} online={isOnline} />
                 </div>
                 <div>{formattedDate}</div>
                 <div style={{ display: "flex", flexDirection: "column" }}>
