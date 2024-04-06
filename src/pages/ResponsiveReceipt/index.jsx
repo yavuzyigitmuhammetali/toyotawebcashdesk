@@ -17,9 +17,9 @@ import {useTranslation} from "react-i18next";
 import AppStatusContext from "../../shared/state/AppStatus/context";
 
 
-function ResponsiveReceipt({dark = false}) {
+function ResponsiveReceipt() {
     const {receipts} = useContext(AppDataContext);
-    const {lang} = useContext(AppStatusContext)
+    const {lang,dark} = useContext(AppStatusContext)
     const location = useLocation();
     const [receipt, setReceipt] = useState({})
     const [alignment, setAlignment] = useState('left');
