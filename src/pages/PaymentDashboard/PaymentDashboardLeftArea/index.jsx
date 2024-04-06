@@ -6,10 +6,12 @@ import FormDialog from "../../../shared/components/FormDialog";
 import PaymentContext from "../context";
 import KeyboardContext from "../../../shared/components/ScreenKeyboard/context";
 import ScreenKeyboard from "../../../shared/components/ScreenKeyboard/ScreenKeyboard";
+import AppStatusContext from "../../../shared/state/AppStatus/context";
 
 function PaymentDashboardLeftArea({dark = false}) {
     const {total,paymentTransactions} = useContext(PaymentContext)
     const keyboardContext = useContext(KeyboardContext)
+    const {lang} = useContext(AppStatusContext);
     const { t } = useTranslation();
     const isValidEmail=(email)=>{
         const regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -25,7 +27,7 @@ function PaymentDashboardLeftArea({dark = false}) {
                 <DigitalArea dark={dark} totalPrice={total} data={paymentTransactions}/>
             </div>
             <div>
-                    <FormDialog disabled={!total} style={{width:"100%"}} buttonName={t('eInvoice')}
+                    <FormDialog language={lang} disabled={!total} style={{width:"100%"}} buttonName={t('eInvoice')}
                                 func={isValidEmail}
                                 label={t('customerEmail')}
                                 errorText={t('invalidEmailError')}

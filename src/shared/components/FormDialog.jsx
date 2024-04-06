@@ -33,8 +33,9 @@ function FormDialog({
     label,
     errorText,
     style,
-    keyboardContext = null, // Yeni eklenen prop
-    ScreenKeyboardComponent = null // Yeni eklenen prop
+    keyboardContext = null,
+    ScreenKeyboardComponent = null,
+    language = "en"
 }) {
     const [inputValue, setInputValue] = useState("")
     const { handleElementFocus, value, onChangeValue, enterRef, clearValues } = keyboardContext || {};
@@ -51,31 +52,45 @@ function FormDialog({
             setOpen(true)
         }
     }, [openManual]);
+
+    const getTextByLanguage = () => {
+        switch (language) {
+            case "en":
+                return { cancel: "Cancel", apply: "Apply" };
+            case "tr":
+                return { cancel: "İptal", apply: "Uygula" };
+            default:
+                return { cancel: "Cancel", apply: "Apply" };
+        }
+    };
+
+    const { cancel, apply } = getTextByLanguage();
+
     const handleClickOpen = () => {
         setOpen(true);
         clearValues?.();
     };
 
     const handleClose = (page = true) => {
-        page&&onClose();
+        page && onClose();
         setOpen(false);
         clearValues?.();
     };
-    return (
-        <ThemeProvider theme={dark?darkTheme:lightTheme}>
-            <React.Fragment>
-                    {children?
-                        <div style={style} color={onOff?"success":"error"} onClick={handleClickOpen} >
-                            {children}
-                        </div>
 
-                        :
-                        <div>
-                            <Button style={style} color={onOff?"success":"error"} disabled={disabled} variant="contained" onClick={handleClickOpen}>
-                                {buttonName}
-                            </Button>
-                        </div>
-           }
+    return (
+        <ThemeProvider theme={dark ? darkTheme : lightTheme}>
+            <React.Fragment>
+                {children ?
+                    <div style={style} color={onOff ? "success" : "error"} onClick={handleClickOpen}>
+                        {children}
+                    </div>
+                    :
+                    <div>
+                        <Button style={style} color={onOff ? "success" : "error"} disabled={disabled} variant="contained" onClick={handleClickOpen}>
+                            {buttonName}
+                        </Button>
+                    </div>
+                }
                 <Dialog
                     open={open}
                     onClose={handleClose}
@@ -86,8 +101,7 @@ function FormDialog({
                             const formData = new FormData(event.currentTarget);
                             const formJson = Object.fromEntries(formData.entries());
                             const email = formJson.email;
-                            func(email)?handleClose(false):setError(true);
-
+                            func(email) ? handleClose(false) : setError(true);
                         },
                     }}
                 >
@@ -98,7 +112,7 @@ function FormDialog({
                         </DialogContentText>
                         <TextField
                             error={error}
-                            helperText={error?errorText:""}
+                            helperText={error ? errorText : ""}
                             onFocus={handleElementFocus}
                             onChange={onChangeValue}
                             value={inputValue}
@@ -114,12 +128,11 @@ function FormDialog({
                         />
                     </DialogContent>
                     <DialogActions>
-                        {screenKeyboard && ScreenKeyboardComponent ? <ScreenKeyboardComponent dark={dark}/> : null}
-                        <Button onClick={handleClose}>İptal</Button>
-                        <Button ref={enterRef} type="submit">Uygula</Button>
+                        {screenKeyboard && ScreenKeyboardComponent ? <ScreenKeyboardComponent dark={dark} /> : null}
+                        <Button onClick={handleClose}>{cancel}</Button>
+                        <Button ref={enterRef} type="submit">{apply}</Button>
                     </DialogActions>
                 </Dialog>
-
             </React.Fragment>
         </ThemeProvider>
     );

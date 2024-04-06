@@ -92,6 +92,7 @@ function SalesDashboardRightArea({dark = false}) {
                     <Button onClick={() => toggleDiscounts("buy3pay2")} style={{fontSize: 14}}
                             color={discounts.buy3pay2 ? "success" : "error"} variant="contained">{t('buy3Pay2')}</Button>
                         <FormDialog
+                            language={lang}
                             dialog={t('taxFreeForStudents')}
                             dark={dark}
                             errorText={t('errorInvalidStudentID')}

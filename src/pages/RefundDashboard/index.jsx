@@ -194,7 +194,7 @@ function RefundDashboard({dark = false}) {
 
     return (<>
         <ThemeProvider theme={dark ? darkTheme : lightTheme}>
-            <FormDialog ScreenKeyboardComponent={ScreenKeyboard} keyboardContext={keyboardContext} func={checkReceipt} errorText={error} onClose={onFormDialogClose} label={t('refundReceiptNumber')}
+            <FormDialog language={lang} ScreenKeyboardComponent={ScreenKeyboard} keyboardContext={keyboardContext} func={checkReceipt} errorText={error} onClose={onFormDialogClose} label={t('refundReceiptNumber')}
                         dark={dark} dialog={t('pleaseEnterReceiptNumber')}
                         openManual={1}> </FormDialog>
             <div style={{color: dark ? "white" : "black"}} className="refund-dashboard-upper-area-container">

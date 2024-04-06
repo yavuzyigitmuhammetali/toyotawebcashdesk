@@ -133,7 +133,7 @@
   "transactionCancelConfirmation": "You are about to cancel the transaction. This will remove all products from the cart along with any active campaigns.",
   "errorInvalidStudentID": "Invalid student ID or not a student!",
   "buy3Pay2": "Buy 3 Pay 2",
-  "taxFreeForStudents": "Tax Free for Students",
+  "taxFreeForStudents": "For tax-free items for students, please enter a student ID number!",
   "percentageDiscounts": "Percentage Discounts",
   "subtotal": "Subtotal",
   "search": "Search",

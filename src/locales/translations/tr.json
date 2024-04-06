@@ -133,7 +133,7 @@
   "transactionCancelConfirmation": "İşlemi iptal etmek üzeresiniz. Bu, aktif kampanyalarla birlikte sepetteki tüm ürünleri kaldıracaktır.",
   "errorInvalidStudentID": "Geçersiz öğrenci kimliği veya öğrenci değil!",
   "buy3Pay2": "3 Al 2 Öde",
-  "taxFreeForStudents": "Öğrencilere Vergisiz",
+  "taxFreeForStudents": "Öğrencilere vergisiz ürün için lütfen bir öğrenci kimlik numarası girin!",
   "percentageDiscounts": "Yüzde İndirimleri",
   "subtotal": "Ara Toplam",
   "search": "Ara",
