@@ -13,19 +13,8 @@ import KeyboardContext from "../../../shared/components/ScreenKeyboard/context";
 import {useTranslation} from "react-i18next";
 import AppStatusContext from "../../../shared/state/AppStatus/context";
 
-const darkTheme = createTheme({
-    palette: {
-        mode: 'dark',
-    },
-});
-const lightTheme = createTheme({
-    palette: {
-        mode: 'light',
-    },
-});
 
-
-function SalesDashboardLeftArea({dark = false}) {
+function SalesDashboardLeftArea() {
 
     const {t} = useTranslation();
 
@@ -33,7 +22,7 @@ function SalesDashboardLeftArea({dark = false}) {
         categories, subCategories: _subCategories, products: _products, addToCart
     } = useContext(CartContext);
 
-    const {lang} = useContext(AppStatusContext)
+    const {lang,dark} = useContext(AppStatusContext)
 
     const [map, setMap] = useState("categories");
     const {data} = useContext(NumericKeyboardContext);
@@ -114,7 +103,7 @@ function SalesDashboardLeftArea({dark = false}) {
     return (<div style={{
         backgroundColor: dark ? "#111418" : "", borderColor: dark ? "white" : ""
     }} className="left-container">
-        <ThemeProvider theme={dark ? darkTheme : lightTheme}>
+        <ThemeProvider theme={createTheme({ palette: { mode: dark ? "dark" : "light" } })}>
             <div className="left-one">
                 <TextField
                     id="barcodeArea"
@@ -130,7 +119,7 @@ function SalesDashboardLeftArea({dark = false}) {
                         </IconButton>),
                     }}
                 />
-                <ScreenKeyboard language={lang}/>
+                <ScreenKeyboard dark={dark} language={lang}/>
             </div>
             <div className="left-two">
                 <Button onClick={() => {

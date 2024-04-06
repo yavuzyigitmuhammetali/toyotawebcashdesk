@@ -16,35 +16,18 @@ import KeyboardContext from '../../../shared/components/ScreenKeyboard/context';
 import ScreenKeyboard from '../../../shared/components/ScreenKeyboard/ScreenKeyboard';
 import {useTranslation} from "react-i18next";
 import AppStatusContext from "../../../shared/state/AppStatus/context";
-
-const darkTheme = createTheme({
-    typography: {
-        button: {
-            fontSize: "10px",
-        },
-    }, palette: {
-        mode: 'dark',
-    },
-});
-const lightTheme = createTheme({
-    typography: {
-        button: {
-            fontSize: "10px",
-        },
-    }, palette: {
-        mode: 'light',
-    },
-});
+import {darkTheme,lightTheme} from "./theme";
 
 
-function SalesDashboardRightArea({dark = false}) {
+function SalesDashboardRightArea() {
+    const {lang,dark} = useContext(AppStatusContext);
     const {t} = useTranslation();
     const navigate = useNavigate();
     const keyboardContext = useContext(KeyboardContext);
     const {discounts, toggleDiscounts, products, addToCart,cancelTransaction,cart,confirmCart} = useContext(CartContext);
     const [campaignsWindow, setCampaignsWindow] = useState({first: false, other: true});
     const [productShowcaseWindow, setProductShowcaseWindow] = useState(false);
-    const {lang} = useContext(AppStatusContext);
+
 
     const handleConfirmCart = useCallback(() => {
         if (confirmCart()){

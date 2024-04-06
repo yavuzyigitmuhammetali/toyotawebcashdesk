@@ -4,8 +4,10 @@ import ShoppingCartItem from "../../../shared/components/ShoppingCartItem/Shoppi
 import CartContext from "../context";
 import KeyboardContext from "../../../shared/components/ScreenKeyboard/context";
 import {useTranslation} from "react-i18next";
+import AppStatusContext from "../../../shared/state/AppStatus/context";
 
-function SalesDashboardMiddleArea({dark = false}) {
+function SalesDashboardMiddleArea() {
+    const {dark} = useContext(AppStatusContext);
     const {
         handleElementFocus, value: keyboardValue, onChangeValue, clearValues
     } = useContext(KeyboardContext);
