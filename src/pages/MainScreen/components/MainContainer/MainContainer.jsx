@@ -84,7 +84,7 @@ function MainContainer() {
                         <SettingsDashboard/>
                     </div>
                 </header>
-                <main style={{backgroundColor:dark&&"rgb(28, 31, 37)"}} className="main-container-main">
+                <main style={{backgroundColor:dark&&"#131922"}} className="main-container-main">
                     <Outlet/>
                 </main>
                 <footer style={{backgroundColor:dark&&"rgb(28, 31, 37)"}} className="main-container-footer">

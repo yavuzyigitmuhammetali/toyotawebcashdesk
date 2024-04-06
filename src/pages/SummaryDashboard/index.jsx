@@ -36,13 +36,13 @@ import DialogActions from "@mui/material/DialogActions";
 import AppStatusContext from "../../shared/state/AppStatus/context";
 import {useTranslation} from "react-i18next";
 
-function SummaryDashboard({dark = false}) {
+function SummaryDashboard() {
     const {t} = useTranslation();
-
+    const {status,dark} = useContext(AppStatusContext)
     const {
         receipts: _receipts, categories, subCategories, products, fetchReceipts,
     } = useContext(AppDataContext)
-    const {status} = useContext(AppStatusContext)
+
     const [alignment, setAlignment] = React.useState('');
     const [receipts, setReceipts] = useState([defaultReceipt])
     const navigate = useNavigate();
@@ -147,7 +147,7 @@ function SummaryDashboard({dark = false}) {
 
     return (
             <div className="summary-dashboard-container">
-                <div className="summary-dashboard-left">
+                <div style={{backgroundColor:dark&&"rgb(17, 20, 24)",borderColor:dark&&"white",color:dark&&"white"}} className="summary-dashboard-left">
                     <ToggleButtonGroup
                         color="primary"
                         value={alignment}
@@ -163,7 +163,7 @@ function SummaryDashboard({dark = false}) {
                         <ToggleButton size="small" value="all">{t("allTime")}</ToggleButton>
                     </ToggleButtonGroup>
 
-                    <div className="summary-dashboard-tab">
+                    <div  className="summary-dashboard-tab">
                         <hr/>
                         <div>{t("salesSummary")}</div>
                         <hr/>
@@ -198,8 +198,8 @@ function SummaryDashboard({dark = false}) {
                         </ul>
                     </div>
                 </div>
-                <div className="summary-dashboard-right">
-                    <div className="summary-dashboard-right-header">{t("outOfStockProducts")}</div>
+                <div style={{backgroundColor:dark&&"#D57B52",borderColor:dark&&"white"}} className="summary-dashboard-right">
+                    <div style={{backgroundColor:dark&&"black",color:dark&&"white"}} className="summary-dashboard-right-header">{t("outOfStockProducts")}</div>
                     <br/>
                     {products.filter(product => !product.stock).map((product, key) => <ProductCard key={key}
                                                                                                    price={product.price}
