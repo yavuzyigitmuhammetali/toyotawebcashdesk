@@ -7,18 +7,7 @@ import ScreenKeyboard from "../../shared/components/ScreenKeyboard/ScreenKeyboar
 import KeyboardContext from "../../shared/components/ScreenKeyboard/context";
 import AppStatusContext from "../../shared/state/AppStatus/context";
 
-const darkTheme = createTheme({
-    palette: {
-        mode: "dark",
-    },
-});
-const lightTheme = createTheme({
-    palette: {
-        mode: "light",
-    },
-});
-
-function ProductsDashboard({ dark = false }) {
+function ProductsDashboard({ dark = true }) {
     const navigate = useNavigate();
     const {lang} = useContext(AppStatusContext);
     const { products, fetchProducts } = useContext(AppDataContext);
@@ -36,7 +25,7 @@ function ProductsDashboard({ dark = false }) {
     );
 
     return (
-        <ThemeProvider theme={dark ? darkTheme : lightTheme}>
+        <ThemeProvider theme={createTheme({ palette: { mode: dark ? "dark" : "light" } })}>
             <div style={{ cursor: "pointer", position: "relative" }}>
                 <div style={{ zIndex: "-1" }}>
                     <ProductShowcase

@@ -15,7 +15,7 @@ import {defaultProduct} from "../../../../shared/state/AppData/defaultData";
 import { useTranslation } from 'react-i18next';
 import AppStatusContext from "../../../../shared/state/AppStatus/context";
 
-function ProductEditor({dark = false}) {
+function ProductEditor() {
     const {productId: _productId} = useParams();
     const productId = parseInt(_productId);
     const navigate = useNavigate();
@@ -23,7 +23,7 @@ function ProductEditor({dark = false}) {
     const [changeData, setChangeData] = useState(false);
     const {handleElementFocus, value: screenKeyboardValue, clearValues, enterRef} = useContext(KeyboardContext);
     const {products, fetchProducts} = useContext(AppDataContext);
-    const {lang} = useContext(AppStatusContext)
+    const {lang,dark} = useContext(AppStatusContext)
     const tempProduct = products.find(value => value.id === productId);
     const [product, setProduct] = useState(tempProduct ?? defaultProduct);
     const { t } = useTranslation();
