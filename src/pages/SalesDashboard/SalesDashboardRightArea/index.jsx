@@ -15,6 +15,7 @@ import ResponsiveDialog from "../../../shared/components/ResponsiveDialog";
 import KeyboardContext from '../../../shared/components/ScreenKeyboard/context';
 import ScreenKeyboard from '../../../shared/components/ScreenKeyboard/ScreenKeyboard';
 import {useTranslation} from "react-i18next";
+import AppStatusContext from "../../../shared/state/AppStatus/context";
 
 const darkTheme = createTheme({
     typography: {
@@ -43,6 +44,7 @@ function SalesDashboardRightArea({dark = false}) {
     const {discounts, toggleDiscounts, products, addToCart,cancelTransaction,cart,confirmCart} = useContext(CartContext);
     const [campaignsWindow, setCampaignsWindow] = useState({first: false, other: true});
     const [productShowcaseWindow, setProductShowcaseWindow] = useState(false);
+    const {lang} = useContext(AppStatusContext);
 
     const handleConfirmCart = useCallback(() => {
         if (confirmCart()){
@@ -66,7 +68,7 @@ function SalesDashboardRightArea({dark = false}) {
             <div style={{backgroundColor: dark ? "#121418" : "", borderColor: dark ? "white" : ""}}
                  className="sales-dashboard-right-area-container">
                 <div className="sales-dashboard-right-area-control">
-                    <ResponsiveDialog title={t('cancelTransaction')} text={t('cancelTransactionWarning')} onConfirm={cancelTransaction}>
+                    <ResponsiveDialog language={lang} title={t('cancelTransaction')} text={t('cancelTransactionWarning')} onConfirm={cancelTransaction}>
                         <Button color="error" variant="contained"> {t('cancelTransaction')}</Button>
                     </ResponsiveDialog>
                     <Button onClick={()=>setProductShowcaseWindow(!productShowcaseWindow)} color="info" variant="contained">{t('searchByName')}</Button>

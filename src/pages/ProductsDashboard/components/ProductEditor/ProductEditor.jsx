@@ -13,6 +13,7 @@ import {useNavigate, useParams} from "react-router-dom";
 import AppDataContext from "../../../../shared/state/AppData/context";
 import {defaultProduct} from "../../../../shared/state/AppData/defaultData";
 import { useTranslation } from 'react-i18next';
+import AppStatusContext from "../../../../shared/state/AppStatus/context";
 
 function ProductEditor({dark = false}) {
     const {productId: _productId} = useParams();
@@ -22,6 +23,7 @@ function ProductEditor({dark = false}) {
     const [changeData, setChangeData] = useState(false);
     const {handleElementFocus, value: screenKeyboardValue, clearValues, enterRef} = useContext(KeyboardContext);
     const {products, fetchProducts} = useContext(AppDataContext);
+    const {lang} = useContext(AppStatusContext)
     const tempProduct = products.find(value => value.id === productId);
     const [product, setProduct] = useState(tempProduct ?? defaultProduct);
     const { t } = useTranslation();
@@ -165,7 +167,7 @@ function ProductEditor({dark = false}) {
         <div className="product-editor-actions">
             <Button style={{flex: 1}} size="small" onClick={cancelChange} color="error" variant="contained">{t('cancel')}
             </Button>
-            <ResponsiveDialog onConfirm={updateData} title={t('updateProduct')}
+            <ResponsiveDialog language={lang} onConfirm={updateData} title={t('updateProduct')}
                               text={t('updateConfirmation')}
                               disabled={!changeData} style={{flex: 1}}>
                 <Button ref={enterRef} disabled={!changeData} style={{width: "100%"}} size="small" color="success"

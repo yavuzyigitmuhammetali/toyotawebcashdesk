@@ -28,7 +28,7 @@ const lightTheme = createTheme({
 
 function RefundDashboard({dark = false}) {
     const {receipts} = useContext(AppDataContext);
-    const {status} = useContext(AppStatusContext);
+    const {status,lang} = useContext(AppStatusContext);
     const keyboardContext = useContext(KeyboardContext)
     const [receipt, setReceipt] = useState(defaultReceipt)
     const [cart, setCart] = useState(receipt.cart);
@@ -250,6 +250,7 @@ function RefundDashboard({dark = false}) {
                     <div>{t('refundAmountUppercase')}</div>
                     <div style={{color: "green"}}>{total}$</div>
                     <ResponsiveDialog
+                        language={lang}
                         text={t('refundApprovalMessage')}
                         title={t('refundAmount') + ": " + (total + "$")} onConfirm={handleOnApproved}>
                         <Button color="warning" variant="contained" size="small">{t('approveRefund')}</Button>

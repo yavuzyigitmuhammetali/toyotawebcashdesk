@@ -16,6 +16,7 @@ import {useNavigate} from "react-router-dom";
 import QrCodeIcon from '@mui/icons-material/QrCode';
 import DialpadIcon from '@mui/icons-material/Dialpad';
 import { useTranslation } from 'react-i18next';
+import AppStatusContext from "../../shared/state/AppStatus/context";
 
 const darkTheme = createTheme({
     palette: {
@@ -33,6 +34,7 @@ function ProductEntryPanel({dark = false}) {
     const { t } = useTranslation();
     const {handleElementFocus, value, onChangeValue, enterRef, clearValues} = useContext(KeyboardContext);
     const {categories, subCategories: _subCategories, products, fetchProducts} = useContext(AppDataContext);
+    const {lang} = useContext(AppStatusContext);
     const [formData, setFormData] = useState(defaultProduct);
     const [subCategories, setSubCategories] = useState([]);
     const [valid, setValid] = useState(false);
@@ -229,7 +231,7 @@ function ProductEntryPanel({dark = false}) {
                                                                key={item.id}>{item.name}</MenuItem>)}
                     </Select>
                 </div>
-                <ResponsiveDialog disabled={!valid} onConfirm={handleSendData} title={t('saveProduct')} text={t('saveProductConfirmation')}>
+                <ResponsiveDialog language={lang} disabled={!valid} onConfirm={handleSendData} title={t('saveProduct')} text={t('saveProductConfirmation')}>
                     <Button disabled={!valid} color={valid ? "success" : "error"} ref={enterRef}
                             variant="outlined">{t('saveProduct')}</Button>
                 </ResponsiveDialog>

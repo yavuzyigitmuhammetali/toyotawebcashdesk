@@ -9,6 +9,7 @@ import PaymentContext from "../context";
 import SendIcon from '@mui/icons-material/Send';
 import ResponsiveDialog from "../../../shared/components/ResponsiveDialog";
 import {useNavigate} from "react-router-dom";
+import AppStatusContext from "../../../shared/state/AppStatus/context";
 
 
 const darkTheme = createTheme({
@@ -29,6 +30,7 @@ function PaymentDashboardRightArea({dark=false}) {
     const {data:numericKeyboardData,setData:setNumericKeyboardData} = useContext(NumericKeyboardContext)
     const [paymentMethod , setPaymentMethod] = useState("cash")
     const { t } = useTranslation();
+    const {lang} = useContext(AppStatusContext);
     useEffect(() => {
         if (numericKeyboardData){
             setPaymentDialog(prevState => prevState+1);
@@ -61,7 +63,7 @@ function PaymentDashboardRightArea({dark=false}) {
         <ThemeProvider theme={dark?darkTheme:lightTheme}>
             <div style={dark ? {backgroundColor: "#121418", borderColor: "white"} : {}} className="payment-dashboard-right-area-container">
                 <div className="payment-dashboard-right-area-operator">
-                    <ResponsiveDialog onConfirm={cancelTransaction} title={t('refundAmount') + (amountPaid.toFixed(2) +"$")}
+                    <ResponsiveDialog language={lang} onConfirm={cancelTransaction} title={t('refundAmount') + (amountPaid.toFixed(2) +"$")}
                     text={t('cancelTransactionWarning')}>
                         <Button disabled={(amountRemaining+amountPaid)===0} style={{width:"100%"}} color="error" variant="contained">{t('cancelTransaction')}</Button>
                     </ResponsiveDialog>
@@ -76,7 +78,7 @@ function PaymentDashboardRightArea({dark=false}) {
                                     variant={paymentMethod === "cash" ? "contained" : "outlined"}>{t('cash')}</Button>
                             <Button disabled={amountRemaining===0} onClick={() => setPaymentMethod("card")} style={{flex: 1}} color="warning"
                                     variant={paymentMethod === "card" ? "contained" : "outlined"}>{t('creditCard')}</Button>
-                            <ResponsiveDialog title={t('simulatePayment')} text={t('simulatePaymentWarning')} onConfirm={onResponsiveDialogConfirm} manualOpen={paymentDialog}/>
+                            <ResponsiveDialog language={lang} title={t('simulatePayment')} text={t('simulatePaymentWarning')} onConfirm={onResponsiveDialogConfirm} manualOpen={paymentDialog}/>
                         </div>
                     </div>
 

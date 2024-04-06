@@ -7,19 +7,19 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
-import {useEffect} from "react";
+import { useEffect } from "react";
 
-
-export default function ResponsiveDialog({children,style,className,disabled=false,title="",text="",onConfirm=()=>{},manualOpen=0}) {
+export default function ResponsiveDialog({ children, style, className, disabled = false, title = "", text = "", onConfirm = () => {}, manualOpen = 0, language = "en" }) {
     const [open, setOpen] = React.useState(false);
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
 
     useEffect(() => {
-        if (manualOpen){
-            setOpen(true)
+        if (manualOpen) {
+            setOpen(true);
         }
     }, [manualOpen]);
+
     const handleClickOpen = () => {
         setOpen(true);
     };
@@ -28,38 +28,52 @@ export default function ResponsiveDialog({children,style,className,disabled=fals
         setOpen(false);
     };
 
+    const getTextByLanguage = () => {
+        switch (language) {
+            case "en":
+                return { reject: "Reject", confirm: "Confirm" };
+            case "tr":
+                return { reject: "Reddet", confirm: "Onayla" };
+            default:
+                return { reject: "Reject", confirm: "Confirm" };
+        }
+    };
+
+    const { reject, confirm } = getTextByLanguage();
+
     return (
         <React.Fragment>
-            <div style={style} className={className} onClick={disabled?()=>{}:handleClickOpen}>
-                            {children}
+            <div style={style} className={className} onClick={disabled ? () => {} : handleClickOpen}>
+                {children}
             </div>
-            {disabled?null:            <Dialog
-                fullScreen={fullScreen}
-                open={open}
-                onClose={handleClose}
-                aria-labelledby="responsive-dialog-title"
-            >
-                <DialogTitle id="responsive-dialog-title">
-                    {title}
-                </DialogTitle>
-                <DialogContent>
-                    <DialogContentText>
-                        {text}
-                    </DialogContentText>
-                </DialogContent>
-                <DialogActions>
-                    <Button autoFocus onClick={handleClose}>
-                        Reddet
-                    </Button>
-                    <Button onClick={()=>{
-                        setOpen(false)
-                        onConfirm();
-                    }} autoFocus>
-                        Onayla
-                    </Button>
-                </DialogActions>
-            </Dialog>}
-
+            {!disabled && (
+                <Dialog
+                    fullScreen={fullScreen}
+                    open={open}
+                    onClose={handleClose}
+                    aria-labelledby="responsive-dialog-title"
+                >
+                    <DialogTitle id="responsive-dialog-title">
+                        {title}
+                    </DialogTitle>
+                    <DialogContent>
+                        <DialogContentText>
+                            {text}
+                        </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button autoFocus onClick={handleClose}>
+                            {reject}
+                        </Button>
+                        <Button onClick={() => {
+                            setOpen(false);
+                            onConfirm();
+                        }} autoFocus>
+                            {confirm}
+                        </Button>
+                    </DialogActions>
+                </Dialog>
+            )}
         </React.Fragment>
     );
 }

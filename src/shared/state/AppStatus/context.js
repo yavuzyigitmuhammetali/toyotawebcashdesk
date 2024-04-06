@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useContext} from "react";
 import config from '../../../config.json';
 import {getIp, getStatus, testLogin} from "./api";
 import { setupTimer, updateOnlineStatus} from "../../functions/checkOnline";
