@@ -1,42 +1,21 @@
-import React, { useContext, useRef, useState } from "react";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import React, {useContext, useRef, useState} from "react";
+import {createTheme, ThemeProvider} from "@mui/material/styles";
 import KeyboardContext from "./context";
-import { Button, IconButton } from "@mui/material";
+import {Button, IconButton} from "@mui/material";
 import LanguageIcon from "@mui/icons-material/Language";
 import KeyboardAltIcon from "@mui/icons-material/KeyboardAlt";
 import "./screenKeyboard.css";
 import CloseIcon from "@mui/icons-material/Close";
+import KeyboardCapslockIcon from '@mui/icons-material/KeyboardCapslock';
+import {darkTheme,lightTheme} from "./theme";
 
-const darkTheme = createTheme({
-    typography: {
-        button: {
-            textTransform: "none",
-        },
-        fontFamily: "Rubik",
-    },
 
-    palette: {
-        mode: "dark",
-    },
-});
-const lightTheme = createTheme({
-    typography: {
-        button: {
-            textTransform: "none",
-        },
-        fontFamily: "Rubik",
-    },
-
-    palette: {
-        mode: "light",
-    },
-});
-
-function ScreenKeyboard({ dark = false, language = "tr", style }) {
+function ScreenKeyboard({dark = false, language = "tr", style}) {
     const [isDragging, setIsDragging] = useState(false);
     const [keyboardType, setKeyboardType] = useState(language);
+    const [capsLock, setCapsLock] = useState(false);
     const [onOff, setOnOff] = useState(true);
-    const { handleDelete, handleValue, handleEnter } = useContext(KeyboardContext);
+    const {handleDelete, handleValue, handleEnter} = useContext(KeyboardContext);
 
     const textInputRef = useRef(null);
     const dragStartRef = useRef(null);
@@ -76,107 +55,9 @@ function ScreenKeyboard({ dark = false, language = "tr", style }) {
         setIsDragging(false);
     };
 
-    const turkishKeyboard = [
-        "1",
-        "2",
-        "3",
-        "4",
-        "5",
-        "6",
-        "7",
-        "8",
-        "9",
-        "0",
-        "del",
-        "enter",
-        "q",
-        "w",
-        "e",
-        "r",
-        "t",
-        "y",
-        "u",
-        "ı",
-        "o",
-        "p",
-        "ğ",
-        "a",
-        "s",
-        "d",
-        "ü",
-        "f",
-        "g",
-        "h",
-        "j",
-        "k",
-        "l",
-        "ş",
-        "i",
-        "z",
-        "x",
-        "c",
-        "v",
-        "b",
-        "n",
-        "m",
-        "ö",
-        "ç",
-        "language",
-        "@",
-        "space",
-        ".",
-    ];
+    const turkishKeyboard = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "del", "enter", "q", "w", "e", "r", "t", "y", "u", "ı", "o", "p", "ğ", "a", "s", "d", "ü", "f", "g", "h", "j", "k", "l", "ş", "i", "z", "x", "c", "v", "b", "n", "m", "ö", "ç", "language", "@", "space", ".",];
 
-    const englishKeyboard = [
-        "1",
-        "2",
-        "3",
-        "4",
-        "5",
-        "6",
-        "7",
-        "8",
-        "9",
-        "0",
-        "del",
-        "enter",
-        "q",
-        "w",
-        "e",
-        "r",
-        "t",
-        "y",
-        "u",
-        "i",
-        "o",
-        "p",
-        ";",
-        "a",
-        "s",
-        "d",
-        "f",
-        "g",
-        "h",
-        "j",
-        "k",
-        "l",
-        "<",
-        ">",
-        "z",
-        "x",
-        "c",
-        "v",
-        "b",
-        "n",
-        "m",
-        "?",
-        "-",
-        "_",
-        "language",
-        "@",
-        "space",
-        ".",
-    ];
+    const englishKeyboard = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "del", "enter", "q", "w", "e", "r", "t", "y", "u", "i", "o", "p", ";", "a", "s", "d", "f", "g", "h", "j", "k", "l", "<", ">", "z", "x", "c", "v", "b", "n", "m", "?", "-", "_", "language", "@", "space", ".",];
 
     const handleKeyboardType = () => {
         if (keyboardType === "tr") {
@@ -185,6 +66,11 @@ function ScreenKeyboard({ dark = false, language = "tr", style }) {
             setKeyboardType("tr");
         }
     };
+
+    const handleKeyboardCapsLock = () => {
+        setCapsLock(!capsLock);
+    }
+
     let keyboard = () => {
         if (keyboardType === "tr") {
             return turkishKeyboard;
@@ -194,18 +80,15 @@ function ScreenKeyboard({ dark = false, language = "tr", style }) {
     };
 
     if (onOff) {
-        return (
-            <ThemeProvider theme={dark ? darkTheme : lightTheme}>
+        return (<ThemeProvider theme={dark ? darkTheme : lightTheme}>
                 <IconButton style={style} onClick={() => setOnOff(!onOff)}>
-                    <KeyboardAltIcon />
+                    <KeyboardAltIcon/>
                 </IconButton>
-            </ThemeProvider>
-        );
+            </ThemeProvider>);
     } else {
-        return (
-            <>
+        return (<>
                 <IconButton disabled style={style} onClick={() => setOnOff(!onOff)}>
-                    <KeyboardAltIcon />
+                    <KeyboardAltIcon/>
                 </IconButton>
                 <div
                     className="screen-keyboard-container"
@@ -225,16 +108,15 @@ function ScreenKeyboard({ dark = false, language = "tr", style }) {
                     {/* Kırmızı yuvarlak düğme */}
                     <button
                         className="screen-keyboard-close-button"
-                        style={{ backgroundColor: dark ? "red" : "#E33E4D" }}
+                        style={{backgroundColor: dark ? "red" : "#E33E4D"}}
                         onClick={() => setOnOff(true)}
                     >
-                        <CloseIcon />
+                        <CloseIcon/>
                     </button>
                     <ThemeProvider theme={dark ? darkTheme : lightTheme}>
                         {keyboard().map((item, index) => {
                             if (item === "del") {
-                                return (
-                                    <Button
+                                return (<Button
                                         size="small"
                                         onClick={handleDelete}
                                         variant="outlined"
@@ -242,23 +124,20 @@ function ScreenKeyboard({ dark = false, language = "tr", style }) {
                                         key={index}
                                     >
                                         del
-                                    </Button>
-                                );
+                                    </Button>);
                             } else if (item === "enter") {
                                 return (
                                     <Button
                                         size="small"
                                         onClick={handleEnter}
                                         variant="outlined"
-                                        style={{ gridRowEnd: "span 4", gridColumnEnd: "-1" }}
+                                        style={{gridRowEnd: "span 4", gridColumnEnd: "-1"}}
                                         key={index}
                                     >
                                         enter
-                                    </Button>
-                                );
+                                    </Button>);
                             } else if (item === "space") {
-                                return (
-                                    <Button
+                                return (<Button
                                         size="small"
                                         onClick={() => handleValue(" ")}
                                         variant="outlined"
@@ -266,43 +145,44 @@ function ScreenKeyboard({ dark = false, language = "tr", style }) {
                                         key={index}
                                     >
                                         space
-                                    </Button>
-                                );
+                                    </Button>);
                             } else if (item === "") {
-                                return (
-                                    <Button
+                                return (<Button
                                         className="screen-keyboard-empty-space"
                                         disabled
                                         key={index}
-                                    ></Button>
-                                );
-                            } else if (item === "language") {
-                                return (
-                                    <Button
+                                    ></Button>);
+                            }/* else if (item === "language") {
+                                return (<Button
                                         size="small"
                                         onClick={handleKeyboardType}
                                         variant="outlined"
-                                        startIcon={<LanguageIcon />}
+                                        startIcon={<LanguageIcon/>}
                                         key={index}
-                                    ></Button>
-                                );
-                            } else {
-                                return (
-                                    <Button
+                                    ></Button>);
+                            }*/else if (item === "language") {
+                                return (<Button
+                                    size="small"
+                                    onClick={handleKeyboardCapsLock}
+                                    variant="outlined"
+                                    startIcon={<KeyboardCapslockIcon/>}
+                                    key={index}
+                                ></Button>);
+                            }
+                            else {
+                                return (<Button
                                         size="small"
-                                        onClick={() => handleValue(item)}
+                                        onClick={() => handleValue(capsLock?item.toUpperCase():item)}
                                         variant="outlined"
                                         key={index}
                                     >
-                                        {item}
-                                    </Button>
-                                );
+                                        {capsLock?item.toUpperCase():item}
+                                    </Button>);
                             }
                         })}
                     </ThemeProvider>
                 </div>
-            </>
-        );
+            </>);
     }
 }
 

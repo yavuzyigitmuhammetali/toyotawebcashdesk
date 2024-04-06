@@ -7,17 +7,6 @@ import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import NumericKeyboardContext from "./context";
 
-const darkTheme = createTheme({
-    palette: {
-        mode: "dark",
-    },
-});
-const lightTheme = createTheme({
-    palette: {
-        mode: "light",
-    },
-});
-
 function NumericKeyboard({
     width = "auto",
     dark = false,
@@ -58,7 +47,7 @@ function NumericKeyboard({
             }
             className="numeric-keyboard-container"
         >
-            <ThemeProvider theme={dark ? darkTheme : lightTheme}>
+            <ThemeProvider theme={createTheme({ palette: { mode: dark ? "dark" : "light" } })}>
                 <TextField
                     style={{ gridColumn: "1 / span 4", gridRow: "1" }}
                     onChange={(event) => fromKeyboard && setValue(event.target.value)}

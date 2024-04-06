@@ -8,18 +8,6 @@ import {createTheme, ThemeProvider} from "@mui/material/styles";
 import TextField from "@mui/material/TextField";
 
 
-const darkTheme = createTheme({
-    palette: {
-        mode: 'dark',
-    },
-});
-const lightTheme = createTheme({
-    palette: {
-        mode: 'light',
-    },
-});
-
-
 function ShoppingCartItem({
                               disabled = false,
                               onDelete,
@@ -53,7 +41,7 @@ function ShoppingCartItem({
     }
     return (<div style={{backgroundColor: dark && "#12161B", color: dark && "white", borderColor: dark && "white"}}
                  className={disabled ? "shopping-cart-item-container shopping-cart-item-disabled" : "shopping-cart-item-container"}>
-        <ThemeProvider theme={dark ? darkTheme : lightTheme}>
+        <ThemeProvider theme={createTheme({ palette: { mode: dark ? "dark" : "light" } })}>
             <div onClick={toggleElementVisibility} className="shopping-cart-item-content-container">
                 <div className="shopping-cart-item-content">
                     <span>#{barcode}</span>

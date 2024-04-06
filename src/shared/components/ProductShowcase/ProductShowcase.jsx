@@ -7,18 +7,6 @@ import { filterDataByAlphabetGroups } from "./dataProcessing";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import translations from './lang.json';
 
-const darkTheme = createTheme({
-    palette: {
-        mode: "dark",
-    },
-});
-
-const lightTheme = createTheme({
-    palette: {
-        mode: "light",
-    },
-});
-
 function ProductShowcase({
     data = [],
     onClick,
@@ -53,7 +41,7 @@ function ProductShowcase({
     const t = translations[language] || translations.en;
 
     return (
-        <ThemeProvider theme={dark ? darkTheme : lightTheme}>
+        <ThemeProvider theme={createTheme({ palette: { mode: dark ? "dark" : "light" } })}>
             <div className="product-showcase-container">
                 <div
                     style={{

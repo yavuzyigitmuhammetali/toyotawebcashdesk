@@ -8,16 +8,6 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import {createTheme, ThemeProvider} from "@mui/material/styles";
 
-const darkTheme = createTheme({
-    palette: {
-        mode: 'dark',
-    }
-});
-const lightTheme = createTheme({
-    palette: {
-        mode: 'light',
-    },
-});
 
 function FormDialog({
     children,
@@ -78,7 +68,7 @@ function FormDialog({
     };
 
     return (
-        <ThemeProvider theme={dark ? darkTheme : lightTheme}>
+        <ThemeProvider theme={createTheme({ palette: { mode: dark ? "dark" : "light" } })}>
             <React.Fragment>
                 {children ?
                     <div style={style} color={onOff ? "success" : "error"} onClick={handleClickOpen}>

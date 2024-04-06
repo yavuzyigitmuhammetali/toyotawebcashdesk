@@ -3,21 +3,10 @@ import {createTheme, ThemeProvider} from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import {Alert, AlertTitle} from "@mui/material";
 
-const darkTheme = createTheme({
-    palette: {
-        mode: 'dark',
-    },
-});
-const lightTheme = createTheme({
-    palette: {
-        mode: 'light',
-    },
-});
-
 
 function FullScreenAlert({children, dark = false, title = "Error"}) {
     return (
-        <ThemeProvider theme={dark ? darkTheme : lightTheme}>
+        <ThemeProvider theme={createTheme({ palette: { mode: dark ? "dark" : "light" } })}>
             <CssBaseline/>
             <Alert style={{position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)"}}
                    severity="error">
