@@ -15,20 +15,11 @@ import KeyboardContext from "../../shared/components/ScreenKeyboard/context";
 import ScreenKeyboard from "../../shared/components/ScreenKeyboard/ScreenKeyboard";
 import { useTranslation } from 'react-i18next';
 
-const darkTheme = createTheme({
-    palette: {
-        mode: 'dark',
-    }
-});
-const lightTheme = createTheme({
-    palette: {
-        mode: 'light',
-    },
-});
 
-function RefundDashboard({dark = false}) {
+
+function RefundDashboard() {
     const {receipts} = useContext(AppDataContext);
-    const {status,lang} = useContext(AppStatusContext);
+    const {status,lang,dark} = useContext(AppStatusContext);
     const keyboardContext = useContext(KeyboardContext)
     const [receipt, setReceipt] = useState(defaultReceipt)
     const [cart, setCart] = useState(receipt.cart);
@@ -193,7 +184,7 @@ function RefundDashboard({dark = false}) {
     }
 
     return (<>
-        <ThemeProvider theme={dark ? darkTheme : lightTheme}>
+        <ThemeProvider theme={createTheme({ palette: { mode: dark ? "dark" : "light" } })}>
             <FormDialog language={lang} ScreenKeyboardComponent={ScreenKeyboard} keyboardContext={keyboardContext} func={checkReceipt} errorText={error} onClose={onFormDialogClose} label={t('refundReceiptNumber')}
                         dark={dark} dialog={t('pleaseEnterReceiptNumber')}
                         openManual={1}> </FormDialog>
