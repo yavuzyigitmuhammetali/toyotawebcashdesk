@@ -12,25 +12,17 @@ import {useNavigate} from "react-router-dom";
 import AppStatusContext from "../../../shared/state/AppStatus/context";
 
 
-const darkTheme = createTheme({
-    palette: {
-        mode: 'dark',
-    },
-});
-const lightTheme = createTheme({
-    palette: {
-        mode: 'light',
-    },
-});
 
-function PaymentDashboardRightArea({dark=false}) {
+
+function PaymentDashboardRightArea() {
+    const {lang,dark} = useContext(AppStatusContext);
     const navigate = useNavigate();
     const [paymentDialog,setPaymentDialog] = useState(0)
     const {setTransaction,amountRemaining,amountPaid,cancelTransaction,confirmTransaction,receipt} = useContext(PaymentContext)
     const {data:numericKeyboardData,setData:setNumericKeyboardData} = useContext(NumericKeyboardContext)
     const [paymentMethod , setPaymentMethod] = useState("cash")
     const { t } = useTranslation();
-    const {lang} = useContext(AppStatusContext);
+
     useEffect(() => {
         if (numericKeyboardData){
             setPaymentDialog(prevState => prevState+1);
@@ -60,7 +52,7 @@ function PaymentDashboardRightArea({dark=false}) {
     }, [paymentMethod]);
 
     return (
-        <ThemeProvider theme={dark?darkTheme:lightTheme}>
+        <ThemeProvider theme={createTheme({ palette: { mode: dark ? "dark" : "light" } })}>
             <div style={dark ? {backgroundColor: "#121418", borderColor: "white"} : {}} className="payment-dashboard-right-area-container">
                 <div className="payment-dashboard-right-area-operator">
                     <ResponsiveDialog language={lang} onConfirm={cancelTransaction} title={t('refundAmount') + (amountPaid.toFixed(2) +"$")}

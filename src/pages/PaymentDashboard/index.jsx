@@ -6,14 +6,14 @@ import {PaymentProvider} from "./context";
 import {NumericKeyboardProvider} from "../../shared/components/NumericKeyboard/context";
 import {data} from "./data";
 
-function PaymentDashboard({dark = false}) {
+function PaymentDashboard() {
     return (
         <div style={{flex:1,display: "flex", flexDirection: "row", justifyContent: "space-between",padding:"1px"}}>
             <PaymentProvider data={data}>
-                <PaymentDashboardLeftArea dark={dark}/>
-                <PaymentDashboardMiddleArea dark={dark}/>
+                <PaymentDashboardLeftArea/>
+                <PaymentDashboardMiddleArea/>
                 <NumericKeyboardProvider>
-                    <PaymentDashboardRightArea dark={dark}/>
+                    <PaymentDashboardRightArea/>
                 </NumericKeyboardProvider>
             </PaymentProvider>
         </div>

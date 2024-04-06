@@ -25,7 +25,7 @@ function DigitalArea({ dark = false, totalPrice = 2000, data = [] }) {
     return (
         <div style={{borderColor:dark?"white":"black",color:dark?"white":"black"}} className="digital-area-container">
             <div style={{}}>
-                <Typewriter style={{fontSize: "3.5em",color:"green"}} speed={100}>{totalPrice.toFixed(2).toString()+"$"}</Typewriter>
+                <Typewriter style={{fontSize: "3.5em",color:"green",filter:dark&&"brightness(1.8)"}} speed={100}>{totalPrice.toFixed(2).toString()+"$"}</Typewriter>
                 <Typewriter style={{fontSize: "1em"}}
                             speed={20}>................................................................................</Typewriter>
             </div>

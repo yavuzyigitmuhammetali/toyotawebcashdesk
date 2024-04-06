@@ -4,8 +4,10 @@ import ShoppingCartItem
     from "../../../shared/components/ShoppingCartItem/ShoppingCartItem";
 import PaymentContext from "../context";
 import { useTranslation } from 'react-i18next';
+import AppStatusContext from "../../../shared/state/AppStatus/context";
 
-function PaymentDashboardMiddleArea({dark = false}) {
+function PaymentDashboardMiddleArea() {
+    const {dark} = useContext(AppStatusContext);
     const {total, subTotal, cart} = useContext(PaymentContext)
     const { t } = useTranslation();
     return (
