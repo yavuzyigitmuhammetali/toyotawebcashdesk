@@ -18,23 +18,14 @@ import DialpadIcon from '@mui/icons-material/Dialpad';
 import { useTranslation } from 'react-i18next';
 import AppStatusContext from "../../shared/state/AppStatus/context";
 
-const darkTheme = createTheme({
-    palette: {
-        mode: 'dark',
-    },
-});
-const lightTheme = createTheme({
-    palette: {
-        mode: 'light',
-    },
-});
 
-function ProductEntryPanel({dark = false}) {
+function ProductEntryPanel() {
+    const {lang,dark} = useContext(AppStatusContext);
     const navigate = useNavigate();
     const { t } = useTranslation();
     const {handleElementFocus, value, onChangeValue, enterRef, clearValues} = useContext(KeyboardContext);
     const {categories, subCategories: _subCategories, products, fetchProducts} = useContext(AppDataContext);
-    const {lang} = useContext(AppStatusContext);
+
     const [formData, setFormData] = useState(defaultProduct);
     const [subCategories, setSubCategories] = useState([]);
     const [valid, setValid] = useState(false);
@@ -137,7 +128,8 @@ function ProductEntryPanel({dark = false}) {
         }
     }
 
-    return (<ThemeProvider theme={dark ? darkTheme : lightTheme}>
+    return (
+        <ThemeProvider theme={createTheme({ palette: { mode: dark ? "dark" : "light" } })}>
         <div style={{backgroundColor: dark ? "#131922" : " #F8FAFB", color: dark ? "white" : "black"}}
              className="product-entry-panel-container">
             <div className="product-entry-panel-left-area">
