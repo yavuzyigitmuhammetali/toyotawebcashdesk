@@ -169,7 +169,7 @@ function ProductEntryPanel({dark = false}) {
                               checkedIcon={<DialpadIcon color="success"/>} onChange={handleCheckboxChange}
                               name="fraction"/>
                 </div>
-                <div><ScreenKeyboard dark={dark}/></div>
+                <div><ScreenKeyboard language={lang} dark={dark}/></div>
 
             </div>
 

@@ -163,7 +163,7 @@ function ProductEditor({dark = false}) {
                 </Select>
             </div>
         </div>
-        <div><ScreenKeyboard dark={dark}/></div>
+        <div><ScreenKeyboard language={lang} dark={dark}/></div>
         <div className="product-editor-actions">
             <Button style={{flex: 1}} size="small" onClick={cancelChange} color="error" variant="contained">{t('cancel')}
             </Button>

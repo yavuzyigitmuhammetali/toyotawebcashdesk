@@ -60,7 +60,7 @@ function ProductShowcase({
                             label={t.searchLabel}
                             id="prodcutSearch"
                         />
-                        {ScreenKeyboardComponent ? <ScreenKeyboardComponent dark={dark} /> : null}
+                        {ScreenKeyboardComponent ? <ScreenKeyboardComponent language={language}  dark={dark} /> : null}
                     </div>
                     <div className="product-showcase-filter-area">
                         <Button

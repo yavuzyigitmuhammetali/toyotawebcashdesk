@@ -11,6 +11,7 @@ import {filterProducts, filterProductsByBarcode, filterSubcategories} from "../f
 import ScreenKeyboard from "../../../shared/components/ScreenKeyboard/ScreenKeyboard";
 import KeyboardContext from "../../../shared/components/ScreenKeyboard/context";
 import {useTranslation} from "react-i18next";
+import AppStatusContext from "../../../shared/state/AppStatus/context";
 
 const darkTheme = createTheme({
     palette: {
@@ -31,6 +32,8 @@ function SalesDashboardLeftArea({dark = false}) {
     const {
         categories, subCategories: _subCategories, products: _products, addToCart
     } = useContext(CartContext);
+
+    const {lang} = useContext(AppStatusContext)
 
     const [map, setMap] = useState("categories");
     const {data} = useContext(NumericKeyboardContext);
@@ -127,7 +130,7 @@ function SalesDashboardLeftArea({dark = false}) {
                         </IconButton>),
                     }}
                 />
-                <ScreenKeyboard/>
+                <ScreenKeyboard language={lang}/>
             </div>
             <div className="left-two">
                 <Button onClick={() => {

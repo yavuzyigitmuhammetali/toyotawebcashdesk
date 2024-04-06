@@ -19,25 +19,15 @@ import AppStatusContext from "../../../shared/state/AppStatus/context";
 import {Visibility, VisibilityOff} from "@mui/icons-material";
 import {useTranslation} from "react-i18next";
 
-const darkTheme = createTheme({
-    palette: {
-        mode: 'dark',
-    },
-});
-const lightTheme = createTheme({
-    palette: {
-        mode: 'light',
-    },
-});
 
-function LoginPageRightArea({dark = false}) {
+function LoginPageRightArea() {
     const [error, setError] = useState(false)
     const [showPassword, setShowPassword] = useState(false);
     const [loginData,setLoginData] = useState({username:"",password:""})
     const [buttonState, setButtonState] = useState(false)
     const navigate = useNavigate();
     const { handleElementFocus, value,onChangeValue,enterRef,clearValues } = useContext(KeyboardContext);
-    const {loginFunction} = useContext(AppStatusContext);
+    const {loginFunction,lang,dark} = useContext(AppStatusContext);
     const {t} = useTranslation();
 
     const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -86,7 +76,7 @@ function LoginPageRightArea({dark = false}) {
     };
 
     return (
-        <ThemeProvider theme={dark ? darkTheme : lightTheme}>
+        <ThemeProvider theme={createTheme({ palette: { mode: dark ? "dark" : "light" } })}>
         <div style={{ backgroundColor: dark ? "#1C1F25" : "white", border: "2px solid #1A2027"}}
              className="login-page-right-area-container">
             <div className="login-page-right-area-info">
@@ -132,7 +122,7 @@ function LoginPageRightArea({dark = false}) {
                     </FormControl>
 
                     <Button ref={enterRef} onClick={handleLogin} disabled={!buttonState} color={error?"error":"info"}  variant="contained">{t('login')}</Button>
-                    <ScreenKeyboard dark={dark} style={{width:"40px",height:"40px",alignSelf:"center"}}/>
+                    <ScreenKeyboard language={lang} dark={dark} style={{width:"40px",height:"40px",alignSelf:"center"}}/>
 
             </form>
             {error ?

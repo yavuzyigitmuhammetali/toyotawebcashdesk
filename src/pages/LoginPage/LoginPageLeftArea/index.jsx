@@ -5,8 +5,8 @@ import AppStatusContext from "../../../shared/state/AppStatus/context";
 import {useTranslation} from "react-i18next";
 const LoginSrc = lazy(() => import('./components/LoginSrc'));
 
-function LoginPageLeftArea({width = "400px", dark = false, warn = false}) {
-    const {isOnline,status,lang} = React.useContext(AppStatusContext);
+function LoginPageLeftArea({width = "400px", warn = false}) {
+    const {isOnline,status,lang,dark} = React.useContext(AppStatusContext);
     const {t} = useTranslation();
     return (
         <div style={{color: dark ? "white" : "#111418", width: width}} className="login-page-left-area-container">
