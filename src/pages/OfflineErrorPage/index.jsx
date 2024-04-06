@@ -8,9 +8,9 @@ import AppStatusContext from "../../shared/state/AppStatus/context";
 import OnlineOfflineIndicator from "../../shared/components/OnlineOfflineIndicator";
 import { useTranslation } from "react-i18next";
 
-const OfflineErrorPage = ({dark = true}) => {
+const OfflineErrorPage = () => {
+    const {status,isOnline, lang,dark} = React.useContext(AppStatusContext);
     const theme = getTheme(dark ? "dark" : "light");
-    const {status,isOnline, lang} = React.useContext(AppStatusContext);
     const [schedule, setSchedule] = useState(
         {
             "Monday": null,
