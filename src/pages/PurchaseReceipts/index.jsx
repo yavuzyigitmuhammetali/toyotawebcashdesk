@@ -9,19 +9,11 @@ import {createTheme, ThemeProvider} from "@mui/material/styles";
 import {getComparator, stableSort} from "./functions";
 import Row from "./components/Row";
 import AppDataContext from "../../shared/state/AppData/context";
+import AppStatusContext from "../../shared/state/AppStatus/context";
 
-const darkTheme = createTheme({
-    palette: {
-        mode: 'dark',
-    },
-});
-const lightTheme = createTheme({
-    palette: {
-        mode: 'light',
-    },
-});
 
-function PurchaseReceipts({dark = false}) {
+function PurchaseReceipts() {
+    const {dark} = useContext(AppStatusContext)
     const {t} = useTranslation();
     const [order, setOrder] = useState('desc');
     const [orderBy, setOrderBy] = useState('date');
@@ -38,7 +30,7 @@ function PurchaseReceipts({dark = false}) {
     };
 
     return (<div className="purchase-receipts-container">
-            <ThemeProvider theme={dark ? darkTheme : lightTheme}>
+        <ThemeProvider theme={createTheme({ palette: { mode: dark ? "dark" : "light" } })}>
                 <TableContainer component={Paper}>
                     <Table stickyHeader>
                         <TableHead>

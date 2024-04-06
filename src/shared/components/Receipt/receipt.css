@@ -10,6 +10,7 @@
     justify-content: space-between;
     overflow-x: clip!important;
     border: .1px solid black;
+    color: black !important;
 }
 .receipt-refund{
     color: red;
