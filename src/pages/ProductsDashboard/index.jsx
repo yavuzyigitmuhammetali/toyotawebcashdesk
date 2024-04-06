@@ -5,6 +5,7 @@ import { Outlet, useNavigate } from "react-router-dom";
 import AppDataContext from "../../shared/state/AppData/context";
 import ScreenKeyboard from "../../shared/components/ScreenKeyboard/ScreenKeyboard";
 import KeyboardContext from "../../shared/components/ScreenKeyboard/context";
+import AppStatusContext from "../../shared/state/AppStatus/context";
 
 const darkTheme = createTheme({
     palette: {
@@ -19,6 +20,7 @@ const lightTheme = createTheme({
 
 function ProductsDashboard({ dark = false }) {
     const navigate = useNavigate();
+    const {lang} = useContext(AppStatusContext);
     const { products, fetchProducts } = useContext(AppDataContext);
     const keyboardContext = useContext(KeyboardContext);
 
@@ -38,6 +40,7 @@ function ProductsDashboard({ dark = false }) {
             <div style={{ cursor: "pointer", position: "relative" }}>
                 <div style={{ zIndex: "-1" }}>
                     <ProductShowcase
+                        language={lang}
                         ScreenKeyboardComponent={ScreenKeyboard}
                         keyboardContext={keyboardContext}
                         dark={dark}

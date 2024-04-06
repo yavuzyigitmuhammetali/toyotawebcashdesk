@@ -1,0 +1,14 @@
+{
+  "en": {
+    "searchLabel": "Product Name",
+    "all": "All",
+    "favorites": "Favorites",
+    "productsWithoutBarcode": "Products Without Barcode"
+  },
+  "tr": {
+    "searchLabel": "Ürün İsmi",
+    "all": "Tümü",
+    "favorites": "Favoriler",
+    "productsWithoutBarcode": "Barkodsuz Ürünler"
+  }
+}

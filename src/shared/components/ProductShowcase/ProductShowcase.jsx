@@ -5,12 +5,14 @@ import { Button } from "@mui/material";
 import ProductCard from "../ProductCard/ProductCard";
 import { filterDataByAlphabetGroups } from "./dataProcessing";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import translations from './lang.json';
+
 const darkTheme = createTheme({
-    
     palette: {
         mode: "dark",
     },
 });
+
 const lightTheme = createTheme({
     palette: {
         mode: "light",
@@ -23,6 +25,7 @@ function ProductShowcase({
     dark = false,
     keyboardContext = null,
     ScreenKeyboardComponent = null,
+    language = "en",
 }) {
     const [inputValue, setInputValue] = useState("");
     const { handleElementFocus, value, onChangeValue, clearValues } = keyboardContext || {};
@@ -47,6 +50,8 @@ function ProductShowcase({
         if (clearValues) clearValues();
     }, [clearValues]);
 
+    const t = translations[language] || translations.en;
+
     return (
         <ThemeProvider theme={dark ? darkTheme : lightTheme}>
             <div className="product-showcase-container">
@@ -64,7 +69,7 @@ function ProductShowcase({
                             value={inputValue}
                             fullWidth
                             color="secondary"
-                            label="Ürün İsmi"
+                            label={t.searchLabel}
                             id="prodcutSearch"
                         />
                         {ScreenKeyboardComponent ? <ScreenKeyboardComponent dark={dark} /> : null}
@@ -75,14 +80,14 @@ function ProductShowcase({
                             color="secondary"
                             variant={map === 1 ? "contained" : "outlined"}
                         >
-                            Tümü
+                            {t.all}
                         </Button>
                         <Button
                             onClick={() => setMap(2)}
                             color="secondary"
                             variant={map === 2 ? "contained" : "outlined"}
                         >
-                            Favoriler
+                            {t.favorites}
                         </Button>
                         <Button
                             onClick={() => setMap(3)}
@@ -146,7 +151,7 @@ function ProductShowcase({
                             color="secondary"
                             variant={map === 11 ? "contained" : "outlined"}
                         >
-                            Barkodsuz Ürünler
+                            {t.productsWithoutBarcode}
                         </Button>
                     </div>
                     <div className="product-showcase-products-scroll-area">
@@ -237,3 +242,4 @@ function ProductShowcase({
 }
 
 export default ProductShowcase;
+

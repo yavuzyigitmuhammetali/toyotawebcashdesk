@@ -113,7 +113,7 @@ function SalesDashboardRightArea({dark = false}) {
                             <CloseOutlinedIcon/>
                         </IconButton>
                     </div>
-                        <ProductShowcase ScreenKeyboardComponent={ScreenKeyboard} keyboardContext={keyboardContext} dark={dark} onClick={addToCart} data={products}/>
+                        <ProductShowcase language={lang} ScreenKeyboardComponent={ScreenKeyboard} keyboardContext={keyboardContext} dark={dark} onClick={addToCart} data={products}/>
                 </>
                     :
                     <></>}
