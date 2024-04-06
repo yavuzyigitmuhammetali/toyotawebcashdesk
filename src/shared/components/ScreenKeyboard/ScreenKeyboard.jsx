@@ -32,9 +32,9 @@ const lightTheme = createTheme({
     },
 });
 
-function ScreenKeyboard({ dark = false, defaultLang = "tr", style }) {
+function ScreenKeyboard({ dark = false, language = "tr", style }) {
     const [isDragging, setIsDragging] = useState(false);
-    const [keyboardType, setKeyboardType] = useState(defaultLang);
+    const [keyboardType, setKeyboardType] = useState(language);
     const [onOff, setOnOff] = useState(true);
     const { handleDelete, handleValue, handleEnter } = useContext(KeyboardContext);
 

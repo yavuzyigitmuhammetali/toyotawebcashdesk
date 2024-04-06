@@ -14,10 +14,12 @@ import AppDataContext from "../../shared/state/AppData/context";
 import {defaultReceipt} from "../../shared/state/AppData/defaultData";
 import AlertComponent from "../../shared/components/AlertComponent";
 import {useTranslation} from "react-i18next";
+import AppStatusContext from "../../shared/state/AppStatus/context";
 
 
 function ResponsiveReceipt({dark = false}) {
     const {receipts} = useContext(AppDataContext);
+    const {lang} = useContext(AppStatusContext)
     const location = useLocation();
     const [receipt, setReceipt] = useState({})
     const [alignment, setAlignment] = useState('left');
@@ -99,7 +101,7 @@ function ResponsiveReceipt({dark = false}) {
                 transform: alignment === "right" ? "translate(-100%, 0)" : alignment === "center" ? "translate(-50%, 0)" : "translate(0, 0)"
             }}
                  className={alignment2 === "left" ? "printable-content responsive-receipt-receipt" : "printable-content-full responsive-receipt-receipt"}>
-                <Receipt data={receipt}/>
+                <Receipt language={lang} data={receipt}/>
             </div>
         </div>);
 }

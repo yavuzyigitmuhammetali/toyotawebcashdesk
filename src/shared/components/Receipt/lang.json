@@ -1,0 +1,38 @@
+{
+  "en": {
+    "refund": "REFUNDED",
+    "storeNumber": "Store Number",
+    "caseNumber": "Case Number",
+    "receiptNumber": "Receipt Number",
+    "receiptDate": "Receipt Date",
+    "receiptTime": "Receipt Time",
+    "quantity": "pcs.",
+    "cash": "Cash",
+    "card": "Card",
+    "payback": "Payback",
+    "totalTax": "TOTAL TAX",
+    "total": "TOTAL",
+    "transactions": "Transactions",
+    "amountPaid": "AMOUNT PAID",
+    "change": "CHANGE",
+    "thanks": "THANK YOU"
+  },
+  "tr": {
+    "refund": "İADE GÖRMÜŞ",
+    "storeNumber": "Mağaza Numarası",
+    "caseNumber": "Kasa Numarası",
+    "receiptNumber": "Fiş Numarası",
+    "receiptDate": "Fiş Tarih",
+    "receiptTime": "Fiş Saat",
+    "quantity": "adt.",
+    "cash": "Nakit",
+    "card": "Kart",
+    "payback": "Geri Ödeme",
+    "totalTax": "TPLKDV",
+    "total": "TOPLAM",
+    "transactions": "İşlemler",
+    "amountPaid": "ÖDENTPLM",
+    "change": "PARAÜSTÜ",
+    "thanks": "TEŞEKKÜRLER"
+  }
+}
