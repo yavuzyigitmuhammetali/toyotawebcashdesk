@@ -1,7 +1,9 @@
 import i18n from "i18next";
-import { useTranslation, initReactI18next } from "react-i18next";
+import { initReactI18next } from "react-i18next";
 import en from "./translations/en.json";
 import tr from "./translations/tr.json";
+
+const initialLanguage = JSON.parse(localStorage.getItem('lang')) || navigator.language || 'en';
 
 i18n
     .use(initReactI18next)
@@ -14,8 +16,7 @@ i18n
                translation: tr
            }
         },
-        lng: "tr",
-        fallbackLng: "tr",
+        fallbackLng: initialLanguage,
 
         interpolation: {
             escapeValue: false

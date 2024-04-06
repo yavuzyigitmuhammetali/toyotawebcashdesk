@@ -3,6 +3,7 @@ import config from '../../../config.json';
 import {getIp, getStatus, testLogin} from "./api";
 import { setupTimer, updateOnlineStatus} from "../../functions/checkOnline";
 import {login} from "./api"
+import {useTranslation} from "react-i18next";
 const AppStatusContext = React.createContext(undefined);
 
 
@@ -11,7 +12,8 @@ const AppStatusProvider = ({children}) => {
     const [isOnline, setIsOnline] = React.useState(JSON.parse(sessionStorage.getItem('online')));
     const [isLoggedIn, setIsLoggedIn] = React.useState(JSON.parse(sessionStorage.getItem('loggedIn')));
     const [dark, setDark] = React.useState(JSON.parse(localStorage.getItem('dark'))??false);
-    const [lang, setLang] = React.useState(JSON.parse(localStorage.getItem('lang'))??'tr');
+    const [lang, setLang] = React.useState(JSON.parse(localStorage.getItem('lang'))??'en');
+    const {i18n} = useTranslation();
 
 
     React.useEffect(() => {
@@ -60,20 +62,23 @@ const AppStatusProvider = ({children}) => {
 
 
      const changeDark = () => {
-        setDark(dark?false:true);
-        localStorage.setItem('dark', JSON.stringify(dark?false:true));
+        setDark(!dark);
+        localStorage.setItem('dark', JSON.stringify(!dark));
      }
 
      const changeLang = () => {
         if (lang === "tr"){
             setLang("en");
             localStorage.setItem('lang', JSON.stringify("en"))
+            i18n.changeLanguage("en");
         } else if (lang === "en") {
             setLang("tr");
             localStorage.setItem('lang', JSON.stringify("tr"))
+            i18n.changeLanguage("tr");
         }else{
-            setLang("tr");
-            localStorage.setItem('lang', JSON.stringify("tr"))
+            setLang("en");
+            localStorage.setItem('lang', JSON.stringify("en"))
+            i18n.changeLanguage("en");
         }
      }
 
