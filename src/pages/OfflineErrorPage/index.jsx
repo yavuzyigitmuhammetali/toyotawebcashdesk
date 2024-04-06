@@ -46,7 +46,7 @@ const OfflineErrorPage = ({dark = true}) => {
                     color: 'text.primary',
                 }}
             >
-                <OnlineOfflineIndicator language={lang} online={isOnline}/>
+                <OnlineOfflineIndicator dark={dark} language={lang} online={isOnline}/>
                 <Typography variant="h4" component="h1" gutterBottom sx={{fontWeight: 'bold', mb: 4}}>
                     {t('offlineErrorTitle')}
                 </Typography>

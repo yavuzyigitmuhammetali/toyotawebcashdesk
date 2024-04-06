@@ -7,9 +7,10 @@ import AppStatusContext from "../../../../shared/state/AppStatus/context";
 import { Link, Outlet, useLocation, useParams } from "react-router-dom";
 import SettingsDashboard from "../SettingsDashboard/SettingsDashboard";
 import { useTranslation } from "react-i18next";
+import {createTheme, ThemeProvider} from "@mui/material/styles";
 
 function MainContainer() {
-    const { status, isOnline, lang } = useContext(AppStatusContext);
+    const { status, isOnline, lang, dark } = useContext(AppStatusContext);
     const today = new Date();
     const formattedDate = lang === "tr" ? `${today.getDate().toString().padStart(2, "0")}/${(today.getMonth() + 1).toString().padStart(2, "0")}/${today.getFullYear()}` : `${(today.getMonth() + 1).toString().padStart(2, "0")}/${today.getDate().toString().padStart(2, "0")}/${today.getFullYear()}`;
     const [pathHistory, setPathHistory] = useState(["/"]);
@@ -70,32 +71,34 @@ function MainContainer() {
             }
     }
     return (
-        <div className="main-container-body">
-            <header className="main-container-header">
-                <div>
-                    <IconButton color="error" component={Link} to={prevLink}>
-                        <ArrowBackIosIcon />
-                    </IconButton>
-                </div>
-                <div>{pageTitle.toUpperCase()}</div>
-                <div>
-                    <SettingsDashboard/>
-                </div>
-            </header>
-            <main className="main-container-main">
-                <Outlet />
-            </main>
-            <footer className="main-container-footer">
-                <div>
-                    <OnlineOfflineIndicator language={lang} online={isOnline} />
-                </div>
-                <div>{formattedDate}</div>
-                <div style={{ display: "flex", flexDirection: "column" }}>
-                    <span>{t("cashRegister")}: {status.case}</span>
-                    <span>{t("store")}: {status.storeNumber}</span>
-                </div>
-            </footer>
-        </div>
+        <ThemeProvider theme={createTheme({palette: {mode: dark ? "dark" : "light"}})}>
+            <div style={{color:dark?"white":"black",backgroundColor:dark?"rgb(17, 20, 24)":"white"}} className="main-container-body">
+                <header style={{backgroundColor:dark&&"rgb(28, 31, 37)"}} className="main-container-header">
+                    <div>
+                        <IconButton color="error" component={Link} to={prevLink}>
+                            <ArrowBackIosIcon/>
+                        </IconButton>
+                    </div>
+                    <div>{pageTitle.toUpperCase()}</div>
+                    <div>
+                        <SettingsDashboard/>
+                    </div>
+                </header>
+                <main style={{backgroundColor:dark&&"rgb(28, 31, 37)"}} className="main-container-main">
+                    <Outlet/>
+                </main>
+                <footer style={{backgroundColor:dark&&"rgb(28, 31, 37)"}} className="main-container-footer">
+                    <div>
+                        <OnlineOfflineIndicator dark={dark} language={lang} online={isOnline}/>
+                    </div>
+                    <div>{formattedDate}</div>
+                    <div style={{display: "flex", flexDirection: "column"}}>
+                        <span>{t("cashRegister")}: {status.case}</span>
+                        <span>{t("store")}: {status.storeNumber}</span>
+                    </div>
+                </footer>
+            </div>
+        </ThemeProvider>
     );
 }
 
