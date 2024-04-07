@@ -9,7 +9,12 @@ import AppStatusContext from "../../shared/state/AppStatus/context";
 import SettingsDashboard from "./components/SettingsDashboard/SettingsDashboard";
 import MainScreenItem from "./components/MainScreenItem/MainScreenItem";
 import { useTranslation } from 'react-i18next';
-
+import StorefrontIcon from '@mui/icons-material/Storefront';
+import AssignmentReturnIcon from '@mui/icons-material/AssignmentReturn';
+import InventoryIcon from '@mui/icons-material/Inventory';
+import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
+import AddBusinessIcon from '@mui/icons-material/AddBusiness';
+import SummarizeIcon from '@mui/icons-material/Summarize';
 
 function MainScreen() {
     const {isOnline, status, logOut,lang,dark} = React.useContext(AppStatusContext);
@@ -21,14 +26,14 @@ function MainScreen() {
                 <div style={{backgroundColor: dark ? "#111418" : "#F8FAFB"}} className="main-screen-container">
                     <div className="main-screen-active-area">
                         <div className="main-screen-sides">
-                            <MainScreenItem to={"/order/create"} dark={dark} customIcon={LogoutIcon}>{t('orderCreation')}</MainScreenItem>
-                            <MainScreenItem to={"/products/list"} dark={dark}>{t('products')}</MainScreenItem>
-                            <MainScreenItem to={"/product/add"} dark={dark}>{t('productEntry')}</MainScreenItem>
+                            <MainScreenItem to={"/order/create"} dark={dark} customIcon={StorefrontIcon}>{t('orderCreation')}</MainScreenItem>
+                            <MainScreenItem to={"/products/list"} dark={dark} customIcon={InventoryIcon}>{t('products')}</MainScreenItem>
+                            <MainScreenItem to={"/product/add"} dark={dark} customIcon={AddBusinessIcon}>{t('productEntry')}</MainScreenItem>
                         </div>
                         <div className="main-screen-sides">
-                            <MainScreenItem to={"/refund/create"} dark={dark}>{t('returnProcesses')}</MainScreenItem>
-                            <MainScreenItem to={"/purchase/list"} dark={dark}>{t('receipts')}</MainScreenItem>
-                            <MainScreenItem to={"/summary/calculate"} dark={dark}>{t('reports')}</MainScreenItem>
+                            <MainScreenItem to={"/refund/create"} dark={dark} customIcon={AssignmentReturnIcon}>{t('returnProcesses')}</MainScreenItem>
+                            <MainScreenItem to={"/purchase/list"} dark={dark} customIcon={ReceiptLongIcon}>{t('receipts')}</MainScreenItem>
+                            <MainScreenItem to={"/summary/calculate"} dark={dark} customIcon={SummarizeIcon}>{t('reports')}</MainScreenItem>
                         </div>
                     </div>
                 </div>
