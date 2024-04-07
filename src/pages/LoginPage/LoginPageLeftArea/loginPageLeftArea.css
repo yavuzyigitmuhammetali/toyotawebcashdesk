@@ -1,34 +1,40 @@
-.login-page-left-area-container{
+.login-page-left-area-container {
     position: relative;
     user-select: none;
 }
-.login-page-left-area-texts{
+
+.login-page-left-area-texts {
     position: absolute;
     transform: translate(-50%, -50%);
     text-align: center;
 }
-.login-page-left-area-texts.online-offline{
+
+.login-page-left-area-texts.online-offline {
     font-weight: 500;
     font-size: 1em;
     left: 17%;
     top: 8.5%;
 }
-.login-page-left-area-texts.good-wish{
+
+.login-page-left-area-texts.good-wish {
     top: 35%;
     left: 50%;
 }
-.login-page-left-area-texts.welcome{
+
+.login-page-left-area-texts.welcome {
     font-size: 1.5em;
     font-weight: 700;
     top: 48%;
     left: 50%;
 }
-.login-page-left-area-texts.explanation{
+
+.login-page-left-area-texts.explanation {
     font-size: 0.8em;
     top: 62%;
     left: 50%;
 }
-.login-page-left-area-indicator{
+
+.login-page-left-area-indicator {
     position: absolute;
     top: 5px;
     left: 15px;

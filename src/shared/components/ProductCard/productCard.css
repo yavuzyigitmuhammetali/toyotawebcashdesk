@@ -2,7 +2,7 @@
     user-select: none;
     cursor: pointer;
     width: 145px;
-    aspect-ratio: 145 / 160!important;
+    aspect-ratio: 145 / 160 !important;
     box-sizing: border-box;
     background-color: white;
     padding: 5px;
@@ -11,10 +11,12 @@
     border-radius: 10px;
     /*background-image: linear-gradient(to right, #FFD700, #FFA500, #FF6347);*/
 }
+
 .product-card-container:hover {
     transform: scale(1.04);
 }
-.product-card-img{
+
+.product-card-img {
     position: absolute;
     pointer-events: none;
     transform: translate(-50%, -50%);
@@ -22,7 +24,8 @@
     top: 50%;
     max-width: 90%;
 }
-.product-card-text{
+
+.product-card-text {
     border-top: 1px solid gray;
     font-size: 1em;
     background-color: rgba(255, 255, 255, 0.7);
@@ -39,28 +42,32 @@
     height: 30%;
     border-radius: 0 0 10px 10px;
 }
-.product-card-price{
+
+.product-card-price {
     position: absolute;
     font-size: 1.1em;
     left: 3%;
     top: 0;
     color: #111418;
 }
-.product-card-discount{
+
+.product-card-discount {
     position: absolute;
     font-size: 1.1em;
     left: 4%;
     top: 9%;
     color: red;
 }
-.product-card-stock{
+
+.product-card-stock {
     position: absolute;
     font-size: 0.8em;
     right: 3%;
     top: 0;
     color: #111418;
 }
-.product-card-on-sale{
+
+.product-card-on-sale {
     font-style: italic;
     text-align: center;
     position: absolute;
@@ -75,29 +82,30 @@
     bottom: 45%;
     border-radius: 3px;
 }
+
 .product-card-click {
     --c: gray; /* the border color */
-    --b: 10px;    /* the border thickness*/
-    --g: 5px;     /* the gap on hover */
+    --b: 10px; /* the border thickness*/
+    --g: 5px; /* the gap on hover */
 
     padding: calc(var(--g) + var(--b));
-    --_g: #0000 25%,var(--c) 0;
-    background:
-            conic-gradient(from 180deg at top    var(--b) right var(--b),var(--_g))
-            var(--_i,200%) 0  /200% var(--_i,var(--b))  no-repeat,
-            conic-gradient(            at bottom var(--b) left  var(--b),var(--_g))
-            0   var(--_i,200%)/var(--_i,var(--b)) 200%  no-repeat;
+    --_g: #0000 25%, var(--c) 0;
+    background: conic-gradient(from 180deg at top var(--b) right var(--b), var(--_g)) var(--_i, 200%) 0  /200% var(--_i, var(--b)) no-repeat,
+    conic-gradient(at bottom var(--b) left var(--b), var(--_g)) 0 var(--_i, 200%)/var(--_i, var(--b)) 200% no-repeat;
     transition: .1s, background-position .1s .1s;
     cursor: pointer;
 }
+
 .product-card-click:hover {
     --_i: 100%;
     transition: .1s, background-size .1s .1s;
 }
+
 .product-card-click:active {
     --c: green;
 }
-.product-card-disabled{
+
+.product-card-disabled {
     user-select: none;
     filter: grayscale(1);
 }

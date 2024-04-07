@@ -1,4 +1,4 @@
-.product-entry-panel-container{
+.product-entry-panel-container {
     position: relative;
     width: 100vw;
     height: 90vh;
@@ -6,7 +6,8 @@
     flex-direction: row;
     background-color: #F8FAFB;
 }
-.product-entry-panel-left-area{
+
+.product-entry-panel-left-area {
     flex: 1;
     box-sizing: border-box;
     display: flex;
@@ -14,7 +15,8 @@
     justify-content: center;
     align-items: center;
 }
-.product-entry-panel-right-area{
+
+.product-entry-panel-right-area {
     flex: 1;
     box-sizing: border-box;
     padding: 5vh;
@@ -25,10 +27,12 @@
     align-items: flex-start;
     flex-wrap: wrap;
 }
-.product-entry-panel-right-area>*{
+
+.product-entry-panel-right-area > * {
     width: 40%;
 }
-.product-entry-panel-right-area>div{
+
+.product-entry-panel-right-area > div {
     display: flex;
     flex-direction: column;
 }

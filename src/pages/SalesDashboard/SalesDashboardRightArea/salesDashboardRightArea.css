@@ -1,4 +1,4 @@
-.sales-dashboard-right-area-container{
+.sales-dashboard-right-area-container {
     background-color: #F8FAFB;
     min-width: 33vw !important;
     max-width: 33vw !important;
@@ -13,17 +13,20 @@
     padding: 10px;
     border: 1px solid black;
 }
-.sales-dashboard-right-area-control{
+
+.sales-dashboard-right-area-control {
     display: flex;
     flex-direction: row;
     gap: 10px;
     flex-wrap: nowrap;
 }
-.sales-dashboard-right-area-control>*{
-    min-width: 0!important;
-    min-height: 0!important;
+
+.sales-dashboard-right-area-control > * {
+    min-width: 0 !important;
+    min-height: 0 !important;
 }
-.sales-dashboard-right-area-campaigns{
+
+.sales-dashboard-right-area-campaigns {
     border-bottom: 1px solid black;
     position: absolute;
     display: flex;
@@ -37,6 +40,7 @@
     gap: 5px;
     background-color: #E8F5FC;
 }
+
 @keyframes jell-in-top {
     0% {
         top: -50%;
@@ -45,6 +49,7 @@
         top: 0;
     }
 }
+
 @keyframes jell-out-top {
     0% {
         top: 0;

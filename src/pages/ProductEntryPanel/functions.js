@@ -1,4 +1,4 @@
-export function generateBarcode(categoryId, subCategoryId, id){
+export function generateBarcode(categoryId, subCategoryId, id) {
     const categoryPart = `${categoryId}`.length === 1 ? `${categoryId}0` : `${categoryId}`;
 
     let subCategoryPart;

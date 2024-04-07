@@ -3,7 +3,7 @@
  * @param {Array} receipts - The array of receipts to calculate the total amount from.
  * @returns {number} - The total amount of active receipts.
  */
-export function calcTotalAmount(receipts){
+export function calcTotalAmount(receipts) {
     return receipts.reduce((accumulator, {active, total}) => active ? accumulator + total : accumulator, 0);
 }
 
@@ -12,7 +12,7 @@ export function calcTotalAmount(receipts){
  * @param {Array} receipts - The array of receipts to calculate the total amount without discount from.
  * @returns {number} - The total amount without discount of active receipts.
  */
-export function calcTotalAmountWithoutDiscount(receipts){
+export function calcTotalAmountWithoutDiscount(receipts) {
     return receipts.reduce((accumulator, {active, subTotal}) => active ? accumulator + subTotal : accumulator, 0);
 }
 
@@ -21,7 +21,7 @@ export function calcTotalAmountWithoutDiscount(receipts){
  * @param {Array} receipts - The array of receipts to calculate the total amount paid from.
  * @returns {number} - The total amount paid of active receipts.
  */
-export function calcTotalPaid(receipts){
+export function calcTotalPaid(receipts) {
     return receipts.reduce((accumulator, {active, amountPaid}) => active ? accumulator + amountPaid : accumulator, 0);
 }
 
@@ -30,7 +30,7 @@ export function calcTotalPaid(receipts){
  * @param {Array} receipts - The array of receipts to calculate the total change from.
  * @returns {number} - The total change of active receipts.
  */
-export function calcTotalChange(receipts){
+export function calcTotalChange(receipts) {
     return receipts.reduce((accumulator, {active, change}) => active ? accumulator + change : accumulator, 0);
 }
 
@@ -39,7 +39,7 @@ export function calcTotalChange(receipts){
  * @param {Array} receipts - The array of receipts to calculate the total tax from.
  * @returns {number} - The total tax of active receipts.
  */
-export function calcTotalTax(receipts){
+export function calcTotalTax(receipts) {
     return receipts.reduce((accumulator, {active, totalTax}) => active ? accumulator + totalTax : accumulator, 0);
 }
 
@@ -48,10 +48,13 @@ export function calcTotalTax(receipts){
  * @param {Array} receipts - The array of receipts to calculate the total amount with card payments from.
  * @returns {number} - The total amount with card payments of active receipts.
  */
-export function calcTotalAmountWithCard(receipts){
+export function calcTotalAmountWithCard(receipts) {
     return receipts.reduce((total, {active, transactions}) => {
         if (!active) return total;
-        return total + transactions.reduce((cardTotal, {type, price}) => type === "card" ? cardTotal + price : cardTotal, 0);
+        return total + transactions.reduce((cardTotal, {
+            type,
+            price
+        }) => type === "card" ? cardTotal + price : cardTotal, 0);
     }, 0);
 }
 
@@ -60,10 +63,13 @@ export function calcTotalAmountWithCard(receipts){
  * @param {Array} receipts - The array of receipts to calculate the total amount with cash payments from.
  * @returns {number} - The total amount with cash payments of active receipts.
  */
-export function calcTotalAmountWithCash(receipts){
+export function calcTotalAmountWithCash(receipts) {
     return receipts.reduce((accumulator, {active, transactions}) => {
         if (!active) return accumulator;
-        return accumulator + transactions.reduce((previousValue, {type, price}) => type === "cash" ? previousValue + price : previousValue, 0);
+        return accumulator + transactions.reduce((previousValue, {
+            type,
+            price
+        }) => type === "cash" ? previousValue + price : previousValue, 0);
     }, 0);
 }
 
@@ -72,10 +78,13 @@ export function calcTotalAmountWithCash(receipts){
  * @param {Array} receipts - The array of receipts to calculate the total payback amount from.
  * @returns {number} - The total payback amount of active receipts.
  */
-export function calcTotalPayback(receipts){
+export function calcTotalPayback(receipts) {
     return receipts.reduce((accumulator, {active, transactions}) => {
         if (!active) return accumulator;
-        return accumulator + transactions.reduce((previousValue, {type, price}) => type === "payback" ? previousValue + price : previousValue, 0);
+        return accumulator + transactions.reduce((previousValue, {
+            type,
+            price
+        }) => type === "payback" ? previousValue + price : previousValue, 0);
     }, 0);
 }
 
@@ -258,7 +267,7 @@ export function findMostRefundedProducts(receipts) {
                 const key = product.id;
                 const quantity = product.quantity;
                 if (!acc[key]) {
-                    acc[key] = { quantity: 0, active: receipt.active };
+                    acc[key] = {quantity: 0, active: receipt.active};
                 }
                 if (receipt.active) {
                     acc[key].quantity -= quantity;
@@ -273,11 +282,11 @@ export function findMostRefundedProducts(receipts) {
     let maxQuantity = 0;
     let quantityMap = {};
 
-    Object.entries(productQuantities).forEach(([id, { quantity, active }]) => {
+    Object.entries(productQuantities).forEach(([id, {quantity, active}]) => {
         if (!active && quantity > 0) {
             if (quantity > maxQuantity) {
                 maxQuantity = quantity;
-                quantityMap = { [id]: 1 };
+                quantityMap = {[id]: 1};
             } else if (quantity === maxQuantity) {
                 quantityMap[id] = 1;
             }
@@ -303,8 +312,8 @@ export function findMostSoldHour(receipts) {
     }, {});
 
     const mostSoldHour = Object.entries(hourCounts).reduce((max, [hour, count]) => {
-        return count > max.count ? { hour, count } : max;
-    }, { hour: null, count: 0 });
+        return count > max.count ? {hour, count} : max;
+    }, {hour: null, count: 0});
 
     return parseInt(mostSoldHour.hour);
 }
@@ -322,8 +331,8 @@ export function findLeastSoldHour(receipts) {
     }, {});
 
     const leastSoldHour = Object.entries(hourCounts).reduce((min, [hour, count]) => {
-        return count < min.count ? { hour, count } : min;
-    }, { hour: null, count: Infinity });
+        return count < min.count ? {hour, count} : min;
+    }, {hour: null, count: Infinity});
 
     return parseInt(leastSoldHour.hour);
 }

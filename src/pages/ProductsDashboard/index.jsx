@@ -1,16 +1,16 @@
-import React, { useCallback, useContext, useEffect } from "react";
+import React, {useCallback, useContext, useEffect} from "react";
 import ProductShowcase from "../../shared/components/ProductShowcase/ProductShowcase";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { Outlet, useNavigate } from "react-router-dom";
+import {createTheme, ThemeProvider} from "@mui/material/styles";
+import {Outlet, useNavigate} from "react-router-dom";
 import AppDataContext from "../../shared/state/AppData/context";
 import ScreenKeyboard from "../../shared/components/ScreenKeyboard/ScreenKeyboard";
 import KeyboardContext from "../../shared/components/ScreenKeyboard/context";
 import AppStatusContext from "../../shared/state/AppStatus/context";
 
-function ProductsDashboard({ dark = true }) {
+function ProductsDashboard() {
     const navigate = useNavigate();
-    const {lang} = useContext(AppStatusContext);
-    const { products, fetchProducts } = useContext(AppDataContext);
+    const {lang,dark} = useContext(AppStatusContext);
+    const {products, fetchProducts} = useContext(AppDataContext);
     const keyboardContext = useContext(KeyboardContext);
 
     useEffect(() => {
@@ -19,15 +19,15 @@ function ProductsDashboard({ dark = true }) {
 
     const onProductShowcaseClick = useCallback(
         (event) => {
-            navigate(`/products/list/${event.id}`, { replace: true });
+            navigate(`/products/list/${event.id}`, {replace: true});
         },
         [navigate]
     );
 
     return (
-        <ThemeProvider theme={createTheme({ palette: { mode: dark ? "dark" : "light" } })}>
-            <div style={{ cursor: "pointer", position: "relative" }}>
-                <div style={{ zIndex: "-1" }}>
+        <ThemeProvider theme={createTheme({palette: {mode: dark ? "dark" : "light"}})}>
+            <div style={{cursor: "pointer", position: "relative"}}>
+                <div style={{zIndex: "-1"}}>
                     <ProductShowcase
                         language={lang}
                         ScreenKeyboardComponent={ScreenKeyboard}
@@ -47,7 +47,7 @@ function ProductsDashboard({ dark = true }) {
                         justifyContent: "center",
                     }}
                 ></div>
-                <Outlet />
+                <Outlet/>
             </div>
         </ThemeProvider>
     );

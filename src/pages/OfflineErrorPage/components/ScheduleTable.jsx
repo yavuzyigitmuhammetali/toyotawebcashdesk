@@ -1,18 +1,18 @@
 import React from 'react';
-import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
-import { useTranslation } from "react-i18next";
+import {Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from '@mui/material';
+import {useTranslation} from "react-i18next";
 
-const ScheduleTable = ({ schedule }) => {
-    const { t } = useTranslation();
+const ScheduleTable = ({schedule}) => {
+    const {t} = useTranslation();
     const daysOfWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
     return (
         <TableContainer component={Paper}>
             <Table aria-label="schedule table">
                 <TableHead>
                     <TableRow>
-                        <TableCell style={{ color:"red" }}>{t('day')}</TableCell>
-                        <TableCell style={{ color:"red" }} align="right">{t('startTime')}</TableCell>
-                        <TableCell style={{ color:"red" }} align="right">{t('endTime')}</TableCell>
+                        <TableCell style={{color: "red"}}>{t('day')}</TableCell>
+                        <TableCell style={{color: "red"}} align="right">{t('startTime')}</TableCell>
+                        <TableCell style={{color: "red"}} align="right">{t('endTime')}</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>

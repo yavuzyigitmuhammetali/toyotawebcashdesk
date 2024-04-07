@@ -1,4 +1,4 @@
-.refund-dashboard-lower-area-container{
+.refund-dashboard-lower-area-container {
     box-sizing: border-box;
     position: relative;
     width: 100vw;
@@ -10,7 +10,8 @@
     padding: 1%;
     align-items: center;
 }
-.refund-dashboard-lower-area-container>*{
+
+.refund-dashboard-lower-area-container > * {
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -19,7 +20,8 @@
     gap: 4px;
     font-size: 1.5vw;
 }
-.refund-dashboard-upper-area-container{
+
+.refund-dashboard-upper-area-container {
     box-sizing: border-box;
     position: relative;
     width: 100vw;
@@ -28,7 +30,8 @@
     display: flex;
     flex-direction: row;
 }
-.refund-dashboard-upper-area-item{
+
+.refund-dashboard-upper-area-item {
     box-sizing: border-box;
     padding: 1%;
     border: 1px solid;
@@ -38,7 +41,8 @@
     flex-direction: column;
     flex: 1;
 }
-.refund-dashboard-upper-area-scroll{
+
+.refund-dashboard-upper-area-scroll {
     flex: 1;
     width: 100%;
     max-height: 100%;

@@ -12,7 +12,7 @@ import KeyboardContext from "../../../../shared/components/ScreenKeyboard/contex
 import {useNavigate, useParams} from "react-router-dom";
 import AppDataContext from "../../../../shared/state/AppData/context";
 import {defaultProduct} from "../../../../shared/state/AppData/defaultData";
-import { useTranslation } from 'react-i18next';
+import {useTranslation} from 'react-i18next';
 import AppStatusContext from "../../../../shared/state/AppStatus/context";
 
 function ProductEditor() {
@@ -23,10 +23,10 @@ function ProductEditor() {
     const [changeData, setChangeData] = useState(false);
     const {handleElementFocus, value: screenKeyboardValue, clearValues, enterRef} = useContext(KeyboardContext);
     const {products, fetchProducts} = useContext(AppDataContext);
-    const {lang,dark} = useContext(AppStatusContext)
+    const {lang, dark} = useContext(AppStatusContext)
     const tempProduct = products.find(value => value.id === productId);
     const [product, setProduct] = useState(tempProduct ?? defaultProduct);
-    const { t } = useTranslation();
+    const {t} = useTranslation();
 
 
     const handleTextChange = (value, key) => {
@@ -67,9 +67,8 @@ function ProductEditor() {
     };
 
 
-
     useEffect(() => {
-        if (product.id){
+        if (product.id) {
             setChangeData(JSON.stringify(product) !== JSON.stringify(tempProduct));
         }
     }, [product, tempProduct, navigate]);
@@ -165,7 +164,8 @@ function ProductEditor() {
         </div>
         <div><ScreenKeyboard language={lang} dark={dark}/></div>
         <div className="product-editor-actions">
-            <Button style={{flex: 1}} size="small" onClick={cancelChange} color="error" variant="contained">{t('cancel')}
+            <Button style={{flex: 1}} size="small" onClick={cancelChange} color="error"
+                    variant="contained">{t('cancel')}
             </Button>
             <ResponsiveDialog language={lang} onConfirm={updateData} title={t('updateProduct')}
                               text={t('updateConfirmation')}

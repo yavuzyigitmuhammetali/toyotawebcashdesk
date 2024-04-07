@@ -13,20 +13,19 @@ import AppStatusContext from "../../shared/state/AppStatus/context";
 import {calculateTaxAmount} from "../SalesDashboard/functions/productProcessing";
 import KeyboardContext from "../../shared/components/ScreenKeyboard/context";
 import ScreenKeyboard from "../../shared/components/ScreenKeyboard/ScreenKeyboard";
-import { useTranslation } from 'react-i18next';
-
+import {useTranslation} from 'react-i18next';
 
 
 function RefundDashboard() {
     const {receipts} = useContext(AppDataContext);
-    const {status,lang,dark} = useContext(AppStatusContext);
+    const {status, lang, dark} = useContext(AppStatusContext);
     const keyboardContext = useContext(KeyboardContext)
     const [receipt, setReceipt] = useState(defaultReceipt)
     const [cart, setCart] = useState(receipt.cart);
     const navigate = useNavigate();
     const [refundedProducts, setRefundedProducts] = useState([])
     const [error, setError] = useState("")
-    const { t } = useTranslation();
+    const {t} = useTranslation();
 
     const {total, subTotal, tax} = useMemo(() => {
         const total = refundedProducts.reduce((acc, {
@@ -66,7 +65,7 @@ function RefundDashboard() {
                 totalTax: Math.round((prevState.totalTax - tax) * 100) / 100,
                 date: new Date(),
                 transactions: [...prevState.transactions, {price: total * (-1), type: "payback"}],
-                refund:receiptNumber
+                refund: receiptNumber
             }
 
             inactivateReceipt(receiptNumber).then(() => {
@@ -78,7 +77,7 @@ function RefundDashboard() {
         })
     }
 
-    const handleOnDelete = (product,index) => {
+    const handleOnDelete = (product, index) => {
         setCart(prevState => {
             if (index > -1) {
                 const updatedCart = [...prevState];
@@ -105,7 +104,7 @@ function RefundDashboard() {
             }
         })
     }
-    const handleOnAdd = (product,index) => {
+    const handleOnAdd = (product, index) => {
         const productQuantity = receipt.cart[index].quantity
         setCart(prevState => {
             if (index > -1) {
@@ -137,7 +136,7 @@ function RefundDashboard() {
             }
         });
     }
-    const handleOnRemove = (product,index) => {
+    const handleOnRemove = (product, index) => {
         setRefundedProducts(prevState => {
                 const productIndex = prevState.findIndex(item => item.id === product.id);
                 if (productIndex > -1) {
@@ -184,8 +183,10 @@ function RefundDashboard() {
     }
 
     return (<>
-        <ThemeProvider theme={createTheme({ palette: { mode: dark ? "dark" : "light" } })}>
-            <FormDialog language={lang} ScreenKeyboardComponent={ScreenKeyboard} keyboardContext={keyboardContext} func={checkReceipt} errorText={error} onClose={onFormDialogClose} label={t('refundReceiptNumber')}
+        <ThemeProvider theme={createTheme({palette: {mode: dark ? "dark" : "light"}})}>
+            <FormDialog language={lang} ScreenKeyboardComponent={ScreenKeyboard} keyboardContext={keyboardContext}
+                        func={checkReceipt} errorText={error} onClose={onFormDialogClose}
+                        label={t('refundReceiptNumber')}
                         dark={dark} dialog={t('pleaseEnterReceiptNumber')}
                         openManual={1}> </FormDialog>
             <div style={{color: dark ? "white" : "black"}} className="refund-dashboard-upper-area-container">
@@ -206,9 +207,9 @@ function RefundDashboard() {
                             productName={product.name}
                             fraction={product.fraction}
                             decimalValue={0}
-                            onRemove={() => handleOnRemove(product,key)}
-                            onAdd={() => handleOnAdd(product,key)}
-                            onDelete={() => handleOnDelete(product,key)}/>)}
+                            onRemove={() => handleOnRemove(product, key)}
+                            onAdd={() => handleOnAdd(product, key)}
+                            onDelete={() => handleOnDelete(product, key)}/>)}
                     </div>
                 </div>
                 <div style={{backgroundColor: dark ? "#121418" : "#F8FAFB"}}

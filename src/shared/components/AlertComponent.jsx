@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { Alert, Slide, Snackbar } from '@mui/material';
-import { useLocation, useNavigate } from "react-router-dom";
+import React, {useEffect, useState} from 'react';
+import {Alert, Slide, Snackbar} from '@mui/material';
+import {useLocation, useNavigate} from "react-router-dom";
 
 function SlideTransition(props) {
-    return <Slide {...props} direction="down" />;
+    return <Slide {...props} direction="down"/>;
 }
 
-function AlertComponent({ style, autoHideDuration = 3000, variant = "filled" }) {
+function AlertComponent({style, autoHideDuration = 3000, variant = "filled"}) {
     const location = useLocation();
     const navigate = useNavigate();
     const [message, setMessage] = useState("");
@@ -30,7 +30,7 @@ function AlertComponent({ style, autoHideDuration = 3000, variant = "filled" }) 
                 setSeverity('warning');
             }
             setOpen(!!message);
-            navigate(location.pathname, { replace: true, state: {} });
+            navigate(location.pathname, {replace: true, state: {}});
         }
     }, [navigate, message]);
 
@@ -47,7 +47,7 @@ function AlertComponent({ style, autoHideDuration = 3000, variant = "filled" }) 
                 open={open}
                 onClose={() => handleClose('timeout')}
                 TransitionComponent={SlideTransition}
-                anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+                anchorOrigin={{vertical: 'top', horizontal: 'center'}}
                 autoHideDuration={autoHideDuration}
             >
                 <Alert onClose={() => handleClose('close')} variant={variant} severity={severity}>

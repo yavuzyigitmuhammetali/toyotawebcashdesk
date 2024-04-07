@@ -26,7 +26,7 @@
     font-style: italic;
 }
 
-#root{
+#root {
     position: relative;
     width: 100vw;
     height: 100vh;
@@ -43,8 +43,13 @@
    v2.0 | 20110126
    License: none (public domain)
 */
-html{
-    font-family: Rubik, serif!important;
+html {
+    font-family: Rubik, serif !important;
+    background-color: #F8FAFB;
+}
+
+html.dark {
+    background-color: #111418;
 }
 
 html, body, div, span, applet, object, iframe,
@@ -67,25 +72,31 @@ time, mark, audio, video {
     font: inherit;
     vertical-align: baseline;
 }
+
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
     display: block;
 }
+
 body {
     line-height: 1;
 }
+
 ol, ul {
     list-style: none;
 }
+
 blockquote, q {
     quotes: none;
 }
+
 blockquote:before, blockquote:after,
 q:before, q:after {
     content: '';
     content: none;
 }
+
 table {
     border-collapse: collapse;
     border-spacing: 0;

@@ -1,16 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, {useEffect, useState} from "react";
 import AcUnitIcon from "@mui/icons-material/AcUnit";
 import "./settingsItem.css";
 
 function SettingsItem({
-    children,
-    onOff = undefined,
-    dark = false,
-    color = "",
-    property = "",
-    icon = <AcUnitIcon />,
-    onClick = () => {},
-}) {
+                          children,
+                          onOff = undefined,
+                          dark = false,
+                          color = "",
+                          property = "",
+                          icon = <AcUnitIcon/>,
+                          onClick = () => {
+                          },
+                      }) {
     const [isActive, setIsActive] = useState(false);
 
     useEffect(() => {
@@ -44,7 +45,7 @@ function SettingsItem({
         >
             {icon}
             {children}
-            <span style={{ borderLeft: "2px solid", paddingLeft: "10px" }}>{property}</span>
+            <span style={{borderLeft: "2px solid", paddingLeft: "10px"}}>{property}</span>
         </div>
     );
 }

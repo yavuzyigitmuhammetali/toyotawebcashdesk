@@ -36,7 +36,7 @@ function SalesDashboardMiddleArea() {
     }, [decimalValue, keyboardValue]);
 
     useEffect(() => {
-        return ()=>{
+        return () => {
             clearValues();
         }
     }, []);

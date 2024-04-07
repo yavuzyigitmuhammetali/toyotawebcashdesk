@@ -1,15 +1,17 @@
-.responsive-receipt-container{
+.responsive-receipt-container {
     position: relative;
     overflow-y: auto;
     height: 90vh;
     width: 100vw;
 }
-.responsive-receipt-receipt{
+
+.responsive-receipt-receipt {
     position: absolute;
     top: 0;
     width: max-content;
 }
-.responsive-receipt-controller{
+
+.responsive-receipt-controller {
     position: fixed;
     z-index: 6;
     top: 5vh;
@@ -18,47 +20,55 @@
 }
 
 @media print {
-    html *{
+    html * {
         visibility: hidden;
         user-select: none;
     }
+
     * {
         overflow: visible !important;
         max-height: 100%;
     }
+
     .main-container-body *:not(.main-container-main, .main-container-main *) {
         display: none;
-        max-width: 0!important;
-        max-height: 0!important;
+        max-width: 0 !important;
+        max-height: 0 !important;
         padding: 0;
         margin: 0;
         border: 0;
         top: 0;
     }
+
     .printable-content-full {
-        visibility: visible!important;
-        top: 0!important;
-        left: 0!important;
-        min-height: 100vh!important;
-        width: 100%!important;
+        visibility: visible !important;
+        top: 0 !important;
+        left: 0 !important;
+        min-height: 100vh !important;
+        width: 100% !important;
         display: flex;
         flex-direction: row;
-        transform: translate(0,0)!important;
+        transform: translate(0, 0) !important;
     }
-    .printable-content{
+
+    .printable-content {
         flex: 1;
-        visibility: visible!important;
+        visibility: visible !important;
     }
-    .printable-content *{
+
+    .printable-content * {
         visibility: visible;
     }
-    .printable-content>*{
+
+    .printable-content > * {
         flex: 1;
     }
-    .printable-content-full *{
+
+    .printable-content-full * {
         visibility: visible;
     }
-    .printable-content-full>*{
+
+    .printable-content-full > * {
         flex: 1;
     }
 

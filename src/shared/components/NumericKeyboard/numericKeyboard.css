@@ -1,6 +1,6 @@
-.numeric-keyboard-container{
+.numeric-keyboard-container {
     box-sizing: border-box;
-    aspect-ratio: 308 / 312!important;
+    aspect-ratio: 308 / 312 !important;
     padding: 4%;
     background-color: #FDFDFE;
     border: 1px solid black;
@@ -9,7 +9,8 @@
     grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
     gap: 2%;
 }
-.numeric-keyboard-container *{
-    min-width: 0!important;
-    min-height: 0!important;
+
+.numeric-keyboard-container * {
+    min-width: 0 !important;
+    min-height: 0 !important;
 }

@@ -11,24 +11,28 @@
     flex-direction: column;
     border: 1px solid black;
 }
-.left-one{
+
+.left-one {
     box-sizing: border-box;
     padding: 10px;
     display: flex;
     flex-direction: row;
     border-bottom: 1px solid #E6EAF1;
 }
-.left-one>*{
+
+.left-one > * {
     flex-grow: 1;
 }
-.left-two{
+
+.left-two {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     padding: 10px;
     border-bottom: 1px solid #E6EAF1;
 }
-.left-three-scroll{
+
+.left-three-scroll {
     box-sizing: border-box;
     overflow-y: auto;
     overflow-x: clip;
@@ -38,10 +42,12 @@
     flex-basis: 0;
     max-height: 100%;
 }
+
 .left-three-scroll::-webkit-scrollbar {
     width: 0;
 }
-.left-three{
+
+.left-three {
     display: flex;
     gap: 10px;
     flex-wrap: wrap;

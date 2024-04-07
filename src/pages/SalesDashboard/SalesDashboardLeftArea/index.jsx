@@ -22,7 +22,7 @@ function SalesDashboardLeftArea() {
         categories, subCategories: _subCategories, products: _products, addToCart
     } = useContext(CartContext);
 
-    const {lang,dark} = useContext(AppStatusContext)
+    const {lang, dark} = useContext(AppStatusContext)
 
     const [map, setMap] = useState("categories");
     const {data} = useContext(NumericKeyboardContext);
@@ -49,12 +49,17 @@ function SalesDashboardLeftArea() {
 
     useEffect(() => {
         setProducts(_products);
-        return ()=>clearValues();
+        if (selectedMap.subcategory > 0) {
+            setMap("subcategories");
+        }else {
+            setMap("categories");
+        }
+        return () => clearValues;
     }, [_products]);
 
     useEffect(() => {
         setSubCategories(_subCategories);
-        return ()=>clearValues();
+        return () => clearValues();
     }, [_subCategories]);
 
     useEffect(() => {
@@ -89,7 +94,7 @@ function SalesDashboardLeftArea() {
     }, [data]);
 
     useEffect(() => {
-        const inputValue = keyboardValue.barcodeArea?.replace(/[^0-9]/g, '')??'';
+        const inputValue = keyboardValue.barcodeArea?.replace(/[^0-9]/g, '') ?? '';
         if (inputValue) {
             getProductsByBarcode(inputValue);
             setMap("products");
@@ -103,7 +108,7 @@ function SalesDashboardLeftArea() {
     return (<div style={{
         backgroundColor: dark ? "#111418" : "", borderColor: dark ? "white" : ""
     }} className="left-container">
-        <ThemeProvider theme={createTheme({ palette: { mode: dark ? "dark" : "light" } })}>
+        <ThemeProvider theme={createTheme({palette: {mode: dark ? "dark" : "light"}})}>
             <div className="left-one">
                 <TextField
                     id="barcodeArea"

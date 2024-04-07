@@ -25,7 +25,7 @@ export const defaultReceipt =
                 subCategoryId: 0,
                 quantity: 0,
                 discountedPrice: 0,
-                fraction:false
+                fraction: false
             }
         ],
         transactions: [
@@ -38,5 +38,5 @@ export const defaultReceipt =
                 type: "card"
             }
         ],
-        refund:""
+        refund: ""
     }

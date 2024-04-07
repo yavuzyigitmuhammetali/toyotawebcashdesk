@@ -19,14 +19,14 @@ import AppStatusContext from "../../shared/state/AppStatus/context";
 
 function ResponsiveReceipt() {
     const {receipts} = useContext(AppDataContext);
-    const {lang,dark} = useContext(AppStatusContext)
+    const {lang, dark} = useContext(AppStatusContext)
     const location = useLocation();
     const [receipt, setReceipt] = useState({})
     const [alignment, setAlignment] = useState('left');
     const [alignment2, setAlignment2] = useState('left');
     const {receiptNumber} = useParams();
     const {t} = useTranslation();
-    
+
     useEffect(() => {
         const filteredReceipt = receipts.filter(item => item.receiptNumber === receiptNumber)[0];
         setReceipt(location.state?.receipt ?? filteredReceipt ?? defaultReceipt);
@@ -43,7 +43,7 @@ function ResponsiveReceipt() {
 
 
     useEffect(() => {
-        if(location.pathname==="/receipt/print-test"){
+        if (location.pathname === "/receipt/print-test") {
             window.print();
         }
     }, [location.pathname])
@@ -60,50 +60,50 @@ function ResponsiveReceipt() {
     };
     return (<div style={{backgroundColor: dark ? "#111418" : "transparent"}} className="responsive-receipt-container">
         <AlertComponent/>
-            <div className="responsive-receipt-controller">
-                <ToggleButtonGroup
-                    value={alignment}
-                    exclusive
-                    onChange={handleAlignment}
-                    aria-label="text alignment"
-                >
-                    <ToggleButton value="left" aria-label="left aligned">
-                        <AlignHorizontalLeftIcon/>
-                    </ToggleButton>
-                    <ToggleButton value="center" aria-label="centered">
-                        <AlignHorizontalCenterIcon/>
-                    </ToggleButton>
-                    <ToggleButton value="right" aria-label="right aligned">
-                        <AlignHorizontalRightIcon/>
-                    </ToggleButton>
-                </ToggleButtonGroup>
-                <ToggleButtonGroup value={"egg"}>
-                    <ToggleButton onChange={handlePrint} aria-label="right aligned" value={"egg"}>
-                        <PrintIcon/>
-                    </ToggleButton>
-                </ToggleButtonGroup>
-                <ToggleButtonGroup
-                    value={alignment2}
-                    exclusive
-                    onChange={handleAlignment2}
-                    aria-label="text alignment"
-                >
-                    <ToggleButton value="left" aria-label="left aligned">
-                        <ReceiptLongIcon/>
-                    </ToggleButton>
-                    <ToggleButton value="right" aria-label="centered">
-                        <PaperIcon/>
-                    </ToggleButton>
-                </ToggleButtonGroup>
-            </div>
-            <div style={{
-                left: alignment === "right" ? "100%" : alignment === "center" ? "50%" : "0",
-                transform: alignment === "right" ? "translate(-100%, 0)" : alignment === "center" ? "translate(-50%, 0)" : "translate(0, 0)"
-            }}
-                 className={alignment2 === "left" ? "printable-content responsive-receipt-receipt" : "printable-content-full responsive-receipt-receipt"}>
-                <Receipt language={lang} data={receipt}/>
-            </div>
-        </div>);
+        <div className="responsive-receipt-controller">
+            <ToggleButtonGroup
+                value={alignment}
+                exclusive
+                onChange={handleAlignment}
+                aria-label="text alignment"
+            >
+                <ToggleButton value="left" aria-label="left aligned">
+                    <AlignHorizontalLeftIcon/>
+                </ToggleButton>
+                <ToggleButton value="center" aria-label="centered">
+                    <AlignHorizontalCenterIcon/>
+                </ToggleButton>
+                <ToggleButton value="right" aria-label="right aligned">
+                    <AlignHorizontalRightIcon/>
+                </ToggleButton>
+            </ToggleButtonGroup>
+            <ToggleButtonGroup value={"egg"}>
+                <ToggleButton onChange={handlePrint} aria-label="right aligned" value={"egg"}>
+                    <PrintIcon/>
+                </ToggleButton>
+            </ToggleButtonGroup>
+            <ToggleButtonGroup
+                value={alignment2}
+                exclusive
+                onChange={handleAlignment2}
+                aria-label="text alignment"
+            >
+                <ToggleButton value="left" aria-label="left aligned">
+                    <ReceiptLongIcon/>
+                </ToggleButton>
+                <ToggleButton value="right" aria-label="centered">
+                    <PaperIcon/>
+                </ToggleButton>
+            </ToggleButtonGroup>
+        </div>
+        <div style={{
+            left: alignment === "right" ? "100%" : alignment === "center" ? "50%" : "0",
+            transform: alignment === "right" ? "translate(-100%, 0)" : alignment === "center" ? "translate(-50%, 0)" : "translate(0, 0)"
+        }}
+             className={alignment2 === "left" ? "printable-content responsive-receipt-receipt" : "printable-content-full responsive-receipt-receipt"}>
+            <Receipt language={lang} data={receipt}/>
+        </div>
+    </div>);
 }
 
 export default ResponsiveReceipt;

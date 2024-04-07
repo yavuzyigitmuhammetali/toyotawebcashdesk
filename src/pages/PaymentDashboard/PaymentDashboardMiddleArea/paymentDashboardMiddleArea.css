@@ -1,4 +1,4 @@
-.payment-dashboard-middle-area-container{
+.payment-dashboard-middle-area-container {
     background-color: #F8FAFB;
     min-width: 33vw !important;
     max-width: 33vw !important;
@@ -13,7 +13,8 @@
     padding: 10px;
     border: 1px solid black;
 }
-.payment-dashboard-middle-area-products-scroll{
+
+.payment-dashboard-middle-area-products-scroll {
     border: 1px solid black;
     box-sizing: border-box;
     overflow-y: auto;
@@ -23,15 +24,18 @@
     flex-basis: 0;
     max-height: 100%;
 }
+
 .payment-dashboard-middle-area-products-scroll::-webkit-scrollbar {
     width: 0;
 }
-.payment-dashboard-middle-area-products{
+
+.payment-dashboard-middle-area-products {
     display: flex;
     flex-wrap: wrap;
     overflow: clip;
 }
-.payment-dashboard-middle-area-texts{
+
+.payment-dashboard-middle-area-texts {
     user-select: none;
     box-sizing: border-box;
     padding: 10px;
@@ -42,7 +46,8 @@
     border: 0.2px solid black;
     border-top: none;
 }
-.payment-dashboard-middle-area-amount{
+
+.payment-dashboard-middle-area-amount {
     display: flex;
     justify-content: space-between;
 }

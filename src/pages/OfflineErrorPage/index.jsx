@@ -6,10 +6,10 @@ import {getTheme} from './theme';
 import CountdownTimer from "./components/CountdownTimer";
 import AppStatusContext from "../../shared/state/AppStatus/context";
 import OnlineOfflineIndicator from "../../shared/components/OnlineOfflineIndicator";
-import { useTranslation } from "react-i18next";
+import {useTranslation} from "react-i18next";
 
 const OfflineErrorPage = () => {
-    const {status,isOnline, lang,dark} = React.useContext(AppStatusContext);
+    const {status, isOnline, lang, dark} = React.useContext(AppStatusContext);
     const theme = getTheme(dark ? "dark" : "light");
     const [schedule, setSchedule] = useState(
         {
@@ -21,14 +21,13 @@ const OfflineErrorPage = () => {
             "Saturday": null,
             "Sunday": null
         })
-    const { t } = useTranslation();
+    const {t} = useTranslation();
 
     useEffect(() => {
         if (status && status.schedule) {
             setSchedule(status.schedule);
         }
     }, [status]);
-
 
 
     return (

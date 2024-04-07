@@ -7,7 +7,7 @@ import AppStatusContext from "../../shared/state/AppStatus/context";
 function LoginPage() {
     const {dark} = useContext(AppStatusContext);
     return (
-        <div style={{ backgroundColor: dark ? "#111418" : "#E9ECF7" }} className="login-page-container">
+        <div style={{backgroundColor: dark ? "#111418" : "#E9ECF7"}} className="login-page-container">
             <div className="login-page-left-area">
                 <LoginPageLeftArea/>
             </div>

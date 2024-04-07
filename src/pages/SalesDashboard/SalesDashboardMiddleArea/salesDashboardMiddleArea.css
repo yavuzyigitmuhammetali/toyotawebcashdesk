@@ -1,4 +1,4 @@
-.sales-dashboard-middle-area-container{
+.sales-dashboard-middle-area-container {
     background-color: #F8FAFB;
     min-width: 33vw !important;
     max-width: 33vw !important;
@@ -13,7 +13,8 @@
     padding: 10px;
     border: 1px solid black;
 }
-.sales-dashboard-middle-area-products-scroll{
+
+.sales-dashboard-middle-area-products-scroll {
     border: 1px solid black;
     box-sizing: border-box;
     overflow-y: auto;
@@ -24,11 +25,13 @@
     flex-basis: 0;
     max-height: 100%;
 }
-.sales-dashboard-middle-area-products{
+
+.sales-dashboard-middle-area-products {
     display: flex;
     flex-wrap: wrap;
 }
-.sales-dashboard-middle-area-texts{
+
+.sales-dashboard-middle-area-texts {
     user-select: none;
     box-sizing: border-box;
     padding: 10px;
@@ -39,7 +42,8 @@
     border: 0.2px solid black;
     border-top: none;
 }
-.sales-dashboard-middle-area-amount{
+
+.sales-dashboard-middle-area-amount {
     display: flex;
     justify-content: space-between;
 }

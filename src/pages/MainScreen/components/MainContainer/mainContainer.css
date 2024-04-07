@@ -1,4 +1,4 @@
-.main-container-body{
+.main-container-body {
     position: relative;
     box-sizing: border-box;
     display: flex;
@@ -7,7 +7,8 @@
     height: 100vh;
     overflow: clip;
 }
-.main-container-header{
+
+.main-container-header {
     z-index: 9999;
     background-color: #F8FAFB;
     user-select: none;
@@ -20,7 +21,8 @@
     justify-content: space-between;
     flex-direction: row;
 }
-.main-container-footer{
+
+.main-container-footer {
     z-index: 9999;
     background-color: #F8FAFB;
     user-select: none;
@@ -33,7 +35,8 @@
     justify-content: space-between;
     flex-direction: row;
 }
-.main-container-main{
+
+.main-container-main {
     padding: 0;
     margin: 0;
     flex: 1;

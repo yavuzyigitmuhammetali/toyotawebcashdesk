@@ -1,4 +1,4 @@
-.digital-area-container{
+.digital-area-container {
     font-family: 'VT323', 'Noto Emoji', serif !important;
     box-sizing: border-box;
     padding-top: 20px;
@@ -13,7 +13,8 @@
     border: 1px dotted white;
     user-select: none;
 }
-.digital-area-scroll{
+
+.digital-area-scroll {
     scrollbar-width: none;
     -ms-overflow-style: none;
     flex: 1;
@@ -23,6 +24,7 @@
     text-align: left;
 
 }
-.digital-area-scroll::-webkit-scrollbar{
+
+.digital-area-scroll::-webkit-scrollbar {
     display: none;
 }

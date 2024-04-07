@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import { useTranslation } from 'react-i18next';
+import {useTranslation} from 'react-i18next';
 import "./paymentDashboardLeftArea.css"
 import DigitalArea from "./components/DigitalArea/DigitalArea";
 import FormDialog from "../../../shared/components/FormDialog";
@@ -9,11 +9,11 @@ import ScreenKeyboard from "../../../shared/components/ScreenKeyboard/ScreenKeyb
 import AppStatusContext from "../../../shared/state/AppStatus/context";
 
 function PaymentDashboardLeftArea() {
-    const {total,paymentTransactions} = useContext(PaymentContext)
+    const {total, paymentTransactions} = useContext(PaymentContext)
     const keyboardContext = useContext(KeyboardContext)
-    const {lang,dark} = useContext(AppStatusContext);
-    const { t } = useTranslation();
-    const isValidEmail=(email)=>{
+    const {lang, dark} = useContext(AppStatusContext);
+    const {t} = useTranslation();
+    const isValidEmail = (email) => {
         const regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         if (!email || email.length === 0) {
             return false;
@@ -22,21 +22,22 @@ function PaymentDashboardLeftArea() {
     }
 
     return (
-        <div style={{backgroundColor:dark?"#121418":"",borderColor:dark?"white":""}} className="payment-dashboard-left-area-container">
+        <div style={{backgroundColor: dark ? "#121418" : "", borderColor: dark ? "white" : ""}}
+             className="payment-dashboard-left-area-container">
             <div>
                 <DigitalArea dark={dark} totalPrice={total} data={paymentTransactions}/>
             </div>
             <div>
-                    <FormDialog language={lang} disabled={!total} style={{width:"100%"}} buttonName={t('eInvoice')}
-                                func={isValidEmail}
-                                label={t('customerEmail')}
-                                errorText={t('invalidEmailError')}
-                        //onOff={}
-                                dark={dark}
-                                ScreenKeyboardComponent={ScreenKeyboard}
-                                keyboardContext={keyboardContext}
-                                dialog={t('contributeToNature')}/>
-                </div>
+                <FormDialog language={lang} disabled={!total} style={{width: "100%"}} buttonName={t('eInvoice')}
+                            func={isValidEmail}
+                            label={t('customerEmail')}
+                            errorText={t('invalidEmailError')}
+                    //onOff={}
+                            dark={dark}
+                            ScreenKeyboardComponent={ScreenKeyboard}
+                            keyboardContext={keyboardContext}
+                            dialog={t('contributeToNature')}/>
+            </div>
         </div>
     );
 }

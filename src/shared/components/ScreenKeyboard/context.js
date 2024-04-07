@@ -58,28 +58,28 @@ const KeyboardProvider = ({children}) => {
     const handleElementFocus = useCallback((event) => {
         const {id: elementId, value: elementValue} = event.target;
         setValue((prevValue) => ({
-            ...prevValue, [elementId]: elementValue??"",
+            ...prevValue, [elementId]: elementValue ?? "",
         }));
         setId(elementId);
         return elementId;
     }, []);
 
     return (<KeyboardContext.Provider
-            value={{
-                handleValue,
-                handleDelete,
-                onChangeValue,
-                handleEnter,
-                handleElementFocus,
-                setChangedValue,
-                clearValues,
-                value,
-                id,
-                enterRef,
-            }}
-        >
-            {children}
-        </KeyboardContext.Provider>);
+        value={{
+            handleValue,
+            handleDelete,
+            onChangeValue,
+            handleEnter,
+            handleElementFocus,
+            setChangedValue,
+            clearValues,
+            value,
+            id,
+            enterRef,
+        }}
+    >
+        {children}
+    </KeyboardContext.Provider>);
 };
 
 export default KeyboardContext;

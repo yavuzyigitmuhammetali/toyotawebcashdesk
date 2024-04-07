@@ -6,7 +6,7 @@ import {Alert, AlertTitle} from "@mui/material";
 
 function FullScreenAlert({children, dark = false, title = "Error"}) {
     return (
-        <ThemeProvider theme={createTheme({ palette: { mode: dark ? "dark" : "light" } })}>
+        <ThemeProvider theme={createTheme({palette: {mode: dark ? "dark" : "light"}})}>
             <CssBaseline/>
             <Alert style={{position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)"}}
                    severity="error">

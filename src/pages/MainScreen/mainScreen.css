@@ -1,4 +1,4 @@
-.main-screen-container{
+.main-screen-container {
     position: relative;
     background-color: #F8FAFB;
     box-sizing: border-box;
@@ -9,24 +9,28 @@
     align-items: center;
     padding: 10vw;
 }
-.main-screen-active-area{
+
+.main-screen-active-area {
     flex-grow: 1;
     display: flex;
     flex-direction: row;
     gap: 10vw;
 }
-.main-screen-sides{
+
+.main-screen-sides {
     display: flex;
     flex-direction: column;
     flex-grow: 1;
     gap: 40px
 }
-.main-screen-lower-left{
+
+.main-screen-lower-left {
     position: absolute;
     left: 15px;
     bottom: 10px;
 }
-.main-screen-upper-left{
+
+.main-screen-upper-left {
     user-select: none;
     position: absolute;
     left: 10px;
@@ -35,12 +39,14 @@
     border: 1px solid black;
     padding: 10px;
 }
-.main-screen-upper-right{
+
+.main-screen-upper-right {
     position: absolute;
     right: 10px;
     top: 10px;
 }
-.main-screen-lower-right{
+
+.main-screen-lower-right {
     position: absolute;
     bottom: 10px;
     right: 10px;

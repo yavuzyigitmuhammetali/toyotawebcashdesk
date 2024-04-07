@@ -1,33 +1,33 @@
-import React, { useContext, useState } from "react";
+import React, {useContext, useState} from "react";
 import "./settingsDashboard.css";
 import SettingsIcon from "@mui/icons-material/Settings";
 import CloseIcon from "@mui/icons-material/Close";
 import SettingsItem from "../SettingsItem/SettingsItem";
-import { IconButton } from "@mui/material";
+import {IconButton} from "@mui/material";
 import AppStatusContext from "../../../../shared/state/AppStatus/context";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import PrintIcon from "@mui/icons-material/Print";
 import LanguageIcon from "@mui/icons-material/Translate";
-import { useNavigate } from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 import {createTheme, ThemeProvider} from "@mui/material/styles";
 
 function SettingsDashboard() {
-    const { dark, changeDark, lang, changeLang } = useContext(AppStatusContext);
+    const {dark, changeDark, lang, changeLang} = useContext(AppStatusContext);
     const [showSettings, setShowSettings] = useState(false);
     const navigate = useNavigate();
-    const { t } = useTranslation();
+    const {t} = useTranslation();
 
     const toggleSettings = () => setShowSettings(!showSettings);
     return (
-        <ThemeProvider theme={createTheme({ palette: { mode: dark ? "dark" : "light" } })}>
+        <ThemeProvider theme={createTheme({palette: {mode: dark ? "dark" : "light"}})}>
             <>
                 <IconButton
-                    style={{ zIndex: "9999" }}
+                    style={{zIndex: "9999"}}
                     color={!showSettings ? "info" : "error"}
                     onClick={toggleSettings}
                 >
-                    {showSettings ? <CloseIcon /> : <SettingsIcon />}
+                    {showSettings ? <CloseIcon/> : <SettingsIcon/>}
                 </IconButton>
                 {showSettings && (
                     <div
@@ -41,7 +41,11 @@ function SettingsDashboard() {
                             backgroundColor: "rgba(0,0,0,0.5)",
                         }}
                     >
-                        <div style={{color:dark&&"white",backgroundColor:dark&&"rgb(30, 30, 30)",borderColor:dark&&"white"}} className="settings-dashboard-container">
+                        <div style={{
+                            color: dark && "white",
+                            backgroundColor: dark && "rgb(30, 30, 30)",
+                            borderColor: dark && "white"
+                        }} className="settings-dashboard-container">
                             <div className="settings-dashboard-header">{t('settings')}</div>
                             <hr
                                 style={{
@@ -53,7 +57,7 @@ function SettingsDashboard() {
                             <div className="settings-dashboard-body">
                                 <div className="settings-dashboard-active-area">
                                     <SettingsItem
-                                        icon={<DarkModeIcon />}
+                                        icon={<DarkModeIcon/>}
                                         dark={dark}
                                         onClick={changeDark}
                                         onOff={dark}
@@ -61,7 +65,7 @@ function SettingsDashboard() {
                                         {t("dark-mode")}
                                     </SettingsItem>
                                     <SettingsItem
-                                        icon={<LanguageIcon />}
+                                        icon={<LanguageIcon/>}
                                         property={lang}
                                         onClick={changeLang}
                                         dark={dark}
@@ -71,7 +75,7 @@ function SettingsDashboard() {
                                 </div>
                                 <div className="settings-dashboard-active-area">
                                     <SettingsItem
-                                        icon={<PrintIcon />}
+                                        icon={<PrintIcon/>}
                                         onClick={() => navigate("/receipt/print-test")}
                                         dark={dark}
                                     >

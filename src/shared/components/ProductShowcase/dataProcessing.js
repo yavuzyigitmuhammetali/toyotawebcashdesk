@@ -1,6 +1,6 @@
 /**
  * Filters an array of objects based on the first letter of a specified property (name) falling within a given alphabetical range.
- * 
+ *
  * @param {Object[]} data - The array of objects to be filtered.
  * @param {string} range - The alphabetical range to filter by, formatted as "startLetter-endLetter".
  * @returns {Object[]} The filtered array of objects.
@@ -28,10 +28,10 @@ export function filterNamesByRange(data, range) {
 }
 
 /**
- * Groups an array of objects based on the first letter of a specified property (name) into predefined alphabetical groups.
- * 
- * @param {Object[]} data - The array of objects to be grouped.
- * @returns {Object[][]} An array of object arrays, each representing a group of objects whose names fall within the same alphabetical group.
+ * Groups an array of objects based on the first letter of a specified property (name) into predefined alphabetical groups and sorts each group alphabetically.
+ *
+ * @param {Object[]} data - The array of objects to be grouped and sorted.
+ * @returns {Object[][]} An array of object arrays, each representing a group of objects whose names fall within the same alphabetical group, sorted alphabetically.
  */
 export function filterDataByAlphabetGroups(data) {
     // Define the alphabetical groups.
@@ -56,6 +56,11 @@ export function filterDataByAlphabetGroups(data) {
             }
         }
     });
+
+    // Sort each group alphabetically based on the name property.
+    for (let group in alphabetGroups) {
+        alphabetGroups[group].sort((a, b) => a.name.localeCompare(b.name));
+    }
 
     // Return the values of the alphabetGroups object as an array of arrays.
     return Object.values(alphabetGroups);

@@ -23,9 +23,9 @@ function ProductCard({
         transform: !stock && "scale(1)",
         width: category ? "140px" : "102px",
         fontSize: category ? "0.8em" : "0.6em",
-        backgroundColor: dark ? "#1E1E1E":"whitesmoke",
+        backgroundColor: dark ? "#1E1E1E" : "whitesmoke",
         borderColor: favorite ? "gold" : dark && "white",
-            ...style
+        ...style
     }}
                     className={stock !== "0" ? "product-card-container product-card-click" : "product-card-container product-card-click product-card-disabled"}>
         {src ? <img className="product-card-img" style={{filter: (!stock && !category) && "grayscale(100%)"}} src={src}
@@ -45,7 +45,7 @@ function ProductCard({
         </> : null}
 
         {(stock && !category) ? <div style={{color: stock < 10 ? "red" : dark ? "white" : "#111418"}}
-                                     className="product-card-stock">{fraction?parseFloat(stock).toFixed(2):stock}{fraction?"lbs.":"pcs."}</div> : null}
+                                     className="product-card-stock">{fraction ? parseFloat(stock).toFixed(2) : stock}{fraction ? "lbs." : "pcs."}</div> : null}
         {discount || discountText ? <div className="product-card-on-sale">{discountText.toUpperCase()}</div> : null}
     </button>);
 }

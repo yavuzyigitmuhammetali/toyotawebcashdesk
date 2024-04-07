@@ -1,4 +1,4 @@
-.settings-item{
+.settings-item {
     font-weight: 100;
     box-sizing: border-box;
     border: 2px solid black;
@@ -12,6 +12,7 @@
     align-items: center;
     justify-content: space-between;
 }
+
 .settings-item:hover {
     transform: translate(-3px, -3px) scale(1.001);
     box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.4);

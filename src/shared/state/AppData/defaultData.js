@@ -11,23 +11,23 @@ export const defaultProduct =
         image: '',
         categoryId: 0,
         subCategoryId: 0,
-        fraction:false
+        fraction: false
     }
 
 
 export const defaultCategory =
     {
-        id:0,
-        name:'',
-        image:''
+        id: 0,
+        name: '',
+        image: ''
     }
 
 export const defaultSubCategory =
     {
-        id:0,
-        name:'',
-        image:'',
-        categoryId:0
+        id: 0,
+        name: '',
+        image: '',
+        categoryId: 0
     }
 
 export const defaultReceipt =
@@ -57,7 +57,7 @@ export const defaultReceipt =
                 subCategoryId: 0,
                 quantity: 0,
                 discountedPrice: 0,
-                fraction:false
+                fraction: false
             }
         ],
         transactions: [
@@ -70,5 +70,5 @@ export const defaultReceipt =
                 type: "card"
             }
         ],
-        refund:""
+        refund: ""
     }

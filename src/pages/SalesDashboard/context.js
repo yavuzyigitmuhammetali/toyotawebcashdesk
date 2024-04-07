@@ -13,7 +13,7 @@ const CartContext = React.createContext(undefined);
 
 const CartProvider = ({children}) => {
     const [cart, setCart] = React.useState([])
-    const {products:_products,categories,subCategories, fetchProducts} = React.useContext(AppDataContext);
+    const {products: _products, categories, subCategories, fetchProducts} = React.useContext(AppDataContext);
     const [products, setProducts] = React.useState([defaultProduct])
     const [total, setTotal] = React.useState(0)
     const [subTotal, setSubTotal] = React.useState(0)
@@ -23,7 +23,6 @@ const CartProvider = ({children}) => {
     })
 
 
-
     const totalCampaignQuantity = cart.filter(item => item.campaign).map(item => item.quantity).reduce((acc, quantity) => acc + quantity, 0)
     React.useEffect(() => {
         updateDiscountedPrices();
@@ -31,19 +30,19 @@ const CartProvider = ({children}) => {
 
     const totalQuantity = cart.map(item => item.quantity).reduce((acc, quantity) => acc + quantity, 0)
     React.useEffect(() => {
-        const {subtotal, total,tax} = calculateSubtotalAndTotal(cart);
+        const {subtotal, total, tax} = calculateSubtotalAndTotal(cart);
         setTotal(total);
         setTax(tax);
         setSubTotal(subtotal);
     }, [totalQuantity, discounts]);
 
     React.useEffect(() => {
-        fetchProducts().then(()=>{
+        fetchProducts().then(() => {
             setProducts(_products);
         })
         const salesDataString = sessionStorage.getItem('salesData')
-        if (salesDataString){
-            const {cart,discounts} = JSON.parse(salesDataString)
+        if (salesDataString) {
+            const {cart, discounts} = JSON.parse(salesDataString)
             setDiscounts(discounts)
             setCart(cart);
         }
@@ -90,10 +89,14 @@ const CartProvider = ({children}) => {
                     quantity: (updatedCart[productIndex].stock > updatedCart[productIndex].quantity) ? (updatedCart[productIndex].quantity + 1) : (updatedCart[productIndex].quantity)
                 };
                 return updatedCart;
-            }else if (product.fraction) {
-                    const fractionQuantity = currentCart.filter(value => value.id === product.id).reduce((previousValue, currentValue) => previousValue + currentValue?.quantity, 0)
-                    return  fractionQuantity<product.stock?[...currentCart, {...product, quantity: 0.01, discountedPrice: 0}]:currentCart;
-            } else if (product.stock>0) {
+            } else if (product.fraction) {
+                const fractionQuantity = currentCart.filter(value => value.id === product.id).reduce((previousValue, currentValue) => previousValue + currentValue?.quantity, 0)
+                return fractionQuantity < product.stock ? [...currentCart, {
+                    ...product,
+                    quantity: 0.01,
+                    discountedPrice: 0
+                }] : currentCart;
+            } else if (product.stock > 0) {
                 return [...currentCart, {...product, quantity: 1, discountedPrice: 0}];
             } else {
                 return currentCart;
@@ -121,11 +124,11 @@ const CartProvider = ({children}) => {
 
     const increaseQuantityDecimalByIndex = (index, decimal) => {
         setCart(currentCart => {
-            const fractionQuantity = currentCart.filter((value,idx) =>value.id === currentCart[index].id && idx!==index).reduce((previousValue, currentValue) => previousValue + currentValue?.quantity, 0)
+            const fractionQuantity = currentCart.filter((value, idx) => value.id === currentCart[index].id && idx !== index).reduce((previousValue, currentValue) => previousValue + currentValue?.quantity, 0)
 
             if (index >= 0 && index < currentCart.length && decimal >= 0.01) {
                 return currentCart.map((item, i) => {
-                    if (i === index && (parseFloat(decimal)+fractionQuantity) <= item.stock && item.fraction) {
+                    if (i === index && (parseFloat(decimal) + fractionQuantity) <= item.stock && item.fraction) {
                         const roundedDecimal = Math.round(decimal * 100) / 100;
                         return {
                             ...item,
@@ -171,9 +174,7 @@ const CartProvider = ({children}) => {
     };
 
 
-
-
-    const cancelTransaction = ()=>{
+    const cancelTransaction = () => {
         setCart([]);
         setTotal(0);
         setSubTotal(0);
@@ -183,8 +184,8 @@ const CartProvider = ({children}) => {
         sessionStorage.removeItem('paymentTransactions');
     }
 
-    const confirmCart = ()=>{
-        if (total&&subTotal&&cart.length){
+    const confirmCart = () => {
+        if (total && subTotal && cart.length) {
             const data = {
                 total,
                 subTotal,
@@ -194,11 +195,10 @@ const CartProvider = ({children}) => {
             }
             sessionStorage.setItem('salesData', JSON.stringify(data));
             return true;
-        }else {
+        } else {
             return false;
         }
     }
-
 
 
     return (<CartContext.Provider

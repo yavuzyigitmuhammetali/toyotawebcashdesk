@@ -14,6 +14,7 @@ export default function RequireAuth() {
         }
     }, [location, navigate, isLoggedIn]);
 
+
     if (!isOnline) {
         return (<OfflineErrorPage/>)
     } else {

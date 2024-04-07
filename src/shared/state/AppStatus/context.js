@@ -1,9 +1,9 @@
-import React, {useContext} from "react";
+import React from "react";
 import config from '../../../config.json';
-import {getIp, getStatus, testLogin} from "./api";
-import { setupTimer, updateOnlineStatus} from "../../functions/checkOnline";
-import {login} from "./api"
+import {getIp, getStatus, login, testLogin} from "./api";
+import {setupTimer, updateOnlineStatus} from "../../functions/checkOnline";
 import {useTranslation} from "react-i18next";
+
 const AppStatusContext = React.createContext(undefined);
 
 
@@ -11,8 +11,8 @@ const AppStatusProvider = ({children}) => {
     const [status, setStatus] = React.useState(JSON.parse(localStorage.getItem('status')));
     const [isOnline, setIsOnline] = React.useState(JSON.parse(sessionStorage.getItem('online')));
     const [isLoggedIn, setIsLoggedIn] = React.useState(JSON.parse(sessionStorage.getItem('loggedIn')));
-    const [dark, setDark] = React.useState(JSON.parse(localStorage.getItem('dark'))??false);
-    const [lang, setLang] = React.useState(JSON.parse(localStorage.getItem('lang'))??'en');
+    const [dark, setDark] = React.useState(JSON.parse(localStorage.getItem('dark')) ?? false);
+    const [lang, setLang] = React.useState(JSON.parse(localStorage.getItem('lang')) ?? 'en');
     const {i18n} = useTranslation();
 
 
@@ -24,8 +24,8 @@ const AppStatusProvider = ({children}) => {
                     const combinedData = {
                         ...statusData,
                         userIp: ipResponse.data.ip,
-                        case:config.caseNumber,
-                        storeNumber:config.storeNumber
+                        case: config.caseNumber,
+                        storeNumber: config.storeNumber
                     };
                     setStatus(combinedData);
                     localStorage.setItem('status', JSON.stringify(combinedData));
@@ -33,10 +33,10 @@ const AppStatusProvider = ({children}) => {
             })
             .catch(err => console.log(err));
         testLogin()
-            .then(response =>{
+            .then(response => {
                 setIsLoggedIn(response.status === 200)
                 sessionStorage.setItem('loggedIn', JSON.stringify(response.status === 200));
-            } )
+            })
             .catch(reason => {
                 setIsLoggedIn(false)
                 sessionStorage.setItem('loggedIn', JSON.stringify(false));
@@ -45,9 +45,9 @@ const AppStatusProvider = ({children}) => {
     }, []);
 
     React.useEffect(() => {
-        if (status){
-            updateOnlineStatus(setIsOnline,status.schedule);
-            const timer = setupTimer(setIsOnline,status.schedule??null);
+        if (status) {
+            updateOnlineStatus(setIsOnline, status.schedule);
+            const timer = setupTimer(setIsOnline, status.schedule ?? null);
             sessionStorage.setItem('online', JSON.stringify(isOnline));
             return () => timer && clearTimeout(timer);
         }
@@ -55,19 +55,20 @@ const AppStatusProvider = ({children}) => {
 
 
     React.useEffect(() => {
-         if (!isOnline){
+        if (!isOnline) {
             // logOut();
-         }
-     }, [isOnline,isLoggedIn]);
+        }
+    }, [isOnline, isLoggedIn]);
 
 
-     const changeDark = () => {
+    const changeDark = () => {
         setDark(!dark);
+        document.documentElement.classList.toggle('dark', !dark);
         localStorage.setItem('dark', JSON.stringify(!dark));
-     }
+    }
 
-     const changeLang = () => {
-        if (lang === "tr"){
+    const changeLang = () => {
+        if (lang === "tr") {
             setLang("en");
             localStorage.setItem('lang', JSON.stringify("en"))
             i18n.changeLanguage("en");
@@ -75,16 +76,17 @@ const AppStatusProvider = ({children}) => {
             setLang("tr");
             localStorage.setItem('lang', JSON.stringify("tr"))
             i18n.changeLanguage("tr");
-        }else{
+        } else {
             setLang("en");
             localStorage.setItem('lang', JSON.stringify("en"))
             i18n.changeLanguage("en");
         }
-     }
+    }
 
     const logOut = React.useCallback(() => {
         document.cookie = "auth=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/api/v1;";
         setIsLoggedIn(false);
+        sessionStorage.setItem('loggedIn', JSON.stringify(false));
     }, [setIsLoggedIn]);
 
     const loginFunction = async (body) => {

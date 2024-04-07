@@ -1,11 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, {useEffect, useState} from 'react';
 import TextField from "@mui/material/TextField";
-import { useTranslation } from 'react-i18next';
+import {useTranslation} from 'react-i18next';
 
-function EditableText({ text, style, name,id, onFocus,defaultText = "", className, onTextChange = () => { } }) {
+function EditableText({
+                          text, style, name, id, onFocus, defaultText = "", className, onTextChange = () => {
+    }
+                      }) {
     const [isEditing, setIsEditing] = useState(false);
     const [inputValue, setInputValue] = useState('');
-    const { t } = useTranslation();
+    const {t} = useTranslation();
 
 
     const handleChange = (event) => {
@@ -13,7 +16,7 @@ function EditableText({ text, style, name,id, onFocus,defaultText = "", classNam
     };
 
     useEffect(() => {
-        onTextChange(text,name)
+        onTextChange(text, name)
     }, [text]);
 
     const handleBlur = () => {
@@ -22,7 +25,7 @@ function EditableText({ text, style, name,id, onFocus,defaultText = "", classNam
             setInputValue(text);
             alert(t('pleaseEnterValue'));
         } else {
-            onTextChange(inputValue,name);
+            onTextChange(inputValue, name);
         }
     };
 
@@ -46,7 +49,7 @@ function EditableText({ text, style, name,id, onFocus,defaultText = "", classNam
                     autoFocus
                 />
             ) : (
-                <span  onDoubleClick={handleDoubleClick}>{defaultText?defaultText:text}</span>
+                <span onDoubleClick={handleDoubleClick}>{defaultText ? defaultText : text}</span>
             )}
         </div>
     );

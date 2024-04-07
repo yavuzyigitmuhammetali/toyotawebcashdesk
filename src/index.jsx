@@ -11,15 +11,15 @@ import "./locales";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
-      <AppStatusProvider>
-          <AppDataProvider>
-              <KeyboardProvider>
-                  <RouterProvider router={router}/>
-              </KeyboardProvider>
-          </AppDataProvider>
-      </AppStatusProvider>
-  </React.StrictMode>
+    <React.StrictMode>
+        <AppStatusProvider>
+            <AppDataProvider>
+                <KeyboardProvider>
+                    <RouterProvider router={router}/>
+                </KeyboardProvider>
+            </AppDataProvider>
+        </AppStatusProvider>
+    </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

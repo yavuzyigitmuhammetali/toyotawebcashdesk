@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {useEffect} from 'react';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -6,10 +7,20 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import { useTheme } from '@mui/material/styles';
-import { useEffect } from "react";
+import {useTheme} from '@mui/material/styles';
 
-export default function ResponsiveDialog({ children, style, className, disabled = false, title = "", text = "", onConfirm = () => {}, manualOpen = 0, language = "en" }) {
+export default function ResponsiveDialog({
+                                             children,
+                                             style,
+                                             className,
+                                             disabled = false,
+                                             title = "",
+                                             text = "",
+                                             onConfirm = () => {
+                                             },
+                                             manualOpen = 0,
+                                             language = "en"
+                                         }) {
     const [open, setOpen] = React.useState(false);
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
@@ -31,19 +42,20 @@ export default function ResponsiveDialog({ children, style, className, disabled 
     const getTextByLanguage = () => {
         switch (language) {
             case "en":
-                return { reject: "Reject", confirm: "Confirm" };
+                return {reject: "Reject", confirm: "Confirm"};
             case "tr":
-                return { reject: "Reddet", confirm: "Onayla" };
+                return {reject: "Reddet", confirm: "Onayla"};
             default:
-                return { reject: "Reject", confirm: "Confirm" };
+                return {reject: "Reject", confirm: "Confirm"};
         }
     };
 
-    const { reject, confirm } = getTextByLanguage();
+    const {reject, confirm} = getTextByLanguage();
 
     return (
         <React.Fragment>
-            <div style={style} className={className} onClick={disabled ? () => {} : handleClickOpen}>
+            <div style={style} className={className} onClick={disabled ? () => {
+            } : handleClickOpen}>
                 {children}
             </div>
             {!disabled && (

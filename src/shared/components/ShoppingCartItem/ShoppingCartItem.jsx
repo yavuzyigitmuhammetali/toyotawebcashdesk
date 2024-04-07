@@ -41,12 +41,12 @@ function ShoppingCartItem({
     }
     return (<div style={{backgroundColor: dark && "#12161B", color: dark && "white", borderColor: dark && "white"}}
                  className={disabled ? "shopping-cart-item-container shopping-cart-item-disabled" : "shopping-cart-item-container"}>
-        <ThemeProvider theme={createTheme({ palette: { mode: dark ? "dark" : "light" } })}>
+        <ThemeProvider theme={createTheme({palette: {mode: dark ? "dark" : "light"}})}>
             <div onClick={toggleElementVisibility} className="shopping-cart-item-content-container">
                 <div className="shopping-cart-item-content">
                     <span>#{barcode}</span>
                     <span>{taxFreePrice}$ + KDV %{tax}</span>
-                    <span>{quantity} {fraction?"Kilo":"Adet"}</span>
+                    <span>{quantity} {fraction ? "Kilo" : "Adet"}</span>
                 </div>
                 <div className="shopping-cart-item-content">
                     <span style={{fontSize: "1.5em", fontWeight: "700"}}>{index}.{productName}</span>

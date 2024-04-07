@@ -1,22 +1,22 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, {useEffect, useMemo, useState} from "react";
 import "./productShowcase.css";
 import TextField from "@mui/material/TextField";
-import { Button } from "@mui/material";
+import {Button} from "@mui/material";
 import ProductCard from "../ProductCard/ProductCard";
-import { filterDataByAlphabetGroups } from "./dataProcessing";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import {filterDataByAlphabetGroups} from "./dataProcessing";
+import {createTheme, ThemeProvider} from "@mui/material/styles";
 import translations from './lang.json';
 
 function ProductShowcase({
-    data = [],
-    onClick,
-    dark = false,
-    keyboardContext = null,
-    ScreenKeyboardComponent = null,
-    language = "en",
-}) {
+                             data = [],
+                             onClick,
+                             dark = false,
+                             keyboardContext = null,
+                             ScreenKeyboardComponent = null,
+                             language = "en",
+                         }) {
     const [inputValue, setInputValue] = useState("");
-    const { handleElementFocus, value, onChangeValue, clearValues } = keyboardContext || {};
+    const {handleElementFocus, value, onChangeValue, clearValues} = keyboardContext || {};
     const [map, setMap] = useState(1);
     const favourites = useMemo(() => data.filter((item) => item.isFavourite), [data]);
     const alphabeticalFilteredData = useMemo(() => filterDataByAlphabetGroups(data), [data]);
@@ -41,7 +41,7 @@ function ProductShowcase({
     const t = translations[language] || translations.en;
 
     return (
-        <ThemeProvider theme={createTheme({ palette: { mode: dark ? "dark" : "light" } })}>
+        <ThemeProvider theme={createTheme({palette: {mode: dark ? "dark" : "light"}})}>
             <div className="product-showcase-container">
                 <div
                     style={{
@@ -60,7 +60,7 @@ function ProductShowcase({
                             label={t.searchLabel}
                             id="prodcutSearch"
                         />
-                        {ScreenKeyboardComponent ? <ScreenKeyboardComponent language={language}  dark={dark} /> : null}
+                        {ScreenKeyboardComponent ? <ScreenKeyboardComponent language={language} dark={dark}/> : null}
                     </div>
                     <div className="product-showcase-filter-area">
                         <Button
@@ -146,81 +146,81 @@ function ProductShowcase({
                         <div className="product-showcase-products-area">
                             {map === 0
                                 ? filteredByName.map((product, key) => (
-                                      <ProductCard
-                                          discountText={product.campaign}
-                                          onClick={() => onClick(product)}
-                                          key={key}
-                                          dark={dark}
-                                          name={product.name}
-                                          src={product.image}
-                                          barcode={product.barcode}
-                                          favorite={product.isFavourite}
-                                          price={product.price}
-                                          stock={product.stock}
-                                      />
-                                  ))
+                                    <ProductCard
+                                        discountText={product.campaign}
+                                        onClick={() => onClick(product)}
+                                        key={key}
+                                        dark={dark}
+                                        name={product.name}
+                                        src={product.image}
+                                        barcode={product.barcode}
+                                        favorite={product.isFavourite}
+                                        price={product.price}
+                                        stock={product.stock}
+                                    />
+                                ))
                                 : map === 11
-                                ? data
-                                      .filter((product) => !product.barcode)
-                                      .map((product, key) => (
-                                          <ProductCard
-                                              discountText={product.campaign}
-                                              onClick={() => onClick(product)}
-                                              key={key}
-                                              dark={dark}
-                                              name={product.name}
-                                              src={product.image}
-                                              barcode={product.barcode}
-                                              favorite={product.isFavourite}
-                                              price={product.price}
-                                              stock={product.stock}
-                                          />
-                                      ))
-                                : map === 1
-                                ? data.map((product, key) => (
-                                      <ProductCard
-                                          discountText={product.campaign}
-                                          onClick={() => onClick(product)}
-                                          key={key}
-                                          dark={dark}
-                                          name={product.name}
-                                          src={product.image}
-                                          barcode={product.barcode}
-                                          fraction={product.fraction}
-                                          favorite={product.isFavourite}
-                                          price={product.price}
-                                          stock={product.stock}
-                                      />
-                                  ))
-                                : map === 2
-                                ? favourites.map((product, key) => (
-                                      <ProductCard
-                                          discountText={product.campaign}
-                                          onClick={() => onClick(product)}
-                                          key={key}
-                                          dark={dark}
-                                          name={product.name}
-                                          src={product.image}
-                                          barcode={product.barcode}
-                                          favorite={product.isFavourite}
-                                          price={product.price}
-                                          stock={product.stock}
-                                      />
-                                  ))
-                                : alphabeticalFilteredData[map - 3].map((product, key) => (
-                                      <ProductCard
-                                          discountText={product.campaign}
-                                          onClick={() => onClick(product)}
-                                          key={key}
-                                          dark={dark}
-                                          name={product.name}
-                                          src={product.image}
-                                          barcode={product.barcode}
-                                          favorite={product.isFavourite}
-                                          price={product.price}
-                                          stock={product.stock}
-                                      />
-                                  ))}
+                                    ? data
+                                        .filter((product) => !product.barcode)
+                                        .map((product, key) => (
+                                            <ProductCard
+                                                discountText={product.campaign}
+                                                onClick={() => onClick(product)}
+                                                key={key}
+                                                dark={dark}
+                                                name={product.name}
+                                                src={product.image}
+                                                barcode={product.barcode}
+                                                favorite={product.isFavourite}
+                                                price={product.price}
+                                                stock={product.stock}
+                                            />
+                                        ))
+                                    : map === 1
+                                        ? data.map((product, key) => (
+                                            <ProductCard
+                                                discountText={product.campaign}
+                                                onClick={() => onClick(product)}
+                                                key={key}
+                                                dark={dark}
+                                                name={product.name}
+                                                src={product.image}
+                                                barcode={product.barcode}
+                                                fraction={product.fraction}
+                                                favorite={product.isFavourite}
+                                                price={product.price}
+                                                stock={product.stock}
+                                            />
+                                        ))
+                                        : map === 2
+                                            ? favourites.map((product, key) => (
+                                                <ProductCard
+                                                    discountText={product.campaign}
+                                                    onClick={() => onClick(product)}
+                                                    key={key}
+                                                    dark={dark}
+                                                    name={product.name}
+                                                    src={product.image}
+                                                    barcode={product.barcode}
+                                                    favorite={product.isFavourite}
+                                                    price={product.price}
+                                                    stock={product.stock}
+                                                />
+                                            ))
+                                            : alphabeticalFilteredData[map - 3].map((product, key) => (
+                                                <ProductCard
+                                                    discountText={product.campaign}
+                                                    onClick={() => onClick(product)}
+                                                    key={key}
+                                                    dark={dark}
+                                                    name={product.name}
+                                                    src={product.image}
+                                                    barcode={product.barcode}
+                                                    favorite={product.isFavourite}
+                                                    price={product.price}
+                                                    stock={product.stock}
+                                                />
+                                            ))}
                         </div>
                     </div>
                 </div>
@@ -230,4 +230,5 @@ function ProductShowcase({
 }
 
 export default ProductShowcase;
+
 

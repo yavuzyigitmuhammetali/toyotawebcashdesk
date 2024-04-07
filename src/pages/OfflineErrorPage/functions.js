@@ -1,4 +1,4 @@
-export function getNextOpening(schedule){
+export function getNextOpening(schedule) {
     const now = new Date();
     const weekDay = now.getDay();
     const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];

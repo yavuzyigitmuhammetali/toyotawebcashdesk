@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { Typography } from '@mui/material';
+import React, {useEffect, useState} from 'react';
+import {Typography} from '@mui/material';
 import {getNextOpening} from "../functions";
-import { useTranslation } from "react-i18next";
+import {useTranslation} from "react-i18next";
 
-const CountdownTimer = ({ schedule }) => {
+const CountdownTimer = ({schedule}) => {
     const [timeLeft, setTimeLeft] = useState('');
-    const { t } = useTranslation(); 
+    const {t} = useTranslation();
 
     useEffect(() => {
         const updateCountdown = () => {
@@ -37,7 +37,7 @@ const CountdownTimer = ({ schedule }) => {
         const interval = setInterval(updateCountdown, 1000);
 
         return () => clearInterval(interval);
-    }, [schedule,t]);
+    }, [schedule, t]);
 
     return (
         <Typography variant="h6">

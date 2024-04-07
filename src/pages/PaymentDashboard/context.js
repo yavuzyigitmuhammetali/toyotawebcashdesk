@@ -5,22 +5,22 @@ import {updateStocksFromCart} from "./functions";
 
 const PaymentContext = React.createContext(undefined);
 const PaymentProvider = ({children}) => {
-    const [tempData, setTempData] = React.useState({subTotal: 0, total: 0, cart: [],tax:0})
-    const {total, subTotal, cart,tax} = tempData;
+    const [tempData, setTempData] = React.useState({subTotal: 0, total: 0, cart: [], tax: 0})
+    const {total, subTotal, cart, tax} = tempData;
     const [paymentTransactions, setPaymentTransactions] = React.useState([]);
     const amountPaid = paymentTransactions.reduce((total, item) => Math.round((total + item.price) * 100) / 100, 0)
     const amountRemaining = (total - amountPaid) < 0 ? (0) : (Math.round((total - amountPaid) * 100) / 100);
     const change = (total - amountPaid) < 0 ? (Math.round((amountPaid - total) * 100) / 100) : (0);
-    const [receipt,setReceipt] = React.useState({})
+    const [receipt, setReceipt] = React.useState({})
     const {status} = React.useContext(AppStatusContext);
 
     React.useEffect(() => {
         const salesDataString = sessionStorage.getItem('salesData')
         const paymentTransactionsString = sessionStorage.getItem('paymentTransactions')
-        if (salesDataString){
+        if (salesDataString) {
             setTempData(JSON.parse(salesDataString));
         }
-        if (paymentTransactionsString){
+        if (paymentTransactionsString) {
             setPaymentTransactions(JSON.parse(paymentTransactionsString))
         }
     }, []);
@@ -41,7 +41,7 @@ const PaymentProvider = ({children}) => {
         const _amountPaid = amountPaid;
         sessionStorage.removeItem('salesData');
         sessionStorage.removeItem('paymentTransactions');
-        setTempData({ subTotal: 0, total: 0, cart: [],tax:0})
+        setTempData({subTotal: 0, total: 0, cart: [], tax: 0})
         return _amountPaid;
     }
 
@@ -59,7 +59,7 @@ const PaymentProvider = ({children}) => {
                 change: change,
                 cart: cart,
                 transactions: paymentTransactions,
-                refund:""
+                refund: ""
             };
 
             try {
@@ -76,7 +76,6 @@ const PaymentProvider = ({children}) => {
             return false;
         }
     };
-
 
 
     return (

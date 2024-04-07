@@ -1,4 +1,4 @@
-.login-page-right-area-container{
+.login-page-right-area-container {
     position: relative;
     aspect-ratio: 400 / 483;
     display: flex;
@@ -10,7 +10,8 @@
     padding: 10px 20px;
     width: 400px;
 }
-.login-page-right-area-info{
+
+.login-page-right-area-info {
     user-select: none;
     justify-content: center;
     align-items: center;
@@ -19,14 +20,16 @@
     gap: 10px;
     margin-bottom: 20%;
 }
-.login-page-right-area-inputs{
+
+.login-page-right-area-inputs {
     box-sizing: border-box;
     width: 100%;
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
-.login-page-right-area-title{
+
+.login-page-right-area-title {
     font-weight: 700;
     font-size: 2em;
 }

@@ -1,6 +1,15 @@
 import React, {useCallback, useState} from "react";
 import {
-    Box, Button, Collapse, IconButton, Table, TableBody, TableCell, TableHead, TableRow, Typography
+    Box,
+    Button,
+    Collapse,
+    IconButton,
+    Table,
+    TableBody,
+    TableCell,
+    TableHead,
+    TableRow,
+    Typography
 } from "@mui/material";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
@@ -14,10 +23,10 @@ export default function Row({row, order, orderBy}) {
     const {t} = useTranslation();
 
     const onClickReceipt = useCallback(() => {
-        navigate('/receipt/'+row.receiptNumber, {
+        navigate('/receipt/' + row.receiptNumber, {
             replace: true,
-            state: { 
-                receipt: row, 
+            state: {
+                receipt: row,
                 warningMessage: row.active ? "" : t("returnProcessed")
             }
         });
@@ -59,13 +68,15 @@ export default function Row({row, order, orderBy}) {
                                 <TableHead>
                                     <TableRow>
                                         <TableCell>
-                                            <Typography variant="subtitle1" fontWeight="bold">{t("productName")}</Typography>
+                                            <Typography variant="subtitle1"
+                                                        fontWeight="bold">{t("productName")}</Typography>
                                         </TableCell>
                                         <TableCell>
                                             <Typography variant="subtitle1" fontWeight="bold">{t("unit")}</Typography>
                                         </TableCell>
                                         <TableCell align="right">
-                                            <Typography variant="subtitle1" fontWeight="bold">{t("amountPaid")}</Typography>
+                                            <Typography variant="subtitle1"
+                                                        fontWeight="bold">{t("amountPaid")}</Typography>
                                         </TableCell>
                                     </TableRow>
                                 </TableHead>

@@ -38,8 +38,8 @@ export function filterProductsByBarcode(products, barcodePrefix) {
     return filteredProducts;
 }
 
-export function applyBuy3Pay2(unitPrice, quantity,active = true) {
-    if (quantity<3 || !active){
+export function applyBuy3Pay2(unitPrice, quantity, active = true) {
+    if (quantity < 3 || !active) {
         return 0;
     }
     const freeProducts = Math.floor(quantity / 3);
@@ -48,15 +48,15 @@ export function applyBuy3Pay2(unitPrice, quantity,active = true) {
     return Math.round(averagePricePerProduct * 100) / 100
 }
 
-export function applyStudentTaxFree(priceWithTax, taxRatePercent,active = true) {
-    if (!active){
+export function applyStudentTaxFree(priceWithTax, taxRatePercent, active = true) {
+    if (!active) {
         return 0;
     }
     const taxRate = taxRatePercent / 100;
     return Math.round(priceWithTax / (1 + taxRate) * 100) / 100;
 }
 
-export function applyPerCentDiscount(price, discountPercentage,active = true) {
+export function applyPerCentDiscount(price, discountPercentage, active = true) {
     if (price <= 0 || discountPercentage < 0 || discountPercentage > 100 || !active) {
         return 0;
     }
@@ -71,6 +71,7 @@ export function calculateTaxAmount(inclusivePrice, taxPercentage) {
     const exclusivePrice = inclusivePrice / (1 + taxRate);
     return inclusivePrice - exclusivePrice;
 }
+
 export function calculateSubtotalAndTotal(cart) {
     let subtotal = 0;
     let total = 0;
@@ -79,7 +80,7 @@ export function calculateSubtotalAndTotal(cart) {
     cart.forEach(item => {
         subtotal += item.price * item.quantity;
         total += (item.discountedPrice > 0 ? item.discountedPrice : item.price) * item.quantity;
-        tax += calculateTaxAmount((item.discountedPrice > 0 ? item.discountedPrice : item.price),(item.tax))*item.quantity;
+        tax += calculateTaxAmount((item.discountedPrice > 0 ? item.discountedPrice : item.price), (item.tax)) * item.quantity;
     });
     return {
         subtotal: Math.round(subtotal * 100) / 100,

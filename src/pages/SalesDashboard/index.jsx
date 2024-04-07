@@ -7,7 +7,7 @@ import {CartProvider} from "./context";
 
 function SalesDashboard() {
     return (
-        <div style={{display: "flex", flexDirection: "row", justifyContent: "space-between",padding:"1px"}}>
+        <div style={{display: "flex", flexDirection: "row", justifyContent: "space-between", padding: "1px"}}>
             <CartProvider>
                 <NumericKeyboardProvider>
                     <SalesDashboardLeftArea/>
