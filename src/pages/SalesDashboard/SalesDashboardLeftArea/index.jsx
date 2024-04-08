@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext, useEffect, useMemo, useState} from 'react';
 import {createTheme, ThemeProvider} from "@mui/material/styles";
 import TextField from "@mui/material/TextField";
 import {Button, IconButton, InputAdornment} from "@mui/material";
@@ -39,44 +39,31 @@ function SalesDashboardLeftArea() {
         }));
     };
     const getProductsByBarcode = (barcode) => {
-        const item = _products.filter(item => item.barcode.toString() === barcode)
-        if (item.length === 1) {
-            addToCart(item[0]);
-        } else {
-            return setProducts(filterProductsByBarcode(_products, barcode));
+        const products = filterProductsByBarcode(_products,barcode);
+        if (products.length === 1 &&(data === products[0].barcode || barcode === products[0].barcode.toString() )) {
+            addToCart(products[0]);
+        }else{
+            return setProducts(products);
         }
     };
 
-    useEffect(() => {
-        setProducts(_products);
-        if (selectedMap.subcategory > 0) {
-            setMap("subcategories");
-        }else {
-            setMap("categories");
+
+    const filteredSubCategories = useMemo(() => {
+        if (selectedMap.category) {
+            return filterSubcategories(_subCategories, selectedMap.category);
         }
-        return () => clearValues;
-    }, [_products]);
+        return _subCategories;
+    }, [_subCategories, selectedMap.category]);
+
+    const filteredProducts = useMemo(() => {
+        return filterProducts(_products, selectedMap.category, selectedMap.subcategory);
+    }, [_products, selectedMap.category, selectedMap.subcategory]);
 
     useEffect(() => {
-        setSubCategories(_subCategories);
-        return () => clearValues();
-    }, [_subCategories]);
-
-    useEffect(() => {
-        if (selectedMap.category && !selectedMap.subcategory) {
-            setSubCategories(filterSubcategories(_subCategories, selectedMap.category))
-            setProducts(filterProducts(_products, selectedMap.category))
-        } else if (selectedMap.category && selectedMap.subcategory) {
-            setProducts(filterProducts(_products, selectedMap.category, selectedMap.subcategory))
-        } else if (!selectedMap.category && selectedMap.subcategory) {
-            setSubCategories(_subCategories)
-            setProducts(filterProducts(_products, null, selectedMap.subcategory))
-        } else {
-            setSubCategories(_subCategories);
-            setProducts(_products);
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [selectedMap]);
+        setSubCategories(filteredSubCategories);
+        setProducts(filteredProducts);
+        return ()=>clearValues();
+    }, [filteredSubCategories, filteredProducts]);
 
 
     const [value, setValue] = useState('');
@@ -104,6 +91,12 @@ function SalesDashboardLeftArea() {
         setValue(inputValue)
         setChangedValue(inputValue)
     }, [keyboardValue.barcodeArea]);
+
+    useEffect(() => {
+        if (!products.length) {
+            setMap("categories")
+        }
+    }, [products]);
 
     return (<div style={{
         backgroundColor: dark ? "#111418" : "", borderColor: dark ? "white" : ""

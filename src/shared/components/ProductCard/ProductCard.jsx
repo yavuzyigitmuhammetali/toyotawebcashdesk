@@ -2,7 +2,7 @@ import React from 'react';
 import "./productCard.css"
 import ImageNotSupportedIcon from '@mui/icons-material/ImageNotSupported';
 
-function ProductCard({
+const ProductCard = React.memo(({
                          name = "MARUL",
                          category = false,
                          stock = 1,
@@ -16,7 +16,7 @@ function ProductCard({
                          favorite = false,
                          style,
                          onClick
-                     }) {
+                     }) => {
     stock = stock.toString()
     return (<button onClick={onClick} style={{
         cursor: !stock ? "default" : "pointer",
@@ -48,6 +48,6 @@ function ProductCard({
                                      className="product-card-stock">{fraction ? parseFloat(stock).toFixed(2) : stock}{fraction ? "lbs." : "pcs."}</div> : null}
         {discount || discountText ? <div className="product-card-on-sale">{discountText.toUpperCase()}</div> : null}
     </button>);
-}
+});
 
 export default ProductCard;
