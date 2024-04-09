@@ -1,53 +1,91 @@
 import React from 'react';
-import "./productCard.css"
+import PropTypes from 'prop-types';
 import ImageNotSupportedIcon from '@mui/icons-material/ImageNotSupported';
+import "./productCard.css";
 
-const ProductCard = React.memo(({
-                         name = "MARUL",
-                         category = false,
-                         stock = 1,
-                         price = 12000,
-                         barcode = 120340344,
-                         dark = false,
-                         discount = 0,
-                         discountText = "", //onSale
-                         src = "",
-                         fraction = false,
-                         favorite = false,
-                         style,
-                         onClick
-                     }) => {
-    stock = stock.toString()
-    return (<button onClick={onClick} style={{
-        cursor: !stock ? "default" : "pointer",
-        transform: !stock && "scale(1)",
-        width: category ? "140px" : "102px",
-        fontSize: category ? "0.8em" : "0.6em",
-        backgroundColor: dark ? "#1E1E1E" : "whitesmoke",
-        borderColor: favorite ? "gold" : dark && "white",
-        ...style
-    }}
-                    className={stock !== "0" ? "product-card-container product-card-click" : "product-card-container product-card-click product-card-disabled"}>
-        {src ? <img className="product-card-img" style={{filter: (!stock && !category) && "grayscale(100%)"}} src={src}
-                    alt="Görsel"
-                    loading={"lazy"}/> : <ImageNotSupportedIcon className="product-card-img"/>}
+const ProductCard = React.memo((props) => {
+    const {
+        name = "MARUL",
+        category = false,
+        stock = 1,
+        price = 12000,
+        barcode = 120340344,
+        dark = false,
+        discount = 0,
+        discountText = "",
+        src = "",
+        fraction = false,
+        favorite = false,
+        style,
+        onClick
+    } = props;
 
-        <div style={{backgroundColor: dark && "rgba(0, 0, 0, 0.7)", borderColor: favorite && "gold"}}
-             className="product-card-text">
-            <span style={{color: dark && "white"}}>{name}</span>
-            {(barcode && !category) ? <span style={{color: dark ? "#1976d2" : "#BBBBBB"}}>#{barcode}</span> : null}
-        </div>
-        {(price && !category) ? <>
-            <div style={{color: dark && "white", textDecoration: discount && "line-through"}}
-                 className="product-card-price">{price}$
+    const isDisabled = stock === 0;
+    const isCategory = category;
+    const isDark = dark;
+    const isFavorite = favorite;
+    const isOutOfStock = !stock;
+
+    return (
+        <button
+            type="button"
+            onClick={onClick}
+            className={`
+        product-card-container
+        product-card-click
+        ${isDisabled ? "product-card-disabled" : ""}
+        ${isCategory ? "product-card-category" : "product-card-regular"}
+        ${isDark ? "product-card-dark" : "product-card-light"}
+        ${isFavorite ? "product-card-favorite" : ""}
+        ${isOutOfStock ? "product-card-out-of-stock" : ""}
+      `}
+            style={style}
+        >
+            {src ? (
+                <img
+                    className={`product-card-img ${(!stock && !category) ? "grayscale" : ""}`}
+                    src={src}
+                    alt={name}
+                    loading="lazy"
+                />
+            ) : (
+                <ImageNotSupportedIcon className="product-card-img"/>
+            )}
+            <div className={`product-card-text ${dark ? "dark" : ""} ${favorite ? "favorite" : ""}`}>
+                <span className={dark ? "text-white" : ""}>{name}</span>
+                {(barcode && !category) && <span className={dark ? "text-blue" : "text-gray"}>#{barcode}</span>}
             </div>
-            {discount ? <span className="product-card-discount">{discount}$</span> : null}
-        </> : null}
-
-        {(stock && !category) ? <div style={{color: stock < 10 ? "red" : dark ? "white" : "#111418"}}
-                                     className="product-card-stock">{fraction ? parseFloat(stock).toFixed(2) : stock}{fraction ? "lbs." : "pcs."}</div> : null}
-        {discount || discountText ? <div className="product-card-on-sale">{discountText.toUpperCase()}</div> : null}
-    </button>);
+            {(price && !category) && (
+                <>
+                    <div
+                        className={`product-card-price ${dark ? "text-white" : ""} ${discount ? "line-through" : ""}`}>{price}$
+                    </div>
+                    {discount && <span className="product-card-discount">{discount}$</span>}
+                </>
+            )}
+            {(stock && !category) && (
+                <div className={`product-card-stock ${stock < 10 ? "text-red" : dark ? "text-white" : "text-dark"}`}>
+                    {fraction ? parseFloat(stock).toFixed(2) : stock}{fraction ? "lbs." : "pcs."}
+                </div>
+            )}
+            {(discount || discountText) && <div className="product-card-on-sale">{discountText.toUpperCase()}</div>}
+        </button>
+    );
 });
+
+ProductCard.propTypes = {
+    name: PropTypes.string,
+    stock: PropTypes.number,
+    price: PropTypes.number,
+    barcode: PropTypes.number,
+    dark: PropTypes.bool,
+    discount: PropTypes.number,
+    discountText: PropTypes.string,
+    src: PropTypes.string,
+    fraction: PropTypes.bool,
+    favorite: PropTypes.bool,
+    style: PropTypes.object,
+    onClick: PropTypes.func
+};
 
 export default ProductCard;

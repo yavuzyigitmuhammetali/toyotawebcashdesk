@@ -39,10 +39,10 @@ function SalesDashboardLeftArea() {
         }));
     };
     const getProductsByBarcode = (barcode) => {
-        const products = filterProductsByBarcode(_products,barcode);
-        if (products.length === 1 &&(data === products[0].barcode || barcode === products[0].barcode.toString() )) {
+        const products = filterProductsByBarcode(_products, barcode);
+        if (products.length === 1 && (data === products[0].barcode || barcode === products[0].barcode.toString())) {
             addToCart(products[0]);
-        }else{
+        } else {
             return setProducts(products);
         }
     };
@@ -62,7 +62,7 @@ function SalesDashboardLeftArea() {
     useEffect(() => {
         setSubCategories(filteredSubCategories);
         setProducts(filteredProducts);
-        return ()=>clearValues();
+        return () => clearValues();
     }, [filteredSubCategories, filteredProducts]);
 
 

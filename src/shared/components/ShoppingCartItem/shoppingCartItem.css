@@ -51,20 +51,32 @@
     filter: contrast(250%);
 }
 
+.jell-in {
+    animation: jell-in 0.6s ease-out forwards;
+}
+
+.jell-out {
+    animation: jell-out 1s ease-in-out forwards;
+}
+
+.dark-bg {
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
 @keyframes jell-in {
     0% {
-        left: -50%;
+        transform: translateX(-200%);
     }
     100% {
-        left: 0;
+        transform: translateX(100%);
     }
 }
 
 @keyframes jell-out {
     0% {
-        left: 0;
+        transform: translateX(100%);
     }
     100% {
-        left: -50%;
+        transform: translateX(-200%);
     }
 }

@@ -1,21 +1,8 @@
 export function filterProducts(data, category, subcategory) {
-    if (!category && !subcategory) {
-        return [];
-    }
-
-    if (category && subcategory) {
-        return data.filter(product => product.categoryId === category && product.subCategoryId === subcategory);
-    }
-
-    if (category) {
-        return data.filter(product => product.categoryId === category);
-    }
-
-    if (subcategory) {
-        return data.filter(product => product.subCategoryId === subcategory);
-    }
-
-    return [];
+    return data.filter(product =>
+        (!category || product.categoryId === category) &&
+        (!subcategory || product.subCategoryId === subcategory)
+    );
 }
 
 export function filterSubcategories(subcategories, categoryID) {

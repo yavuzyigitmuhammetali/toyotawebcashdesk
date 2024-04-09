@@ -15,7 +15,9 @@
     "transactions": "Transactions",
     "amountPaid": "AMOUNT PAID",
     "change": "CHANGE",
-    "thanks": "THANK YOU"
+    "thanks": "THANK YOU",
+    "lbs": "lbs.",
+    "pcs": "pcs."
   },
   "tr": {
     "refund": "İADE GÖRMÜŞ",
@@ -33,6 +35,8 @@
     "transactions": "İşlemler",
     "amountPaid": "ÖDENTPLM",
     "change": "PARAÜSTÜ",
-    "thanks": "TEŞEKKÜRLER"
+    "thanks": "TEŞEKKÜRLER",
+    "lbs": "kgs.",
+    "pcs": "adt."
   }
 }

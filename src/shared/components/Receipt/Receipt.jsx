@@ -38,9 +38,9 @@ function Receipt({storeName = "Lorem Ipsum", data = {}, language = "en"}) {
                 {validatedData.cart.map((item, key) => (
                     <div key={key} className="receipt-product">
                         <span style={{justifyContent: "left"}}>{item.name}</span>
-                        <span>{item.quantity} {translations[language].quantity}</span>
+                        <span>{item.quantity} {item.fraction ? translations[language].lbs : translations[language].pcs}</span>
                         <span>%{item.tax < 10 ? "0" + item.tax : item.tax.toString()}</span>
-                        <span>{item.discountedPrice ? item.discountedPrice.toFixed(2) : item.price.toFixed(2)}$</span>
+                        <span>{item.discountedPrice ? (item.discountedPrice * item.quantity).toFixed(2) : (item.price * item.quantity).toFixed(2)}$</span>
                     </div>
                 ))}
             </div>

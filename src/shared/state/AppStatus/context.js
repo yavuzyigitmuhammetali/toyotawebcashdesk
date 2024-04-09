@@ -42,6 +42,9 @@ const AppStatusProvider = ({children}) => {
                 sessionStorage.setItem('loggedIn', JSON.stringify(false));
                 console.log(reason)
             });
+        if (dark){
+            document.documentElement.classList.toggle('dark', true);
+        }
     }, []);
 
     React.useEffect(() => {

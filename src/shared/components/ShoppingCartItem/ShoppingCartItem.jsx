@@ -8,26 +8,26 @@ import {createTheme, ThemeProvider} from "@mui/material/styles";
 import TextField from "@mui/material/TextField";
 
 
-function ShoppingCartItem({
-                              disabled = false,
-                              onDelete,
-                              onRemove,
-                              onAdd,
-                              campaign = "",
-                              index = 1,
-                              discountedPrice = 0,
-                              dark = false,
-                              price = 1,
-                              tax = 8,
-                              quantity = 1,
-                              barcode = 120340344,
-                              productName = "EKMEK",
-                              fraction = false,
-                              onChangeDecimal,
-                              onFocus,
-                              decimalValue,
-                              id
-                          }) {
+const ShoppingCartItem = React.memo(({
+                                         disabled = false,
+                                         onDelete,
+                                         onRemove,
+                                         onAdd,
+                                         campaign = "",
+                                         index = 1,
+                                         discountedPrice = 0,
+                                         dark = false,
+                                         price = 1,
+                                         tax = 8,
+                                         quantity = 1,
+                                         barcode = 120340344,
+                                         productName = "EKMEK",
+                                         fraction = false,
+                                         onChangeDecimal,
+                                         onFocus,
+                                         decimalValue,
+                                         id
+                                     }) => {
     const taxFreePrice = ((discountedPrice ? discountedPrice : price) / (1 + (tax / 100))).toFixed(2);
     const finalPrice = (quantity * price).toFixed(2);
     const finalDiscountedPrice = discountedPrice ? (discountedPrice * quantity).toFixed(2) : 0;
@@ -60,11 +60,7 @@ function ShoppingCartItem({
                 </div>
             </div>
             {firstLoad && <div
-                style={{
-                    animation: isElementVisible ? "jell-in 0.5s ease-in-out forwards" : "jell-out 0.5s ease-in-out forwards",
-                    backgroundColor: dark && "rgba(0,0,0,0.9)"
-                }}
-                className="shopping-cart-item-editor">
+                className={`shopping-cart-item-editor ${isElementVisible ? 'jell-in' : 'jell-out'} ${dark ? 'dark-bg' : ''}`}>
                 {fraction ? <TextField
                     id={id}
                     variant="standard"
@@ -88,6 +84,6 @@ function ShoppingCartItem({
         </ThemeProvider>
 
     </div>);
-}
+});
 
 export default ShoppingCartItem;

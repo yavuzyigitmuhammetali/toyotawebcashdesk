@@ -23,12 +23,19 @@ const CartProvider = ({children}) => {
     })
 
 
-    const totalCampaignQuantity = cart.filter(item => item.campaign).map(item => item.quantity).reduce((acc, quantity) => acc + quantity, 0)
+    const totalCampaignQuantity = React.useMemo(() =>
+            cart.filter(item => item.campaign).reduce((acc, item) => acc + item.quantity, 0),
+        [cart]
+    );
+
     React.useEffect(() => {
         updateDiscountedPrices();
     }, [totalCampaignQuantity, discounts]);
 
-    const totalQuantity = cart.map(item => item.quantity).reduce((acc, quantity) => acc + quantity, 0)
+    const totalQuantity = React.useMemo(() =>
+            cart.reduce((acc, item) => acc + item.quantity, 0),
+        [cart]
+    );
     React.useEffect(() => {
         const {subtotal, total, tax} = calculateSubtotalAndTotal(cart);
         setTotal(total);
@@ -49,9 +56,10 @@ const CartProvider = ({children}) => {
     }, []);
 
 
-    const filteredCartQuantity = cart.reduce((totalQuantity, product) => {
-        return !product.fraction ? totalQuantity + product.quantity : totalQuantity;
-    }, 0);
+    const filteredCartQuantity = React.useMemo(() =>
+            cart.reduce((total, item) => item.fraction ? total : total + item.quantity, 0),
+        [cart]
+    );
     React.useEffect(() => {
         const result = Object.values(cart.reduce((acc, {id, quantity}) => {
             acc[id] = acc[id] || {id, quantity: 0};
@@ -73,13 +81,15 @@ const CartProvider = ({children}) => {
     }, [filteredCartQuantity]);
 
 
-    const toggleDiscounts = (discountKey) => {
+    const toggleDiscounts = React.useCallback((discountKey) => {
         setDiscounts(prevDiscounts => ({
-            ...prevDiscounts, [discountKey]: !prevDiscounts[discountKey]
+            ...prevDiscounts,
+            [discountKey]: !prevDiscounts[discountKey]
         }));
-    }
+    }, [setDiscounts]);
 
-    const addToCart = (product) => {
+    const addToCart = React.useCallback((product) => {
+        if (!product) return;
         setCart(currentCart => {
             const productIndex = currentCart.findIndex(item => item.id === product.id);
             if (productIndex > -1 && !product.fraction) {
@@ -102,31 +112,34 @@ const CartProvider = ({children}) => {
                 return currentCart;
             }
         });
-    };
+    }, [setCart]);
 
-    const decreaseQuantityByIndex = (index) => {
+    const decreaseQuantityByIndex = React.useCallback((index) => {
         setCart(currentCart => currentCart.map((item, idx) => idx === index && item.quantity > 1 ? {
             ...item, quantity: item.quantity - 1
         } : item));
-    };
+    }, [setCart]);
 
-
-    const increaseQuantityByIndex = (index) => {
+    const increaseQuantityByIndex = React.useCallback((index) => {
         setCart(currentCart => currentCart.map((item, idx) => idx === index && item.quantity < item.stock ? {
             ...item, quantity: item.quantity + 1
         } : item));
-    };
+    }, [setCart]);
 
-
-    const removeFromCartByIndex = (index) => {
+    const removeFromCartByIndex = React.useCallback((index) => {
+        if (index < 0 || index >= cart.length) return;
         setCart(currentCart => currentCart.filter((_, i) => i !== index));
-    };
+    }, [cart.length, setCart]);
 
-    const increaseQuantityDecimalByIndex = (index, decimal) => {
+    const increaseQuantityDecimalByIndex = React.useCallback((index, decimal) => {
         setCart(currentCart => {
-            const fractionQuantity = currentCart.filter((value, idx) => value.id === currentCart[index].id && idx !== index).reduce((previousValue, currentValue) => previousValue + currentValue?.quantity, 0)
+            if (index < 0 || index >= currentCart.length) {
+                return currentCart;
+            }
 
-            if (index >= 0 && index < currentCart.length && decimal >= 0.01) {
+            const fractionQuantity = currentCart.filter((value, idx) => value.id === currentCart[index]?.id && idx !== index).reduce((previousValue, currentValue) => previousValue + currentValue?.quantity, 0);
+
+            if (decimal >= 0.01) {
                 return currentCart.map((item, i) => {
                     if (i === index && (parseFloat(decimal) + fractionQuantity) <= item.stock && item.fraction) {
                         const roundedDecimal = Math.round(decimal * 100) / 100;
@@ -142,9 +155,10 @@ const CartProvider = ({children}) => {
                 return currentCart;
             }
         });
-    }
+    }, [setCart]);
 
-    const updateDiscountedPrices = () => {
+
+    const updateDiscountedPrices = React.useCallback(() => {
         const updatedCart = cart.map(item => {
             if (item.campaign) {
                 switch (item.campaign) {
@@ -171,8 +185,7 @@ const CartProvider = ({children}) => {
             return item;
         });
         setCart(updatedCart);
-    };
-
+    }, [cart, discounts.buy3pay2, discounts.studentTaxFree, discounts.percentageDiscounts, setCart]);
 
     const cancelTransaction = () => {
         setCart([]);
