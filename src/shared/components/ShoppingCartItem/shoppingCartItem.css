@@ -8,6 +8,7 @@
     height: 72px;
     border-bottom: 0.2px solid black;
     position: relative;
+    will-change: transform;
 }
 
 .shopping-cart-item-container:hover {
@@ -79,4 +80,39 @@
     100% {
         transform: translateX(-200%);
     }
+}
+
+/* Edited styles based on instructions */
+.dark {
+    background-color: #12161B;
+    color: white;
+    border-color: white;
+}
+
+.product-name {
+    font-size: 1.5em;
+    font-weight: 700;
+}
+
+.price {
+    color: red;
+    font-weight: 700;
+}
+
+.original-price {
+    text-decoration: none;
+}
+
+.original-price.discounted {
+    text-decoration: line-through;
+    color: black;
+    font-size: 0.8em;
+}
+
+.dark .original-price.discounted {
+    color: white;
+}
+
+.discounted-price {
+    color: red;
 }

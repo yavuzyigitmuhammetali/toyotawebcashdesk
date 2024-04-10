@@ -24,6 +24,11 @@
     border: 1px solid black;
 }
 
+.product-showcase-active-area.dark {
+    background-color: rgba(19, 25, 34, 0.85);
+    border-color: white;
+}
+
 .product-showcase-search-area {
     width: 100%;
     display: flex;

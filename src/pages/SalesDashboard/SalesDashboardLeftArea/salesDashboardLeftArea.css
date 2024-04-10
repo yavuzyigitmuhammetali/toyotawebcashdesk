@@ -70,3 +70,8 @@
     height: 50px;
     animation: customLoadingAnimation 2s linear infinite;
 }
+
+.dark-theme {
+    background-color: #111418;
+    border-color: white;
+}

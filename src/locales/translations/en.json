@@ -58,7 +58,7 @@
   "contributeToNature": "You're contributing to nature! By choosing e-invoice, you reduce unnecessary paper usage. Thank you!",
   "subTotal": "Subtotal",
   "totalAmount": "Total Amount",
-  "cancelTransaction": "Cancel Transaction",
+  "cancelTransaction": "Cancel Order",
   "cancelTransactionWarning": "You are about to cancel the order. If confirmed, the paid amount will be refunded, and the products will not be delivered to the customer.",
   "confirmPayment": "Confirm Payment",
   "refundAmount": "Refund Amount",

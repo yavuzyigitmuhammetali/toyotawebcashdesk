@@ -49,14 +49,14 @@ const ShoppingCartItem = React.memo(({
                     <span>{quantity} {fraction ? "Kilo" : "Adet"}</span>
                 </div>
                 <div className="shopping-cart-item-content">
-                    <span style={{fontSize: "1.5em", fontWeight: "700"}}>{index}.{productName}</span>
+                    <span className="product-name">{index}.{productName}</span>
                     <div>{discountedPrice ? campaign : ""}</div>
-                    <span style={{color: "red", fontWeight: "700"}}>
-                            <span style={discountedPrice ? {
-                                textDecoration: "line-through", color: dark ? "white" : "black", fontSize: "0.8em"
-                            } : {}}>{finalPrice}$</span>
-                        {discountedPrice ? <span> {finalDiscountedPrice}$</span> : null}
-                            </span>
+                    <span className="price">
+                        <span className={`original-price ${discountedPrice ? 'discounted' : ''}`}>
+                            {finalPrice}$
+                        </span>
+                        {discountedPrice ? <span className="discounted-price"> {finalDiscountedPrice}$</span> : null}
+                    </span>
                 </div>
             </div>
             {firstLoad && <div
@@ -87,3 +87,7 @@ const ShoppingCartItem = React.memo(({
 });
 
 export default ShoppingCartItem;
+
+
+
+

@@ -42,7 +42,7 @@ const AppStatusProvider = ({children}) => {
                 sessionStorage.setItem('loggedIn', JSON.stringify(false));
                 console.log(reason)
             });
-        if (dark){
+        if (dark) {
             document.documentElement.classList.toggle('dark', true);
         }
     }, []);
