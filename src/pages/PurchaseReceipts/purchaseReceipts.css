@@ -3,3 +3,10 @@
     max-height: 90vh;
     overflow-x: auto;
 }
+
+.loading-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+}

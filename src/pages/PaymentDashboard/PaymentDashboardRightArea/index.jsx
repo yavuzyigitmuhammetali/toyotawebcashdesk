@@ -77,15 +77,15 @@ function PaymentDashboardRightArea() {
                         <Button disabled={(amountRemaining + amountPaid) === 0} style={{width: "100%"}} color="error"
                                 variant="contained">{t('cancelTransaction')}</Button>
                     </ResponsiveDialog>
-                    <Button 
-            disabled={amountRemaining !== 0 || amountPaid === 0 || isLoading}
-            color="success"
-            onClick={handleConfirmTransaction}
-            variant="contained"
-            endIcon={isLoading ? <CircularProgress size={20} /> : <SendIcon />}
-        >
-            {t('confirmPayment')}
-        </Button>
+                    <Button
+                        disabled={amountRemaining !== 0 || amountPaid === 0 || isLoading}
+                        color="success"
+                        onClick={handleConfirmTransaction}
+                        variant="contained"
+                        endIcon={isLoading ? <CircularProgress size={20}/> : <SendIcon/>}
+                    >
+                        {t('confirmPayment')}
+                    </Button>
                 </div>
                 <div className="payment-dashboard-right-area-pay">
                     <div style={{flex: 2}}>

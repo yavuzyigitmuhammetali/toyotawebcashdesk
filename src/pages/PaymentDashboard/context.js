@@ -2,6 +2,7 @@ import React from "react";
 import AppStatusContext from "../../shared/state/AppStatus/context";
 import {postTransaction} from "./api";
 import {updateStocksFromCart} from "./functions";
+import AppDataContext from "../../shared/state/AppData/context";
 
 const PaymentContext = React.createContext(undefined);
 const PaymentProvider = ({children}) => {
@@ -13,6 +14,7 @@ const PaymentProvider = ({children}) => {
     const change = (total - amountPaid) < 0 ? (Math.round((amountPaid - total) * 100) / 100) : (0);
     const [receipt, setReceipt] = React.useState({})
     const {status} = React.useContext(AppStatusContext);
+    const {fetchProducts, clearProducts} = React.useContext(AppDataContext)
 
     React.useEffect(() => {
         const salesDataString = sessionStorage.getItem('salesData')
@@ -46,37 +48,80 @@ const PaymentProvider = ({children}) => {
     }
 
     const confirmTransaction = async () => {
-        if (!amountRemaining && paymentTransactions.length && subTotal) {
-            const receipt = {
-                active: true,
-                storeNumber: status.storeNumber,
-                case: status.case,
-                date: new Date(),
-                total: total,
-                subTotal: subTotal,
-                amountPaid: amountPaid,
-                totalTax: tax,
-                change: change,
-                cart: cart,
-                transactions: paymentTransactions,
-                refund: ""
-            };
-
-            try {
-                const value = await postTransaction(receipt);
-                setReceipt(value.data);
-                cancelTransaction();
-                await updateStocksFromCart(value.data.cart);
-                return true;
-            } catch (reason) {
-                console.log(reason);
-                return false;
-            }
-        } else {
+        console.log("Starting transaction confirmation process.");
+        if (amountRemaining !== 0 || paymentTransactions.length === 0 || subTotal === 0) {
+            console.log("Transaction validation failed: amountRemaining, paymentTransactions length, or subTotal is not valid.");
             return false;
         }
-    };
 
+        let products;
+        try {
+            products = await fetchProducts();
+            console.log("Fetched products for transaction confirmation.");
+        } catch (error) {
+            console.log("Failed to fetch products.", error);
+            return false;
+        }
+
+        for (const cartItem of cart) {
+            const product = products.find(p => p.id === cartItem.id);
+            if (!product || product.price !== cartItem.price || product.stock < cartItem.quantity) {
+                console.log(`Validation failed for cart item with ID: ${cartItem.id}. Product not found or price/stock mismatch.`);
+                return false;
+            }
+        }
+
+        let totalSpent = 0;
+        for (const cartItem of cart) {
+            const itemTotal = cartItem.discountedPrice !== 0 ? cartItem.discountedPrice * cartItem.quantity : cartItem.price * cartItem.quantity;
+            totalSpent += itemTotal;
+        }
+        if (totalSpent !== total) {
+            console.log(`Total spent (${totalSpent}) does not match amount cart (${total}).`);
+            return false;
+        }
+
+        const totalTransactions = paymentTransactions.reduce((total, transaction) => total + transaction.price, 0);
+        if (totalTransactions !== amountPaid) {
+            console.log(`Total transactions (${totalTransactions}) does not match amount paid (${amountPaid}).`);
+            return false;
+        }
+
+        const receipt = {
+            active: true,
+            storeNumber: status.storeNumber,
+            case: status.case,
+            date: new Date(),
+            total: total,
+            subTotal: subTotal,
+            amountPaid: amountPaid,
+            totalTax: tax,
+            change: change,
+            cart: cart,
+            transactions: paymentTransactions,
+            refund: ""
+        };
+
+        try {
+            const value = await postTransaction(receipt);
+            console.log("Transaction posted successfully.", value.data);
+            setReceipt(value.data);
+        } catch (reason) {
+            console.log("Failed to post transaction.", reason);
+            return false;
+        }
+
+        try {
+            await updateStocksFromCart(receipt.cart);
+        } catch (error) {
+            console.log("Failed to update stocks from cart.", error);
+            return false;
+        }
+
+        clearProducts(true);
+        cancelTransaction();
+        return true;
+    };
 
     return (
         <PaymentContext.Provider value={{

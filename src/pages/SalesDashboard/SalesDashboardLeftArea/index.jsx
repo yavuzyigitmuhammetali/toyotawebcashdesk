@@ -50,6 +50,7 @@ function SalesDashboardLeftArea() {
                     favorite={product.isFavourite}
                     price={product.price}
                     stock={product.stock}
+                    fraction={product.fraction}
                 />
             </div>
         );
@@ -110,6 +111,7 @@ function SalesDashboardLeftArea() {
                             favorite={product.isFavourite}
                             price={product.price}
                             stock={product.stock}
+                            fraction={product.fraction}
                         />
                     ));
                 }

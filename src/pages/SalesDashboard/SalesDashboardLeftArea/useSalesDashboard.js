@@ -46,6 +46,10 @@ export const useSalesDashboard = () => {
     }, [_products, selectedMap.category, selectedMap.subcategory]);
 
     useEffect(() => {
+        setProducts(_products);
+    }, [_products]);
+
+    useEffect(() => {
         setSubCategories(filteredSubCategories);
         setProducts(filteredProducts);
         return () => clearValues();
@@ -74,11 +78,6 @@ export const useSalesDashboard = () => {
         setChangedValue(inputValue);
     }, [keyboardValue.barcodeArea, getProductsByBarcode, setChangedValue]);
 
-    useEffect(() => {
-        if (!products.length) {
-            setMap("categories");
-        }
-    }, [products]);
 
     return {
         categories,

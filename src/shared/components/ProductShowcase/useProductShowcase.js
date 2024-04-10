@@ -23,7 +23,7 @@ export function useProductShowcase({
 
     useEffect(() => {
         if (clearValues) clearValues();
-    }, [clearValues]);
+    }, []);
 
     useEffect(() => {
         setInputValue(value?.productSearch ?? '');
@@ -66,6 +66,7 @@ export function useProductShowcase({
                     favorite={product.isFavourite}
                     price={product.price}
                     stock={product.stock}
+                    fraction={product.fraction}
                 />
             </div>
         );

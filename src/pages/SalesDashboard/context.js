@@ -44,8 +44,8 @@ const CartProvider = ({children}) => {
     }, [totalQuantity, discounts]);
 
     React.useEffect(() => {
-        fetchProducts().then(() => {
-            setProducts(_products);
+        fetchProducts().then((data) => {
+            setProducts(data);
         })
         const salesDataString = sessionStorage.getItem('salesData')
         if (salesDataString) {
