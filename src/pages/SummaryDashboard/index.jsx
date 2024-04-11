@@ -172,14 +172,14 @@ function SummaryDashboard() {
                     <div>{t("salesSummary")}</div>
                     <hr/>
                     <ul>
-                        <li>{t("totalShoppingAmount")}: {summary.totalAmount}$</li>
-                        <li>{t("totalPriceWithoutDiscount")}: {summary.totalAmountWithoutDiscount}$</li>
-                        <li>{t("totalPaidAmount")}: {summary.totalPaid}$</li>
-                        <li>{t("totalChange")}: {summary.totalChange}$</li>
-                        <li>{t("totalTax")}: {summary.totalTax}$</li>
-                        <li>{t("totalAmountPaidInCash")}: {summary.totalAmountWithCard}$</li>
-                        <li>{t("totalAmountPaidWithCard")}: {summary.totalAmountWithCash}$</li>
-                        <li>{t("totalRefundedAmount")}: {-summary.totalPayback}$</li>
+                        <li>{t("totalShoppingAmount")}: {summary.totalAmount.toFixed(2)}$</li>
+                        <li>{t("totalPriceWithoutDiscount")}: {summary.totalAmountWithoutDiscount.toFixed(2)}$</li>
+                        <li>{t("totalPaidAmount")}: {summary.totalPaid.toFixed(2)}$</li>
+                        <li>{t("totalChange")}: {summary.totalChange.toFixed(2)}$</li>
+                        <li>{t("totalTax")}: {summary.totalTax.toFixed(2)}$</li>
+                        <li>{t("totalAmountPaidInCash")}: {summary.totalAmountWithCard.toFixed(2)}$</li>
+                        <li>{t("totalAmountPaidWithCard")}: {summary.totalAmountWithCash.toFixed(2)}$</li>
+                        <li>{t("totalRefundedAmount")}: {(-summary.totalPayback).toFixed(2)}$</li>
                     </ul>
                     <br/>
                     <hr/>
@@ -195,7 +195,7 @@ function SummaryDashboard() {
                         <li>{t("mostProfitableCategory")}: {findNameWithId(categories, summary.mostProfitableCategory)}</li>
                         <li>{t("mostProfitableSubCategory")}: {findNameWithId(subCategories, summary.mostProfitableSubCategory)}</li>
                         <li>{t("mostProfitableProduct")}: {findNameWithId(products, summary.mostProfitableProduct)}</li>
-                        <li>{t("mostRefundedProduct")}: {summary.mostRefundedProducts.refundedProducts.map(id => findNameWithId(products, id)).join(', ')} ({summary.mostRefundedProducts.quantity})
+                        <li>{t("mostRefundedProduct")}: {summary.mostRefundedProducts.refundedProducts.map(id => findNameWithId(products, id)).join(', ')} ({summary.mostRefundedProducts.quantity.toFixed(2)})
                         </li>
                         <li>{t("mostSoldHour")}: {summary.mostSoldHour}:00-{summary.mostSoldHour + 1}:00</li>
                         <li>{t("leastSoldHour")}: {summary.leastSoldHour}:00-{summary.leastSoldHour + 1}:00</li>
@@ -208,7 +208,7 @@ function SummaryDashboard() {
                      className="summary-dashboard-right-header">{t("outOfStockProducts")}</div>
                 <br/>
                 {products.filter(product => !product.stock).map((product, key) => <ProductCard key={key}
-                                                                                               price={product.price}
+                                                                                               price={product.price.toFixed(2)}
                                                                                                barcode={product.barcode}
                                                                                                favorite={product.isFavourite}
                                                                                                stock={product.stock}

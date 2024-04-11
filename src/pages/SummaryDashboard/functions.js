@@ -373,3 +373,4 @@ export function filterReceiptsByDate(_receipts, _filterType, _case = 1) {
 
     return _receipts.filter(receipt => receipt.case === _case && new Date(receipt.date) >= startDate && new Date(receipt.date) <= endDate);
 }
+
