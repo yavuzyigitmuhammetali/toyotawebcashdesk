@@ -15,10 +15,19 @@ import InventoryIcon from '@mui/icons-material/Inventory';
 import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
 import AddBusinessIcon from '@mui/icons-material/AddBusiness';
 import SummarizeIcon from '@mui/icons-material/Summarize';
+import KeyboardContext from '../../shared/components/ScreenKeyboard/context';
 
 function MainScreen() {
     const {isOnline, status, logOut, lang, dark} = React.useContext(AppStatusContext);
+    const {clearValues} = React.useContext(KeyboardContext);
     const {t} = useTranslation();
+
+    React.useEffect(() => {
+        return () => {
+            clearValues();
+        };
+    }, [clearValues]);
+
 
     return (<>
             <ThemeProvider theme={createTheme({palette: {mode: dark ? "dark" : "light"}})}>
@@ -52,7 +61,7 @@ function MainScreen() {
                     borderColor: dark ? "white" : "black"
                 }} className="main-screen-upper-left">
                     <div>{t('storeNo')}: {status.storeNumber}</div>
-                    <div>{t('cashRegisterNo')}: {status.case} (KASA {status.case})</div>
+                    <div>{t('cashRegisterNo')}: {status.case} ({t('register').toUpperCase()} {status.case})</div>
                     <div>{t('ipNo')}: {status.userIp}</div>
                     <div>{t('version')}: {status.version}</div>
                 </div>

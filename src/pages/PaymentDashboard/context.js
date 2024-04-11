@@ -53,7 +53,7 @@ const PaymentProvider = ({children}) => {
             console.log("Transaction validation failed: amountRemaining, paymentTransactions length, or subTotal is not valid.");
             return false;
         }
-
+    
         let products;
         try {
             products = await fetchProducts();
@@ -62,7 +62,7 @@ const PaymentProvider = ({children}) => {
             console.log("Failed to fetch products.", error);
             return false;
         }
-
+    
         for (const cartItem of cart) {
             const product = products.find(p => p.id === cartItem.id);
             if (!product || product.price !== cartItem.price || product.stock < cartItem.quantity) {
@@ -70,23 +70,26 @@ const PaymentProvider = ({children}) => {
                 return false;
             }
         }
-
+    
         let totalSpent = 0;
         for (const cartItem of cart) {
             const itemTotal = cartItem.discountedPrice !== 0 ? cartItem.discountedPrice * cartItem.quantity : cartItem.price * cartItem.quantity;
             totalSpent += itemTotal;
         }
-        if (totalSpent !== total) {
-            console.log(`Total spent (${totalSpent}) does not match amount cart (${total}).`);
+    
+        // Define a tolerance level for floating-point comparisons
+        const tolerance = 0.01;
+        if (Math.abs(totalSpent - total) > tolerance) {
+            console.log(`Total spent (${totalSpent}) does not match amount cart (${total}) within the acceptable tolerance.`);
             return false;
         }
-
+    
         const totalTransactions = paymentTransactions.reduce((total, transaction) => total + transaction.price, 0);
-        if (totalTransactions !== amountPaid) {
-            console.log(`Total transactions (${totalTransactions}) does not match amount paid (${amountPaid}).`);
+        if (Math.abs(totalTransactions - amountPaid) > tolerance) {
+            console.log(`Total transactions (${totalTransactions}) does not match amount paid (${amountPaid}) within the acceptable tolerance.`);
             return false;
         }
-
+    
         const receipt = {
             active: true,
             storeNumber: status.storeNumber,
@@ -101,7 +104,7 @@ const PaymentProvider = ({children}) => {
             transactions: paymentTransactions,
             refund: ""
         };
-
+    
         try {
             const value = await postTransaction(receipt);
             console.log("Transaction posted successfully.", value.data);
@@ -110,19 +113,18 @@ const PaymentProvider = ({children}) => {
             console.log("Failed to post transaction.", reason);
             return false;
         }
-
+    
         try {
             await updateStocksFromCart(receipt.cart);
         } catch (error) {
             console.log("Failed to update stocks from cart.", error);
             return false;
         }
-
+    
         clearProducts(true);
         cancelTransaction();
         return true;
     };
-
     return (
         <PaymentContext.Provider value={{
             total,

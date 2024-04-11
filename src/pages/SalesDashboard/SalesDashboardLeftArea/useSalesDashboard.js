@@ -10,7 +10,7 @@ export const useSalesDashboard = () => {
     } = useContext(CartContext);
     const {data} = useContext(NumericKeyboardContext);
     const {
-        handleElementFocus, value: keyboardValue, onChangeValue, clearValues, setChangedValue
+        handleElementFocus, value: keyboardValue, onChangeValue, setChangedValue
     } = useContext(KeyboardContext);
 
     const [map, setMap] = useState("categories");
@@ -29,10 +29,13 @@ export const useSalesDashboard = () => {
         const products = filterProductsByBarcode(_products, barcode);
         if (products.length === 1 && (data === products[0].barcode || barcode === products[0].barcode.toString())) {
             addToCart(products[0]);
+            setValue('');
+            setMap("categories");
         } else {
             return setProducts(products);
         }
-    }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [_products]);
 
     const filteredSubCategories = useMemo(() => {
         if (selectedMap.category) {
@@ -46,38 +49,37 @@ export const useSalesDashboard = () => {
     }, [_products, selectedMap.category, selectedMap.subcategory]);
 
     useEffect(() => {
-        setProducts(_products);
-    }, [_products]);
-
-    useEffect(() => {
+        console.log("Updating subcategories and products...");
         setSubCategories(filteredSubCategories);
         setProducts(filteredProducts);
-        return () => clearValues();
-    }, [filteredSubCategories, filteredProducts, clearValues]);
+    }, [filteredSubCategories, filteredProducts]);
 
     useEffect(() => {
         if (data) {
-            setValue(data);
-            getProductsByBarcode(data);
-            setMap("products");
-        } else {
-            setValue('');
-            setMap("categories");
+            setValue(data.toString());
         }
-    }, [data, getProductsByBarcode]);
+    }, [data]);
 
     useEffect(() => {
         const inputValue = keyboardValue.barcodeArea?.replace(/[^0-9]/g, '') ?? '';
-        if (inputValue) {
-            getProductsByBarcode(inputValue);
-            setMap("products");
-        } else {
-            setMap("categories");
-        }
         setValue(inputValue);
         setChangedValue(inputValue);
-    }, [keyboardValue.barcodeArea, getProductsByBarcode, setChangedValue]);
+    }, [keyboardValue.barcodeArea, setChangedValue]);
 
+    useEffect(() => {
+        if (!keyboardValue.barcodeArea) {
+            setMap("categories");
+            setProducts(_products);
+        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [keyboardValue.barcodeArea,data]);
+
+    useEffect(() => {
+        if(value.length){
+            setMap("products");
+            getProductsByBarcode(value);
+        }  
+    }, [value,getProductsByBarcode]);
 
     return {
         categories,
@@ -90,9 +92,9 @@ export const useSalesDashboard = () => {
         handleElementFocus,
         value,
         onChangeValue,
-        columnWidth: 113,
-        rowHeight: 127,
-        columnCount: Math.floor(window.innerWidth / 113 - 8),
-        rowCount: Math.ceil(products.length / Math.floor(window.innerWidth / 113 - 8)),
+        columnWidth: 112,
+        rowHeight: 120,
+        maxProductCount: 40
     };
 };
+

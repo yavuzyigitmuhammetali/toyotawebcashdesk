@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useState} from 'react';
 import "./productEntryPanel.css"
 import TextField from "@mui/material/TextField";
-import {Button, Checkbox, InputAdornment, InputLabel, MenuItem, Select} from "@mui/material";
+import {CircularProgress, Button, Checkbox, InputAdornment, InputLabel, MenuItem, Select} from "@mui/material";
 import ProductCard from "../../shared/components/ProductCard/ProductCard";
 import {Favorite, FavoriteBorder} from "@mui/icons-material";
 import KeyboardContext from "../../shared/components/ScreenKeyboard/context";
@@ -29,9 +29,10 @@ function ProductEntryPanel() {
     const [formData, setFormData] = useState(defaultProduct);
     const [subCategories, setSubCategories] = useState([]);
     const [valid, setValid] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
-        const isValid = formData.barcode !== 0 && formData.name !== '' && formData.price !== 0 && formData.categoryId !== 0 && formData.subCategoryId !== 0;
+        const isValid = formData.barcode >= 0 && formData.name !== '' && formData.price !== 0 && formData.categoryId !== 0 && formData.subCategoryId !== 0;
         setValid(isValid);
     }, [formData]);
 
@@ -100,18 +101,23 @@ function ProductEntryPanel() {
 
     const handleSendData = () => {
         if (valid) {
-            fetchProducts().then(() => {
+            setIsLoading(true);
+            fetchProducts().then((products) => {
                 const newId = products.length + 1;
                 setFormData((prevFormData) => ({
                     ...prevFormData,
                     id: newId,
-                    barcode: prevFormData.fraction ? 0 : generateBarcode(prevFormData.categoryId, prevFormData.subCategoryId, newId)
+                    barcode: generateBarcode(prevFormData.categoryId, prevFormData.subCategoryId, newId),
+                    fraction: prevFormData.fraction
                 }));
                 sendProduct(formData).then(value1 => {
                     navigate('/', {
                         replace: true,
                         state: {successMessage: t('productEntrySuccessMessage') + " ID: " + value1.data.id}
-                    })
+                    });
+                    setIsLoading(false);
+                }).catch(() => {
+                    setIsLoading(false);
                 });
             })
             clearValues();
@@ -126,7 +132,8 @@ function ProductEntryPanel() {
                 isFavourite: false,
                 image: '',
                 categoryId: 0,
-                subCategoryId: 0
+                subCategoryId: 0,
+                fraction: false
             })
         }
     }
@@ -229,10 +236,12 @@ function ProductEntryPanel() {
                                                                    key={item.id}>{item.name}</MenuItem>)}
                         </Select>
                     </div>
-                    <ResponsiveDialog language={lang} disabled={!valid} onConfirm={handleSendData}
+                    <ResponsiveDialog language={lang} disabled={!valid || isLoading} onConfirm={handleSendData}
                                       title={t('saveProduct')} text={t('saveProductConfirmation')}>
-                        <Button disabled={!valid} color={valid ? "success" : "error"} ref={enterRef}
-                                variant="outlined">{t('saveProduct')}</Button>
+                        <Button disabled={!valid || isLoading} color={valid ? "success" : "error"} ref={enterRef}
+                                variant="outlined">
+                            {isLoading ? <CircularProgress size={24} /> : t('saveProduct')}
+                        </Button>
                     </ResponsiveDialog>
 
                 </div>

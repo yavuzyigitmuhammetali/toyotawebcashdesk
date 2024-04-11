@@ -48,7 +48,7 @@ function ProductShowcase(props) {
                             height={window.innerHeight - 200}
                             rowCount={rowCount}
                             rowHeight={120}
-                            width={columnCount * 110}
+                            width={(columnCount * 110)+5}
                         >
                             {Cell}
                         </Grid>

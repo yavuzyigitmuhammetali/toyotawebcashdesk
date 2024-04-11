@@ -27,9 +27,11 @@ function SalesDashboardLeftArea() {
         onChangeValue,
         columnWidth,
         rowHeight,
-        columnCount,
-        rowCount,
+        maxProductCount
     } = useSalesDashboard();
+
+    const columnCount = Math.max(1, Math.floor(window.innerWidth / (columnWidth*3)));
+    const rowCount = Math.ceil(products.length / Math.max(1, Math.floor(window.innerWidth / (columnWidth*3))));
 
     const Cell = ({columnIndex, rowIndex, style}) => {
         const productIndex = rowIndex * columnCount + columnIndex;
@@ -39,7 +41,7 @@ function SalesDashboardLeftArea() {
         }
 
         return (
-            <div style={style}>
+            <div style={{...style, margin: 2}}>
                 <ProductCard
                     discountText={product.campaign}
                     onClick={() => addToCart(product)}
@@ -86,15 +88,15 @@ function SalesDashboardLeftArea() {
                     />
                 ));
             case "products":
-                if (products.length > 40) {
+                if (products.length > maxProductCount) {
                     return (
                         <Grid
                             columnCount={columnCount}
                             columnWidth={columnWidth}
-                            height={window.innerHeight - 200}
+                            height={rowHeight*4}
                             rowCount={rowCount}
                             rowHeight={rowHeight}
-                            width={window.innerWidth}
+                            width={(columnWidth*columnCount)+5}
                         >
                             {Cell}
                         </Grid>
@@ -106,6 +108,7 @@ function SalesDashboardLeftArea() {
                             onClick={() => addToCart(product)}
                             dark={dark}
                             name={product.name}
+                            discountText={product.campaign}
                             src={product.image}
                             barcode={product.barcode}
                             favorite={product.isFavourite}

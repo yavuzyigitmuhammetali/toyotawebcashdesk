@@ -12,8 +12,9 @@ export function useProductShowcase({
                                        language = 'en'
                                    }) {
     const [inputValue, setInputValue] = useState('');
-    const {handleElementFocus, value, onChangeValue, clearValues} = keyboardContext || {};
+    const {handleElementFocus, value, onChangeValue} = keyboardContext || {};
     const [map, setMap] = useState(1);
+    const withoutBarcode = useMemo(() => data.filter((item) => !item.barcode), [data]);
     const favourites = useMemo(() => data.filter((item) => item.isFavourite), [data]);
     const alphabeticalFilteredData = useMemo(() => filterDataByAlphabetGroups(data), [data]);
     const filteredByName = useMemo(
@@ -21,9 +22,6 @@ export function useProductShowcase({
         [data, value?.productSearch]
     );
 
-    useEffect(() => {
-        if (clearValues) clearValues();
-    }, []);
 
     useEffect(() => {
         setInputValue(value?.productSearch ?? '');
@@ -31,7 +29,7 @@ export function useProductShowcase({
 
     const t = translations[language] || translations.en;
 
-    const columnCount = Math.floor(window.innerWidth / 110 - 1);
+
     const currentData = useMemo(() => {
         switch (map) {
             case 0:
@@ -40,13 +38,15 @@ export function useProductShowcase({
                 return favourites;
             case 1:
                 return data;
+            case 11:
+                    return withoutBarcode;
             default:
                 return alphabeticalFilteredData[map - 3] || [];
         }
-    }, [map, data, favourites, filteredByName, alphabeticalFilteredData]);
+    }, [map, data, favourites, filteredByName, alphabeticalFilteredData, withoutBarcode]);
 
+    const columnCount = Math.floor((window.innerWidth / 110)-1);
     const rowCount = Math.ceil(currentData.length / columnCount);
-
     const Cell = ({columnIndex, rowIndex, style}) => {
         const productIndex = rowIndex * columnCount + columnIndex;
         const product = currentData[productIndex];
@@ -55,7 +55,7 @@ export function useProductShowcase({
         }
 
         return (
-            <div style={style}>
+            <div style={{...style, margin: 2}}>
                 <ProductCard
                     discountText={product.campaign}
                     onClick={() => onClick(product)}
