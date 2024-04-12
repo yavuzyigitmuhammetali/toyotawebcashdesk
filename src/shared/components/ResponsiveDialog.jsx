@@ -60,7 +60,6 @@ export default function ResponsiveDialog({
             </div>
             {!disabled && (
                 <Dialog
-                    fullScreen={fullScreen}
                     open={open}
                     onClose={handleClose}
                     aria-labelledby="responsive-dialog-title"

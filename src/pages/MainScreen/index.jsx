@@ -3,7 +3,6 @@ import "./mainScreen.css"
 import OnlineOfflineIndicator from "../../shared/components/OnlineOfflineIndicator";
 import LogoutIcon from '@mui/icons-material/Logout';
 import {IconButton} from "@mui/material";
-import {createTheme, ThemeProvider} from "@mui/material/styles";
 import AlertComponent from "../../shared/components/AlertComponent";
 import AppStatusContext from "../../shared/state/AppStatus/context";
 import SettingsDashboard from "./components/SettingsDashboard/SettingsDashboard";
@@ -30,7 +29,6 @@ function MainScreen() {
 
 
     return (<>
-            <ThemeProvider theme={createTheme({palette: {mode: dark ? "dark" : "light"}})}>
                 <AlertComponent/>
                 <div style={{backgroundColor: dark ? "#111418" : "#F8FAFB"}} className="main-screen-container">
                     <div className="main-screen-active-area">
@@ -73,7 +71,6 @@ function MainScreen() {
                         <LogoutIcon/>
                     </IconButton>
                 </div>
-            </ThemeProvider>
         </>
 
     );

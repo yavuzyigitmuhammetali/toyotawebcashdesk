@@ -3,7 +3,6 @@ import "./refundDashboard.css"
 import ShoppingCartItem from "../../shared/components/ShoppingCartItem/ShoppingCartItem";
 import {Button, CircularProgress} from "@mui/material";
 import ResponsiveDialog from "../../shared/components/ResponsiveDialog";
-import {createTheme, ThemeProvider} from "@mui/material/styles";
 import FormDialog from "../../shared/components/FormDialog";
 import {defaultReceipt} from "../../shared/state/AppData/defaultData";
 import {useNavigate} from "react-router-dom";
@@ -52,7 +51,7 @@ function RefundDashboard() {
 
 
     const handleOnApproved = () => {
-        setLoading(true); // Start loading
+        setLoading(true); 
         setReceipt(prevState => {
             const {receiptNumber, ...rest} = prevState;
             const res = {
@@ -73,14 +72,14 @@ function RefundDashboard() {
             inactivateReceipt(receiptNumber).then(() => {
                 postReceipt(res).then(value => {
                     navigate('/receipt/' + value.data.receiptNumber, {replace: true, state: {receipt: value.data}});
-                    setLoading(false); // Stop loading on success
+                    setLoading(false);
                 }).catch(reason => {
                     console.log(reason);
-                    setLoading(false); // Stop loading on failure
+                    setLoading(false);
                 })
             }).catch(reason => {
                 console.log(reason);
-                setLoading(false); // Ensure loading is stopped if inactivateReceipt fails
+                setLoading(false);
             })
             return res;
         })
@@ -192,7 +191,6 @@ function RefundDashboard() {
     }
 
     return (<>
-        <ThemeProvider theme={createTheme({palette: {mode: dark ? "dark" : "light"}})}>
             <FormDialog language={lang} ScreenKeyboardComponent={ScreenKeyboard} keyboardContext={keyboardContext}
                         func={checkReceipt} errorText={error} onClose={onFormDialogClose}
                         label={t('refundReceiptNumber')}
@@ -265,7 +263,6 @@ function RefundDashboard() {
                     <div>{t('refundTotal')}: {total}</div>
                 </div>
             </div>
-        </ThemeProvider>
     </>);
 }
 

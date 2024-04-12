@@ -49,7 +49,6 @@ export const useSalesDashboard = () => {
     }, [_products, selectedMap.category, selectedMap.subcategory]);
 
     useEffect(() => {
-        console.log("Updating subcategories and products...");
         setSubCategories(filteredSubCategories);
         setProducts(filteredProducts);
     }, [filteredSubCategories, filteredProducts]);

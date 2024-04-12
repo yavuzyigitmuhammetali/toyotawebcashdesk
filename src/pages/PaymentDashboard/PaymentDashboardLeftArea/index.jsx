@@ -19,8 +19,11 @@ function PaymentDashboardLeftArea() {
         if (!email || email.length === 0) {
             return false;
         }
-        setEmail(email);
-        return regex.test(email);
+        if (regex.test(email)) {
+            setEmail(email);
+            return true;
+        }
+        return false;
     }
 
     return (
@@ -30,7 +33,7 @@ function PaymentDashboardLeftArea() {
                 <DigitalArea dark={dark} totalPrice={total} data={paymentTransactions}/>
             </div>
             <div>
-                <FormDialog language={lang} disabled={!total || email} style={{width: "100%"}} buttonName={t('eInvoice')}
+                <FormDialog language={lang} disabled={!total || email.length > 0} style={{width: "100%"}} buttonName={t('eInvoice')}
                             func={isValidEmail}
                             label={t('customerEmail')}
                             errorText={t('invalidEmailError')}

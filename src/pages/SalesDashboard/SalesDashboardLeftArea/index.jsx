@@ -1,5 +1,4 @@
 import React, {useContext} from 'react';
-import {createTheme, ThemeProvider} from "@mui/material/styles";
 import TextField from "@mui/material/TextField";
 import {Button, IconButton, InputAdornment} from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
@@ -125,7 +124,6 @@ function SalesDashboardLeftArea() {
 
     return (
         <div className={`left-container ${dark ? "dark-theme" : ""}`}>
-            <ThemeProvider theme={createTheme({palette: {mode: dark ? "dark" : "light"}})}>
                 <div className="left-one">
                     <TextField
                         id="barcodeArea"
@@ -163,7 +161,6 @@ function SalesDashboardLeftArea() {
                         {renderContent()}
                     </div>
                 </div>
-            </ThemeProvider>
         </div>
     );
 }

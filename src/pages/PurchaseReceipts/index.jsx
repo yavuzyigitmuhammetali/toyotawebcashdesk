@@ -44,7 +44,6 @@ function PurchaseReceipts() {
 
     return (
         <div className="purchase-receipts-container">
-            <ThemeProvider theme={createTheme({palette: {mode: dark ? "dark" : "light"}})}>
                 <div style={{position: 'relative'}}>
                     {loading && (
                         <div
@@ -124,7 +123,6 @@ function PurchaseReceipts() {
                         </Table>
                     </TableContainer>
                 </div>
-            </ThemeProvider>
         </div>
     );
 }

@@ -1,6 +1,5 @@
 import React, {useCallback, useContext, useEffect, useState} from "react";
 import ProductShowcase from "../../shared/components/ProductShowcase/ProductShowcase";
-import {createTheme, ThemeProvider} from "@mui/material/styles";
 import {Outlet, useNavigate} from "react-router-dom";
 import AppDataContext from "../../shared/state/AppData/context";
 import ScreenKeyboard from "../../shared/components/ScreenKeyboard/ScreenKeyboard";
@@ -32,7 +31,7 @@ function ProductsDashboard() {
     );
 
     return (
-        <ThemeProvider theme={createTheme({palette: {mode: dark ? "dark" : "light"}})}>
+
             <div className="main-wrapper">
                 {loading ? (
                     <div className="loading-container">
@@ -57,7 +56,7 @@ function ProductsDashboard() {
                     </>
                 )}
             </div>
-        </ThemeProvider>
+
     );
 }
 

@@ -67,7 +67,6 @@ function PaymentDashboardRightArea() {
     };
 
     return (
-        <ThemeProvider theme={createTheme({palette: {mode: dark ? "dark" : "light"}})}>
             <div style={dark ? {backgroundColor: "#121418", borderColor: "white"} : {}}
                  className="payment-dashboard-right-area-container">
                 <div className="payment-dashboard-right-area-operator">
@@ -107,7 +106,6 @@ function PaymentDashboardRightArea() {
                 </div>
 
             </div>
-        </ThemeProvider>
     );
 }
 

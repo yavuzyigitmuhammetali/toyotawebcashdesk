@@ -7,7 +7,6 @@ import AppStatusContext from "../../../../shared/state/AppStatus/context";
 import {Link, Outlet, useLocation, useParams} from "react-router-dom";
 import SettingsDashboard from "../SettingsDashboard/SettingsDashboard";
 import {useTranslation} from "react-i18next";
-import {createTheme, ThemeProvider} from "@mui/material/styles";
 
 function MainContainer() {
     const {status, isOnline, lang, dark} = useContext(AppStatusContext);
@@ -71,7 +70,6 @@ function MainContainer() {
             }
     }
     return (
-        <ThemeProvider theme={createTheme({palette: {mode: dark ? "dark" : "light"}})}>
             <div style={{color: dark ? "white" : "black", backgroundColor: dark ? "rgb(17, 20, 24)" : "white"}}
                  className="main-container-body">
                 <header style={{backgroundColor: dark && "rgb(28, 31, 37)"}} className="main-container-header">
@@ -99,7 +97,6 @@ function MainContainer() {
                     </div>
                 </footer>
             </div>
-        </ThemeProvider>
     );
 }
 

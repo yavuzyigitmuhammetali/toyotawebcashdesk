@@ -10,7 +10,6 @@ import PrintIcon from "@mui/icons-material/Print";
 import LanguageIcon from "@mui/icons-material/Translate";
 import {useNavigate} from "react-router-dom";
 import {useTranslation} from "react-i18next";
-import {createTheme, ThemeProvider} from "@mui/material/styles";
 
 function SettingsDashboard() {
     const {dark, changeDark, lang, changeLang} = useContext(AppStatusContext);
@@ -20,7 +19,6 @@ function SettingsDashboard() {
 
     const toggleSettings = () => setShowSettings(!showSettings);
     return (
-        <ThemeProvider theme={createTheme({palette: {mode: dark ? "dark" : "light"}})}>
             <>
                 <IconButton
                     style={{zIndex: "9999"}}
@@ -87,7 +85,6 @@ function SettingsDashboard() {
                     </div>
                 )}
             </>
-        </ThemeProvider>
 
     );
 }

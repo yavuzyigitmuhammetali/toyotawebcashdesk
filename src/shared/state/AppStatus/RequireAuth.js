@@ -2,9 +2,10 @@ import React from 'react';
 import AppStatusContext from "./context";
 import {Navigate, Outlet, useLocation, useNavigate} from "react-router-dom";
 import OfflineErrorPage from "../../../pages/OfflineErrorPage";
+import {createTheme, ThemeProvider} from "@mui/material/styles";
 
 export default function RequireAuth() {
-    const {isLoggedIn, isOnline} = React.useContext(AppStatusContext);
+    const {isLoggedIn, isOnline, dark} = React.useContext(AppStatusContext);
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -19,10 +20,10 @@ export default function RequireAuth() {
         return (<OfflineErrorPage/>)
     } else {
         return (
-            <>
+            <ThemeProvider theme={createTheme({palette: {mode: dark ? "dark" : "light"}})}>
                 {!isLoggedIn && isOnline && location.pathname !== '/login' ? <Navigate to="/login"/> : <></>}
                 <Outlet/>
-            </>
+            </ThemeProvider>
 
         )
     }

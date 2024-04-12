@@ -139,7 +139,6 @@ function ProductEntryPanel() {
     }
 
     return (
-        <ThemeProvider theme={createTheme({palette: {mode: dark ? "dark" : "light"}})}>
             <div style={{backgroundColor: dark ? "#131922" : " #F8FAFB", color: dark ? "white" : "black"}}
                  className="product-entry-panel-container">
                 <div className="product-entry-panel-left-area">
@@ -246,7 +245,7 @@ function ProductEntryPanel() {
 
                 </div>
             </div>
-        </ThemeProvider>);
+);
 }
 
 
