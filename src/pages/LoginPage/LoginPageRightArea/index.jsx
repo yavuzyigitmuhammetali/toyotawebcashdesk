@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useContext} from "react";
 import TextField from "@mui/material/TextField";
 import {
     Alert,
@@ -15,24 +15,24 @@ import "./loginPageRightArea.css";
 import ScreenKeyboard from "../../../shared/components/ScreenKeyboard/ScreenKeyboard";
 import {Visibility, VisibilityOff} from "@mui/icons-material";
 import {useLoginPageRightArea} from "./useLoginPageRightArea";
+import KeyboardContext from "../../../shared/components/ScreenKeyboard/context";
+import AppStatusContext from "../../../shared/state/AppStatus/context";
+import {useTranslation} from "react-i18next";
 
 function LoginPageRightArea() {
+    const {handleElementFocus, value, onChangeValue, enterRef} = useContext(KeyboardContext);
+    const {loginFunction, lang, dark} = useContext(AppStatusContext);
+    const {t} = useTranslation();
     const {
         error,
         showPassword,
         loginData,
         buttonState,
         loading,
-        handleElementFocus,
-        onChangeValue,
-        enterRef,
         handleClickShowPassword,
         handleMouseDownPassword,
-        handleLogin,
-        t,
-        lang,
-        dark
-    } = useLoginPageRightArea();
+        handleLogin
+    } = useLoginPageRightArea(value, t, loginFunction);
 
     return (
         <div

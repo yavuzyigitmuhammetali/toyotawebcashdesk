@@ -2,15 +2,16 @@ import React, {useEffect, useState} from 'react';
 import {Box, Button, CssBaseline, Typography} from '@mui/material';
 import {ThemeProvider} from '@mui/material/styles';
 import ScheduleTable from './components/ScheduleTable';
-import {getTheme} from './theme';
 import CountdownTimer from "./components/CountdownTimer";
-import AppStatusContext from "../../shared/state/AppStatus/context";
 import OnlineOfflineIndicator from "../../shared/components/OnlineOfflineIndicator";
+import AppStatusContext from "../../shared/state/AppStatus/context";
+import {getTheme} from "./theme";
 import {useTranslation} from "react-i18next";
 
 const OfflineErrorPage = () => {
     const {status, isOnline, lang, dark} = React.useContext(AppStatusContext);
     const theme = getTheme(dark ? "dark" : "light");
+    const {t} = useTranslation();
     const [schedule, setSchedule] = useState(
         {
             "Monday": null,
@@ -21,15 +22,12 @@ const OfflineErrorPage = () => {
             "Saturday": null,
             "Sunday": null
         })
-    const {t} = useTranslation();
 
     useEffect(() => {
         if (status && status.schedule) {
             setSchedule(status.schedule);
         }
     }, [status]);
-
-
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline/>

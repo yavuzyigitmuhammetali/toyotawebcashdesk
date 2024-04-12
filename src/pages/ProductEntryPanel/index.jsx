@@ -1,251 +1,142 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext} from 'react';
 import "./productEntryPanel.css"
 import TextField from "@mui/material/TextField";
-import {CircularProgress, Button, Checkbox, InputAdornment, InputLabel, MenuItem, Select} from "@mui/material";
+import {Button, Checkbox, CircularProgress, InputAdornment, InputLabel, MenuItem, Select} from "@mui/material";
 import ProductCard from "../../shared/components/ProductCard/ProductCard";
 import {Favorite, FavoriteBorder} from "@mui/icons-material";
-import KeyboardContext from "../../shared/components/ScreenKeyboard/context";
 import ScreenKeyboard from "../../shared/components/ScreenKeyboard/ScreenKeyboard";
-import {createTheme, ThemeProvider} from "@mui/material/styles";
-import {sendProduct} from "./api";
 import ResponsiveDialog from "../../shared/components/ResponsiveDialog";
-import AppDataContext from "../../shared/state/AppData/context";
-import {generateBarcode} from "./functions";
-import {defaultProduct} from "../../shared/state/AppData/defaultData";
-import {useNavigate} from "react-router-dom";
 import QrCodeIcon from '@mui/icons-material/QrCode';
 import DialpadIcon from '@mui/icons-material/Dialpad';
-import {useTranslation} from 'react-i18next';
+import {useProductEntryPanel} from "./useProductEntryPanel";
 import AppStatusContext from "../../shared/state/AppStatus/context";
+import {useTranslation} from "react-i18next";
+import KeyboardContext from "../../shared/components/ScreenKeyboard/context";
 
 
 function ProductEntryPanel() {
     const {lang, dark} = useContext(AppStatusContext);
-    const navigate = useNavigate();
     const {t} = useTranslation();
     const {handleElementFocus, value, onChangeValue, enterRef, clearValues} = useContext(KeyboardContext);
-    const {categories, subCategories: _subCategories, products, fetchProducts} = useContext(AppDataContext);
-
-    const [formData, setFormData] = useState(defaultProduct);
-    const [subCategories, setSubCategories] = useState([]);
-    const [valid, setValid] = useState(false);
-    const [isLoading, setIsLoading] = useState(false);
-
-    useEffect(() => {
-        const isValid = formData.barcode >= 0 && formData.name !== '' && formData.price !== 0 && formData.categoryId !== 0 && formData.subCategoryId !== 0;
-        setValid(isValid);
-    }, [formData]);
-
-
-    useEffect(() => {
-        if (formData.categoryId !== 0) {
-            setSubCategories(_subCategories.filter((r) => r.categoryId === formData.categoryId))
-        }
-    }, [formData.categoryId]);
-
-    useEffect(() => {
-        const newId = products.length + 1;
-        setFormData((prevFormData) => ({
-            ...prevFormData,
-            id: newId,
-            barcode: generateBarcode(prevFormData.categoryId, prevFormData.subCategoryId, newId)
-        }));
-
-        return () => {
-            clearValues();
-        }
-    }, []);
-
-
-    useEffect(() => {
-        setFormData((prevFormData) => {
-            return {
-                ...prevFormData,
-                name: value.name ? value.name : "",
-                stock: value.stock && value.stock >= 0 ? parseInt(value.stock) : 0,
-                price: value.price && value.price > 0 ? parseFloat(value.price) : 0,
-                tax: value.tax && value.tax >= 0 && value.tax <= 100 ? parseInt(value.tax) : 0,
-                image: value.image ? value.image : "",
-            };
-        });
-    }, [value]);
-
-
-    const handleInputChange = (event) => {
-        const {name, value} = event.target;
-
-        setFormData((prevFormData) => {
-            const updatedFormData = {
-                ...prevFormData, [name]: value
-            };
-            if (name === 'categoryId' || name === 'subCategoryId') {
-                updatedFormData.barcode = formData.barcode && generateBarcode(updatedFormData.categoryId, updatedFormData.subCategoryId, updatedFormData.id);
-            }
-            return updatedFormData;
-        });
-    };
-
-    const handleCheckboxChange = (event) => {
-        const {name, checked} = event.target;
-        if (name === "barcode") {
-            setFormData({
-                ...formData, [name]: checked ? 0 : 16000
-            });
-        } else {
-            setFormData({
-                ...formData, [name]: checked
-            });
-        }
-
-    };
-
-    const handleSendData = () => {
-        if (valid) {
-            setIsLoading(true);
-            fetchProducts().then((products) => {
-                const newId = products.length + 1;
-                setFormData((prevFormData) => ({
-                    ...prevFormData,
-                    id: newId,
-                    barcode: generateBarcode(prevFormData.categoryId, prevFormData.subCategoryId, newId),
-                    fraction: prevFormData.fraction
-                }));
-                sendProduct(formData).then(value1 => {
-                    navigate('/', {
-                        replace: true,
-                        state: {successMessage: t('productEntrySuccessMessage') + " ID: " + value1.data.id}
-                    });
-                    setIsLoading(false);
-                }).catch(() => {
-                    setIsLoading(false);
-                });
-            })
-            clearValues();
-            setFormData({
-                id: null,
-                barcode: '',
-                name: '',
-                stock: 0,
-                price: 0,
-                tax: 0,
-                campaign: '',
-                isFavourite: false,
-                image: '',
-                categoryId: 0,
-                subCategoryId: 0,
-                fraction: false
-            })
-        }
-    }
+    const {
+        categories,
+        formData,
+        subCategories,
+        valid,
+        isLoading,
+        handleInputChange,
+        handleCheckboxChange,
+        handleSendData
+    } = useProductEntryPanel(t, value, clearValues);
 
     return (
-            <div style={{backgroundColor: dark ? "#131922" : " #F8FAFB", color: dark ? "white" : "black"}}
-                 className="product-entry-panel-container">
-                <div className="product-entry-panel-left-area">
-                    <ProductCard style={{width: "50%", fontSize: "20px", borderWidth: "3px"}}
-                                 name={formData.name}
-                                 stock={formData.stock}
-                                 discountText={formData.campaign}
-                                 dark={dark}
-                                 price={formData.price}
-                                 fraction={formData.fraction}
-                                 src={formData.image} barcode={formData.barcode} favorite={formData.isFavourite}/>
-                    <div>
-                        <span>{t('addToFavorites')}</span>
-                        <Checkbox style={{alignSelf: "flex-start"}} color="success" checked={formData.isFavourite}
-                                  icon={<FavoriteBorder color="error"/>}
-                                  checkedIcon={<Favorite color="success"/>} onChange={handleCheckboxChange}
-                                  name="isFavourite"/>
-                    </div>
-                    <div>
-                        <span>{t('productWithoutBarcode')}</span>
-                        <Checkbox style={{alignSelf: "flex-start"}} color="success" checked={!formData.barcode}
-                                  icon={<QrCodeIcon color="error"/>}
-                                  checkedIcon={<QrCodeIcon color="success"/>} onChange={handleCheckboxChange}
-                                  name="barcode"/>
-                    </div>
-                    <div>
-                        <span>{t('sellByWeight')}</span>
-                        <Checkbox style={{alignSelf: "flex-start"}} color="success" checked={formData.fraction}
-                                  icon={<DialpadIcon color="error"/>}
-                                  checkedIcon={<DialpadIcon color="success"/>} onChange={handleCheckboxChange}
-                                  name="fraction"/>
-                    </div>
-                    <div><ScreenKeyboard language={lang} dark={dark}/></div>
-
+        <div style={{backgroundColor: dark ? "#131922" : " #F8FAFB", color: dark ? "white" : "black"}}
+             className="product-entry-panel-container">
+            <div className="product-entry-panel-left-area">
+                <ProductCard style={{width: "50%", fontSize: "20px", borderWidth: "3px"}}
+                             name={formData.name}
+                             stock={formData.stock}
+                             discountText={formData.campaign}
+                             dark={dark}
+                             price={formData.price}
+                             fraction={formData.fraction}
+                             src={formData.image} barcode={formData.barcode} favorite={formData.isFavourite}/>
+                <div>
+                    <span>{t('addToFavorites')}</span>
+                    <Checkbox style={{alignSelf: "flex-start"}} color="success" checked={formData.isFavourite}
+                              icon={<FavoriteBorder color="error"/>}
+                              checkedIcon={<Favorite color="success"/>} onChange={handleCheckboxChange}
+                              name="isFavourite"/>
                 </div>
-
-                <div className="product-entry-panel-right-area">
-                    <TextField onFocus={handleElementFocus} id="name" required label={t('productName')}
-                               variant="outlined"
-                               name="name"
-                               value={formData.name} onChange={onChangeValue}/>
-                    <TextField onFocus={handleElementFocus} id="stock" label={t('stockQuantity')} variant="outlined"
-                               type="number"
-                               name="stock" value={formData.stock} onChange={onChangeValue}/>
-                    <TextField onFocus={handleElementFocus} id="price" required label={t('productPrice')}
-                               variant="outlined"
-                               type="number"
-                               name="price" value={formData.price} onChange={onChangeValue}/>
-                    <TextField onFocus={handleElementFocus} id="tax" InputProps={{
-                        startAdornment: <InputAdornment position="start">%</InputAdornment>,
-                    }} label={t('taxPercentage')} variant="outlined" type="number" name="tax"
-                               value={formData.tax} onChange={onChangeValue}/>
-                    <TextField onFocus={handleElementFocus} id="image" label={t('productImageURL')} variant="outlined"
-                               type="url"
-                               name="image"
-                               value={formData.image} onChange={onChangeValue}/>
-                    <div>
-                        <InputLabel id="demo-simple-select-label">{t('campaigns')}</InputLabel>
-                        <Select
-                            labelId="demo-simple-select-label"
-                            id="demo-simple-select"
-                            value={formData.campaign}
-                            onChange={handleInputChange}
-                            name="campaign"
-                        >
-                            <MenuItem value="">-</MenuItem>
-                            <MenuItem value="buy3pay2">buy3pay2</MenuItem>
-                            <MenuItem value="-20%">-20%</MenuItem>
-                            <MenuItem value="studentTaxFree">studentTaxFree</MenuItem>
-                        </Select>
-                    </div>
-                    <div>
-                        <InputLabel required id="demo-simple-select-label">{t('category')}</InputLabel>
-                        <Select
-                            labelId="demo-simple-select-label"
-                            id="demo-simple-select"
-                            value={formData.categoryId}
-                            onChange={handleInputChange}
-                            name="categoryId"
-                        >
-                            {categories.map((item) => <MenuItem key={item.id} value={item.id}>{item.name}</MenuItem>)}
-                        </Select>
-                    </div>
-                    <div>
-                        <InputLabel required id="demo-simple-select-label">{t('subCategory')}</InputLabel>
-                        <Select
-                            labelId="demo-simple-select-label"
-                            id="demo-simple-select"
-                            value={formData.subCategoryId}
-                            onChange={handleInputChange}
-                            name="subCategoryId"
-                        >
-                            {subCategories.map((item) => <MenuItem value={item.id}
-                                                                   key={item.id}>{item.name}</MenuItem>)}
-                        </Select>
-                    </div>
-                    <ResponsiveDialog language={lang} disabled={!valid || isLoading} onConfirm={handleSendData}
-                                      title={t('saveProduct')} text={t('saveProductConfirmation')}>
-                        <Button disabled={!valid || isLoading} color={valid ? "success" : "error"} ref={enterRef}
-                                variant="outlined">
-                            {isLoading ? <CircularProgress size={24} /> : t('saveProduct')}
-                        </Button>
-                    </ResponsiveDialog>
-
+                <div>
+                    <span>{t('productWithoutBarcode')}</span>
+                    <Checkbox style={{alignSelf: "flex-start"}} color="success" checked={!formData.barcode}
+                              icon={<QrCodeIcon color="error"/>}
+                              checkedIcon={<QrCodeIcon color="success"/>} onChange={handleCheckboxChange}
+                              name="barcode"/>
                 </div>
+                <div>
+                    <span>{t('sellByWeight')}</span>
+                    <Checkbox style={{alignSelf: "flex-start"}} color="success" checked={formData.fraction}
+                              icon={<DialpadIcon color="error"/>}
+                              checkedIcon={<DialpadIcon color="success"/>} onChange={handleCheckboxChange}
+                              name="fraction"/>
+                </div>
+                <div><ScreenKeyboard language={lang} dark={dark}/></div>
+
             </div>
-);
+
+            <div className="product-entry-panel-right-area">
+                <TextField onFocus={handleElementFocus} id="name" required label={t('productName')}
+                           variant="outlined"
+                           name="name"
+                           value={formData.name} onChange={onChangeValue}/>
+                <TextField onFocus={handleElementFocus} id="stock" label={t('stockQuantity')} variant="outlined"
+                           type="number"
+                           name="stock" value={formData.stock} onChange={onChangeValue}/>
+                <TextField onFocus={handleElementFocus} id="price" required label={t('productPrice')}
+                           variant="outlined"
+                           type="number"
+                           name="price" value={formData.price} onChange={onChangeValue}/>
+                <TextField onFocus={handleElementFocus} id="tax" InputProps={{
+                    startAdornment: <InputAdornment position="start">%</InputAdornment>,
+                }} label={t('taxPercentage')} variant="outlined" type="number" name="tax"
+                           value={formData.tax} onChange={onChangeValue}/>
+                <TextField onFocus={handleElementFocus} id="image" label={t('productImageURL')} variant="outlined"
+                           type="url"
+                           name="image"
+                           value={formData.image} onChange={onChangeValue}/>
+                <div>
+                    <InputLabel id="demo-simple-select-label">{t('campaigns')}</InputLabel>
+                    <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        value={formData.campaign}
+                        onChange={handleInputChange}
+                        name="campaign"
+                    >
+                        <MenuItem value="">-</MenuItem>
+                        <MenuItem value="buy3pay2">buy3pay2</MenuItem>
+                        <MenuItem value="-20%">-20%</MenuItem>
+                        <MenuItem value="studentTaxFree">studentTaxFree</MenuItem>
+                    </Select>
+                </div>
+                <div>
+                    <InputLabel required id="demo-simple-select-label">{t('category')}</InputLabel>
+                    <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        value={formData.categoryId}
+                        onChange={handleInputChange}
+                        name="categoryId"
+                    >
+                        {categories.map((item) => <MenuItem key={item.id} value={item.id}>{item.name}</MenuItem>)}
+                    </Select>
+                </div>
+                <div>
+                    <InputLabel required id="demo-simple-select-label">{t('subCategory')}</InputLabel>
+                    <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        value={formData.subCategoryId}
+                        onChange={handleInputChange}
+                        name="subCategoryId"
+                    >
+                        {subCategories.map((item) => <MenuItem value={item.id}
+                                                               key={item.id}>{item.name}</MenuItem>)}
+                    </Select>
+                </div>
+                <ResponsiveDialog language={lang} disabled={!valid || isLoading} onConfirm={handleSendData}
+                                  title={t('saveProduct')} text={t('saveProductConfirmation')}>
+                    <Button disabled={!valid || isLoading} color={valid ? "success" : "error"} ref={enterRef}
+                            variant="outlined">
+                        {isLoading ? <CircularProgress size={24}/> : t('saveProduct')}
+                    </Button>
+                </ResponsiveDialog>
+
+            </div>
+        </div>
+    );
 }
 
 

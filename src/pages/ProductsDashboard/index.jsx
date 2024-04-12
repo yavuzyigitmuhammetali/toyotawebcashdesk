@@ -32,30 +32,30 @@ function ProductsDashboard() {
 
     return (
 
-            <div className="main-wrapper">
-                {loading ? (
-                    <div className="loading-container">
-                        <CircularProgress/>
+        <div className="main-wrapper">
+            {loading ? (
+                <div className="loading-container">
+                    <CircularProgress/>
+                </div>
+            ) : (
+                <>
+                    <div className="product-showcase-wrapper">
+                        <ProductShowcase
+                            language={lang}
+                            ScreenKeyboardComponent={ScreenKeyboard}
+                            keyboardContext={keyboardContext}
+                            dark={dark}
+                            data={products}
+                            onClick={onProductShowcaseClick}
+                        />
                     </div>
-                ) : (
-                    <>
-                        <div className="product-showcase-wrapper">
-                            <ProductShowcase
-                                language={lang}
-                                ScreenKeyboardComponent={ScreenKeyboard}
-                                keyboardContext={keyboardContext}
-                                dark={dark}
-                                data={products}
-                                onClick={onProductShowcaseClick}
-                            />
-                        </div>
-                        <div
-                            className="centered-container"
-                        ></div>
-                        <Outlet/>
-                    </>
-                )}
-            </div>
+                    <div
+                        className="centered-container"
+                    ></div>
+                    <Outlet/>
+                </>
+            )}
+        </div>
 
     );
 }

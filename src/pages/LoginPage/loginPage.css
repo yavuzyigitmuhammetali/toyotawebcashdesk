@@ -10,6 +10,7 @@
     justify-content: center;
     gap: 0;
     animation: reduceGap 1s ease-in-out forwards;
+    will-change: gap;
 }
 
 @keyframes reduceGap {
@@ -19,10 +20,4 @@
     to {
         gap: 0;
     }
-}
-
-.login-page-left-area {
-}
-
-.login-page-right-area {
 }

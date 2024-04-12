@@ -6,11 +6,11 @@ import PaymentDashboard from "../pages/PaymentDashboard";
 import ResponsiveReceipt from "../pages/ResponsiveReceipt";
 import RefundDashboard from "../pages/RefundDashboard";
 import PurchaseReceipts from "../pages/PurchaseReceipts";
-import MainContainer from "../pages/MainScreen/components/MainContainer/MainContainer";
+import MainContainer from "../pages/MainContainer";
 import ProductsDashboard from "../pages/ProductsDashboard";
 import ProductEditor from "../pages/ProductsDashboard/components/ProductEditor/ProductEditor";
 import ProductEntryPanel from "../pages/ProductEntryPanel";
-import RequireAuth from "../shared/state/AppStatus/RequireAuth";
+import RequireAuth from "./RequireAuth";
 import SummaryDashboard from "../pages/SummaryDashboard";
 
 

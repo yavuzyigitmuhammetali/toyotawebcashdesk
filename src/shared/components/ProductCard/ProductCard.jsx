@@ -63,7 +63,7 @@ const ProductCard = React.memo((props) => {
                     {discount && <span className="product-card-discount">{discount}$</span>}
                 </>
             )}
-            {(stock>=0 && !category) && (
+            {(stock >= 0 && !category) && (
                 <div className={`product-card-stock ${stock < 10 ? "text-red" : dark ? "text-white" : "text-dark"}`}>
                     {fraction ? parseFloat(stock).toFixed(2) : stock}{fraction ? "lbs." : "pcs."}
                 </div>

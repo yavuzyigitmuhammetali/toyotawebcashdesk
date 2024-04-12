@@ -5,7 +5,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import {IconButton} from "@mui/material";
 import AlertComponent from "../../shared/components/AlertComponent";
 import AppStatusContext from "../../shared/state/AppStatus/context";
-import SettingsDashboard from "./components/SettingsDashboard/SettingsDashboard";
+import SettingsDashboard from "../SettingsDashboard";
 import MainScreenItem from "./components/MainScreenItem/MainScreenItem";
 import {useTranslation} from 'react-i18next';
 import StorefrontIcon from '@mui/icons-material/Storefront';
@@ -29,48 +29,48 @@ function MainScreen() {
 
 
     return (<>
-                <AlertComponent/>
-                <div style={{backgroundColor: dark ? "#111418" : "#F8FAFB"}} className="main-screen-container">
-                    <div className="main-screen-active-area">
-                        <div className="main-screen-sides">
-                            <MainScreenItem to={"/order/create"} dark={dark}
-                                            customIcon={StorefrontIcon}>{t('orderCreation')}</MainScreenItem>
-                            <MainScreenItem to={"/products/list"} dark={dark}
-                                            customIcon={InventoryIcon}>{t('products')}</MainScreenItem>
-                            <MainScreenItem to={"/product/add"} dark={dark}
-                                            customIcon={AddBusinessIcon}>{t('productEntry')}</MainScreenItem>
-                        </div>
-                        <div className="main-screen-sides">
-                            <MainScreenItem to={"/refund/create"} dark={dark}
-                                            customIcon={AssignmentReturnIcon}>{t('returnProcesses')}</MainScreenItem>
-                            <MainScreenItem to={"/purchase/list"} dark={dark}
-                                            customIcon={ReceiptLongIcon}>{t('receipts')}</MainScreenItem>
-                            <MainScreenItem to={"/summary/calculate"} dark={dark}
-                                            customIcon={SummarizeIcon}>{t('reports')}</MainScreenItem>
-                        </div>
+            <AlertComponent/>
+            <div style={{backgroundColor: dark ? "#111418" : "#F8FAFB"}} className="main-screen-container">
+                <div className="main-screen-active-area">
+                    <div className="main-screen-sides">
+                        <MainScreenItem to={"/order/create"} dark={dark}
+                                        customIcon={StorefrontIcon}>{t('orderCreation')}</MainScreenItem>
+                        <MainScreenItem to={"/products/list"} dark={dark}
+                                        customIcon={InventoryIcon}>{t('products')}</MainScreenItem>
+                        <MainScreenItem to={"/product/add"} dark={dark}
+                                        customIcon={AddBusinessIcon}>{t('productEntry')}</MainScreenItem>
+                    </div>
+                    <div className="main-screen-sides">
+                        <MainScreenItem to={"/refund/create"} dark={dark}
+                                        customIcon={AssignmentReturnIcon}>{t('returnProcesses')}</MainScreenItem>
+                        <MainScreenItem to={"/purchase/list"} dark={dark}
+                                        customIcon={ReceiptLongIcon}>{t('receipts')}</MainScreenItem>
+                        <MainScreenItem to={"/summary/calculate"} dark={dark}
+                                        customIcon={SummarizeIcon}>{t('reports')}</MainScreenItem>
                     </div>
                 </div>
-                <div className="main-screen-lower-left">
-                    <OnlineOfflineIndicator dark={dark} language={lang} online={isOnline}/>
-                </div>
-                <div style={{
-                    backgroundColor: dark ? "#1E1E1E" : "white",
-                    color: dark ? "white" : "black",
-                    borderColor: dark ? "white" : "black"
-                }} className="main-screen-upper-left">
-                    <div>{t('storeNo')}: {status.storeNumber}</div>
-                    <div>{t('cashRegisterNo')}: {status.case} ({t('register').toUpperCase()} {status.case})</div>
-                    <div>{t('ipNo')}: {status.userIp}</div>
-                    <div>{t('version')}: {status.version}</div>
-                </div>
-                <div className="main-screen-upper-right">
-                    <SettingsDashboard/>
-                </div>
-                <div className="main-screen-lower-right">
-                    <IconButton onClick={logOut} color="error" aria-label="delete">
-                        <LogoutIcon/>
-                    </IconButton>
-                </div>
+            </div>
+            <div className="main-screen-lower-left">
+                <OnlineOfflineIndicator dark={dark} language={lang} online={isOnline}/>
+            </div>
+            <div style={{
+                backgroundColor: dark ? "#1E1E1E" : "white",
+                color: dark ? "white" : "black",
+                borderColor: dark ? "white" : "black"
+            }} className="main-screen-upper-left">
+                <div>{t('storeNo')}: {status.storeNumber}</div>
+                <div>{t('cashRegisterNo')}: {status.case} ({t('register').toUpperCase()} {status.case})</div>
+                <div>{t('ipNo')}: {status.userIp}</div>
+                <div>{t('version')}: {status.version}</div>
+            </div>
+            <div className="main-screen-upper-right">
+                <SettingsDashboard/>
+            </div>
+            <div className="main-screen-lower-right">
+                <IconButton onClick={logOut} color="error" aria-label="delete">
+                    <LogoutIcon/>
+                </IconButton>
+            </div>
         </>
 
     );

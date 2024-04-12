@@ -56,10 +56,10 @@ const CartProvider = ({children}) => {
     }, []);
 
 
-/*    const filteredCartQuantity = React.useMemo(() => // performans açısından
-            cart.reduce((total, item) => item.fraction ? total : total + item.quantity, 0),
-        [cart]
-    ); */
+    /*    const filteredCartQuantity = React.useMemo(() => // performans açısından
+                cart.reduce((total, item) => item.fraction ? total : total + item.quantity, 0),
+            [cart]
+        ); */
 
     React.useEffect(() => {
         const result = Object.values(cart.reduce((acc, {id, quantity}) => {
@@ -79,7 +79,7 @@ const CartProvider = ({children}) => {
             return product;
         });
         setProducts(updatedProducts);
-    }, [cart,_products]);
+    }, [cart, _products]);
 
 
     const toggleDiscounts = React.useCallback((discountKey) => {
@@ -102,7 +102,7 @@ const CartProvider = ({children}) => {
                 return updatedCart;
             } else if (product.fraction) {
                 const fractionQuantity = currentCart.filter(value => value.id === product.id).reduce((previousValue, currentValue) => previousValue + currentValue?.quantity, 0)
-                const fractionStock = _products.find((_product)=> _product.id === product.id)?.stock;
+                const fractionStock = _products.find((_product) => _product.id === product.id)?.stock;
                 return fractionQuantity < fractionStock ? [...currentCart, {
                     ...product,
                     quantity: 0.01,
@@ -142,7 +142,7 @@ const CartProvider = ({children}) => {
             const fractionQuantity = currentCart.filter((value, idx) => value.id === currentCart[index]?.id && idx !== index).reduce((previousValue, currentValue) => previousValue + currentValue?.quantity, 0);
             if (decimal >= 0.01) {
                 return currentCart.map((item, i) => {
-                    const fractionStock = _products.find((_product)=> _product.id === item.id)?.stock;
+                    const fractionStock = _products.find((_product) => _product.id === item.id)?.stock;
                     if (i === index && (parseFloat(decimal) + fractionQuantity) <= fractionStock && item.fraction) {
                         const roundedDecimal = Math.round(decimal * 100) / 100;
                         return {

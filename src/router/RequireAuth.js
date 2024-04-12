@@ -1,7 +1,7 @@
 import React from 'react';
-import AppStatusContext from "./context";
+import AppStatusContext from "../shared/state/AppStatus/context";
 import {Navigate, Outlet, useLocation, useNavigate} from "react-router-dom";
-import OfflineErrorPage from "../../../pages/OfflineErrorPage";
+import OfflineErrorPage from "../pages/OfflineErrorPage";
 import {createTheme, ThemeProvider} from "@mui/material/styles";
 
 export default function RequireAuth() {

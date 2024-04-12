@@ -39,13 +39,13 @@ export function useProductShowcase({
             case 1:
                 return data;
             case 11:
-                    return withoutBarcode;
+                return withoutBarcode;
             default:
                 return alphabeticalFilteredData[map - 3] || [];
         }
     }, [map, data, favourites, filteredByName, alphabeticalFilteredData, withoutBarcode]);
 
-    const columnCount = Math.floor((window.innerWidth / 110)-1);
+    const columnCount = Math.floor((window.innerWidth / 110) - 1);
     const rowCount = Math.ceil(currentData.length / columnCount);
     const Cell = ({columnIndex, rowIndex, style}) => {
         const productIndex = rowIndex * columnCount + columnIndex;

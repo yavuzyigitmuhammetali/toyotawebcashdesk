@@ -4,7 +4,7 @@ import CartContext from "../context";
 import NumericKeyboardContext from "../../../shared/components/NumericKeyboard/context";
 import KeyboardContext from "../../../shared/components/ScreenKeyboard/context";
 
-export const useSalesDashboard = () => {
+export const useSalesDashboardLeftArea = () => {
     const {
         categories, subCategories: _subCategories, products: _products, addToCart
     } = useContext(CartContext);
@@ -27,14 +27,14 @@ export const useSalesDashboard = () => {
 
     const getProductsByBarcode = useCallback((barcode) => {
         const products = filterProductsByBarcode(_products, barcode);
-        if (products.length === 1 && (data === products[0].barcode || barcode === products[0].barcode.toString())) {
+        if (barcode > 0 && products.length === 1 && (data === products[0].barcode || barcode === products[0].barcode.toString())) {
             addToCart(products[0]);
             setValue('');
             setMap("categories");
         } else {
             return setProducts(products);
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [_products]);
 
     const filteredSubCategories = useMemo(() => {
@@ -70,15 +70,15 @@ export const useSalesDashboard = () => {
             setMap("categories");
             setProducts(_products);
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [keyboardValue.barcodeArea,data]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [keyboardValue.barcodeArea, data]);
 
     useEffect(() => {
-        if(value.length){
+        if (value.length) {
             setMap("products");
             getProductsByBarcode(value);
-        }  
-    }, [value,getProductsByBarcode]);
+        }
+    }, [value, getProductsByBarcode]);
 
     return {
         categories,

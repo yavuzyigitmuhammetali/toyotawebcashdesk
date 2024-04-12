@@ -1,116 +1,32 @@
-import React, {useCallback, useContext, useEffect, useState} from 'react';
+import React, {useContext, useState} from 'react';
 import ProductCard from "../../../../shared/components/ProductCard/ProductCard";
 import EditableText from "../EditableText";
 import "./productEditor.css";
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
-import {Button, Checkbox, MenuItem, Select, CircularProgress} from "@mui/material";
+import {Button, Checkbox, CircularProgress, MenuItem, Select} from "@mui/material";
 import {Favorite, FavoriteBorder} from "@mui/icons-material";
 import ResponsiveDialog from "../../../../shared/components/ResponsiveDialog";
 import ScreenKeyboard from "../../../../shared/components/ScreenKeyboard/ScreenKeyboard";
+import {updateProduct} from '../../api';
+import {useProductEditor} from "./useProductEditor";
 import KeyboardContext from "../../../../shared/components/ScreenKeyboard/context";
-import {useNavigate, useParams} from "react-router-dom";
-import AppDataContext from "../../../../shared/state/AppData/context";
-import {defaultProduct} from "../../../../shared/state/AppData/defaultData";
-import {useTranslation} from 'react-i18next';
 import AppStatusContext from "../../../../shared/state/AppStatus/context";
-import { updateProduct } from '../../api';
+import {useTranslation} from "react-i18next";
 
 function ProductEditor() {
-    const {productId: _productId} = useParams();
-    const productId = parseInt(_productId);
-    const navigate = useNavigate();
     const [selectState, setSelectState] = useState(false);
-    const [changeData, setChangeData] = useState(false);
     const {handleElementFocus, value: screenKeyboardValue, clearValues, enterRef} = useContext(KeyboardContext);
-    const {products, fetchProducts} = useContext(AppDataContext);
     const {lang, dark} = useContext(AppStatusContext)
-    const tempProduct = products.find(value => value.id === productId);
-    const [product, setProduct] = useState(tempProduct ?? defaultProduct);
     const {t} = useTranslation();
-    const [isLoading, setIsLoading] = useState(false);
-
-    const handleTextChange = (value, key) => {
-        setProduct(prevProduct => {
-            let updatedValue;
-            if (['price', 'stock', 'tax'].includes(key)) {
-                value = value.replace(/[^\d.]/g, '');
-
-                if (key === 'stock') {
-                    updatedValue = parseInt(value);
-                    if (isNaN(updatedValue) || updatedValue > 999) {
-                        updatedValue = 999;
-                    }
-                } else {
-                    updatedValue = parseFloat(value);
-                    if (isNaN(updatedValue) || updatedValue > 999999) {
-                        updatedValue = 999999;
-                    }
-                }
-
-                if (key === 'tax') {
-                    if (isNaN(updatedValue) || updatedValue > 100) {
-                        updatedValue = 100;
-                    } else if (updatedValue < 0) {
-                        updatedValue = 0;
-                    }
-                } else {
-                    if (updatedValue < 0) {
-                        updatedValue = 0;
-                    }
-                }
-            } else {
-                updatedValue = value;
-            }
-
-            return {...prevProduct, [key]: updatedValue};
-        });
-    };
-
-
-    useEffect(() => {
-        if (product.id) {
-            setChangeData(JSON.stringify(product) !== JSON.stringify(tempProduct));
-        }
-    }, [product, tempProduct, navigate]);
-
-
-    const cancelChange = useCallback(() => {
-        navigate('/products/list');
-        clearValues();
-    }, [navigate, clearValues]);
-
-
-    const changeFavorite = () => {
-        setProduct(prevProduct => ({
-            ...prevProduct, isFavourite: !prevProduct.isFavourite
-        }));
-    };
-
-    const updateData = () => {
-        if (JSON.stringify(product) !== JSON.stringify(tempProduct)) {
-            setIsLoading(true);
-            updateProduct(productId, product).then(() => {
-                fetchProducts().then(() => {
-                    navigate('/products/list');
-                    clearValues();
-                    setIsLoading(false);
-                });
-            }).catch(reason => {
-                console.log(reason);
-            });
-        }
-    };
-
-
-    useEffect(() => {
-        const keys = ['name', 'price', 'tax', 'stock', 'photo'];
-
-        keys.forEach((key) => {
-            if (screenKeyboardValue.hasOwnProperty(key) && screenKeyboardValue[key] !== undefined && screenKeyboardValue[key] !== product[key]) {
-                handleTextChange(screenKeyboardValue[key], key);
-            }
-        });
-    }, [screenKeyboardValue]);
+    const {
+        changeData,
+        product,
+        isLoading,
+        handleTextChange,
+        cancelChange,
+        changeFavorite,
+        updateData
+    } = useProductEditor(screenKeyboardValue, clearValues)
 
     return (<div style={{color: dark ? "white" : "black"}} className="product-editor-container">
         <div className="product-editor-data">
@@ -174,8 +90,9 @@ function ProductEditor() {
             <ResponsiveDialog language={lang} onConfirm={updateData} title={t('updateProduct')}
                               text={t('updateConfirmation')}
                               disabled={!changeData || isLoading} style={{flex: 1}}>
-                <Button ref={enterRef} disabled={!changeData || isLoading} style={{width: "100%"}} size="small" color="success"
-                        variant="contained" startIcon={isLoading ? <CircularProgress size={24} /> : null}>
+                <Button ref={enterRef} disabled={!changeData || isLoading} style={{width: "100%"}} size="small"
+                        color="success"
+                        variant="contained" startIcon={isLoading ? <CircularProgress size={24}/> : null}>
                     {t('save')}
                 </Button>
             </ResponsiveDialog>

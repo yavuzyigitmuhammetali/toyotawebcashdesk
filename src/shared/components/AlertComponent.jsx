@@ -44,6 +44,7 @@ function AlertComponent({style, autoHideDuration = 3000, variant = "filled"}) {
     return (
         <div style={style}>
             <Snackbar
+                style={{zIndex: "99990"}}
                 open={open}
                 onClose={() => handleClose('timeout')}
                 TransitionComponent={SlideTransition}
