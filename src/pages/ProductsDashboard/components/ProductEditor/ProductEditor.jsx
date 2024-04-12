@@ -3,9 +3,8 @@ import ProductCard from "../../../../shared/components/ProductCard/ProductCard";
 import EditableText from "../EditableText";
 import "./productEditor.css";
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
-import {Button, Checkbox, MenuItem, Select} from "@mui/material";
+import {Button, Checkbox, MenuItem, Select, CircularProgress} from "@mui/material";
 import {Favorite, FavoriteBorder} from "@mui/icons-material";
-import axios from "axios";
 import ResponsiveDialog from "../../../../shared/components/ResponsiveDialog";
 import ScreenKeyboard from "../../../../shared/components/ScreenKeyboard/ScreenKeyboard";
 import KeyboardContext from "../../../../shared/components/ScreenKeyboard/context";
@@ -14,6 +13,7 @@ import AppDataContext from "../../../../shared/state/AppData/context";
 import {defaultProduct} from "../../../../shared/state/AppData/defaultData";
 import {useTranslation} from 'react-i18next';
 import AppStatusContext from "../../../../shared/state/AppStatus/context";
+import { updateProduct } from '../../api';
 
 function ProductEditor() {
     const {productId: _productId} = useParams();
@@ -27,7 +27,7 @@ function ProductEditor() {
     const tempProduct = products.find(value => value.id === productId);
     const [product, setProduct] = useState(tempProduct ?? defaultProduct);
     const {t} = useTranslation();
-
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleTextChange = (value, key) => {
         setProduct(prevProduct => {
@@ -88,12 +88,16 @@ function ProductEditor() {
 
     const updateData = () => {
         if (JSON.stringify(product) !== JSON.stringify(tempProduct)) {
-            axios.patch(`/api/v1/products/${productId}`, product).then(() => {
+            setIsLoading(true);
+            updateProduct(productId, product).then(() => {
                 fetchProducts().then(() => {
                     navigate('/products/list');
                     clearValues();
+                    setIsLoading(false);
                 });
-            }).catch(reason => console.log(reason));
+            }).catch(reason => {
+                console.log(reason);
+            });
         }
     };
 
@@ -169,9 +173,11 @@ function ProductEditor() {
             </Button>
             <ResponsiveDialog language={lang} onConfirm={updateData} title={t('updateProduct')}
                               text={t('updateConfirmation')}
-                              disabled={!changeData} style={{flex: 1}}>
-                <Button ref={enterRef} disabled={!changeData} style={{width: "100%"}} size="small" color="success"
-                        variant="contained">{t('save')}</Button>
+                              disabled={!changeData || isLoading} style={{flex: 1}}>
+                <Button ref={enterRef} disabled={!changeData || isLoading} style={{width: "100%"}} size="small" color="success"
+                        variant="contained" startIcon={isLoading ? <CircularProgress size={24} /> : null}>
+                    {t('save')}
+                </Button>
             </ResponsiveDialog>
         </div>
     </div>);

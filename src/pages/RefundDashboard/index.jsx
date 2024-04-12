@@ -1,7 +1,7 @@
 import React, {useCallback, useContext, useMemo, useState} from 'react';
 import "./refundDashboard.css"
 import ShoppingCartItem from "../../shared/components/ShoppingCartItem/ShoppingCartItem";
-import {Button} from "@mui/material";
+import {Button, CircularProgress} from "@mui/material";
 import ResponsiveDialog from "../../shared/components/ResponsiveDialog";
 import {createTheme, ThemeProvider} from "@mui/material/styles";
 import FormDialog from "../../shared/components/FormDialog";
@@ -26,6 +26,7 @@ function RefundDashboard() {
     const [refundedProducts, setRefundedProducts] = useState([])
     const [error, setError] = useState("")
     const {t} = useTranslation();
+    const [loading, setLoading] = useState(false); // Add this line to track loading state
 
     const {total, subTotal, tax} = useMemo(() => {
         const total = refundedProducts.reduce((acc, {
@@ -51,6 +52,7 @@ function RefundDashboard() {
 
 
     const handleOnApproved = () => {
+        setLoading(true); // Start loading
         setReceipt(prevState => {
             const {receiptNumber, ...rest} = prevState;
             const res = {
@@ -71,8 +73,15 @@ function RefundDashboard() {
             inactivateReceipt(receiptNumber).then(() => {
                 postReceipt(res).then(value => {
                     navigate('/receipt/' + value.data.receiptNumber, {replace: true, state: {receipt: value.data}});
-                }).catch(reason => console.log(reason))
-            }).catch(reason => console.log(reason))
+                    setLoading(false); // Stop loading on success
+                }).catch(reason => {
+                    console.log(reason);
+                    setLoading(false); // Stop loading on failure
+                })
+            }).catch(reason => {
+                console.log(reason);
+                setLoading(false); // Ensure loading is stopped if inactivateReceipt fails
+            })
             return res;
         })
     }
@@ -245,7 +254,9 @@ function RefundDashboard() {
                         language={lang}
                         text={t('refundApprovalMessage')}
                         title={t('refundAmount') + ": " + (total + "$")} onConfirm={handleOnApproved}>
-                        <Button color="warning" variant="contained" size="small">{t('approveRefund')}</Button>
+                        <Button color="warning" variant="contained" size="small" disabled={loading} startIcon={loading ? <CircularProgress size={24} /> : null}>
+                            {t('approveRefund')}
+                        </Button>
                     </ResponsiveDialog>
                 </div>
                 <div>
