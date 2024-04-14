@@ -43,9 +43,6 @@ function ScreenKeyboard({dark = false, language = "tr", style}) {
                 onMouseUp={handleMouseUp}
                 ref={textInputRef}
                 style={{
-                    position: "fixed",
-                    left: 0,
-                    bottom: 0,
                     cursor: isDragging ? "grabbing" : "grab",
                     backgroundColor: dark ? "#12161B" : "white",
                     borderColor: dark ? "white" : "black",
@@ -132,3 +129,4 @@ function ScreenKeyboard({dark = false, language = "tr", style}) {
 }
 
 export default ScreenKeyboard;
+

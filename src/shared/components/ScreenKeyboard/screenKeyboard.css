@@ -1,5 +1,6 @@
+
 .screen-keyboard-container {
-    z-index: 99999;
+    z-index: 999999;
     position: fixed;
     box-sizing: border-box;
     width: 100%;
@@ -14,6 +15,9 @@
     gap: 3px;
     border-radius: 12px;
     justify-content: center;
+    bottom: 0;
+    left: 0;
+    will-change: transform;
 }
 
 .screen-keyboard-close-button {

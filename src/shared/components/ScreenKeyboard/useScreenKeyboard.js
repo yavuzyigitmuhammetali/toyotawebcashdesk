@@ -1,4 +1,4 @@
-import {useRef, useState} from "react";
+import { useRef, useState, useCallback } from "react";
 
 export const useScreenKeyboard = (language) => {
     const [isDragging, setIsDragging] = useState(false);
@@ -6,8 +6,13 @@ export const useScreenKeyboard = (language) => {
     const [capsLock, setCapsLock] = useState(false);
     const textInputRef = useRef(null);
     const dragStartRef = useRef(null);
+    const [position, setPosition] = useState({ x: 0, y: 0 });
+    const turkishKeyboard = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "del", "enter", "q", "w", "e", "r", "t", "y", "u", "ı", "o", "p", "ğ", "a", "s", "d", "ü", "f", "g", "h", "j", "k", "l", "ş", "i", "z", "x", "c", "v", "b", "n", "m", "ö", "ç", "language", "@", "space", ".",];
+    const englishKeyboard = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "del", "enter", "q", "w", "e", "r", "t", "y", "u", "i", "o", "p", ";", "a", "s", "d", "f", "g", "h", "j", "k", "l", "<", ">", "z", "x", "c", "v", "b", "n", "m", "?", "-", "_", "language", "@", "space", ".",];
 
-    const handleMouseDown = (e) => {
+
+    // Use useCallback to memoize the callback, preventing unnecessary re-creations
+    const handleMouseDown = useCallback((e) => {
         const target = e.target;
 
         if (target.tagName !== "DIV") {
@@ -15,56 +20,46 @@ export const useScreenKeyboard = (language) => {
         }
 
         setIsDragging(true);
+        const rect = textInputRef.current.getBoundingClientRect();
         dragStartRef.current = {
             x: e.clientX,
             y: e.clientY,
-            left: textInputRef.current.getBoundingClientRect().left,
-            bottom: window.innerHeight - textInputRef.current.getBoundingClientRect().bottom,
+            initialX: position.x,
+            initialY: position.y,
         };
-    };
+    }, [position.x, position.y]);
 
-    const handleMouseMove = (e) => {
+    const handleMouseMove = useCallback((e) => {
         if (isDragging && dragStartRef.current) {
             const deltaX = e.clientX - dragStartRef.current.x;
             const deltaY = e.clientY - dragStartRef.current.y;
 
-            if (deltaX !== 0 || deltaY !== 0) {
-                const newLeft = dragStartRef.current.left + deltaX;
-                const newBottom = dragStartRef.current.bottom - deltaY;
+            const newX = dragStartRef.current.initialX + deltaX;
+            const newY = dragStartRef.current.initialY + deltaY;
 
-                textInputRef.current.style.left = `${newLeft}px`;
-                textInputRef.current.style.bottom = `${newBottom}px`;
-            }
+            // Use requestAnimationFrame for smooth animations
+            requestAnimationFrame(() => {
+                setPosition({ x: newX, y: newY });
+                textInputRef.current.style.transform = `translate(${newX}px, ${newY}px)`;
+            });
         }
-    };
+    }, [isDragging]);
 
-    const handleMouseUp = () => {
+    const handleMouseUp = useCallback(() => {
         setIsDragging(false);
-    };
+    }, []);
 
-    const turkishKeyboard = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "del", "enter", "q", "w", "e", "r", "t", "y", "u", "ı", "o", "p", "ğ", "a", "s", "d", "ü", "f", "g", "h", "j", "k", "l", "ş", "i", "z", "x", "c", "v", "b", "n", "m", "ö", "ç", "language", "@", "space", ".",];
+    const handleKeyboardType = useCallback(() => {
+        setKeyboardType((prevType) => (prevType === "tr" ? "en" : "tr"));
+    }, []);
 
-    const englishKeyboard = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "del", "enter", "q", "w", "e", "r", "t", "y", "u", "i", "o", "p", ";", "a", "s", "d", "f", "g", "h", "j", "k", "l", "<", ">", "z", "x", "c", "v", "b", "n", "m", "?", "-", "_", "language", "@", "space", ".",];
+    const handleKeyboardCapsLock = useCallback(() => {
+        setCapsLock((prevCapsLock) => !prevCapsLock);
+    }, []);
 
-    const handleKeyboardType = () => {
-        if (keyboardType === "tr") {
-            setKeyboardType("en");
-        } else if (keyboardType === "en") {
-            setKeyboardType("tr");
-        }
-    };
-
-    const handleKeyboardCapsLock = () => {
-        setCapsLock(!capsLock);
-    }
-
-    let keyboard = () => {
-        if (keyboardType === "tr") {
-            return turkishKeyboard;
-        } else if (keyboardType === "en") {
-            return englishKeyboard;
-        }
-    };
+    let keyboard = useCallback(() => {
+        return keyboardType === "tr" ? turkishKeyboard : englishKeyboard;
+    }, [keyboardType]);
 
     return {
         isDragging,
@@ -74,6 +69,7 @@ export const useScreenKeyboard = (language) => {
         handleMouseMove,
         handleMouseUp,
         handleKeyboardCapsLock,
-        keyboard
-    }
-}
+        keyboard,
+        position,
+    };
+};
