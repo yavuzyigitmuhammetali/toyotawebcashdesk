@@ -14,7 +14,7 @@ import AppStatusContext from "../../shared/state/AppStatus/context";
 function RefundDashboard() {
     const keyboardContext = useContext(KeyboardContext)
     const {t} = useTranslation();
-    const {status, lang, dark} = useContext(AppStatusContext);
+    const {status, lang, dark,cashier} = useContext(AppStatusContext);
     const {
         receipt,
         cart,
@@ -30,7 +30,7 @@ function RefundDashboard() {
         handleOnAdd,
         handleOnRemove,
         checkReceipt
-    } = useRefundDashboard(status, t)
+    } = useRefundDashboard(status,cashier, t)
 
     return (<>
         <FormDialog language={lang} ScreenKeyboardComponent={ScreenKeyboard} keyboardContext={keyboardContext}

@@ -17,7 +17,9 @@
     "change": "CHANGE",
     "thanks": "THANK YOU",
     "lbs": "lbs.",
-    "pcs": "pcs."
+    "pcs": "pcs.",
+    "cashierName":"Cashier Name",
+    "cashierNumber":"Cashier Number"
   },
   "tr": {
     "refund": "İADE GÖRMÜŞ",
@@ -37,6 +39,9 @@
     "change": "PARAÜSTÜ",
     "thanks": "TEŞEKKÜRLER",
     "lbs": "kgs.",
-    "pcs": "adt."
+    "pcs": "adt.",
+    "cashierName":"Kasiyer Adı",
+    "cashierNumber":"Kasiyer Numarası"
   }
 }
+

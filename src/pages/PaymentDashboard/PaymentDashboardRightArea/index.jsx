@@ -47,7 +47,7 @@ function PaymentDashboardRightArea() {
             <div className="payment-dashboard-right-area-pay">
                 <div style={{flex: 2}}>
                     <NumericKeyboard allowDecimal
-                                     disabled={(amountRemaining + amountPaid) === 0 || paymentMethod === "card"}
+                                     disabled={(amountRemaining + amountPaid) === 0 || paymentMethod === "card" || amountRemaining <= 0}
                                      dark={dark}/>
                 </div>
                 <div style={{display: "flex", flexDirection: "column", flex: "1 1"}}>

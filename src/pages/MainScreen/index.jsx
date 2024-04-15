@@ -17,7 +17,7 @@ import SummarizeIcon from '@mui/icons-material/Summarize';
 import KeyboardContext from '../../shared/components/ScreenKeyboard/context';
 
 function MainScreen() {
-    const {isOnline, status, logOut, lang, dark} = React.useContext(AppStatusContext);
+    const {isOnline, status, logOut, lang, dark, cashier} = React.useContext(AppStatusContext);
     const {clearValues} = React.useContext(KeyboardContext);
     const {t} = useTranslation();
 
@@ -62,6 +62,7 @@ function MainScreen() {
                 <div>{t('cashRegisterNo')}: {status.case} ({t('register').toUpperCase()} {status.case})</div>
                 <div>{t('ipNo')}: {status.userIp}</div>
                 <div>{t('version')}: {status.version}</div>
+                <div>{t('cashierName')}: {cashier.cashierName}</div>
             </div>
             <div className="main-screen-upper-right">
                 <SettingsDashboard/>

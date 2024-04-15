@@ -9,10 +9,10 @@ import ScreenKeyboard from "../../../shared/components/ScreenKeyboard/ScreenKeyb
 import AppStatusContext from "../../../shared/state/AppStatus/context";
 
 function PaymentDashboardLeftArea() {
-    const {total, paymentTransactions} = useContext(PaymentContext)
+    const {total, paymentTransactions, email,setEmail} = useContext(PaymentContext)
     const keyboardContext = useContext(KeyboardContext)
     const {lang, dark} = useContext(AppStatusContext);
-    const [email, setEmail] = useState("")
+    
     const {t} = useTranslation();
     const isValidEmail = (email) => {
         const regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;

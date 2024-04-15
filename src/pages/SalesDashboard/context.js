@@ -7,6 +7,8 @@ import {
 } from "./functions/productProcessing";
 import AppDataContext from "../../shared/state/AppData/context";
 import {defaultProduct} from "../../shared/state/AppData/defaultData";
+import CircularProgress from '@mui/material/CircularProgress';
+import Backdrop from '@mui/material/Backdrop';
 
 
 const CartContext = React.createContext(undefined);
@@ -21,6 +23,7 @@ const CartProvider = ({children}) => {
     const [discounts, setDiscounts] = React.useState({
         buy3pay2: false, studentTaxFree: false, percentageDiscounts: false
     })
+    const [isLoading, setIsLoading] = React.useState(false);
 
 
     const totalCampaignQuantity = React.useMemo(() =>
@@ -44,9 +47,13 @@ const CartProvider = ({children}) => {
     }, [totalQuantity, discounts]);
 
     React.useEffect(() => {
+        setIsLoading(true);
         fetchProducts().then((data) => {
             setProducts(data);
-        })
+            setIsLoading(false);
+        }).catch(() => {
+            setIsLoading(false);
+        });
         const salesDataString = sessionStorage.getItem('salesData')
         if (salesDataString) {
             const {cart, discounts} = JSON.parse(salesDataString)
@@ -114,7 +121,7 @@ const CartProvider = ({children}) => {
                 return currentCart;
             }
         });
-    }, [setCart]);
+    }, [_products]);
 
     const decreaseQuantityByIndex = React.useCallback((index) => {
         setCart(currentCart => currentCart.map((item, idx) => idx === index && item.quantity > 1 ? {
@@ -237,6 +244,12 @@ const CartProvider = ({children}) => {
         }}
     >
         {children}
+        <Backdrop
+            sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1, backdropFilter: 'blur(3px)' }}
+            open={isLoading}
+        >
+            <CircularProgress color="inherit" />
+        </Backdrop>
     </CartContext.Provider>);
 };
 

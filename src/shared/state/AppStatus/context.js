@@ -9,8 +9,9 @@ const AppStatusContext = React.createContext(undefined);
 
 const AppStatusProvider = ({children}) => {
     const [status, setStatus] = React.useState(JSON.parse(localStorage.getItem('status')));
+    const [cashier,setCashier] = React.useState(JSON.parse(localStorage.getItem('cashier'))??{});
     const [isOnline, setIsOnline] = React.useState(JSON.parse(sessionStorage.getItem('online')));
-    const [isLoggedIn, setIsLoggedIn] = React.useState(JSON.parse(sessionStorage.getItem('loggedIn')));
+    const [isLoggedIn, setIsLoggedIn] = React.useState(JSON.parse(localStorage.getItem('loggedIn')));
     const [dark, setDark] = React.useState(JSON.parse(localStorage.getItem('dark')) ?? false);
     const [lang, setLang] = React.useState(JSON.parse(localStorage.getItem('lang')) ?? 'en');
     const {i18n} = useTranslation();
@@ -34,12 +35,12 @@ const AppStatusProvider = ({children}) => {
             .catch(err => console.log(err));
         testLogin()
             .then(response => {
-                setIsLoggedIn(response.status === 200)
-                sessionStorage.setItem('loggedIn', JSON.stringify(response.status === 200));
+                setIsLoggedIn(response.status === 200 && Object.keys(cashier).length > 0)
+                localStorage.setItem('loggedIn', JSON.stringify(response.status === 200 && Object.keys(cashier).length > 0));
             })
             .catch(reason => {
                 setIsLoggedIn(false)
-                sessionStorage.setItem('loggedIn', JSON.stringify(false));
+                localStorage.setItem('loggedIn', JSON.stringify(false));
                 console.log(reason)
             });
         if (dark) {
@@ -59,7 +60,7 @@ const AppStatusProvider = ({children}) => {
 
     React.useEffect(() => {
         if (!isOnline) {
-            // logOut();
+            logOut();
         }
     }, [isOnline, isLoggedIn]);
 
@@ -89,19 +90,21 @@ const AppStatusProvider = ({children}) => {
     const logOut = React.useCallback(() => {
         document.cookie = "auth=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/api/v1;";
         setIsLoggedIn(false);
-        sessionStorage.setItem('loggedIn', JSON.stringify(false));
+        localStorage.setItem('loggedIn', JSON.stringify(false));
     }, [setIsLoggedIn]);
 
     const loginFunction = async (body) => {
         try {
-            await login(body)
+            const cashierData = await login(body);
+            setCashier(cashierData.data);
+            localStorage.setItem('cashier', JSON.stringify(cashierData.data));
             setIsLoggedIn(true);
-            sessionStorage.setItem('loggedIn', JSON.stringify(true));
+            localStorage.setItem('loggedIn', JSON.stringify(true));
             return true;
         } catch (error) {
             console.error(error);
             setIsLoggedIn(false);
-            sessionStorage.setItem('loggedIn', JSON.stringify(false));
+            localStorage.setItem('loggedIn', JSON.stringify(false));
             return false;
         }
     };
@@ -109,6 +112,7 @@ const AppStatusProvider = ({children}) => {
     return (
         <AppStatusContext.Provider
             value={{
+                cashier,
                 dark,
                 lang,
                 status,

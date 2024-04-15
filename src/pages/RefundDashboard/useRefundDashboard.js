@@ -5,7 +5,7 @@ import {useNavigate} from "react-router-dom";
 import {calculateTaxAmount} from "../SalesDashboard/functions/productProcessing";
 import {inactivateReceipt, postReceipt} from "./api";
 
-export const useRefundDashboard = (status, t) => {
+export const useRefundDashboard = (status,cashier,t) => {
     const {receipts} = useContext(AppDataContext);
     const [receipt, setReceipt] = useState(defaultReceipt)
     const [cart, setCart] = useState(receipt.cart);
@@ -40,38 +40,38 @@ export const useRefundDashboard = (status, t) => {
 
     const handleOnApproved = () => {
         setLoading(true);
-        setReceipt(prevState => {
-            const {receiptNumber, ...rest} = prevState;
-            const res = {
-                ...rest,
-                active: true,
-                storeNumber: status.storeNumber,
-                case: status.case,
-                cart: cart.filter(item => item.quantity),
-                change: Math.round((total + prevState.change) * 100) / 100,
-                total: Math.round((prevState.total - total) * 100) / 100,
-                subTotal: Math.round((prevState.subTotal - subTotal) * 100) / 100,
-                totalTax: Math.round((prevState.totalTax - tax) * 100) / 100,
-                date: new Date(),
-                transactions: [...prevState.transactions, {price: total * (-1), type: "payback"}],
-                refund: receiptNumber
-            }
-
-            inactivateReceipt(receiptNumber).then(() => {
-                postReceipt(res).then(value => {
-                    navigate('/receipt/' + value.data.receiptNumber, {replace: true, state: {receipt: value.data}});
-                    setLoading(false);
-                }).catch(reason => {
-                    console.log(reason);
-                    setLoading(false);
-                })
-            }).catch(reason => {
-                console.log(reason);
+        const {receiptNumber, ...rest} = receipt;
+        const res = {
+            ...rest,
+            active: true,
+            storeNumber: status.storeNumber,
+            case: status.case,
+            cashierName: cashier.cashierName,
+            cashierNumber: cashier.cashierNumber,
+            cart: cart.filter(item => item.quantity),
+            change: Math.round((total + receipt.change) * 100) / 100,
+            total: Math.round((receipt.total - total) * 100) / 100,
+            subTotal: Math.round((receipt.subTotal - subTotal) * 100) / 100,
+            totalTax: Math.round((receipt.totalTax - tax) * 100) / 100,
+            date: new Date(),
+            transactions: [...receipt.transactions, {price: total * (-1), type: "payback"}],
+            refund: receiptNumber,
+            email: receipt.email
+        };
+    
+        inactivateReceipt(receiptNumber).then(() => {
+            postReceipt(res).then(value => {
+                navigate('/receipt/' + value.data.receiptNumber, {replace: true, state: {receipt: value.data}});
                 setLoading(false);
-            })
-            return res;
-        })
-    }
+            }).catch(reason => {
+                console.error(reason);
+                setLoading(false);
+            });
+        }).catch(reason => {
+            console.error(reason);
+            setLoading(false);
+        });
+    };
 
     const handleOnDelete = (product, index) => {
         setCart(prevState => {

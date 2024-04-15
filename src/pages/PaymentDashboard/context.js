@@ -8,12 +8,13 @@ const PaymentContext = React.createContext(undefined);
 const PaymentProvider = ({children}) => {
     const [tempData, setTempData] = React.useState({subTotal: 0, total: 0, cart: [], tax: 0})
     const {total, subTotal, cart, tax} = tempData;
+    const [email, setEmail] = React.useState("");
     const [paymentTransactions, setPaymentTransactions] = React.useState([]);
     const amountPaid = paymentTransactions.reduce((total, item) => Math.round((total + item.price) * 100) / 100, 0)
     const amountRemaining = (total - amountPaid) < 0 ? (0) : (Math.round((total - amountPaid) * 100) / 100);
     const change = (total - amountPaid) < 0 ? (Math.round((amountPaid - total) * 100) / 100) : (0);
     const [receipt, setReceipt] = React.useState({})
-    const {status} = React.useContext(AppStatusContext);
+    const {status,cashier} = React.useContext(AppStatusContext);
     const {fetchProducts, clearProducts} = React.useContext(AppDataContext)
 
     React.useEffect(() => {
@@ -94,6 +95,8 @@ const PaymentProvider = ({children}) => {
             active: true,
             storeNumber: status.storeNumber,
             case: status.case,
+            cashierName: cashier.cashierName,
+            cashierNumber: cashier.cashierNumber,
             date: new Date(),
             total: total,
             subTotal: subTotal,
@@ -102,7 +105,8 @@ const PaymentProvider = ({children}) => {
             change: change,
             cart: cart,
             transactions: paymentTransactions,
-            refund: ""
+            refund: "",
+            email: email
         };
 
         try {
@@ -138,7 +142,9 @@ const PaymentProvider = ({children}) => {
             receipt,
             setTransaction,
             cancelTransaction,
-            confirmTransaction
+            confirmTransaction,
+            email,
+            setEmail
         }}>
             {children}
         </PaymentContext.Provider>

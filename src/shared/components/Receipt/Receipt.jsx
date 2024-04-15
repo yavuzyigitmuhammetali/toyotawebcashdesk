@@ -27,6 +27,10 @@ function Receipt({storeName = "Lorem Ipsum", data = {}, language = "en"}) {
                 <h1 style={{fontSize: "2em"}}>{storeName}</h1>
                 <div>{translations[language].storeNumber}: {validatedData.storeNumber}</div>
                 <div>{translations[language].caseNumber}: {validatedData.case}</div>
+                <div className="receipt-header-time">
+                    <span>{translations[language].cashierName}: {validatedData.cashierName.split(' ').map((name) => name[0] + name.slice(1).replace(/./g, '*')).join(' ')}</span>
+                    <span>{translations[language].cashierNumber}: {validatedData.cashierNumber.toString().padStart(4, '0')}</span>
+                </div>
                 <div>{translations[language].receiptNumber}: {validatedData.receiptNumber}</div>
                 <div className="receipt-header-time">
                     <span>{translations[language].receiptDate}: {day}</span>

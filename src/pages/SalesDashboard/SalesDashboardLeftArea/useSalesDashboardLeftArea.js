@@ -10,7 +10,7 @@ export const useSalesDashboardLeftArea = () => {
     } = useContext(CartContext);
     const {data} = useContext(NumericKeyboardContext);
     const {
-        handleElementFocus, value: keyboardValue, onChangeValue, setChangedValue
+        handleElementFocus, value: keyboardValue, onChangeValue, setChangedValue, clearValues
     } = useContext(KeyboardContext);
 
     const [map, setMap] = useState("categories");
@@ -29,6 +29,7 @@ export const useSalesDashboardLeftArea = () => {
         const products = filterProductsByBarcode(_products, barcode);
         if (barcode > 0 && products.length === 1 && (data === products[0].barcode || barcode === products[0].barcode.toString())) {
             addToCart(products[0]);
+            clearValues();
             setValue('');
             setMap("categories");
         } else {

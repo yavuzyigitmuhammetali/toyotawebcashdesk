@@ -4,6 +4,8 @@ export const defaultReceipt =
         active: true,
         storeNumber: "",
         case: 0,
+        "cashierName":"",
+        "cashierNumber": 0,
         date: "2000-01-01T00:00:00.000Z",
         total: 0,
         subTotal: 0,
@@ -38,5 +40,6 @@ export const defaultReceipt =
                 type: "card"
             }
         ],
-        refund: ""
+        refund: "",
+        email: ""
     }
