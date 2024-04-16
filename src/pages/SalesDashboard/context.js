@@ -121,7 +121,7 @@ const CartProvider = ({children}) => {
                 return currentCart;
             }
         });
-    }, [_products]);
+    }, [_products, setCart]);
 
     const decreaseQuantityByIndex = React.useCallback((index) => {
         setCart(currentCart => currentCart.map((item, idx) => idx === index && item.quantity > 1 ? {

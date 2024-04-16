@@ -1,23 +1,28 @@
 import React from "react";
 import config from '../../../config.json';
-import {getIp, getStatus, login, testLogin} from "./api";
+import {getIp, getStatus, login, setupAxiosInterceptors} from "./api";
 import {setupTimer, updateOnlineStatus} from "../../functions/checkOnline";
 import {useTranslation} from "react-i18next";
 
 const AppStatusContext = React.createContext(undefined);
 
-
 const AppStatusProvider = ({children}) => {
     const [status, setStatus] = React.useState(JSON.parse(localStorage.getItem('status')));
-    const [cashier,setCashier] = React.useState(JSON.parse(localStorage.getItem('cashier'))??{});
-    const [isOnline, setIsOnline] = React.useState(JSON.parse(sessionStorage.getItem('online')));
+    const [cashier, setCashier] = React.useState(JSON.parse(localStorage.getItem('cashier')) ?? {});
+    const [isOnline, setIsOnline] = React.useState(JSON.parse(localStorage.getItem('online')));
     const [isLoggedIn, setIsLoggedIn] = React.useState(JSON.parse(localStorage.getItem('loggedIn')));
     const [dark, setDark] = React.useState(JSON.parse(localStorage.getItem('dark')) ?? false);
     const [lang, setLang] = React.useState(JSON.parse(localStorage.getItem('lang')) ?? 'en');
     const {i18n} = useTranslation();
 
+    React.useEffect(() => {
+        setupAxiosInterceptors(setIsLoggedIn);
+    }, []);
 
     React.useEffect(() => {
+        if (dark) {
+            document.documentElement.classList.toggle('dark', true);
+        }
         getStatus()
             .then(response => {
                 const statusData = response.data;
@@ -30,33 +35,22 @@ const AppStatusProvider = ({children}) => {
                     };
                     setStatus(combinedData);
                     localStorage.setItem('status', JSON.stringify(combinedData));
-                }).catch(reason => console.log(reason));
+                });
             })
-            .catch(err => console.log(err));
-        testLogin()
-            .then(response => {
-                setIsLoggedIn(response.status === 200 && Object.keys(cashier).length > 0)
-                localStorage.setItem('loggedIn', JSON.stringify(response.status === 200 && Object.keys(cashier).length > 0));
-            })
-            .catch(reason => {
-                setIsLoggedIn(false)
-                localStorage.setItem('loggedIn', JSON.stringify(false));
-                console.log(reason)
+            .catch(err => {
+                setIsOnline(false);
+                console.log(err);
             });
-        if (dark) {
-            document.documentElement.classList.toggle('dark', true);
-        }
     }, []);
 
     React.useEffect(() => {
-        if (status) {
+        if (status && JSON.parse(localStorage.getItem('status')) !== status) {
             updateOnlineStatus(setIsOnline, status.schedule);
             const timer = setupTimer(setIsOnline, status.schedule ?? null);
-            sessionStorage.setItem('online', JSON.stringify(isOnline));
+            localStorage.setItem('online', JSON.stringify(isOnline));
             return () => timer && clearTimeout(timer);
         }
     }, [status]);
-
 
     React.useEffect(() => {
         if (!isOnline) {
@@ -72,26 +66,18 @@ const AppStatusProvider = ({children}) => {
     }
 
     const changeLang = () => {
-        if (lang === "tr") {
-            setLang("en");
-            localStorage.setItem('lang', JSON.stringify("en"))
-            i18n.changeLanguage("en");
-        } else if (lang === "en") {
-            setLang("tr");
-            localStorage.setItem('lang', JSON.stringify("tr"))
-            i18n.changeLanguage("tr");
-        } else {
-            setLang("en");
-            localStorage.setItem('lang', JSON.stringify("en"))
-            i18n.changeLanguage("en");
-        }
+        setLang(lang === "tr" ? "en" : "tr");
+        localStorage.setItem('lang', JSON.stringify(lang === "tr" ? "en" : "tr"));
+        i18n.changeLanguage(lang === "tr" ? "en" : "tr");
     }
 
     const logOut = React.useCallback(() => {
         document.cookie = "auth=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/api/v1;";
-        setIsLoggedIn(false);
         localStorage.setItem('loggedIn', JSON.stringify(false));
-    }, [setIsLoggedIn]);
+        localStorage.setItem('cashier', JSON.stringify({}));
+        setIsLoggedIn(false);
+        setCashier({});
+    }, [setIsLoggedIn, setCashier]);
 
     const loginFunction = async (body) => {
         try {
