@@ -15,7 +15,7 @@ import ResponsiveDialog from "../../../shared/components/ResponsiveDialog";
 import KeyboardContext from '../../../shared/components/ScreenKeyboard/context';
 import ScreenKeyboard from '../../../shared/components/ScreenKeyboard/ScreenKeyboard';
 import {useTranslation} from "react-i18next";
-import AppStatusContext from "../../../shared/state/AppStatus/context";
+import AppStatusContext from "../../../shared/states/AppStatus/context";
 import {darkTheme, lightTheme} from "./theme";
 
 

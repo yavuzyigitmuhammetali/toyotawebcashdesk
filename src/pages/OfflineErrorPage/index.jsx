@@ -4,7 +4,7 @@ import {ThemeProvider} from '@mui/material/styles';
 import ScheduleTable from './components/ScheduleTable';
 import CountdownTimer from "./components/CountdownTimer";
 import OnlineOfflineIndicator from "../../shared/components/OnlineOfflineIndicator";
-import AppStatusContext from "../../shared/state/AppStatus/context";
+import AppStatusContext from "../../shared/states/AppStatus/context";
 import {getTheme} from "./theme";
 import {useTranslation} from "react-i18next";
 

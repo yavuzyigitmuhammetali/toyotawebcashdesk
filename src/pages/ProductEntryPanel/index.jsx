@@ -9,7 +9,7 @@ import ResponsiveDialog from "../../shared/components/ResponsiveDialog";
 import QrCodeIcon from '@mui/icons-material/QrCode';
 import DialpadIcon from '@mui/icons-material/Dialpad';
 import {useProductEntryPanel} from "./useProductEntryPanel";
-import AppStatusContext from "../../shared/state/AppStatus/context";
+import AppStatusContext from "../../shared/states/AppStatus/context";
 import {useTranslation} from "react-i18next";
 import KeyboardContext from "../../shared/components/ScreenKeyboard/context";
 

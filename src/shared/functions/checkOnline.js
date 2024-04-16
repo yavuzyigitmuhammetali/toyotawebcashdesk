@@ -1,4 +1,4 @@
-import {getStatus} from "../state/AppStatus/api";
+import {getStatus} from "../states/AppStatus/api";
 
 /**
  * Asynchronous function to check online status based on schedule

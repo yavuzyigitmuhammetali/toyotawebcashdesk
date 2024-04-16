@@ -1,8 +1,8 @@
 import React from "react";
-import AppStatusContext from "../../shared/state/AppStatus/context";
+import AppStatusContext from "../../shared/states/AppStatus/context";
 import {postTransaction} from "./api";
 import {updateStocksFromCart} from "./functions";
-import AppDataContext from "../../shared/state/AppData/context";
+import AppDataContext from "../../shared/states/AppData/context";
 
 const PaymentContext = React.createContext(undefined);
 const PaymentProvider = ({children}) => {

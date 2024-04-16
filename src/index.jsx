@@ -2,11 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import reportWebVitals from './reportWebVitals';
 import "./index.css"
-import {AppStatusProvider} from "./shared/state/AppStatus/context";
+import {AppStatusProvider} from "./shared/states/AppStatus/context";
 import {KeyboardProvider} from "./shared/components/ScreenKeyboard/context";
 import {RouterProvider} from "react-router-dom";
 import router from "./router";
-import {AppDataProvider} from "./shared/state/AppData/context";
+import {AppDataProvider} from "./shared/states/AppData/context";
 import "./locales";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

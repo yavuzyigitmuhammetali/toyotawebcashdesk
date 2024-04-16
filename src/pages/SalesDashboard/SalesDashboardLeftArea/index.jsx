@@ -5,7 +5,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import ProductCard from "../../../shared/components/ProductCard/ProductCard";
 import ScreenKeyboard from "../../../shared/components/ScreenKeyboard/ScreenKeyboard";
 import {useTranslation} from "react-i18next";
-import AppStatusContext from "../../../shared/state/AppStatus/context";
+import AppStatusContext from "../../../shared/states/AppStatus/context";
 import {FixedSizeGrid as Grid} from 'react-window';
 import {useSalesDashboardLeftArea} from './useSalesDashboardLeftArea';
 import "./salesDashboardLeftArea.css";

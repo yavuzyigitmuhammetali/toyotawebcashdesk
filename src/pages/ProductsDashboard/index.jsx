@@ -1,10 +1,10 @@
 import React, {useCallback, useContext, useEffect, useState} from "react";
 import ProductShowcase from "../../shared/components/ProductShowcase/ProductShowcase";
 import {Outlet, useNavigate} from "react-router-dom";
-import AppDataContext from "../../shared/state/AppData/context";
+import AppDataContext from "../../shared/states/AppData/context";
 import ScreenKeyboard from "../../shared/components/ScreenKeyboard/ScreenKeyboard";
 import KeyboardContext from "../../shared/components/ScreenKeyboard/context";
-import AppStatusContext from "../../shared/state/AppStatus/context";
+import AppStatusContext from "../../shared/states/AppStatus/context";
 import "./productsDashboard.css";
 import CircularProgress from "@mui/material/CircularProgress";
 

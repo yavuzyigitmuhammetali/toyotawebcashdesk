@@ -5,7 +5,7 @@ import NumericKeyboard from "../../../shared/components/NumericKeyboard/NumericK
 import SendIcon from '@mui/icons-material/Send';
 import ResponsiveDialog from "../../../shared/components/ResponsiveDialog";
 import {usePaymentDashboardRightArea} from "./usePaymentDashboardRightArea";
-import AppStatusContext from "../../../shared/state/AppStatus/context";
+import AppStatusContext from "../../../shared/states/AppStatus/context";
 import {useTranslation} from "react-i18next";
 
 

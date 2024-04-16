@@ -1,7 +1,7 @@
 import {useContext, useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
-import AppDataContext from "../../shared/state/AppData/context";
-import {defaultProduct} from "../../shared/state/AppData/defaultData";
+import AppDataContext from "../../shared/states/AppData/context";
+import {defaultProduct} from "../../shared/states/AppData/defaultData";
 import {generateBarcode} from "./functions";
 import {sendProduct} from "./api";
 

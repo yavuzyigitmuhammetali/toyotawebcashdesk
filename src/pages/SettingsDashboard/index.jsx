@@ -4,7 +4,7 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import CloseIcon from "@mui/icons-material/Close";
 import SettingsItem from "./components/SettingsItem/SettingsItem";
 import {IconButton} from "@mui/material";
-import AppStatusContext from "../../shared/state/AppStatus/context";
+import AppStatusContext from "../../shared/states/AppStatus/context";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import PrintIcon from "@mui/icons-material/Print";
 import LanguageIcon from "@mui/icons-material/Translate";

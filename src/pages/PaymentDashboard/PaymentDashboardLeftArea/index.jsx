@@ -6,7 +6,7 @@ import FormDialog from "../../../shared/components/FormDialog";
 import PaymentContext from "../context";
 import KeyboardContext from "../../../shared/components/ScreenKeyboard/context";
 import ScreenKeyboard from "../../../shared/components/ScreenKeyboard/ScreenKeyboard";
-import AppStatusContext from "../../../shared/state/AppStatus/context";
+import AppStatusContext from "../../../shared/states/AppStatus/context";
 
 function PaymentDashboardLeftArea() {
     const {total, paymentTransactions, email,setEmail} = useContext(PaymentContext)

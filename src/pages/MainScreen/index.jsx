@@ -4,7 +4,7 @@ import OnlineOfflineIndicator from "../../shared/components/OnlineOfflineIndicat
 import LogoutIcon from '@mui/icons-material/Logout';
 import {IconButton} from "@mui/material";
 import AlertComponent from "../../shared/components/AlertComponent";
-import AppStatusContext from "../../shared/state/AppStatus/context";
+import AppStatusContext from "../../shared/states/AppStatus/context";
 import SettingsDashboard from "../SettingsDashboard";
 import MainScreenItem from "./components/MainScreenItem/MainScreenItem";
 import {useTranslation} from 'react-i18next';

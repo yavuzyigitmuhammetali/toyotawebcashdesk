@@ -10,7 +10,7 @@ import ScreenKeyboard from "../../../../shared/components/ScreenKeyboard/ScreenK
 import {updateProduct} from '../../api';
 import {useProductEditor} from "./useProductEditor";
 import KeyboardContext from "../../../../shared/components/ScreenKeyboard/context";
-import AppStatusContext from "../../../../shared/state/AppStatus/context";
+import AppStatusContext from "../../../../shared/states/AppStatus/context";
 import {useTranslation} from "react-i18next";
 
 function ProductEditor() {

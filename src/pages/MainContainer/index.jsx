@@ -4,7 +4,7 @@ import {Outlet} from "react-router-dom";
 import {useMainContainer} from "./useMainContainer";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
-import AppStatusContext from "../../shared/state/AppStatus/context";
+import AppStatusContext from "../../shared/states/AppStatus/context";
 import {useTranslation} from "react-i18next";
 
 function MainContainer() {

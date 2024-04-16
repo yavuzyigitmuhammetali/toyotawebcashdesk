@@ -1,6 +1,6 @@
 import React, {useCallback, useContext, useEffect, useMemo, useState} from 'react';
 import "./summaryDashboard.css"
-import AppDataContext from "../../shared/state/AppData/context";
+import AppDataContext from "../../shared/states/AppData/context";
 import {
     calcTotalAmount,
     calcTotalAmountWithCard,
@@ -26,14 +26,14 @@ import {
 import ProductCard from "../../shared/components/ProductCard/ProductCard";
 import {Box, Button, CircularProgress, ToggleButtonGroup} from "@mui/material";
 import ToggleButton from "@mui/material/ToggleButton";
-import {defaultReceipt} from "../../shared/state/AppData/defaultData";
+import {defaultReceipt} from "../../shared/states/AppData/defaultData";
 import {useNavigate} from "react-router-dom";
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogActions from "@mui/material/DialogActions";
-import AppStatusContext from "../../shared/state/AppStatus/context";
+import AppStatusContext from "../../shared/states/AppStatus/context";
 import {useTranslation} from "react-i18next";
 
 function SummaryDashboard() {

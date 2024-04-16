@@ -1,7 +1,7 @@
 import React, {lazy} from 'react';
 import "./loginPageLeftArea.css"
 import OnlineOfflineIndicator from "../../../shared/components/OnlineOfflineIndicator";
-import AppStatusContext from "../../../shared/state/AppStatus/context";
+import AppStatusContext from "../../../shared/states/AppStatus/context";
 import {useTranslation} from "react-i18next";
 
 const LoginSrc = lazy(() => import('./components/LoginSrc'));

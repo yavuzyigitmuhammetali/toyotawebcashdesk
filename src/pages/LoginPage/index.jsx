@@ -2,7 +2,7 @@ import React, {useContext} from "react";
 import "./loginPage.css";
 import LoginPageLeftArea from "./LoginPageLeftArea";
 import LoginPageRightArea from "./LoginPageRightArea";
-import AppStatusContext from "../../shared/state/AppStatus/context";
+import AppStatusContext from "../../shared/states/AppStatus/context";
 
 function LoginPage() {
     const {dark} = useContext(AppStatusContext);

@@ -16,8 +16,8 @@ import {
 
 import {getComparator, stableSort} from "./functions";
 import Row from "./components/Row";
-import AppDataContext from "../../shared/state/AppData/context";
-import AppStatusContext from "../../shared/state/AppStatus/context";
+import AppDataContext from "../../shared/states/AppData/context";
+import AppStatusContext from "../../shared/states/AppStatus/context";
 
 function PurchaseReceipts() {
     const {dark} = useContext(AppStatusContext)

@@ -1,7 +1,7 @@
 import {useNavigate, useParams} from "react-router-dom";
 import {useCallback, useContext, useEffect, useState} from "react";
-import AppDataContext from "../../../../shared/state/AppData/context";
-import {defaultProduct} from "../../../../shared/state/AppData/defaultData";
+import AppDataContext from "../../../../shared/states/AppData/context";
+import {defaultProduct} from "../../../../shared/states/AppData/defaultData";
 import {updateProduct} from "../../api";
 
 export const useProductEditor = (screenKeyboardValue, clearValues) => {

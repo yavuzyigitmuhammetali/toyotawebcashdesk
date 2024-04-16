@@ -39,6 +39,7 @@ export const useSalesDashboardLeftArea = () => {
     }, [_products]);
 
     const filteredSubCategories = useMemo(() => {
+        if (!_subCategories) return [];
         if (selectedMap.category) {
             return filterSubcategories(_subCategories, selectedMap.category);
         }
@@ -46,6 +47,7 @@ export const useSalesDashboardLeftArea = () => {
     }, [_subCategories, selectedMap.category]);
 
     const filteredProducts = useMemo(() => {
+        if (!_products) return [];
         return filterProducts(_products, selectedMap.category, selectedMap.subcategory);
     }, [_products, selectedMap.category, selectedMap.subcategory]);
 

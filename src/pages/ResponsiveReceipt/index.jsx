@@ -10,11 +10,11 @@ import {ToggleButtonGroup} from "@mui/material";
 import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
 import PaperIcon from '@mui/icons-material/Feed';
 import {useLocation, useParams} from "react-router-dom";
-import AppDataContext from "../../shared/state/AppData/context";
-import {defaultReceipt} from "../../shared/state/AppData/defaultData";
+import AppDataContext from "../../shared/states/AppData/context";
+import {defaultReceipt} from "../../shared/states/AppData/defaultData";
 import AlertComponent from "../../shared/components/AlertComponent";
 import {useTranslation} from "react-i18next";
-import AppStatusContext from "../../shared/state/AppStatus/context";
+import AppStatusContext from "../../shared/states/AppStatus/context";
 
 
 function ResponsiveReceipt() {

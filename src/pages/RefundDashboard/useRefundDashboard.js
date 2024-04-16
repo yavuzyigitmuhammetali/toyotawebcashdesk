@@ -1,6 +1,6 @@
 import {useCallback, useContext, useMemo, useState} from "react";
-import AppDataContext from "../../shared/state/AppData/context";
-import {defaultReceipt} from "../../shared/state/AppData/defaultData";
+import AppDataContext from "../../shared/states/AppData/context";
+import {defaultReceipt} from "../../shared/states/AppData/defaultData";
 import {useNavigate} from "react-router-dom";
 import {calculateTaxAmount} from "../SalesDashboard/functions/productProcessing";
 import {inactivateReceipt, postReceipt} from "./api";
@@ -13,7 +13,7 @@ export const useRefundDashboard = (status,cashier,t) => {
     const [refundedProducts, setRefundedProducts] = useState([])
     const [error, setError] = useState("")
 
-    const [loading, setLoading] = useState(false); // Add this line to track loading state
+    const [loading, setLoading] = useState(false); // Add this line to track loading states
 
     const {total, subTotal, tax} = useMemo(() => {
         const total = refundedProducts.reduce((acc, {
