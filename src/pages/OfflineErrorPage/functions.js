@@ -1,3 +1,8 @@
+/**
+ * Get the next opening time based on the provided schedule.
+ * @param {Object} schedule - The schedule object containing opening times for each day.
+ * @returns {Date|null} - The next opening time or null if no opening time is found.
+ */
 export function getNextOpening(schedule) {
     const now = new Date();
     const weekDay = now.getDay();
