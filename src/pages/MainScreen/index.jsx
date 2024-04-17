@@ -1,11 +1,7 @@
 import React from 'react';
 import "./mainScreen.css"
-import OnlineOfflineIndicator from "../../shared/components/OnlineOfflineIndicator";
-import LogoutIcon from '@mui/icons-material/Logout';
-import {IconButton} from "@mui/material";
 import AlertComponent from "../../shared/components/AlertComponent";
 import AppStatusContext from "../../shared/states/AppStatus/context";
-import SettingsDashboard from "../SettingsDashboard";
 import MainScreenItem from "./components/MainScreenItem/MainScreenItem";
 import {useTranslation} from 'react-i18next';
 import StorefrontIcon from '@mui/icons-material/Storefront';
@@ -15,6 +11,7 @@ import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
 import AddBusinessIcon from '@mui/icons-material/AddBusiness';
 import SummarizeIcon from '@mui/icons-material/Summarize';
 import KeyboardContext from '../../shared/components/ScreenKeyboard/context';
+import MainScreenLayout from "./components/MainScreenLayout";
 
 function MainScreen() {
     const {isOnline, status, logOut, lang, dark, cashier} = React.useContext(AppStatusContext);
@@ -30,7 +27,7 @@ function MainScreen() {
 
     return (<>
             <AlertComponent/>
-            <div style={{backgroundColor: dark ? "#111418" : "#F8FAFB"}} className="main-screen-container">
+            <div className={`main-screen-container ${dark ? 'dark' : ''}`}>
                 <div className="main-screen-active-area">
                     <div className="main-screen-sides">
                         <MainScreenItem to={"/order/create"} dark={dark}
@@ -50,28 +47,8 @@ function MainScreen() {
                     </div>
                 </div>
             </div>
-            <div className="main-screen-lower-left">
-                <OnlineOfflineIndicator dark={dark} language={lang} online={isOnline}/>
-            </div>
-            <div style={{
-                backgroundColor: dark ? "#1E1E1E" : "white",
-                color: dark ? "white" : "black",
-                borderColor: dark ? "white" : "black"
-            }} className="main-screen-upper-left">
-                <div>{t('storeNo')}: {status.storeNumber}</div>
-                <div>{t('cashRegisterNo')}: {status.case} ({t('register').toUpperCase()} {status.case})</div>
-                <div>{t('ipNo')}: {status.userIp}</div>
-                <div>{t('version')}: {status.version}</div>
-                <div>{t('cashierName')}: {cashier.cashierName}</div>
-            </div>
-            <div className="main-screen-upper-right">
-                <SettingsDashboard/>
-            </div>
-            <div className="main-screen-lower-right">
-                <IconButton onClick={logOut} color="error" aria-label="delete">
-                    <LogoutIcon/>
-                </IconButton>
-            </div>
+            <MainScreenLayout dark={dark} lang={lang} isOnline={isOnline} logOut={logOut} status={status}
+                              cashier={cashier} t={t}/>
         </>
 
     );

@@ -14,6 +14,13 @@
     justify-content: center;
     flex-grow: 1;
     border: 1px solid black;
+    text-decoration: none;
+}
+
+.main-screen-item-container.dark {
+    background-color: #1E1E1E;
+    color: white;
+    border-color: white;
 }
 
 .main-screen-item-container:hover {
@@ -28,12 +35,15 @@
     filter: brightness(1.7);
     color: white;
     display: flex;
-    background-color: green;
     justify-content: center;
     align-items: center;
     height: 120%;
     aspect-ratio: 1 !important;
     border-radius: 10px;
+}
+
+.main-screen-item-icon.dark {
+    filter: brightness(1);
 }
 
 .main-screen-item-text {
