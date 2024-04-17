@@ -5,7 +5,7 @@ import {Link} from "react-router-dom";
 import SettingsDashboard from "../../SettingsDashboard";
 
 const Header = ({dark, pageTitle, prevLink}) => (
-    <header style={{backgroundColor: dark && "rgb(28, 31, 37)"}} className="main-container-header">
+    <header className={`main-container-header ${dark ? 'dark' : ''}`}>
         <div>
             <IconButton color="error" component={Link} to={prevLink}>
                 <ArrowBackIosIcon/>
@@ -17,5 +17,5 @@ const Header = ({dark, pageTitle, prevLink}) => (
         </div>
     </header>
 );
-
 export default Header;
+

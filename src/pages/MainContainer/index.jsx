@@ -18,10 +18,9 @@ function MainContainer() {
 
 
     return (
-        <div style={{color: dark ? "white" : "black", backgroundColor: dark ? "rgb(17, 20, 24)" : "white"}}
-             className="main-container-body">
+        <div className={`main-container-body ${dark ? 'dark' : ''}`}>
             <Header dark={dark} pageTitle={pageTitle} prevLink={prevLink}/>
-            <main style={{backgroundColor: dark && "#131922"}} className="main-container-main">
+            <main className={`main-container-main ${dark ? 'dark' : ''}`}>
                 <Outlet/>
             </main>
             <Footer dark={dark} lang={lang} formattedDate={formattedDate} isOnline={isOnline} status={status} t={t}/>

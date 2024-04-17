@@ -3,12 +3,12 @@ import OnlineOfflineIndicator from "../../../shared/components/OnlineOfflineIndi
 
 
 const Footer = ({dark, lang, isOnline, formattedDate, status, t}) => (
-    <footer style={{backgroundColor: dark && "rgb(28, 31, 37)"}} className="main-container-footer">
+    <footer className={`main-container-footer ${dark ? 'dark' : ''}`}>
         <div>
             <OnlineOfflineIndicator dark={dark} language={lang} online={isOnline}/>
         </div>
         <div>{formattedDate}</div>
-        <div style={{display: "flex", flexDirection: "column"}}>
+        <div className="status-container">
             <span>{t("cashRegister")}: {status.case}</span>
             <span>{t("store")}: {status.storeNumber}</span>
         </div>
