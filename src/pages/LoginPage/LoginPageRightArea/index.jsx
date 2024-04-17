@@ -32,18 +32,17 @@ function LoginPageRightArea() {
         handleClickShowPassword,
         handleMouseDownPassword,
         handleLogin
-    } = useLoginPageRightArea(value, t, loginFunction);
+    } = useLoginPageRightArea(value, loginFunction, t("loginSuccessMessage"), t("errorTitle"));
 
     return (
-        <div
-            style={{backgroundColor: dark ? "#1C1F25" : "white", border: "2px solid #1A2027"}}
-            className="login-page-right-area-container"
-        >
+        <div className={`login-page-right-area-container ${dark ? 'dark' : 'light'}`}>
             <div className="login-page-right-area-info">
-                <div style={{color: dark ? "white" : "#5492F0"}} className="login-page-right-area-title">
+                <div className={`login-page-right-area-title ${dark ? 'dark' : 'light'}`}>
                     {t("loginAccount")}
                 </div>
-                <div style={{color: dark ? "#5492F0" : "#E1E2E3"}}>{t("enterUsernamePassword")}</div>
+                <div className={`login-page-right-area-subtitle ${dark ? 'dark' : 'light'}`}>
+                    {t("enterUsernamePassword")}
+                </div>
             </div>
             <form className="login-page-right-area-inputs">
                 <TextField
@@ -57,7 +56,7 @@ function LoginPageRightArea() {
                     variant="outlined"
                 />
                 <FormControl variant="outlined">
-                    <InputLabel htmlFor="password">Password</InputLabel>
+                    <InputLabel htmlFor="password">{t("password")}</InputLabel>
                     <OutlinedInput
                         error={error}
                         id="password"

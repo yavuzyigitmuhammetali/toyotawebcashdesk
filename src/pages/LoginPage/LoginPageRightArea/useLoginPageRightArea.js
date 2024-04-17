@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 
-export const useLoginPageRightArea = (value, t, loginFunction) => {
+export const useLoginPageRightArea = (value, loginFunction, loginSuccessMessage, errorTitle) => {
     const [error, setError] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
     const [loginData, setLoginData] = useState({username: "", password: ""});
@@ -30,6 +30,7 @@ export const useLoginPageRightArea = (value, t, loginFunction) => {
             setButtonState(false);
         }
         setError(false);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [value]);
 
     const handleLogin = async () => {
@@ -39,12 +40,12 @@ export const useLoginPageRightArea = (value, t, loginFunction) => {
             const result = await loginFunction(loginData);
             if (result) {
                 setError(false);
-                navigate("/", {replace: true, state: {successMessage: t("loginSuccessMessage")}});
+                navigate("/", {replace: true, state: {successMessage: loginSuccessMessage}});
             } else {
                 setError(true);
             }
         } catch (error) {
-            console.error(t("errorTitle"), error);
+            console.error(errorTitle, error);
             setError(true);
         } finally {
             setLoading(false);

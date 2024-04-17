@@ -11,18 +11,14 @@ const AppStatusProvider = ({children}) => {
     const [cashier, setCashier] = React.useState(JSON.parse(localStorage.getItem('cashier'))??{});
     const [isOnline, setIsOnline] = React.useState(JSON.parse(localStorage.getItem('isOnline'))??false);
     const [isLoggedIn, setIsLoggedIn] = React.useState(JSON.parse(localStorage.getItem('isLoggedIn'))??false);
-    const [dark, setDark] = React.useState(JSON.parse(localStorage.getItem('dark')) || window.matchMedia('(prefers-color-scheme: dark)').matches || false);
-    const [lang, setLang] = React.useState(JSON.parse(localStorage.getItem('lang')) || navigator.language.slice(0,2) || 'en');
+    const [dark, setDark] = React.useState(false);
+    const [lang, setLang] = React.useState( 'en');
     const {i18n} = useTranslation();
 
 
     React.useEffect(() => {
-        if(lang){
-            changeLang(lang);
-        }
-        if(dark){
-            changeDark(dark);
-        }
+            changeLang(JSON.parse(localStorage.getItem('lang'))??navigator.language.slice(0,2)); 
+            changeDark(JSON.parse(localStorage.getItem('dark'))?? window.matchMedia('(prefers-color-scheme: dark)').matches);
         getStatus()
             .then(response => {
                 const statusData = response.data;
@@ -60,6 +56,7 @@ const AppStatusProvider = ({children}) => {
 
 
     const changeDark = (darkTheme = undefined) => {
+        console.log("changeDark",darkTheme);
         const newDark = darkTheme === undefined ? !dark : darkTheme;
         setDark(newDark);
         document.documentElement.classList.toggle('dark', newDark);

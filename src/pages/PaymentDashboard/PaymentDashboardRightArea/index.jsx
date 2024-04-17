@@ -22,7 +22,7 @@ function PaymentDashboardRightArea() {
         isLoading,
         onResponsiveDialogConfirm,
         handleConfirmTransaction
-    } = usePaymentDashboardRightArea();
+    } = usePaymentDashboardRightArea(t('orderConfirmed'));
 
     return (
         <div style={dark ? {backgroundColor: "#121418", borderColor: "white"} : {}}

@@ -10,11 +10,11 @@ function LoginPageLeftArea({width = "400px", warn = false}) {
     const {isOnline, status, lang, dark} = React.useContext(AppStatusContext);
     const {t} = useTranslation();
     return (
-        <div style={{color: dark ? "white" : "#111418", width: width}} className="login-page-left-area-container">
+        <div className={`login-page-left-area-container ${dark ? 'dark' : 'light'}`} style={{width: width}}>
             <div className="login-page-left-area-indicator">
                 <OnlineOfflineIndicator dark={dark} language={lang} online={isOnline}/>
             </div>
-            <LoginSrc style={warn && {filter: "hue-rotate(145deg)"}} dark={dark}/>
+            <LoginSrc className={warn ? 'warn' : ''} dark={dark}/>
             <span className="login-page-left-area-texts good-wish">{t('storeNumber')}: {status.storeNumber}</span>
             <span className="login-page-left-area-texts welcome">{t('welcomeBack')}</span>
             <span className="login-page-left-area-texts explanation">{status.version}</span>

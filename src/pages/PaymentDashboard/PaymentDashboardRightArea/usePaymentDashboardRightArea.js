@@ -3,7 +3,7 @@ import {useNavigate} from "react-router-dom";
 import PaymentContext from "../context";
 import NumericKeyboardContext from "../../../shared/components/NumericKeyboard/context";
 
-export const usePaymentDashboardRightArea = () => {
+export const usePaymentDashboardRightArea = (successMessage) => {
     const navigate = useNavigate();
     const [paymentDialog, setPaymentDialog] = useState(0)
     const {
@@ -29,7 +29,7 @@ export const usePaymentDashboardRightArea = () => {
         if (Object.values(receipt).length !== 0) {
             navigate('/receipt/' + receipt.receiptNumber, {
                 replace: true,
-                state: {receipt: receipt, successMessage: "Sipariş Onaylandı"}
+                state: {receipt: receipt, successMessage: successMessage}
             });
         }
     }, [receipt]);

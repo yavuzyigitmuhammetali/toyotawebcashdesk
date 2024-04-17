@@ -183,6 +183,7 @@
   "bests": "En İyiler",
   "simulateSummaryLoadWarning": "Bu işlem uzun sürebilir ve sunucu maliyetlerine neden olabilir, devam etmek istediğinizden emin misiniz!",
   "register": "Kasa",
-  "cashierName": "Kasiyer Adı"
+  "cashierName": "Kasiyer Adı",
+  "orderConfirmed": "Sipariş Onaylandı!"
 }
 

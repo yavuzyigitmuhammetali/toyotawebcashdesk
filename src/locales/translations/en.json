@@ -183,6 +183,7 @@
   "bests": "Bests",
   "simulateSummaryLoadWarning": "This process can take a long time and incur server costs, are you sure you want to continue!",
   "register": "Register",
-  "cashierName": "Cashier Name"
+  "cashierName": "Cashier Name",
+  "orderConfirmed": "Order Confirmed!"
 }
 
