@@ -17,7 +17,8 @@ const ProductCard = React.memo((props) => {
         fraction = false,
         favorite = false,
         style,
-        onClick
+        onClick,
+        className = ""
     } = props;
 
     const isDisabled = stock === 0;
@@ -30,7 +31,7 @@ const ProductCard = React.memo((props) => {
         <button
             type="button"
             onClick={onClick}
-            className={`
+            className={className + `
         product-card-container
         product-card-click
         ${isDisabled ? "product-card-disabled" : ""}

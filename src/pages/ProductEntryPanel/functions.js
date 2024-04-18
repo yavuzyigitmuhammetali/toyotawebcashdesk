@@ -1,3 +1,10 @@
+/**
+ * Generates a barcode based on the provided category, subcategory, and id.
+ * @param {number} categoryId - The category ID.
+ * @param {number} subCategoryId - The subcategory ID.
+ * @param {number} id - The ID.
+ * @returns {number} The generated barcode as an integer.
+ */
 export function generateBarcode(categoryId, subCategoryId, id) {
     const categoryPart = `${categoryId}`.length === 1 ? `${categoryId}0` : `${categoryId}`;
 

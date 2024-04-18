@@ -23,7 +23,7 @@ export const useProductEntryPanel = (t, value, clearValues) => {
         if (formData.categoryId !== 0) {
             setSubCategories(_subCategories.filter((r) => r.categoryId === formData.categoryId))
         }
-    }, [formData.categoryId]);
+    }, [_subCategories, formData.categoryId]);
 
     useEffect(() => {
         const newId = products.length + 1;
@@ -36,7 +36,7 @@ export const useProductEntryPanel = (t, value, clearValues) => {
         return () => {
             clearValues();
         }
-    }, []);
+    }, [clearValues, products.length]);
 
 
     useEffect(() => {

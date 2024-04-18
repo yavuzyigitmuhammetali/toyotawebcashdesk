@@ -56,7 +56,6 @@ const AppStatusProvider = ({children}) => {
 
 
     const changeDark = (darkTheme = undefined) => {
-        console.log("changeDark",darkTheme);
         const newDark = darkTheme === undefined ? !dark : darkTheme;
         setDark(newDark);
         document.documentElement.classList.toggle('dark', newDark);

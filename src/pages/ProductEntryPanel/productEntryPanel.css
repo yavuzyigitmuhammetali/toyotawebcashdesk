@@ -4,7 +4,17 @@
     height: 90vh;
     display: flex;
     flex-direction: row;
+}
+
+
+.product-entry-panel-container.light {
     background-color: #F8FAFB;
+    color: black;
+}
+
+.product-entry-panel-container.dark {
+    background-color: #131922;
+    color: white;
 }
 
 .product-entry-panel-left-area {
@@ -14,6 +24,21 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+.product-card {
+    width: 50%;
+    font-size: 20px;
+    border-width: 3px;
+}
+
+.checkbox {
+    align-self: flex-start;
+}
+
+.save-button {
+    display: flex;
+    width: 90px;
 }
 
 .product-entry-panel-right-area {
