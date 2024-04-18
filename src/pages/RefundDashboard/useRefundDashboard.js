@@ -5,7 +5,7 @@ import {useNavigate} from "react-router-dom";
 import {calculateTaxAmount} from "../SalesDashboard/functions/productProcessing";
 import {inactivateReceipt, postReceipt} from "./api";
 
-export const useRefundDashboard = (status,cashier,t) => {
+export const useRefundDashboard = (status, cashier, t) => {
     const {receipts} = useContext(AppDataContext);
     const [receipt, setReceipt] = useState(defaultReceipt)
     const [cart, setCart] = useState(receipt.cart);
@@ -13,7 +13,7 @@ export const useRefundDashboard = (status,cashier,t) => {
     const [refundedProducts, setRefundedProducts] = useState([])
     const [error, setError] = useState("")
 
-    const [loading, setLoading] = useState(false); // Add this line to track loading states
+    const [loading, setLoading] = useState(false);
 
     const {total, subTotal, tax} = useMemo(() => {
         const total = refundedProducts.reduce((acc, {
@@ -58,7 +58,7 @@ export const useRefundDashboard = (status,cashier,t) => {
             refund: receiptNumber,
             email: receipt.email
         };
-    
+
         inactivateReceipt(receiptNumber).then(() => {
             postReceipt(res).then(value => {
                 navigate('/receipt/' + value.data.receiptNumber, {replace: true, state: {receipt: value.data}});

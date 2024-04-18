@@ -70,5 +70,6 @@ export const defaultReceipt =
                 type: "card"
             }
         ],
-        refund: ""
+        refund: "",
+        email: ""
     }

@@ -49,3 +49,49 @@
     overflow-y: auto;
     border: 1px solid;
 }
+
+.refund-dashboard-dark {
+    color: white;
+}
+
+.refund-dashboard-light {
+    color: black;
+}
+
+.refund-dashboard-upper-area-item-dark {
+    background-color: #121418;
+}
+
+.refund-dashboard-upper-area-item-light {
+    background-color: #F8FAFB;
+}
+
+.refund-dashboard-upper-area-scroll-dark {
+    background-color: #131922;
+}
+
+.refund-dashboard-upper-area-scroll-light {
+    background-color: white;
+}
+
+.refund-dashboard-lower-area-container-dark {
+    background-color: #121418;
+    color: white;
+}
+
+.refund-dashboard-lower-area-container-light {
+    background-color: #F8FAFB;
+    color: black;
+}
+
+.refund-amount-color {
+    color: green;
+}
+
+.refund-amount-dialog {
+    width: 0;
+    height: 0;
+    padding: 0;
+    margin: 0;
+    visibility: hidden;
+}
