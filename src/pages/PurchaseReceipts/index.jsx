@@ -17,10 +17,8 @@ import {
 import {getComparator, stableSort} from "./functions";
 import Row from "./components/Row";
 import AppDataContext from "../../shared/states/AppData/context";
-import AppStatusContext from "../../shared/states/AppStatus/context";
 
 function PurchaseReceipts() {
-    const {dark} = useContext(AppStatusContext)
     const {t} = useTranslation();
     const [order, setOrder] = useState('desc');
     const [orderBy, setOrderBy] = useState('date');
@@ -30,7 +28,8 @@ function PurchaseReceipts() {
     useEffect(() => {
         fetchReceipts()
             .then(() => setLoading(false));
-    }, [fetchReceipts]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     const handleRequestSort = (property) => () => {
         const isAsc = orderBy === property && order === 'asc';
@@ -42,20 +41,7 @@ function PurchaseReceipts() {
         <div className="purchase-receipts-container">
             <div style={{position: 'relative'}}>
                 {loading && (
-                    <div
-                        style={{
-                            position: 'absolute',
-                            top: 0,
-                            left: 0,
-                            right: 0,
-                            bottom: 0,
-                            display: 'flex',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            backgroundColor: 'rgba(255, 255, 255, 0.5)',
-                            zIndex: 1,
-                        }}
-                    >
+                    <div className="loading-overlay">
                         <CircularProgress/>
                     </div>
                 )}
