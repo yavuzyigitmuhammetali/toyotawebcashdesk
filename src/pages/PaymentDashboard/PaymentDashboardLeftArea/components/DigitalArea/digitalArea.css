@@ -10,8 +10,28 @@
     height: 32vh;
     align-items: center;
     text-align: center;
-    border: 1px dotted white;
+    border: 1px dotted black;
     user-select: none;
+    color: black;
+}
+
+.digital-area-container.dark {
+    border-color: white;
+    color: white;
+}
+
+.total-price {
+    font-size: 3.5em;
+    color: green;
+    filter: brightness(1);
+}
+
+.digital-area-container.dark .total-price {
+    filter: brightness(1.8);
+}
+
+.dots {
+    font-size: 1em;
 }
 
 .digital-area-scroll {
@@ -22,9 +42,21 @@
     max-height: 100%;
     overflow-y: scroll;
     text-align: left;
-
 }
 
 .digital-area-scroll::-webkit-scrollbar {
     display: none;
+}
+
+.item {
+    font-size: 1em;
+}
+
+.amount {
+    font-size: 1.3em;
+}
+
+.change {
+    font-size: 1.3em;
+    color: greenyellow;
 }

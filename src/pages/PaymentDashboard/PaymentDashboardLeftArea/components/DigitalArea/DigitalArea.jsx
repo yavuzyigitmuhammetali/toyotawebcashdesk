@@ -23,33 +23,31 @@ function DigitalArea({dark = false, totalPrice = 2000, data = []}) {
 
 
     return (
-        <div style={{borderColor: dark ? "white" : "black", color: dark ? "white" : "black"}}
-             className="digital-area-container">
-            <div style={{}}>
-                <Typewriter style={{fontSize: "3.5em", color: "green", filter: dark && "brightness(1.8)"}}
-                            speed={100}>{totalPrice.toFixed(2).toString() + "$"}</Typewriter>
-                <Typewriter style={{fontSize: "1em"}}
+        <div className={`digital-area-container ${dark ? 'dark' : ''}`}>
+            <div>
+                <Typewriter className="total-price" speed={100}>{totalPrice.toFixed(2).toString() + "$"}</Typewriter>
+                <Typewriter className="dots"
                             speed={20}>................................................................................</Typewriter>
             </div>
             <div className="digital-area-scroll" ref={scrollRef}>
-                {data.map((item, key) => <Typewriter key={key} style={{fontSize: "1em"}} speed={100}>
+                {data.map((item, key) => <Typewriter key={key} className="item" speed={100}>
                     {(item.type === "card" ? "💳" : "💵") + " " + item.price.toFixed(2).toString() + "$ " + (item.type === "card" ? t('paidWithCard') : t('paidInCash'))}
                 </Typewriter>)}
             </div>
             <div>
-                <Typewriter style={{fontSize: "1em"}}
+                <Typewriter className="dots"
                             speed={20}>................................................................................</Typewriter>
                 <div>
-                    <Typewriter span style={{fontSize: "1.3em"}} speed={100}>{t('paidAmount') + ": "}</Typewriter>
-                    <Typewriter span style={{fontSize: "1.3em"}}
+                    <Typewriter span className="amount" speed={100}>{t('paidAmount') + ": "}</Typewriter>
+                    <Typewriter span className="amount"
                                 speed={100}>{amountPaid.toFixed(2).toString() + "$"}</Typewriter>
                 </div>
                 <div>
-                    <Typewriter span style={{fontSize: "1.3em"}} speed={100}>{t('remainingAmount') + ": "}</Typewriter>
-                    <Typewriter span style={{fontSize: "1.3em"}}
+                    <Typewriter span className="amount" speed={100}>{t('remainingAmount') + ": "}</Typewriter>
+                    <Typewriter span className="amount"
                                 speed={100}>{amountRemaining.toFixed(2).toString() + "$"}</Typewriter>
                 </div>
-                {change ? <Typewriter style={{fontSize: "1.3em", color: "greenyellow"}}
+                {change ? <Typewriter className="change"
                                       speed={100}>{t('change') + ": " + change.toFixed(2).toString() + "$"}</Typewriter> : null}
             </div>
         </div>

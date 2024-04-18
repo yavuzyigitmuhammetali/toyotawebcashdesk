@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext} from 'react';
 import {useTranslation} from 'react-i18next';
 import "./paymentDashboardLeftArea.css"
 import DigitalArea from "./components/DigitalArea/DigitalArea";
@@ -9,36 +9,23 @@ import ScreenKeyboard from "../../../shared/components/ScreenKeyboard/ScreenKeyb
 import AppStatusContext from "../../../shared/states/AppStatus/context";
 
 function PaymentDashboardLeftArea() {
-    const {total, paymentTransactions, email,setEmail} = useContext(PaymentContext)
+    const {total, paymentTransactions, email, setValidEmail} = useContext(PaymentContext)
     const keyboardContext = useContext(KeyboardContext)
     const {lang, dark} = useContext(AppStatusContext);
-    
     const {t} = useTranslation();
-    const isValidEmail = (email) => {
-        const regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        if (!email || email.length === 0) {
-            return false;
-        }
-        if (regex.test(email)) {
-            setEmail(email);
-            return true;
-        }
-        return false;
-    }
+
 
     return (
-        <div style={{backgroundColor: dark ? "#121418" : "", borderColor: dark ? "white" : ""}}
-             className="payment-dashboard-left-area-container">
+        <div className={`payment-dashboard-left-area-container ${dark ? 'dark-mode' : ''}`}>
             <div>
                 <DigitalArea dark={dark} totalPrice={total} data={paymentTransactions}/>
             </div>
             <div>
-                <FormDialog language={lang} disabled={!total || email.length > 0} style={{width: "100%"}}
+                <FormDialog language={lang} disabled={!total || email.length > 0} className="form-dialog"
                             buttonName={t('eInvoice')}
-                            func={isValidEmail}
+                            func={setValidEmail}
                             label={t('customerEmail')}
                             errorText={t('invalidEmailError')}
-                    //onOff={}
                             dark={dark}
                             ScreenKeyboardComponent={ScreenKeyboard}
                             keyboardContext={keyboardContext}

@@ -4,11 +4,12 @@ import PaymentDashboardMiddleArea from "./PaymentDashboardMiddleArea";
 import PaymentDashboardRightArea from "./PaymentDashboardRightArea";
 import {PaymentProvider} from "./context";
 import {NumericKeyboardProvider} from "../../shared/components/NumericKeyboard/context";
+import "./paymentDashboard.css"
 
 
 function PaymentDashboard() {
     return (
-        <div style={{flex: 1, display: "flex", flexDirection: "row", justifyContent: "space-between", padding: "1px"}}>
+        <div className="payment-dashboard-container">
             <PaymentProvider>
                 <PaymentDashboardLeftArea/>
                 <PaymentDashboardMiddleArea/>

@@ -14,7 +14,7 @@ const PaymentProvider = ({children}) => {
     const amountRemaining = (total - amountPaid) < 0 ? (0) : (Math.round((total - amountPaid) * 100) / 100);
     const change = (total - amountPaid) < 0 ? (Math.round((amountPaid - total) * 100) / 100) : (0);
     const [receipt, setReceipt] = React.useState({})
-    const {status,cashier} = React.useContext(AppStatusContext);
+    const {status, cashier} = React.useContext(AppStatusContext);
     const {fetchProducts, clearProducts} = React.useContext(AppDataContext)
 
     React.useEffect(() => {
@@ -36,14 +36,27 @@ const PaymentProvider = ({children}) => {
 
 
     const setTransaction = (amount, type) => {
-        const newTransaction = {price: (Math.floor(amount * 100) / 100), type: type};
+        const newTransaction = {price: type === "card" ? amount : (Math.floor(amount * 100) / 100), type: type};
         setPaymentTransactions(prevTransactions => [...prevTransactions, newTransaction]);
     };
+
+    const setValidEmail = (email) => {
+        const regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        if (!email || email.length === 0) {
+            return false;
+        }
+        if (regex.test(email)) {
+            setEmail(email);
+            return true;
+        }
+        return false;
+    }
 
     const cancelTransaction = () => {
         const _amountPaid = amountPaid;
         sessionStorage.removeItem('salesData');
         sessionStorage.removeItem('paymentTransactions');
+        setEmail('');
         setTempData({subTotal: 0, total: 0, cart: [], tax: 0})
         return _amountPaid;
     }
@@ -144,7 +157,7 @@ const PaymentProvider = ({children}) => {
             cancelTransaction,
             confirmTransaction,
             email,
-            setEmail
+            setValidEmail
         }}>
             {children}
         </PaymentContext.Provider>

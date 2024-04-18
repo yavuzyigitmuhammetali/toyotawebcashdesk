@@ -8,11 +8,11 @@ import {usePaymentDashboardRightArea} from "./usePaymentDashboardRightArea";
 import AppStatusContext from "../../../shared/states/AppStatus/context";
 import {useTranslation} from "react-i18next";
 
-
 function PaymentDashboardRightArea() {
     const {lang, dark} = useContext(AppStatusContext);
     const {t} = useTranslation();
     const {
+        subTotal,
         paymentDialog,
         amountRemaining,
         amountPaid,
@@ -25,8 +25,8 @@ function PaymentDashboardRightArea() {
     } = usePaymentDashboardRightArea(t('orderConfirmed'));
 
     return (
-        <div style={dark ? {backgroundColor: "#121418", borderColor: "white"} : {}}
-             className="payment-dashboard-right-area-container">
+        <div
+            className={dark ? "payment-dashboard-right-area-container dark-theme" : "payment-dashboard-right-area-container"}>
             <div className="payment-dashboard-right-area-operator">
                 <ResponsiveDialog language={lang} onConfirm={cancelTransaction}
                                   title={t('refundAmount') + (amountPaid.toFixed(2) + "$")}
@@ -35,7 +35,7 @@ function PaymentDashboardRightArea() {
                             variant="contained">{t('cancelTransaction')}</Button>
                 </ResponsiveDialog>
                 <Button
-                    disabled={amountRemaining !== 0 || amountPaid === 0 || isLoading}
+                    disabled={amountRemaining !== 0 || amountPaid === 0 || subTotal <= 0 || isLoading}
                     color="success"
                     onClick={handleConfirmTransaction}
                     variant="contained"
@@ -45,12 +45,12 @@ function PaymentDashboardRightArea() {
                 </Button>
             </div>
             <div className="payment-dashboard-right-area-pay">
-                <div style={{flex: 2}}>
+                <div className="payment-dashboard-right-area-pay-keyboard">
                     <NumericKeyboard allowDecimal
                                      disabled={(amountRemaining + amountPaid) === 0 || paymentMethod === "card" || amountRemaining <= 0}
                                      dark={dark}/>
                 </div>
-                <div style={{display: "flex", flexDirection: "column", flex: "1 1"}}>
+                <div className="payment-dashboard-right-area-pay-methods">
                     <Button disabled={amountRemaining === 0} onClick={() => setPaymentMethod("cash")}
                             style={{flex: 1}} color="info"
                             variant={paymentMethod === "cash" ? "contained" : "outlined"}>{t('cash')}</Button>
@@ -62,11 +62,8 @@ function PaymentDashboardRightArea() {
                                       manualOpen={paymentDialog}/>
                 </div>
             </div>
-
         </div>
     );
 }
 
 export default PaymentDashboardRightArea;
-
-

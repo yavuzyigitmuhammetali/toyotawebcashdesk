@@ -164,7 +164,7 @@ const CartProvider = ({children}) => {
                 return currentCart;
             }
         });
-    }, [setCart]);
+    }, [_products, setCart]);
 
 
     const updateDiscountedPrices = React.useCallback(() => {

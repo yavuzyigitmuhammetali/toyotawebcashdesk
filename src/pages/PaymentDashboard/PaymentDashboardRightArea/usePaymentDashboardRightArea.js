@@ -12,7 +12,8 @@ export const usePaymentDashboardRightArea = (successMessage) => {
         amountPaid,
         cancelTransaction,
         confirmTransaction,
-        receipt
+        receipt,
+        subTotal
     } = useContext(PaymentContext)
     const {data: numericKeyboardData, setData: setNumericKeyboardData} = useContext(NumericKeyboardContext)
     const [paymentMethod, setPaymentMethod] = useState("cash")
@@ -32,7 +33,7 @@ export const usePaymentDashboardRightArea = (successMessage) => {
                 state: {receipt: receipt, successMessage: successMessage}
             });
         }
-    }, [receipt]);
+    }, [navigate, receipt, successMessage]);
     const onResponsiveDialogConfirm = useCallback(() => {
         if (paymentMethod === "card") {
             setTransaction(amountRemaining, "card");
@@ -66,6 +67,7 @@ export const usePaymentDashboardRightArea = (successMessage) => {
         setPaymentMethod,
         isLoading,
         onResponsiveDialogConfirm,
-        handleConfirmTransaction
+        handleConfirmTransaction,
+        subTotal
     };
 }

@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 
-function Typewriter({children = " ", speed = 100, style, span = false}) {
+function Typewriter({children = " ", speed = 100, style, span = false, className = ""}) {
     const [currentText, setCurrentText] = useState("");
     const [isTyping, setIsTyping] = useState(false);
 
@@ -20,9 +20,9 @@ function Typewriter({children = " ", speed = 100, style, span = false}) {
         return () => clearInterval(interval);
     }, [children, speed]);
     return (<>
-        {span ? <span style={style}>{currentText}
+        {span ? <span className={className} style={style}>{currentText}
             {isTyping ? <span>|</span> : null}
-            </span> : <div style={style}>{currentText}
+            </span> : <div className={className} style={style}>{currentText}
             {isTyping ? <span>|</span> : null}
         </div>}
     </>);

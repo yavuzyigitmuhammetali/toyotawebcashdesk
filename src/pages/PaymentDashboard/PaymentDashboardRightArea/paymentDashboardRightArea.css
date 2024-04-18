@@ -16,6 +16,11 @@
     justify-content: space-between;
 }
 
+.payment-dashboard-right-area-container.dark-theme {
+    background-color: #121418;
+    border-color: white;
+}
+
 .payment-dashboard-right-area-operator {
     display: flex;
     flex-direction: column;
@@ -25,4 +30,14 @@
 .payment-dashboard-right-area-pay {
     display: flex;
     flex-direction: row;
+}
+
+.payment-dashboard-right-area-pay-keyboard {
+    flex: 2;
+}
+
+.payment-dashboard-right-area-pay-methods {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1;
 }

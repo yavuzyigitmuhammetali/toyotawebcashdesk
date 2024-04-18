@@ -1,0 +1,7 @@
+.payment-dashboard-container {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 1px;
+}

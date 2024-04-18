@@ -10,10 +10,8 @@ function PaymentDashboardMiddleArea() {
     const {total, subTotal, cart} = useContext(PaymentContext)
     const {t} = useTranslation();
     return (
-        <div style={dark ? {backgroundColor: "#121418", borderColor: "white"} : {}}
-             className="payment-dashboard-middle-area-container">
-            <div style={{borderColor: dark ? "white" : "", backgroundColor: dark ? "#111923" : "white"}}
-                 className="payment-dashboard-middle-area-products-scroll">
+        <div className={`payment-dashboard-middle-area-container ${dark ? 'dark' : ''}`}>
+            <div className={`payment-dashboard-middle-area-products-scroll ${dark ? 'dark' : ''}`}>
                 <div className="payment-dashboard-middle-area-products">
                     {cart.map((item, key) =>
                         <ShoppingCartItem
@@ -26,13 +24,12 @@ function PaymentDashboardMiddleArea() {
                     )}
                 </div>
             </div>
-            <div style={dark ? {backgroundColor: "black", color: "white", borderColor: "white"} : {}}
-                 className="payment-dashboard-middle-area-texts">
+            <div className={`payment-dashboard-middle-area-texts ${dark ? 'dark' : ''}`}>
                 <div className="payment-dashboard-middle-area-amount">
                     <span>{t('subTotal')}: </span>
                     <span>{subTotal.toFixed(2)}</span>
                 </div>
-                <hr style={{borderColor: "Background"}}/>
+                <hr className="payment-dashboard-middle-area-hr"/>
                 <div className="payment-dashboard-middle-area-amount">
                     <span>{t('totalAmount')}: </span>
                     <span>{total.toFixed(2)}</span>

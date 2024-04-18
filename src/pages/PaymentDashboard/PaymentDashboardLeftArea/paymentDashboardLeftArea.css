@@ -13,3 +13,12 @@
     padding: 10px;
     border: 1px solid black;
 }
+
+.payment-dashboard-left-area-container.dark-mode {
+    background-color: #121418;
+    border-color: white;
+}
+
+.form-dialog {
+    width: 100%;
+}
