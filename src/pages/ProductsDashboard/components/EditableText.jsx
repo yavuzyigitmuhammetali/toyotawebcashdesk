@@ -3,7 +3,7 @@ import TextField from "@mui/material/TextField";
 import {useTranslation} from 'react-i18next';
 
 function EditableText({
-                          text, style, name, id, onFocus, defaultText = "", className, onTextChange = () => {
+                          text, style, name, id, onFocus, defaultText = "", className = "", onTextChange = () => {
     }
                       }) {
     const [isEditing, setIsEditing] = useState(false);
@@ -17,6 +17,7 @@ function EditableText({
 
     useEffect(() => {
         onTextChange(text, name)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [text]);
 
     const handleBlur = () => {

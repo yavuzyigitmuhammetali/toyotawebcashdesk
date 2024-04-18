@@ -16,11 +16,8 @@ function ProductsDashboard() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const fetchData = async () => {
-            await fetchProducts();
-            setLoading(false);
-        };
-        fetchData();
+        fetchProducts().then(() => setLoading(false))
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const onProductShowcaseClick = useCallback(

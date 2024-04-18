@@ -95,6 +95,7 @@ export const useProductEditor = (screenKeyboardValue, clearValues) => {
                 handleTextChange(screenKeyboardValue[key], key);
             }
         });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [screenKeyboardValue]);
 
 

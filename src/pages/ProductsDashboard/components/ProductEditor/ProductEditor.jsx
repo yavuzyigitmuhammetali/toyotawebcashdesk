@@ -7,7 +7,6 @@ import {Button, Checkbox, CircularProgress, MenuItem, Select} from "@mui/materia
 import {Favorite, FavoriteBorder} from "@mui/icons-material";
 import ResponsiveDialog from "../../../../shared/components/ResponsiveDialog";
 import ScreenKeyboard from "../../../../shared/components/ScreenKeyboard/ScreenKeyboard";
-import {updateProduct} from '../../api';
 import {useProductEditor} from "./useProductEditor";
 import KeyboardContext from "../../../../shared/components/ScreenKeyboard/context";
 import AppStatusContext from "../../../../shared/states/AppStatus/context";
