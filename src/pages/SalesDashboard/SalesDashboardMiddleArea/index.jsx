@@ -9,7 +9,7 @@ import AppStatusContext from "../../../shared/states/AppStatus/context";
 function SalesDashboardMiddleArea() {
     const {dark} = useContext(AppStatusContext);
     const {
-        handleElementFocus, value: keyboardValue, onChangeValue, clearValues
+        handleElementFocus, value: keyboardValue, onChangeValue
     } = useContext(KeyboardContext);
 
     const {t} = useTranslation();
@@ -33,51 +33,47 @@ function SalesDashboardMiddleArea() {
 
     useEffect(() => {
         increaseQuantityDecimalByIndex(decimalValue.id, keyboardValue[decimalValue.id.toString()]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [decimalValue, keyboardValue]);
 
-    useEffect(() => {
-        return () => {
-            clearValues();
-        }
-    }, []);
-
-    return (<div style={dark ? {backgroundColor: "#121418", borderColor: "white"} : {}}
-                 className="sales-dashboard-middle-area-container">
-        <div style={{borderColor: dark && "white", backgroundColor: dark ? "#111923" : "white"}}
-             className="sales-dashboard-middle-area-products-scroll">
-            <div className="sales-dashboard-middle-area-products">
-
-                {cart.map((item, key) => <ShoppingCartItem onAdd={() => increaseQuantityByIndex(key)}
-                                                           onDelete={() => decreaseQuantityByIndex(key)}
-                                                           onRemove={() => removeFromCartByIndex(key)}
-                                                           key={key} dark={dark}
-                                                           campaign={item.campaign.toUpperCase()}
-                                                           discountedPrice={item.discountedPrice}
-                                                           price={item.price} index={key + 1} barcode={item.barcode}
-                                                           tax={item.tax}
-                                                           quantity={item.quantity} productName={item.name}
-                                                           fraction={item.fraction}
-                                                           decimalValue={keyboardValue[key] ?? ''}
-                                                           onFocus={(event) => setDecimalValue(prevState => ({
-                                                               ...prevState, id: parseInt(handleElementFocus(event))
-                                                           }))} id={key.toString()}
-                                                           onChangeDecimal={onShoppingCartItemChangeDecimal}/>)}
-
+    return (
+        <div className={`sales-dashboard-middle-area-container ${dark ? 'dark' : ''}`}>
+            <div className={`sales-dashboard-middle-area-products-scroll ${dark ? 'dark' : ''}`}>
+                <div className="sales-dashboard-middle-area-products">
+                    {cart.map((item, key) => (
+                        <ShoppingCartItem
+                            onAdd={() => increaseQuantityByIndex(key)}
+                            onDelete={() => decreaseQuantityByIndex(key)}
+                            onRemove={() => removeFromCartByIndex(key)}
+                            key={key} dark={dark}
+                            campaign={item.campaign.toUpperCase()}
+                            discountedPrice={item.discountedPrice}
+                            price={item.price} index={key + 1} barcode={item.barcode}
+                            tax={item.tax}
+                            quantity={item.quantity} productName={item.name}
+                            fraction={item.fraction}
+                            decimalValue={keyboardValue[key] ?? ''}
+                            onFocus={(event) => setDecimalValue(prevState => ({
+                                ...prevState, id: parseInt(handleElementFocus(event))
+                            }))} id={key.toString()}
+                            onChangeDecimal={onShoppingCartItemChangeDecimal}
+                        />
+                    ))}
+                </div>
+            </div>
+            <div className={`sales-dashboard-middle-area-texts ${dark ? 'dark' : ''}`}>
+                <div className="sales-dashboard-middle-area-amount">
+                    <span>{t('subTotal')}: </span>
+                    <span>{subTotalPrice.toFixed(2)}$</span>
+                </div>
+                <hr className={dark ? 'dark' : ''}/>
+                <div className="sales-dashboard-middle-area-amount">
+                    <span>{t('totalAmount')}: </span>
+                    <span>{totalPrice.toFixed(2)}$</span>
+                </div>
             </div>
         </div>
-        <div style={dark ? {backgroundColor: "black", color: "white", borderColor: "white"} : {}}
-             className="sales-dashboard-middle-area-texts">
-            <div className="sales-dashboard-middle-area-amount">
-                <span>{t('subTotal')}: </span>
-                <span>{subTotalPrice.toFixed(2)}$</span>
-            </div>
-            <hr style={{borderColor: dark ? "white" : "black"}}/>
-            <div className="sales-dashboard-middle-area-amount">
-                <span>{t('totalAmount')}: </span>
-                <span>{totalPrice.toFixed(2)}$</span>
-            </div>
-        </div>
-    </div>);
+    );
 }
 
 export default SalesDashboardMiddleArea;

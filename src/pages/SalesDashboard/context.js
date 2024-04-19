@@ -26,25 +26,27 @@ const CartProvider = ({children}) => {
     const [isLoading, setIsLoading] = React.useState(false);
 
 
-    const totalCampaignQuantity = React.useMemo(() =>
-            cart.filter(item => item.campaign).reduce((acc, item) => acc + item.quantity, 0),
-        [cart]
-    );
+    const totalCampaignQuantity = React.useMemo(() => {
+        let total = 0;
+        for (const item of cart) {
+            if (item.campaign) {
+                total += item.quantity;
+            }
+        }
+        return total;
+    }, [cart]);
 
     React.useEffect(() => {
         updateDiscountedPrices();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [totalCampaignQuantity, discounts]);
 
-    const totalQuantity = React.useMemo(() =>
-            cart.reduce((acc, item) => acc + item.quantity, 0),
-        [cart]
-    );
     React.useEffect(() => {
         const {subtotal, total, tax} = calculateSubtotalAndTotal(cart);
         setTotal(total);
         setTax(tax);
         setSubTotal(subtotal);
-    }, [totalQuantity, discounts]);
+    }, [cart, discounts]);
 
     React.useEffect(() => {
         setIsLoading(true);
@@ -60,6 +62,8 @@ const CartProvider = ({children}) => {
             setDiscounts(discounts)
             setCart(cart);
         }
+        console.log("cart")
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
 
@@ -245,10 +249,10 @@ const CartProvider = ({children}) => {
     >
         {children}
         <Backdrop
-            sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1, backdropFilter: 'blur(3px)' }}
+            sx={{color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1, backdropFilter: 'blur(3px)'}}
             open={isLoading}
         >
-            <CircularProgress color="inherit" />
+            <CircularProgress color="inherit"/>
         </Backdrop>
     </CartContext.Provider>);
 };

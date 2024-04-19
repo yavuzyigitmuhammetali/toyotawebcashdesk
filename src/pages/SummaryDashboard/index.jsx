@@ -147,11 +147,7 @@ function SummaryDashboard() {
 
     return (
         <div className="summary-dashboard-container">
-            <div style={{
-                backgroundColor: dark && "rgb(17, 20, 24)",
-                borderColor: dark && "white",
-                color: dark && "white"
-            }} className="summary-dashboard-left">
+            <div className={`summary-dashboard-left ${dark ? 'dark-theme' : ''}`}>
                 <ToggleButtonGroup
                     color="primary"
                     value={alignment}
@@ -202,22 +198,22 @@ function SummaryDashboard() {
                     </ul>
                 </div>
             </div>
-            <div style={{backgroundColor: dark && "#D57B52", borderColor: dark && "white"}}
-                 className="summary-dashboard-right">
-                <div style={{backgroundColor: dark && "black", color: dark && "white"}}
-                     className="summary-dashboard-right-header">{t("outOfStockProducts")}</div>
+            <div className={`summary-dashboard-right ${dark ? 'summary-dashboard-right-dark' : ''}`}>
+                <div className={`summary-dashboard-right-header ${dark ? 'summary-dashboard-right-header-dark' : ''}`}>
+                    {t("outOfStockProducts")}
+                </div>
                 <br/>
                 {products.filter(product => !product.stock).map((product, key) => <ProductCard key={key}
-                                                                                   price={parseFloat(product.price.toFixed(2))}
-                                                                                   barcode={product.barcode}
-                                                                                   favorite={product.isFavourite}
-                                                                                   stock={product.stock}
-                                                                                   dark={dark}
-                                                                                   fraction={product.fraction}
-                                                                                   name={product.name}
-                                                                                   src={product.image}
-                                                                                   discountText={product.campaign}
-                                                                                   onClick={() => navigate('/products/list/' + product.id)}/>)}
+                                                                                               price={parseFloat(product.price.toFixed(2))}
+                                                                                               barcode={product.barcode}
+                                                                                               favorite={product.isFavourite}
+                                                                                               stock={product.stock}
+                                                                                               dark={dark}
+                                                                                               fraction={product.fraction}
+                                                                                               name={product.name}
+                                                                                               src={product.image}
+                                                                                               discountText={product.campaign}
+                                                                                               onClick={() => navigate('/products/list/' + product.id)}/>)}
 
             </div>
         </div>

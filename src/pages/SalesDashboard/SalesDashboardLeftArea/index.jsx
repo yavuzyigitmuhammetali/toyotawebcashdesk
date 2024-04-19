@@ -1,6 +1,6 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext} from 'react';
 import TextField from "@mui/material/TextField";
-import {Button, IconButton, InputAdornment, CircularProgress} from "@mui/material";
+import {Button, IconButton, InputAdornment} from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
 import ProductCard from "../../../shared/components/ProductCard/ProductCard";
 import ScreenKeyboard from "../../../shared/components/ScreenKeyboard/ScreenKeyboard";
@@ -29,7 +29,6 @@ function SalesDashboardLeftArea() {
         maxProductCount
     } = useSalesDashboardLeftArea();
 
-    const [loading, setLoading] = useState(false);
 
     const columnCount = Math.max(1, Math.floor(window.innerWidth / (columnWidth * 3)));
     const rowCount = Math.ceil(products.length / Math.max(1, Math.floor(window.innerWidth / (columnWidth * 3))));
@@ -103,7 +102,7 @@ function SalesDashboardLeftArea() {
                         </Grid>
                     );
                 } else {
-                    return products.map((product, key) => (
+                    return products.map((product) => (
                         <ProductCard
                             key={product.id}
                             onClick={() => addToCart(product)}
@@ -160,7 +159,7 @@ function SalesDashboardLeftArea() {
             </div>
             <div className="left-three-scroll">
                 <div className="left-three">
-                    {loading ? <CircularProgress /> : renderContent()}
+                    {renderContent()}
                 </div>
             </div>
         </div>

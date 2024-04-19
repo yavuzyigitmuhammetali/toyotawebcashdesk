@@ -63,4 +63,19 @@
     min-width: 0 !important;
 }
 
+/* New CSS classes for dark theme styles */
+.dark-theme {
+    background-color: rgb(17, 20, 24);
+    border-color: white;
+    color: white;
+}
 
+.summary-dashboard-right-dark {
+    background-color: #D57B52;
+    border-color: white;
+}
+
+.summary-dashboard-right-header-dark {
+    background-color: black;
+    color: white;
+}
