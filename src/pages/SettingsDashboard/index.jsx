@@ -21,37 +21,17 @@ function SettingsDashboard() {
     return (
         <>
             <IconButton
-                style={{zIndex: "9999"}}
+                className="settings-icon-button"
                 color={!showSettings ? "info" : "error"}
                 onClick={toggleSettings}
             >
                 {showSettings ? <CloseIcon/> : <SettingsIcon/>}
             </IconButton>
             {showSettings && (
-                <div
-                    style={{
-                        position: "fixed",
-                        left: 0,
-                        top: 0,
-                        boxSizing: "border-box",
-                        width: "100%",
-                        height: "100%",
-                        backgroundColor: "rgba(0,0,0,0.5)",
-                    }}
-                >
-                    <div style={{
-                        color: dark && "white",
-                        backgroundColor: dark && "rgb(30, 30, 30)",
-                        borderColor: dark && "white"
-                    }} className="settings-dashboard-container">
+                <div className="settings-overlay">
+                    <div className={`settings-dashboard-container ${dark ? 'dark' : ''}`}>
                         <div className="settings-dashboard-header">{t('settings')}</div>
-                        <hr
-                            style={{
-                                backgroundColor: dark ? "white" : "black",
-                                height: "1px",
-                                border: "none",
-                            }}
-                        />
+                        <hr className={`settings-divider ${dark ? 'dark' : ''}`}/>
                         <div className="settings-dashboard-body">
                             <div className="settings-dashboard-active-area">
                                 <SettingsItem
@@ -85,7 +65,6 @@ function SettingsDashboard() {
                 </div>
             )}
         </>
-
     );
 }
 

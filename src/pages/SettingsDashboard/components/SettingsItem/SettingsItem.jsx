@@ -28,24 +28,30 @@ function SettingsItem({
     };
 
     const itemClass = () => {
-        if (onOff === undefined) return "settings-item";
-        return `settings-item ${isActive ? "active" : "inactive"}`;
+        let className = "settings-item";
+        if (onOff !== undefined) {
+            className += isActive ? " active" : " inactive";
+        }
+        if (dark) {
+            className += " dark";
+            if (onOff === undefined) {
+                className += " undefined-onOff";
+            }
+        } else {
+            className += " light";
+        }
+        return className;
     };
 
     return (
         <div
-            style={{
-                backgroundColor: color,
-                color: dark ? "white" : "black",
-                filter: dark ? "brightness(120%)" : "",
-                borderColor: dark && onOff === undefined ? "white" : "",
-            }}
+            style={{backgroundColor: color}}
             className={itemClass()}
             onClick={handleClick}
         >
             {icon}
             {children}
-            <span style={{borderLeft: "2px solid", paddingLeft: "10px"}}>{property}</span>
+            <span className="settings-item-border">{property}</span>
         </div>
     );
 }

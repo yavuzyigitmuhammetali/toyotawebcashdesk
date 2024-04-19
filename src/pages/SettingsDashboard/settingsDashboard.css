@@ -15,10 +15,26 @@
     cursor: pointer;
 }
 
+.settings-dashboard-container.dark {
+    color: white;
+    background-color: rgb(30, 30, 30);
+    border-color: white;
+}
+
 .settings-dashboard-header {
     display: flex;
     justify-content: center;
     margin-bottom: 20px;
+}
+
+.settings-divider {
+    background-color: black;
+    height: 1px;
+    border: none;
+}
+
+.settings-divider.dark {
+    background-color: white;
 }
 
 .settings-dashboard-body {
@@ -36,4 +52,3 @@
     flex-direction: column;
     gap: 10px;
 }
-
