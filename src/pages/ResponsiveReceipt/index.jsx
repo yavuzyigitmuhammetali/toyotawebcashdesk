@@ -1,4 +1,4 @@
-import React, {useCallback, useContext, useEffect, useState} from 'react';
+import React, {useContext} from 'react';
 import "./responsiveReceipt.css"
 import AlignHorizontalRightIcon from '@mui/icons-material/AlignHorizontalRight';
 import AlignHorizontalCenterIcon from '@mui/icons-material/AlignHorizontalCenter';
@@ -9,56 +9,26 @@ import Receipt from "../../shared/components/Receipt/Receipt";
 import {ToggleButtonGroup} from "@mui/material";
 import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
 import PaperIcon from '@mui/icons-material/Feed';
-import {useLocation, useParams} from "react-router-dom";
-import AppDataContext from "../../shared/states/AppData/context";
-import {defaultReceipt} from "../../shared/states/AppData/defaultData";
 import AlertComponent from "../../shared/components/AlertComponent";
 import {useTranslation} from "react-i18next";
 import AppStatusContext from "../../shared/states/AppStatus/context";
+import {useResponsiveReceipt} from "./useResponsiveReceipt";
 
 
 function ResponsiveReceipt() {
-    const {receipts} = useContext(AppDataContext);
     const {lang, dark} = useContext(AppStatusContext)
-    const location = useLocation();
-    const [receipt, setReceipt] = useState({})
-    const [alignment, setAlignment] = useState('left');
-    const [alignment2, setAlignment2] = useState('left');
-    const {receiptNumber} = useParams();
     const {t} = useTranslation();
 
-    useEffect(() => {
-        const filteredReceipt = receipts.filter(item => item.receiptNumber === receiptNumber)[0];
-        setReceipt(location.state?.receipt ?? filteredReceipt ?? defaultReceipt);
-    }, [receiptNumber, receipts]);
+    const {
+        receipt,
+        alignment,
+        alignment2,
+        handlePrint,
+        handleAlignment,
+        handleAlignment2
+    } = useResponsiveReceipt(t('printErrorMessage'));
 
-
-    const handlePrint = useCallback(() => {
-        if (receipt.active) {
-            window.print();
-        } else {
-            alert(t('printErrorMessage'));
-        }
-    }, [receipt.active]);
-
-
-    useEffect(() => {
-        if (location.pathname === "/receipt/print-test") {
-            window.print();
-        }
-    }, [location.pathname])
-
-    const handleAlignment = (event, newAlignment) => {
-        if (newAlignment !== null) {
-            setAlignment(newAlignment);
-        }
-    };
-    const handleAlignment2 = (event, newAlignment) => {
-        if (newAlignment !== null) {
-            setAlignment2(newAlignment);
-        }
-    };
-    return (<div style={{backgroundColor: dark ? "#111418" : "transparent"}} className="responsive-receipt-container">
+    return (<div className={`responsive-receipt-container ${dark ? "dark-mode" : ""}`}>
         <AlertComponent/>
         <div className="responsive-receipt-controller">
             <ToggleButtonGroup

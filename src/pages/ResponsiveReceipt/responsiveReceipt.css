@@ -11,6 +11,10 @@
     width: max-content;
 }
 
+.responsive-receipt-container.dark-mode {
+    background-color: #111418;
+}
+
 .responsive-receipt-controller {
     position: fixed;
     z-index: 6;
@@ -77,3 +81,6 @@
         margin: 0;
     }
 }
+
+
+
