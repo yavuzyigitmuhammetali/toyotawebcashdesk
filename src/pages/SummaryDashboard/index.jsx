@@ -1,5 +1,5 @@
 import React, {useCallback, useContext, useEffect, useMemo, useState} from 'react';
-import "./summaryDashboard.css"
+import "./index.css"
 import AppDataContext from "../../shared/states/AppData/context";
 import {
     calcTotalAmount,

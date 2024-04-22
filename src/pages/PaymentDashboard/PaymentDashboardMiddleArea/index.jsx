@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import "./paymentDashboardMiddleArea.css"
+import "./index.css"
 import ShoppingCartItem from "../../../shared/components/ShoppingCartItem/ShoppingCartItem";
 import PaymentContext from "../context";
 import {useTranslation} from 'react-i18next';

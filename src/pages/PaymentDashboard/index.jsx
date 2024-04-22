@@ -4,7 +4,7 @@ import PaymentDashboardMiddleArea from "./PaymentDashboardMiddleArea";
 import PaymentDashboardRightArea from "./PaymentDashboardRightArea";
 import {PaymentProvider} from "./context";
 import {NumericKeyboardProvider} from "../../shared/components/NumericKeyboard/context";
-import "./paymentDashboard.css"
+import "./index.css"
 
 
 function PaymentDashboard() {

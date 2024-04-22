@@ -1,5 +1,5 @@
 import React from 'react';
-import "./mainScreen.css"
+import "./index.css"
 import AlertComponent from "../../shared/components/AlertComponent";
 import AppStatusContext from "../../shared/states/AppStatus/context";
 import MainScreenItem from "./components/MainScreenItem/MainScreenItem";

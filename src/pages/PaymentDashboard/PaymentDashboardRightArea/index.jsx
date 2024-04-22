@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import "./paymentDashboardRightArea.css"
+import "./index.css"
 import {Button, CircularProgress} from "@mui/material";
 import NumericKeyboard from "../../../shared/components/NumericKeyboard/NumericKeyboard";
 import SendIcon from '@mui/icons-material/Send';

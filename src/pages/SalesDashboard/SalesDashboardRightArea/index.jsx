@@ -1,5 +1,5 @@
 import React, {useCallback, useContext, useState} from 'react';
-import "./salesDashboardRightArea.css"
+import "./index.css"
 import {Button, IconButton} from "@mui/material";
 import SendIcon from '@mui/icons-material/Send';
 import NumericKeyboard from "../../../shared/components/NumericKeyboard/NumericKeyboard";

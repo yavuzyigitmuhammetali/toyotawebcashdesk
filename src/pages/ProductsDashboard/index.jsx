@@ -5,7 +5,7 @@ import AppDataContext from "../../shared/states/AppData/context";
 import ScreenKeyboard from "../../shared/components/ScreenKeyboard/ScreenKeyboard";
 import KeyboardContext from "../../shared/components/ScreenKeyboard/context";
 import AppStatusContext from "../../shared/states/AppStatus/context";
-import "./productsDashboard.css";
+import "./index.css";
 import CircularProgress from "@mui/material/CircularProgress";
 
 function ProductsDashboard() {

@@ -1,5 +1,5 @@
 import React, {useCallback, useContext, useEffect, useState} from 'react';
-import "./salesDashboardMiddleArea.css"
+import "./index.css"
 import ShoppingCartItem from "../../../shared/components/ShoppingCartItem/ShoppingCartItem";
 import CartContext from "../context";
 import KeyboardContext from "../../../shared/components/ScreenKeyboard/context";

@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import "./responsiveReceipt.css"
+import "./index.css"
 import AlignHorizontalRightIcon from '@mui/icons-material/AlignHorizontalRight';
 import AlignHorizontalCenterIcon from '@mui/icons-material/AlignHorizontalCenter';
 import AlignHorizontalLeftIcon from '@mui/icons-material/AlignHorizontalLeft';

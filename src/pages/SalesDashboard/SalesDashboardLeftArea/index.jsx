@@ -8,7 +8,7 @@ import {useTranslation} from "react-i18next";
 import AppStatusContext from "../../../shared/states/AppStatus/context";
 import {FixedSizeGrid as Grid} from 'react-window';
 import {useSalesDashboardLeftArea} from './useSalesDashboardLeftArea';
-import "./salesDashboardLeftArea.css";
+import "./index.css";
 
 function SalesDashboardLeftArea() {
     const {t} = useTranslation();

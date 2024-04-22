@@ -1,5 +1,5 @@
 import React, {useContext, useState} from "react";
-import "./settingsDashboard.css";
+import "./index.css";
 import SettingsIcon from "@mui/icons-material/Settings";
 import CloseIcon from "@mui/icons-material/Close";
 import SettingsItem from "./components/SettingsItem/SettingsItem";

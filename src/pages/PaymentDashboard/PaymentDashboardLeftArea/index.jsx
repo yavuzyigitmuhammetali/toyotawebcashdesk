@@ -1,6 +1,6 @@
 import React, {useContext} from 'react';
 import {useTranslation} from 'react-i18next';
-import "./paymentDashboardLeftArea.css"
+import "./index.css"
 import DigitalArea from "./components/DigitalArea/DigitalArea";
 import FormDialog from "../../../shared/components/FormDialog";
 import PaymentContext from "../context";

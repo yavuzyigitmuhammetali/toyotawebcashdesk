@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import "./productEntryPanel.css"
+import "./index.css"
 import {useProductEntryPanel} from "./useProductEntryPanel";
 import {useTranslation} from "react-i18next";
 import ProductDisplayArea from './components/ProductDisplayArea';

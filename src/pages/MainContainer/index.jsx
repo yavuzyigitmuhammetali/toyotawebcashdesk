@@ -1,5 +1,5 @@
 import React, {useContext} from "react";
-import "./mainContainer.css";
+import "./index.css";
 import {Outlet} from "react-router-dom";
 import {useMainContainer} from "./useMainContainer";
 import Footer from "./components/Footer";

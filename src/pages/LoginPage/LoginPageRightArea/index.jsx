@@ -11,7 +11,7 @@ import {
     InputLabel,
     OutlinedInput,
 } from "@mui/material";
-import "./loginPageRightArea.css";
+import "./index.css";
 import ScreenKeyboard from "../../../shared/components/ScreenKeyboard/ScreenKeyboard";
 import {Visibility, VisibilityOff} from "@mui/icons-material";
 import {useLoginPageRightArea} from "./useLoginPageRightArea";

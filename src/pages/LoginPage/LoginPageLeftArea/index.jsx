@@ -1,5 +1,5 @@
 import React, {lazy} from 'react';
-import "./loginPageLeftArea.css"
+import "./index.css"
 import OnlineOfflineIndicator from "../../../shared/components/OnlineOfflineIndicator/OnlineOfflineIndicator";
 import AppStatusContext from "../../../shared/states/AppStatus/context";
 import {useTranslation} from "react-i18next";

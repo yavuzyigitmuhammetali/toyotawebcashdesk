@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import "./refundDashboard.css"
+import "./index.css"
 import ShoppingCartItem from "../../shared/components/ShoppingCartItem/ShoppingCartItem";
 import {Button, CircularProgress} from "@mui/material";
 import ResponsiveDialog from "../../shared/components/ResponsiveDialog";

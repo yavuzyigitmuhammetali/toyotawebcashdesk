@@ -1,5 +1,5 @@
 import React, {useContext} from "react";
-import "./loginPage.css";
+import "./index.css";
 import LoginPageLeftArea from "./LoginPageLeftArea";
 import LoginPageRightArea from "./LoginPageRightArea";
 import AppStatusContext from "../../shared/states/AppStatus/context";
