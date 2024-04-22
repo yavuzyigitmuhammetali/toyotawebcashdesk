@@ -17,7 +17,6 @@ function ProductShowcase(props) {
         setMap,
         columnCount,
         rowCount,
-        currentData,
         Cell,
         ScreenKeyboardComponent,
         language,

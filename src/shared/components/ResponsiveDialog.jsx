@@ -10,7 +10,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 export default function ResponsiveDialog({
                                              children,
                                              style,
-                                             className="",
+                                             className = "",
                                              disabled = false,
                                              title = "",
                                              text = "",

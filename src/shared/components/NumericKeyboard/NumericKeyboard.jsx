@@ -41,15 +41,10 @@ function NumericKeyboard({
     };
 
     return (
-        <div
-            style={
-                dark ? {backgroundColor: "#121418", borderColor: "white", width: width} : {width: width}
-            }
-            className="numeric-keyboard-container"
-        >
+        <div className={`numeric-keyboard-container ${dark ? 'dark' : ''}`} style={{width: width}}>
             <ThemeProvider theme={createTheme({palette: {mode: dark ? "dark" : "light"}})}>
                 <TextField
-                    style={{gridColumn: "1 / span 4", gridRow: "1"}}
+                    className="numeric-keyboard-textfield"
                     onChange={(event) => fromKeyboard && setValue(event.target.value)}
                     fullWidth
                     value={value}
@@ -69,7 +64,7 @@ function NumericKeyboard({
                 <Button
                     size="small"
                     onClick={() => setValue(value.slice(0, -1))}
-                    style={{gridColumnEnd: "span 2"}}
+                    className="numeric-keyboard-backspace"
                     color="warning"
                     startIcon={<BackspaceIcon/>}
                     variant="contained"
@@ -104,7 +99,7 @@ function NumericKeyboard({
                 <Button
                     size="small"
                     onClick={() => setValue(value + "0")}
-                    style={{gridColumnEnd: "span 2"}}
+                    className="numeric-keyboard-zero"
                     variant="contained"
                 >
                     0
@@ -113,7 +108,7 @@ function NumericKeyboard({
                     size="small"
                     disabled={disabled}
                     onClick={submitData}
-                    style={{gridColumn: "4", gridRow: "3 / span 3"}}
+                    className="numeric-keyboard-submit"
                     endIcon={<DoneOutlineIcon/>}
                     color="success"
                     variant="contained"
@@ -122,7 +117,7 @@ function NumericKeyboard({
                     size="small"
                     disabled={!allowDecimal}
                     onClick={() => setValue(value + ".")}
-                    style={{gridColumnEnd: "span 2"}}
+                    className="numeric-keyboard-decimal"
                     variant="contained"
                 >
                     .

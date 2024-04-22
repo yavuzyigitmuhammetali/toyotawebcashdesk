@@ -1,5 +1,5 @@
 import React from 'react';
-import OnlineOfflineIndicator from "../../../shared/components/OnlineOfflineIndicator";
+import OnlineOfflineIndicator from "../../../shared/components/OnlineOfflineIndicator/OnlineOfflineIndicator";
 
 
 const Footer = ({dark, lang, isOnline, formattedDate, status, t}) => (

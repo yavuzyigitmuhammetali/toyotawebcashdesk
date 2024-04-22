@@ -18,8 +18,8 @@
     "thanks": "THANK YOU",
     "lbs": "lbs.",
     "pcs": "pcs.",
-    "cashierName":"Cashier Name",
-    "cashierNumber":"Cashier Number"
+    "cashierName": "Cashier Name",
+    "cashierNumber": "Cashier Number"
   },
   "tr": {
     "refund": "İADE GÖRMÜŞ",
@@ -40,8 +40,8 @@
     "thanks": "TEŞEKKÜRLER",
     "lbs": "kgs.",
     "pcs": "adt.",
-    "cashierName":"Kasiyer Adı",
-    "cashierNumber":"Kasiyer Numarası"
+    "cashierName": "Kasiyer Adı",
+    "cashierNumber": "Kasiyer Numarası"
   }
 }
 

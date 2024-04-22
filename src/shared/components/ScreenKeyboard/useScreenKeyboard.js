@@ -1,17 +1,16 @@
-import { useRef, useState, useCallback } from "react";
+import {useCallback, useRef, useState} from "react";
 
 export const useScreenKeyboard = (language) => {
     const [isDragging, setIsDragging] = useState(false);
+    // eslint-disable-next-line no-unused-vars
     const [keyboardType, setKeyboardType] = useState(language);
     const [capsLock, setCapsLock] = useState(false);
     const textInputRef = useRef(null);
     const dragStartRef = useRef(null);
-    const [position, setPosition] = useState({ x: 0, y: 0 });
+    const [position, setPosition] = useState({x: 0, y: 0});
     const turkishKeyboard = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "del", "enter", "q", "w", "e", "r", "t", "y", "u", "ı", "o", "p", "ğ", "a", "s", "d", "ü", "f", "g", "h", "j", "k", "l", "ş", "i", "z", "x", "c", "v", "b", "n", "m", "ö", "ç", "language", "@", "space", ".",];
     const englishKeyboard = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "del", "enter", "q", "w", "e", "r", "t", "y", "u", "i", "o", "p", ";", "a", "s", "d", "f", "g", "h", "j", "k", "l", "<", ">", "z", "x", "c", "v", "b", "n", "m", "?", "-", "_", "language", "@", "space", ".",];
 
-
-    // Use useCallback to memoize the callback, preventing unnecessary re-creations
     const handleMouseDown = useCallback((e) => {
         const target = e.target;
 
@@ -20,7 +19,6 @@ export const useScreenKeyboard = (language) => {
         }
 
         setIsDragging(true);
-        const rect = textInputRef.current.getBoundingClientRect();
         dragStartRef.current = {
             x: e.clientX,
             y: e.clientY,
@@ -39,7 +37,7 @@ export const useScreenKeyboard = (language) => {
 
             // Use requestAnimationFrame for smooth animations
             requestAnimationFrame(() => {
-                setPosition({ x: newX, y: newY });
+                setPosition({x: newX, y: newY});
                 textInputRef.current.style.transform = `translate(${newX}px, ${newY}px)`;
             });
         }
@@ -49,9 +47,9 @@ export const useScreenKeyboard = (language) => {
         setIsDragging(false);
     }, []);
 
-    const handleKeyboardType = useCallback(() => {
-        setKeyboardType((prevType) => (prevType === "tr" ? "en" : "tr"));
-    }, []);
+    /*    const handleKeyboardType = useCallback(() => {
+            setKeyboardType((prevType) => (prevType === "tr" ? "en" : "tr"));
+        }, []);*/
 
     const handleKeyboardCapsLock = useCallback(() => {
         setCapsLock((prevCapsLock) => !prevCapsLock);
@@ -59,6 +57,7 @@ export const useScreenKeyboard = (language) => {
 
     let keyboard = useCallback(() => {
         return keyboardType === "tr" ? turkishKeyboard : englishKeyboard;
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [keyboardType]);
 
     return {

@@ -32,6 +32,7 @@ function AlertComponent({style, autoHideDuration = 3000, variant = "filled"}) {
             setOpen(!!message);
             navigate(location.pathname, {replace: true, state: {}});
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [navigate, message]);
 
     const handleClose = (reason) => {

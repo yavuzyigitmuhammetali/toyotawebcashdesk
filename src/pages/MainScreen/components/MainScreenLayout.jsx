@@ -1,7 +1,7 @@
 import React from 'react';
 import {IconButton} from "@mui/material";
 import LogoutIcon from '@mui/icons-material/Logout';
-import OnlineOfflineIndicator from "../../../shared/components/OnlineOfflineIndicator";
+import OnlineOfflineIndicator from "../../../shared/components/OnlineOfflineIndicator/OnlineOfflineIndicator";
 import SettingsDashboard from "../../SettingsDashboard";
 
 function MainScreenLayout({dark, lang, isOnline, logOut, status, cashier, t}) {

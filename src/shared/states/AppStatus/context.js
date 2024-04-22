@@ -8,17 +8,17 @@ const AppStatusContext = React.createContext(undefined);
 
 const AppStatusProvider = ({children}) => {
     const [status, setStatus] = React.useState(JSON.parse(localStorage.getItem('status')));
-    const [cashier, setCashier] = React.useState(JSON.parse(localStorage.getItem('cashier'))??{});
-    const [isOnline, setIsOnline] = React.useState(JSON.parse(localStorage.getItem('isOnline'))??false);
-    const [isLoggedIn, setIsLoggedIn] = React.useState(JSON.parse(localStorage.getItem('isLoggedIn'))??false);
+    const [cashier, setCashier] = React.useState(JSON.parse(localStorage.getItem('cashier')) ?? {});
+    const [isOnline, setIsOnline] = React.useState(JSON.parse(localStorage.getItem('isOnline')) ?? false);
+    const [isLoggedIn, setIsLoggedIn] = React.useState(JSON.parse(localStorage.getItem('isLoggedIn')) ?? false);
     const [dark, setDark] = React.useState(false);
-    const [lang, setLang] = React.useState( 'en');
+    const [lang, setLang] = React.useState('en');
     const {i18n} = useTranslation();
 
 
     React.useEffect(() => {
-            changeLang(JSON.parse(localStorage.getItem('lang'))??navigator.language.slice(0,2)); 
-            changeDark(JSON.parse(localStorage.getItem('dark'))?? window.matchMedia('(prefers-color-scheme: dark)').matches);
+        changeLang(JSON.parse(localStorage.getItem('lang')) ?? navigator.language.slice(0, 2));
+        changeDark(JSON.parse(localStorage.getItem('dark')) ?? window.matchMedia('(prefers-color-scheme: dark)').matches);
         getStatus()
             .then(response => {
                 const statusData = response.data;
@@ -37,6 +37,7 @@ const AppStatusProvider = ({children}) => {
                 setIsOnline(false);
                 console.log(err);
             });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     React.useEffect(() => {
@@ -46,13 +47,14 @@ const AppStatusProvider = ({children}) => {
             localStorage.setItem('isOnline', JSON.stringify(isOnline));
             return () => timer && clearTimeout(timer);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [status]);
 
-/*    React.useEffect(() => {
-        if (!isOnline) {
-            logOut();
-        }
-    }, [isOnline]);*/
+    /*    React.useEffect(() => {
+            if (!isOnline) {
+                logOut();
+            }
+        }, [isOnline]);*/
 
 
     const changeDark = (darkTheme = undefined) => {
@@ -111,7 +113,8 @@ const AppStatusProvider = ({children}) => {
                 logOut,
                 changeDark,
                 changeLang,
-                setIsOnline
+                setIsOnline,
+                setStatus
             }}
         >
             {children}

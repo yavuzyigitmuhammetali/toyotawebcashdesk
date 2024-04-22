@@ -4,7 +4,7 @@ export const defaultReceipt =
         active: true,
         storeNumber: "",
         case: 0,
-        "cashierName":"",
+        "cashierName": "",
         "cashierNumber": 0,
         date: "2000-01-01T00:00:00.000Z",
         total: 0,

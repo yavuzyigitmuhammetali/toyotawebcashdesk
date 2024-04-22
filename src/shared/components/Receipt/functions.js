@@ -1,3 +1,9 @@
+/**
+ * Converts an ISO date string to a formatted date and time string based on the specified language.
+ * @param {string} isoString - The ISO date string to convert.
+ * @param {string} lang - The language code ('tr' for Turkish, 'en' for English).
+ * @returns {Object} An object containing the formatted date and time strings.
+ */
 export function convertToDateFormat(isoString, lang) {
     if (lang === "tr" || lang === "en") {
         const months = lang === "en" ? [

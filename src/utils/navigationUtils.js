@@ -35,10 +35,10 @@ export const getPageTitleAndLink = (pathname, t, productId, receiptNumber, pathH
             prevLink = "/";
             break;
         default:
-            if (location.pathname.startsWith("/products/list/")) {
+            if (pathname.startsWith("/products/list/")) {
                 pageTitle = t("viewingProduct") + ": " + productId;
                 prevLink = pathHistory[pathHistory.length - 2] === "/summary/calculate" ? "/summary/calculate" : "/products/list";
-            } else if (location.pathname.startsWith("/receipt/")) {
+            } else if (pathname.startsWith("/receipt/")) {
                 pageTitle = t("receiptNumber") + ": " + receiptNumber;
                 prevLink = pathHistory[pathHistory.length - 2] === "/purchase/list" ? "/purchase/list" : "/";
             } else {

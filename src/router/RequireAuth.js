@@ -6,7 +6,7 @@ import {createTheme, ThemeProvider} from "@mui/material/styles";
 import setupAxiosInterceptors from '../shared/functions/setupAxiosInterceptors';
 
 export default function RequireAuth() {
-    const {isLoggedIn, isOnline, dark, logOut,setIsOnline} = React.useContext(AppStatusContext);
+    const {isLoggedIn, isOnline, dark, logOut, setIsOnline, setStatus} = React.useContext(AppStatusContext);
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -16,7 +16,7 @@ export default function RequireAuth() {
         }
     }, [location, navigate, isLoggedIn, isOnline]);
 
-    setupAxiosInterceptors(logOut,setIsOnline);
+    setupAxiosInterceptors(logOut, setIsOnline, setStatus);
 
 
     if (!isOnline) {

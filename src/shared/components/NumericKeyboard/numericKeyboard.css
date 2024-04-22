@@ -10,7 +10,34 @@
     gap: 2%;
 }
 
+.numeric-keyboard-container.dark {
+    background-color: #121418;
+    border-color: white;
+}
+
 .numeric-keyboard-container * {
     min-width: 0 !important;
     min-height: 0 !important;
+}
+
+.numeric-keyboard-textfield {
+    grid-column: 1 / span 4;
+    grid-row: 1;
+}
+
+.numeric-keyboard-backspace {
+    grid-column-end: span 2;
+}
+
+.numeric-keyboard-zero {
+    grid-column-end: span 2;
+}
+
+.numeric-keyboard-submit {
+    grid-column: 4;
+    grid-row: 3 / span 3;
+}
+
+.numeric-keyboard-decimal {
+    grid-column-end: span 2;
 }

@@ -74,12 +74,14 @@ function FormDialog({
         <ThemeProvider theme={createTheme({palette: {mode: dark ? "dark" : "light"}})}>
             <React.Fragment>
                 {children ?
-                    <div style={style} className={className} color={onOff ? "success" : "error"} onClick={handleClickOpen}>
+                    <div style={style} className={className} color={onOff ? "success" : "error"}
+                         onClick={handleClickOpen}>
                         {children}
                     </div>
                     :
                     <div>
-                        <Button style={style} className={className} color={onOff ? "success" : "error"} disabled={disabled}
+                        <Button style={style} className={className} color={onOff ? "success" : "error"}
+                                disabled={disabled}
                                 variant="contained" onClick={handleClickOpen}>
                             {buttonName}
                         </Button>

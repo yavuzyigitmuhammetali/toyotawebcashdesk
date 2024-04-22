@@ -82,7 +82,6 @@ export function useProductShowcase({
         setMap,
         columnCount,
         rowCount,
-        currentData,
         Cell,
         ScreenKeyboardComponent,
         language,

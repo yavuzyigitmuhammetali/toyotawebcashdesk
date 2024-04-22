@@ -35,9 +35,12 @@ const AppDataProvider = ({children}) => {
     const fetchReceipts = (query = "") => fetchData(getReceipts, setReceipts, 'receipts', query);
 
     React.useEffect(() => {
-        Promise.all([fetchCategories(), fetchSubCategories(), fetchProducts(), fetchReceipts()]).catch(error => {
-            console.error('Error fetching initial data:', error);
-        });
+        if (isLoggedIn) {
+            Promise.all([fetchCategories(), fetchSubCategories(), fetchProducts(), fetchReceipts()]).catch(error => {
+                console.error('Error fetching initial data:', error);
+            });
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isLoggedIn]);
 
     return (
