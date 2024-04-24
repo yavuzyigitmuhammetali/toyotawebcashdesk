@@ -1,17 +1,22 @@
 import axios from "axios";
+import config from "../../../config.json";
+
+const apiClient = axios.create({
+    baseURL: config.apiBaseUrl
+});
 
 export function getCategories(query = "") {
-    return axios.get("/api/v1/categories/" + query)
+    return apiClient.get(config.apiEndpoints.categories + query)
 }
 
 export function getSubCategories(query = "") {
-    return axios.get("/api/v1/subcategories/" + query)
+    return apiClient.get(config.apiEndpoints.subcategories + query)
 }
 
 export function getProducts(query = "") {
-    return axios.get("/api/v1/products/" + query)
+    return apiClient.get(config.apiEndpoints.products + query)
 }
 
 export function getReceipts(query = "") {
-    return axios.get("/api/v1/receipts/" + query)
+    return apiClient.get(config.apiEndpoints.receipts + query)
 }

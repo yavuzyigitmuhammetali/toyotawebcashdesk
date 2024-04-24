@@ -62,7 +62,6 @@ const CartProvider = ({children}) => {
             setDiscounts(discounts)
             setCart(cart);
         }
-        console.log("cart")
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 

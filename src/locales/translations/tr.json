@@ -184,6 +184,7 @@
   "simulateSummaryLoadWarning": "Bu işlem uzun sürebilir ve sunucu maliyetlerine neden olabilir, devam etmek istediğinizden emin misiniz!",
   "register": "Kasa",
   "cashierName": "Kasiyer Adı",
-  "orderConfirmed": "Sipariş Onaylandı!"
+  "orderConfirmed": "Sipariş Onaylandı!",
+  "mainScreen": "Ana Sayfa"
 }
 

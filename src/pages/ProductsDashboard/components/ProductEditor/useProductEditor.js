@@ -81,7 +81,7 @@ export const useProductEditor = (screenKeyboardValue, clearValues) => {
                     setIsLoading(false);
                 });
             }).catch(reason => {
-                console.log(reason);
+                console.error(reason);
             });
         }
     };

@@ -73,7 +73,7 @@ const PaymentProvider = ({children}) => {
             products = await fetchProducts();
             console.log("Fetched products for transaction confirmation.");
         } catch (error) {
-            console.log("Failed to fetch products.", error);
+            console.error("Failed to fetch products.", error);
             return false;
         }
 
@@ -127,14 +127,14 @@ const PaymentProvider = ({children}) => {
             console.log("Transaction posted successfully.", value.data);
             setReceipt(value.data);
         } catch (reason) {
-            console.log("Failed to post transaction.", reason);
+            console.error("Failed to post transaction.", reason);
             return false;
         }
 
         try {
             await updateStocksFromCart(receipt.cart);
         } catch (error) {
-            console.log("Failed to update stocks from cart.", error);
+            console.error("Failed to update stocks from cart.", error);
             return false;
         }
 

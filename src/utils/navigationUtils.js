@@ -1,3 +1,5 @@
+import config from "../config.json";
+
 export const getPageTitleAndLink = (pathname, t, productId, receiptNumber, pathHistory) => {
     let pageTitle, prevLink;
     switch (pathname) {
@@ -46,5 +48,7 @@ export const getPageTitleAndLink = (pathname, t, productId, receiptNumber, pathH
                 prevLink = "/";
             }
     }
+    document.title = config.storeName + " • " + pageTitle;
     return {pageTitle, prevLink};
 };
+

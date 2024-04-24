@@ -1,4 +1,18 @@
 {
   "caseNumber": 1,
-  "storeNumber": "1001(Web)"
+  "storeNumber": "1001(Web)",
+  "storeName": "Lorem Ipsum",
+  "apiBaseUrl": "/api/v1",
+  "apiEndpoints": {
+    "products": "/products",
+    "receipts": "/receipts",
+    "categories": "/categories",
+    "subcategories": "/subcategories",
+    "login": "/login",
+    "status": "/status",
+    "test": "/test"
+  },
+  "externalEndpoints": {
+    "ipify": "https://api.ipify.org?format=json"
+  }
 }

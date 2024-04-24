@@ -35,7 +35,7 @@ const AppStatusProvider = ({children}) => {
             })
             .catch(err => {
                 setIsOnline(false);
-                console.log(err);
+                console.error(err);
             });
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);

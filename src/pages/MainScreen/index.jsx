@@ -12,6 +12,7 @@ import AddBusinessIcon from '@mui/icons-material/AddBusiness';
 import SummarizeIcon from '@mui/icons-material/Summarize';
 import KeyboardContext from '../../shared/components/ScreenKeyboard/context';
 import MainScreenLayout from "./components/MainScreenLayout";
+import config from "../../config.json";
 
 function MainScreen() {
     const {isOnline, status, logOut, lang, dark, cashier} = React.useContext(AppStatusContext);
@@ -19,10 +20,11 @@ function MainScreen() {
     const {t} = useTranslation();
 
     React.useEffect(() => {
+        document.title = config.storeName + " • " + t('mainScreen');
         return () => {
             clearValues();
         };
-    }, [clearValues]);
+    }, [clearValues, t]);
 
 
     return (<>

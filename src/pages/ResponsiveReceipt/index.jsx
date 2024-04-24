@@ -13,6 +13,7 @@ import AlertComponent from "../../shared/components/AlertComponent";
 import {useTranslation} from "react-i18next";
 import AppStatusContext from "../../shared/states/AppStatus/context";
 import {useResponsiveReceipt} from "./useResponsiveReceipt";
+import config from "../../config.json";
 
 
 function ResponsiveReceipt() {
@@ -71,7 +72,7 @@ function ResponsiveReceipt() {
             transform: alignment === "right" ? "translate(-100%, 0)" : alignment === "center" ? "translate(-50%, 0)" : "translate(0, 0)"
         }}
              className={alignment2 === "left" ? "printable-content responsive-receipt-receipt" : "printable-content-full responsive-receipt-receipt"}>
-            <Receipt language={lang} data={receipt}/>
+            <Receipt storeName={config.storeName} language={lang} data={receipt}/>
         </div>
     </div>);
 }

@@ -1,22 +1,23 @@
 import axios from "axios";
+import config from "../../../config.json";
 
 const apiClient = axios.create({
-    baseURL: "/api/v1"
+    baseURL: config.apiBaseUrl
 });
 
 export function login(body) {
-    return apiClient.post("/login", body);
+    return apiClient.post(config.apiEndpoints.login, body);
 }
 
 export function getStatus() {
-    return apiClient.get("/status");
+    return apiClient.get(config.apiEndpoints.status);
 }
 
 export function testLogin() {
-    return apiClient.get("/test");
+    return apiClient.get(config.apiEndpoints.test);
 }
 
 export function getIp() {
-    return axios.get('https://api.ipify.org?format=json');
+    return axios.get(config.externalEndpoints.ipify);
 }
 

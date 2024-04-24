@@ -85,6 +85,7 @@ function SalesDashboardLeftArea() {
                         }}
                         dark={dark}
                         name={subcategory.name}
+                        src={subcategory.image}
                     />
                 ));
             case "products":
