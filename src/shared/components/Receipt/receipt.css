@@ -11,6 +11,13 @@
     overflow-x: clip !important;
     border: .1px solid black;
     color: black !important;
+    filter: grayscale(100%);
+}
+
+.receipt-unstyled {
+    filter: grayscale(0%);
+    font-family: Rubik, sans-serif !important;
+    font-size: small;
 }
 
 .receipt-refund {
@@ -18,6 +25,15 @@
     border: 1px dashed red;
     width: 100%;
     text-align: center;
+}
+
+.receipt-img {
+    background-color: transparent;
+    filter: brightness(0);
+}
+
+.receipt-img.receipt-unstyled {
+    filter: brightness(1);
 }
 
 .receipt-header {

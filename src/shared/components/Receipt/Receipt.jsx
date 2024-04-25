@@ -4,7 +4,7 @@ import {convertToDateFormat} from "./functions";
 import {defaultReceipt} from "./data";
 import translations from './lang.json';
 
-function Receipt({storeName = "Lorem Ipsum", data = {}, language = "en"}) {
+function Receipt({storeName = "Lorem Ipsum", logo = "", unstyled = true, data = {}, language = "en"}) {
     const defaultData = defaultReceipt;
 
     const validatedData = {
@@ -21,7 +21,11 @@ function Receipt({storeName = "Lorem Ipsum", data = {}, language = "en"}) {
     const {day, time} = convertToDateFormat(validatedData.date, language);
 
     return (
-        <div className="receipt-container">
+        <div className={unstyled ? "receipt-container receipt-unstyled" : "receipt-container"}>
+            <img
+                alt={""}
+                className={unstyled ? "receipt-img receipt-unstyled" : "receipt-img"}
+                src={logo}/>
             {!validatedData.active && <div className="receipt-refund">{translations[language].refund}</div>}
             <div className="receipt-header">
                 <h1 style={{fontSize: "2em"}}>{storeName}</h1>

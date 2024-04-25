@@ -65,9 +65,9 @@ export function parseTimeToDate(timeString) {
 export function updateOnlineStatus(setOnline, schedule) {
     const now = new Date();
     const dayOfWeek = now.toLocaleString('en-US', {weekday: 'long'});
-    const dailySchedule = schedule[dayOfWeek];
+    const dailySchedule = schedule && schedule[dayOfWeek];
 
-    if (!dailySchedule) {
+    if (!dailySchedule || !dailySchedule.start || !dailySchedule.end) {
         setOnline(false);
         return;
     }
@@ -87,9 +87,11 @@ export function updateOnlineStatus(setOnline, schedule) {
 export function setupTimer(setOnline, schedule) {
     const now = new Date();
     const dayOfWeek = now.toLocaleString('en-US', {weekday: 'long'});
-    const dailySchedule = schedule[dayOfWeek];
+    const dailySchedule = schedule && schedule[dayOfWeek];
 
-    if (!dailySchedule) return null;
+    if (!dailySchedule || !dailySchedule.start || !dailySchedule.end) {
+        return null;
+    }
 
     const startTime = parseTimeToDate(dailySchedule.start);
     const endTime = parseTimeToDate(dailySchedule.end);

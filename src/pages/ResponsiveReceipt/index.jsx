@@ -33,6 +33,7 @@ function ResponsiveReceipt() {
         <AlertComponent/>
         <div className="responsive-receipt-controller">
             <ToggleButtonGroup
+                color="secondary"
                 value={alignment}
                 exclusive
                 onChange={handleAlignment}
@@ -48,12 +49,13 @@ function ResponsiveReceipt() {
                     <AlignHorizontalRightIcon/>
                 </ToggleButton>
             </ToggleButtonGroup>
-            <ToggleButtonGroup value={"egg"}>
+            <ToggleButtonGroup color="success" value={"egg"}>
                 <ToggleButton onChange={handlePrint} aria-label="right aligned" value={"egg"}>
                     <PrintIcon/>
                 </ToggleButton>
             </ToggleButtonGroup>
             <ToggleButtonGroup
+                color="secondary"
                 value={alignment2}
                 exclusive
                 onChange={handleAlignment2}
@@ -72,7 +74,8 @@ function ResponsiveReceipt() {
             transform: alignment === "right" ? "translate(-100%, 0)" : alignment === "center" ? "translate(-50%, 0)" : "translate(0, 0)"
         }}
              className={alignment2 === "left" ? "printable-content responsive-receipt-receipt" : "printable-content-full responsive-receipt-receipt"}>
-            <Receipt storeName={config.storeName} language={lang} data={receipt}/>
+            <Receipt logo={config.storeLogo} unstyled={alignment2 === "right"} storeName={config.storeName}
+                     language={lang} data={receipt}/>
         </div>
     </div>);
 }

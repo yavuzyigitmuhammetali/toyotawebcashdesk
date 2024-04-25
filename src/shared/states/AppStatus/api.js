@@ -1,20 +1,18 @@
 import axios from "axios";
 import config from "../../../config.json";
 
-const apiClient = axios.create({
-    baseURL: config.apiBaseUrl
-});
+const apiBaseUrl = config.apiBaseUrl;
 
 export function login(body) {
-    return apiClient.post(config.apiEndpoints.login, body);
+    return axios.post(apiBaseUrl + config.apiEndpoints.login, body);
 }
 
 export function getStatus() {
-    return apiClient.get(config.apiEndpoints.status);
+    return axios.get(apiBaseUrl + config.apiEndpoints.status);
 }
 
 export function testLogin() {
-    return apiClient.get(config.apiEndpoints.test);
+    return axios.get(apiBaseUrl + config.apiEndpoints.test);
 }
 
 export function getIp() {

@@ -4,6 +4,10 @@
  * @returns {Date|null} - The next opening time or null if no opening time is found.
  */
 export function getNextOpening(schedule) {
+    if (!schedule) {
+        return null;
+    }
+
     const now = new Date();
     const weekDay = now.getDay();
     const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
@@ -13,7 +17,7 @@ export function getNextOpening(schedule) {
         const checkDay = daysOfWeek[checkDayIndex];
         const scheduleForDay = schedule[checkDay];
 
-        if (scheduleForDay) {
+        if (scheduleForDay && scheduleForDay.start) {
             const openingTime = new Date(now);
             const [hours, minutes] = scheduleForDay.start.split(':');
             openingTime.setDate(now.getDate() + i);

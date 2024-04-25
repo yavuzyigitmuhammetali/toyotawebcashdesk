@@ -82,6 +82,7 @@ The `config.json` file is used to store various configuration settings for the P
 - [caseNumber](./src/config.json): Represents the case number associated with the POS System.
 - [storeNumber](./src/config.json): Specifies the store number or identifier.
 - [storeName](./src/config.json): Indicates the name of the store.
+- [storeLogo](./src/config.json): Specify the path to your store's logo image. This logo will be displayed on receipts. If this field is left blank, no logo will be displayed.
 - [apiBaseUrl](./src/config.json): Defines the base URL for the API endpoints.
 - [apiEndpoints](./src/config.json): Contains the specific API endpoints for different functionalities, such as products, receipts, categories, subcategories, login, status, and test.
 - [externalEndpoints](./src/config.json): Specifies any external API endpoints used by the system, such as the IP address lookup service.

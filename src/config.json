@@ -2,6 +2,7 @@
   "caseNumber": 1,
   "storeNumber": "1001(Web)",
   "storeName": "Lorem Ipsum",
+  "storeLogo": "",
   "apiBaseUrl": "/api/v1",
   "apiEndpoints": {
     "products": "/products",

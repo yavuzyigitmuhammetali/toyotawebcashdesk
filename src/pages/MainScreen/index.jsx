@@ -30,6 +30,10 @@ function MainScreen() {
     return (<>
             <AlertComponent/>
             <div className={`main-screen-container ${dark ? 'dark' : ''}`}>
+                <img
+                    alt={"logo"}
+                    className="main-screen-logo"
+                    src={config.storeLogo}/>
                 <div className="main-screen-active-area">
                     <div className="main-screen-sides">
                         <MainScreenItem to={"/order/create"} dark={dark}

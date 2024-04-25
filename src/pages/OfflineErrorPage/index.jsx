@@ -56,7 +56,7 @@ const OfflineErrorPage = () => {
                         <Typography variant="body2">
                             {t('nextShopOpeningTime')}
                         </Typography>
-                        <CountdownTimer schedule={schedule}/>
+                        <CountdownTimer schedule={schedule || {}}/>
                         <Button
                             variant="contained"
                             color="primary"
