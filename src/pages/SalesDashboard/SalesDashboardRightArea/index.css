@@ -16,14 +16,18 @@
 
 .sales-dashboard-right-area-control {
     display: flex;
+    justify-content: center;
     flex-direction: row;
-    gap: 10px;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
+    gap: 3px;
+}
+
+.sales-dashboard-right-area-control * {
+    min-height: 0 !important;
 }
 
 .sales-dashboard-right-area-control > * {
-    min-width: 0 !important;
-    min-height: 0 !important;
+    max-width: 100px !important;
 }
 
 .sales-dashboard-right-area-campaigns {

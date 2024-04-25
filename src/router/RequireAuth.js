@@ -23,7 +23,7 @@ export default function RequireAuth() {
         return (<OfflineErrorPage/>)
     } else {
         return (
-            <ThemeProvider theme={createTheme({palette: {mode: dark ? "dark" : "light"}})}>
+            <ThemeProvider theme={createTheme({palette: {mode: dark ? "dark" : "light"}, typography: {fontSize: 10}})}>
                 {!isLoggedIn && isOnline && location.pathname !== '/login' ? <Navigate to="/login"/> : <></>}
                 <Outlet/>
             </ThemeProvider>

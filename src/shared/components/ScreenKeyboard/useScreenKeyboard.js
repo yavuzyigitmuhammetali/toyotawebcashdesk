@@ -11,45 +11,60 @@ export const useScreenKeyboard = (language) => {
     const turkishKeyboard = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "del", "enter", "q", "w", "e", "r", "t", "y", "u", "ı", "o", "p", "ğ", "a", "s", "d", "ü", "f", "g", "h", "j", "k", "l", "ş", "i", "z", "x", "c", "v", "b", "n", "m", "ö", "ç", "language", "@", "space", ".",];
     const englishKeyboard = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "del", "enter", "q", "w", "e", "r", "t", "y", "u", "i", "o", "p", ";", "a", "s", "d", "f", "g", "h", "j", "k", "l", "<", ">", "z", "x", "c", "v", "b", "n", "m", "?", "-", "_", "language", "@", "space", ".",];
 
-    const handleMouseDown = useCallback((e) => {
-        const target = e.target;
-
-        if (target.tagName !== "DIV") {
-            return;
-        }
-
+    const startDrag = (clientX, clientY) => {
         setIsDragging(true);
         dragStartRef.current = {
-            x: e.clientX,
-            y: e.clientY,
+            x: clientX,
+            y: clientY,
             initialX: position.x,
             initialY: position.y,
         };
+    };
+
+    const handleMouseDown = useCallback((e) => {
+        if (e.target.tagName !== "DIV") return;
+        startDrag(e.clientX, e.clientY);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [position.x, position.y]);
 
     const handleMouseMove = useCallback((e) => {
-        if (isDragging && dragStartRef.current) {
-            const deltaX = e.clientX - dragStartRef.current.x;
-            const deltaY = e.clientY - dragStartRef.current.y;
-
-            const newX = dragStartRef.current.initialX + deltaX;
-            const newY = dragStartRef.current.initialY + deltaY;
-
-            // Use requestAnimationFrame for smooth animations
-            requestAnimationFrame(() => {
-                setPosition({x: newX, y: newY});
-                textInputRef.current.style.transform = `translate(${newX}px, ${newY}px)`;
-            });
-        }
+        if (!isDragging || !dragStartRef.current) return;
+        const deltaX = e.clientX - dragStartRef.current.x;
+        const deltaY = e.clientY - dragStartRef.current.y;
+        const newX = dragStartRef.current.initialX + deltaX;
+        const newY = dragStartRef.current.initialY + deltaY;
+        requestAnimationFrame(() => {
+            setPosition({x: newX, y: newY});
+            textInputRef.current.style.transform = `translate(${newX}px, ${newY}px)`;
+        });
     }, [isDragging]);
 
     const handleMouseUp = useCallback(() => {
         setIsDragging(false);
     }, []);
 
-    /*    const handleKeyboardType = useCallback(() => {
-            setKeyboardType((prevType) => (prevType === "tr" ? "en" : "tr"));
-        }, []);*/
+    const handleTouchStart = useCallback((e) => {
+        const touch = e.touches[0];
+        startDrag(touch.clientX, touch.clientY);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [position.x, position.y]);
+
+    const handleTouchMove = useCallback((e) => {
+        if (!isDragging || !dragStartRef.current) return;
+        const touch = e.touches[0];
+        const deltaX = touch.clientX - dragStartRef.current.x;
+        const deltaY = touch.clientY - dragStartRef.current.y;
+        const newX = dragStartRef.current.initialX + deltaX;
+        const newY = dragStartRef.current.initialY + deltaY;
+        requestAnimationFrame(() => {
+            setPosition({x: newX, y: newY});
+            textInputRef.current.style.transform = `translate(${newX}px, ${newY}px)`;
+        });
+    }, [isDragging]);
+
+    const handleTouchEnd = useCallback(() => {
+        setIsDragging(false);
+    }, []);
 
     const handleKeyboardCapsLock = useCallback(() => {
         setCapsLock((prevCapsLock) => !prevCapsLock);
@@ -67,6 +82,9 @@ export const useScreenKeyboard = (language) => {
         handleMouseDown,
         handleMouseMove,
         handleMouseUp,
+        handleTouchStart,
+        handleTouchMove,
+        handleTouchEnd,
         handleKeyboardCapsLock,
         keyboard,
         position,

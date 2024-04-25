@@ -21,6 +21,9 @@ function ScreenKeyboard({dark = false, language = "tr", style}) {
         handleMouseDown,
         handleMouseMove,
         handleMouseUp,
+        handleTouchStart,
+        handleTouchMove,
+        handleTouchEnd,
         handleKeyboardCapsLock,
         keyboard
     } = useScreenKeyboard(language)
@@ -41,6 +44,9 @@ function ScreenKeyboard({dark = false, language = "tr", style}) {
                 onMouseDown={handleMouseDown}
                 onMouseMove={handleMouseMove}
                 onMouseUp={handleMouseUp}
+                onTouchStart={handleTouchStart}
+                onTouchMove={handleTouchMove}
+                onTouchEnd={handleTouchEnd}
                 ref={textInputRef}
                 style={{
                     cursor: isDragging ? "grabbing" : "grab",
@@ -98,7 +104,7 @@ function ScreenKeyboard({dark = false, language = "tr", style}) {
                         }/* else if (item === "language") {
                                 return (<Button
                                         size="small"
-                                        onClick={handleKeyboardType}
+                                        onClick={handleKeyboardType
                                         variant="outlined"
                                         startIcon={<LanguageIcon/>}
                                         key={index}

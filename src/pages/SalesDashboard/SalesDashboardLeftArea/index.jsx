@@ -94,7 +94,7 @@ function SalesDashboardLeftArea() {
                         <Grid
                             columnCount={columnCount}
                             columnWidth={columnWidth}
-                            height={rowHeight * 4}
+                            height={rowHeight * 5}
                             rowCount={rowCount}
                             rowHeight={rowHeight}
                             width={(columnWidth * columnCount) + 5}

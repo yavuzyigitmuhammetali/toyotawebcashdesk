@@ -4,7 +4,6 @@ import {Button, IconButton} from "@mui/material";
 import SendIcon from '@mui/icons-material/Send';
 import NumericKeyboard from "../../../shared/components/NumericKeyboard/NumericKeyboard";
 import CartContext from "../context";
-import {ThemeProvider} from "@mui/material/styles";
 import FormDialog from "../../../shared/components/FormDialog";
 import {checkIdentityNumber} from "../functions/studentValidate";
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
@@ -16,7 +15,6 @@ import KeyboardContext from '../../../shared/components/ScreenKeyboard/context';
 import ScreenKeyboard from '../../../shared/components/ScreenKeyboard/ScreenKeyboard';
 import {useTranslation} from "react-i18next";
 import AppStatusContext from "../../../shared/states/AppStatus/context";
-import {darkTheme, lightTheme} from "./theme";
 
 
 function SalesDashboardRightArea() {
@@ -55,13 +53,14 @@ function SalesDashboardRightArea() {
         }
     }
 
-    return (<ThemeProvider theme={dark ? darkTheme : lightTheme}>
+    return (
         <div style={{backgroundColor: dark ? "#121418" : "", borderColor: dark ? "white" : ""}}
              className="sales-dashboard-right-area-container">
             <div className="sales-dashboard-right-area-control">
-                <ResponsiveDialog language={lang} title={t('cancelTransaction')} text={t('cancelTransactionWarning')}
+                <ResponsiveDialog style={{width: "auto"}} language={lang} title={t('cancelTransaction')}
+                                  text={t('cancelTransactionWarning')}
                                   onConfirm={cancelTransaction}>
-                    <Button color="error" variant="contained"> {t('cancelTransaction')}</Button>
+                    <Button size="large" color="error" variant="contained"> {t('cancelTransaction')}</Button>
                 </ResponsiveDialog>
                 <Button onClick={() => setProductShowcaseWindow(!productShowcaseWindow)} color="info"
                         variant="contained">{t('searchByName')}</Button>
@@ -115,7 +114,7 @@ function SalesDashboardRightArea() {
                 <></>}
 
         </div>
-    </ThemeProvider>);
+    );
 }
 
 export default SalesDashboardRightArea;

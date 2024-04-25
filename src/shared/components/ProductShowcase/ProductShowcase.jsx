@@ -23,7 +23,7 @@ function ProductShowcase(props) {
     } = useProductShowcase(props);
 
     return (
-        <ThemeProvider theme={createTheme({palette: {mode: dark ? 'dark' : 'light'}})}>
+        <ThemeProvider theme={createTheme({palette: {mode: dark ? 'dark' : 'light'}, typography: {fontSize: 10}})}>
             <div className="product-showcase-container">
                 <div className={`product-showcase-active-area ${dark ? 'dark' : ''}`}>
                     <div className="product-showcase-search-area">
@@ -44,7 +44,7 @@ function ProductShowcase(props) {
                         <Grid
                             columnCount={columnCount}
                             columnWidth={110}
-                            height={window.innerHeight - 200}
+                            height={window.innerHeight - 180}
                             rowCount={rowCount}
                             rowHeight={120}
                             width={(columnCount * 110) + 5}
