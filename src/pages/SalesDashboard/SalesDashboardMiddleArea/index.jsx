@@ -7,7 +7,7 @@ import {useTranslation} from "react-i18next";
 import AppStatusContext from "../../../shared/states/AppStatus/context";
 
 function SalesDashboardMiddleArea() {
-    const {dark} = useContext(AppStatusContext);
+    const {dark, lang} = useContext(AppStatusContext);
     const {
         handleElementFocus, value: keyboardValue, onChangeValue
     } = useContext(KeyboardContext);
@@ -42,6 +42,7 @@ function SalesDashboardMiddleArea() {
                 <div className="sales-dashboard-middle-area-products">
                     {cart.map((item, key) => (
                         <ShoppingCartItem
+                            lang={lang}
                             onAdd={() => increaseQuantityByIndex(key)}
                             onDelete={() => decreaseQuantityByIndex(key)}
                             onRemove={() => removeFromCartByIndex(key)}

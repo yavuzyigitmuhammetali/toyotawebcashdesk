@@ -1,4 +1,4 @@
-import {useCallback, useContext, useMemo, useState} from "react";
+import {useCallback, useContext, useEffect, useMemo, useState} from "react";
 import AppDataContext from "../../shared/states/AppData/context";
 import {defaultReceipt} from "../../shared/states/AppData/defaultData";
 import {useNavigate} from "react-router-dom";
@@ -6,7 +6,7 @@ import {calculateTaxAmount} from "../SalesDashboard/functions/productProcessing"
 import {inactivateReceipt, postReceipt} from "./api";
 
 export const useRefundDashboard = (status, cashier, t) => {
-    const {receipts} = useContext(AppDataContext);
+    const {receipts, fetchReceipts} = useContext(AppDataContext);
     const [receipt, setReceipt] = useState(defaultReceipt)
     const [cart, setCart] = useState(receipt.cart);
     const navigate = useNavigate();
@@ -14,6 +14,11 @@ export const useRefundDashboard = (status, cashier, t) => {
     const [error, setError] = useState("")
 
     const [loading, setLoading] = useState(false);
+
+    useEffect(() => {
+        fetchReceipts().catch(error => setError(error.toString()));
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     const {total, subTotal, tax} = useMemo(() => {
         const total = refundedProducts.reduce((acc, {

@@ -125,7 +125,7 @@ function FormDialog({
                     </DialogContent>
                     <DialogActions>
                         {screenKeyboard && ScreenKeyboardComponent ?
-                            <ScreenKeyboardComponent language={language} dark={dark}/> : null}
+                            <ScreenKeyboardComponent fullWidth={true} language={language} dark={dark}/> : null}
                         <Button onClick={handleClose}>{cancel}</Button>
                         <Button ref={enterRef} type="submit">{apply}</Button>
                     </DialogActions>

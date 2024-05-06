@@ -2,7 +2,7 @@
   "caseNumber": 1,
   "storeNumber": "1001(Web)",
   "storeName": "Lorem Ipsum",
-  "storeLogo": "",
+  "storeLogo": "https://upload.wikimedia.org/wikipedia/commons/a/ac/Service_mark.svg",
   "apiBaseUrl": "/api/v1",
   "apiEndpoints": {
     "products": "/products",

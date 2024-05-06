@@ -3,6 +3,7 @@ import "./index.css"
 import OnlineOfflineIndicator from "../../../shared/components/OnlineOfflineIndicator/OnlineOfflineIndicator";
 import AppStatusContext from "../../../shared/states/AppStatus/context";
 import {useTranslation} from "react-i18next";
+import config from "../../../config";
 
 const LoginSrc = lazy(() => import('./components/LoginSrc'));
 
@@ -14,6 +15,7 @@ function LoginPageLeftArea({width = "400px", warn = false}) {
             <div className="login-page-left-area-indicator">
                 <OnlineOfflineIndicator dark={dark} language={lang} online={isOnline}/>
             </div>
+            <img src={config.storeLogo} alt="logo" className="login-page-left-area-logo"/>
             <LoginSrc className={warn ? 'warn' : ''} dark={dark}/>
             <span className="login-page-left-area-texts good-wish">{t('storeNumber')}: {status.storeNumber}</span>
             <span className="login-page-left-area-texts welcome">{t('welcomeBack')}</span>

@@ -138,7 +138,7 @@ Sub-Categories:
 }
 ```
 
-Categories:
+Receipts:
 ```json
 {
    "receiptNumber": "25ab8fa4-5bef-410e-99d3-7113211240e4",

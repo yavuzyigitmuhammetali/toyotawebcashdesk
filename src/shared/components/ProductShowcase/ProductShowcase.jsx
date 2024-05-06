@@ -37,7 +37,8 @@ function ProductShowcase(props) {
                             label={t.searchLabel}
                             id="productSearch"
                         />
-                        {ScreenKeyboardComponent ? <ScreenKeyboardComponent language={language} dark={dark}/> : null}
+                        {ScreenKeyboardComponent ?
+                            <ScreenKeyboardComponent fullWidth={true} language={language} dark={dark}/> : null}
                     </div>
                     <FilterButtons map={map} setMap={setMap} t={t}/>
                     <div className="product-showcase-products-scroll-area">

@@ -71,6 +71,7 @@ function RefundDashboard() {
                                 onRemove={() => handleOnRemove(product, key)}
                                 onAdd={() => handleOnAdd(product, key)}
                                 onDelete={() => handleOnDelete(product, key)}
+                                lang={lang}
                             />
                         ))}
                     </div>
@@ -90,6 +91,7 @@ function RefundDashboard() {
                                 barcode={product.barcode}
                                 index={key + 1}
                                 productName={product.name}
+                                lang={lang}
                             />
                         ))}
                     </div>

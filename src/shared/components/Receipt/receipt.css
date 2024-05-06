@@ -30,6 +30,9 @@
 .receipt-img {
     background-color: transparent;
     filter: brightness(0);
+    max-height: 100px;
+    max-width: 100%;
+    object-fit: contain;
 }
 
 .receipt-img.receipt-unstyled {

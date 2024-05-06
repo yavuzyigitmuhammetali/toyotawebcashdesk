@@ -185,6 +185,7 @@
   "register": "Register",
   "cashierName": "Cashier Name",
   "orderConfirmed": "Order Confirmed!",
-  "mainScreen": "Main Screen"
+  "mainScreen": "Main Screen",
+  "alreadyLoggedIn": "Already logged in"
 }
 

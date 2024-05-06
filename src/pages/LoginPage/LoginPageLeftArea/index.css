@@ -52,3 +52,13 @@
 .warn {
     filter: hue-rotate(145deg);
 }
+
+.login-page-left-area-logo {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: 300px;
+    max-height: 120px;
+    z-index: 1000;
+}

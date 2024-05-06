@@ -6,7 +6,7 @@ import AlignHorizontalLeftIcon from '@mui/icons-material/AlignHorizontalLeft';
 import ToggleButton from '@mui/material/ToggleButton';
 import PrintIcon from '@mui/icons-material/Print';
 import Receipt from "../../shared/components/Receipt/Receipt";
-import {ToggleButtonGroup} from "@mui/material";
+import {CircularProgress, ToggleButtonGroup} from "@mui/material";
 import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
 import PaperIcon from '@mui/icons-material/Feed';
 import AlertComponent from "../../shared/components/AlertComponent";
@@ -26,7 +26,8 @@ function ResponsiveReceipt() {
         alignment2,
         handlePrint,
         handleAlignment,
-        handleAlignment2
+        handleAlignment2,
+        isPrinting
     } = useResponsiveReceipt(t('printErrorMessage'));
 
     return (<div className={`responsive-receipt-container ${dark ? "dark-mode" : ""}`}>
@@ -50,8 +51,8 @@ function ResponsiveReceipt() {
                 </ToggleButton>
             </ToggleButtonGroup>
             <ToggleButtonGroup color="success" value={"egg"}>
-                <ToggleButton onChange={handlePrint} aria-label="right aligned" value={"egg"}>
-                    <PrintIcon/>
+                <ToggleButton onChange={handlePrint} aria-label="right aligned" value={"egg"} disabled={isPrinting}>
+                    {isPrinting ? <CircularProgress size={17}/> : <PrintIcon/>}
                 </ToggleButton>
             </ToggleButtonGroup>
             <ToggleButtonGroup

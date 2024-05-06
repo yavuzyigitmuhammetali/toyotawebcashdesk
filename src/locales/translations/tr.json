@@ -185,6 +185,7 @@
   "register": "Kasa",
   "cashierName": "Kasiyer Adı",
   "orderConfirmed": "Sipariş Onaylandı!",
-  "mainScreen": "Ana Sayfa"
+  "mainScreen": "Ana Sayfa",
+  "alreadyLoggedIn": "Already logged in"
 }
 

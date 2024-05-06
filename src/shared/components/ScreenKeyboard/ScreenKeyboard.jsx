@@ -10,7 +10,7 @@ import {useScreenKeyboard} from "./useScreenKeyboard";
 import KeyboardContext from "./context";
 
 
-function ScreenKeyboard({dark = false, language = "tr", style}) {
+function ScreenKeyboard({fullWidth = false, dark = false, language = "tr", style}) {
     const [onOff, setOnOff] = useState(true);
     const {handleDelete, handleValue, handleEnter} = useContext(KeyboardContext);
 
@@ -26,7 +26,7 @@ function ScreenKeyboard({dark = false, language = "tr", style}) {
         handleTouchEnd,
         handleKeyboardCapsLock,
         keyboard
-    } = useScreenKeyboard(language)
+    } = useScreenKeyboard(language, onOff)
 
     if (onOff) {
         return (<ThemeProvider theme={dark ? darkTheme : lightTheme}>
@@ -40,7 +40,7 @@ function ScreenKeyboard({dark = false, language = "tr", style}) {
                 <KeyboardAltIcon/>
             </IconButton>
             <div
-                className="screen-keyboard-container"
+                className={`screen-keyboard-container ${fullWidth ? "fullwidth" : ""}`}
                 onMouseDown={handleMouseDown}
                 onMouseMove={handleMouseMove}
                 onMouseUp={handleMouseUp}

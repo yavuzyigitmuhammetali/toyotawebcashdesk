@@ -40,7 +40,7 @@ function SummaryDashboard() {
     const {t} = useTranslation();
     const {status, dark} = useContext(AppStatusContext)
     const {
-        receipts: _receipts, categories, subCategories, products, fetchReceipts,
+        receipts: _receipts, categories, subCategories, products, fetchReceipts, fetchProducts
     } = useContext(AppDataContext)
 
     const [alignment, setAlignment] = React.useState('');
@@ -55,61 +55,39 @@ function SummaryDashboard() {
     }, [filteredReceipts]);
 
     const handleChange = useCallback((event, newAlignment) => {
-        setAlignment(newAlignment);
+        if (newAlignment !== null) {
+            setAlignment(newAlignment);
+        }
     }, [setAlignment]);
 
-    const [summary, setSummary] = useState({
-        totalAmount: 0,
-        totalAmountWithoutDiscount: 0,
-        totalPaid: 0,
-        totalChange: 0,
-        totalTax: 0,
-        totalAmountWithCard: 0,
-        totalAmountWithCash: 0,
-        totalPayback: 0,
-        topSellingCategory: 0,
-        topSellingSubCategory: 0,
-        topSellingProduct: 0,
-        topSellingCampaignProduct: 0,
-        mostProfitableCategory: 0,
-        mostProfitableSubCategory: 0,
-        mostProfitableProduct: 0,
-        mostRefundedProducts: {refundedProducts: [], quantity: 0},
-        mostSoldHour: 0,
-        leastSoldHour: 0
-    });
-    useEffect(() => {
-
-        const calculateSummary = () => {
-            setSummary({
-                totalAmount: calcTotalAmount(receipts),
-                totalAmountWithoutDiscount: calcTotalAmountWithoutDiscount(receipts),
-                totalPaid: calcTotalPaid(receipts),
-                totalChange: calcTotalChange(receipts),
-                totalTax: calcTotalTax(receipts),
-                totalAmountWithCard: calcTotalAmountWithCard(receipts),
-                totalAmountWithCash: calcTotalAmountWithCash(receipts),
-                totalPayback: calcTotalPayback(receipts),
-                topSellingCategory: findTopSellingCategory(receipts),
-                topSellingSubCategory: findTopSellingSubCategory(receipts),
-                topSellingProduct: findTopSellingProduct(receipts),
-                topSellingCampaignProduct: findTopSellingCampaignProduct(receipts),
-                mostProfitableCategory: findMostProfitableCategory(receipts),
-                mostProfitableSubCategory: findMostProfitableSubCategory(receipts),
-                mostProfitableProduct: findMostProfitableProduct(receipts),
-                mostRefundedProducts: findMostRefundedProducts(receipts),
-                mostSoldHour: findMostSoldHour(receipts),
-                leastSoldHour: findLeastSoldHour(receipts)
-            });
+    const summary = useMemo(() => {
+        return {
+            totalAmount: calcTotalAmount(receipts),
+            totalAmountWithoutDiscount: calcTotalAmountWithoutDiscount(receipts),
+            totalPaid: calcTotalPaid(receipts),
+            totalChange: calcTotalChange(receipts),
+            totalTax: calcTotalTax(receipts),
+            totalAmountWithCard: calcTotalAmountWithCard(receipts),
+            totalAmountWithCash: calcTotalAmountWithCash(receipts),
+            totalPayback: calcTotalPayback(receipts),
+            topSellingCategory: findTopSellingCategory(receipts),
+            topSellingSubCategory: findTopSellingSubCategory(receipts),
+            topSellingProduct: findTopSellingProduct(receipts),
+            topSellingCampaignProduct: findTopSellingCampaignProduct(receipts),
+            mostProfitableCategory: findMostProfitableCategory(receipts),
+            mostProfitableSubCategory: findMostProfitableSubCategory(receipts),
+            mostProfitableProduct: findMostProfitableProduct(receipts),
+            mostRefundedProducts: findMostRefundedProducts(receipts),
+            mostSoldHour: findMostSoldHour(receipts),
+            leastSoldHour: findLeastSoldHour(receipts)
         };
-        calculateSummary();
     }, [receipts]);
 
     const handleDialogClose = confirmed => {
         setOpenDialog(false);
         if (confirmed) {
             setLoading(true);
-            fetchReceipts().then(() => {
+            Promise.all([fetchReceipts(), fetchProducts()]).then(() => {
                 setAlignment('hourly')
                 setLoading(false);
             });

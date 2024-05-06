@@ -56,7 +56,7 @@ const CartProvider = ({children}) => {
         }).catch(() => {
             setIsLoading(false);
         });
-        const salesDataString = sessionStorage.getItem('salesData')
+        const salesDataString = localStorage.getItem('salesData')
         if (salesDataString) {
             const {cart, discounts} = JSON.parse(salesDataString)
             setDiscounts(discounts)
@@ -205,8 +205,8 @@ const CartProvider = ({children}) => {
         setSubTotal(0);
         setTax(0);
         setDiscounts({buy3pay2: false, studentTaxFree: false, percentageDiscounts: false})
-        sessionStorage.removeItem('salesData');
-        sessionStorage.removeItem('paymentTransactions');
+        localStorage.removeItem('salesData');
+        localStorage.removeItem('paymentTransactions');
     }
 
     const confirmCart = () => {
@@ -218,7 +218,7 @@ const CartProvider = ({children}) => {
                 tax,
                 discounts
             }
-            sessionStorage.setItem('salesData', JSON.stringify(data));
+            localStorage.setItem('salesData', JSON.stringify(data));
             return true;
         } else {
             return false;

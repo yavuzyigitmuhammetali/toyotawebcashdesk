@@ -26,7 +26,8 @@ const ShoppingCartItem = React.memo(({
                                          onChangeDecimal,
                                          onFocus,
                                          decimalValue,
-                                         id
+                                         id,
+                                         lang = "tr"
                                      }) => {
     const taxFreePrice = ((discountedPrice ? discountedPrice : price) / (1 + (tax / 100))).toFixed(2);
     const finalPrice = (quantity * price).toFixed(2);
@@ -46,7 +47,7 @@ const ShoppingCartItem = React.memo(({
                 <div className="shopping-cart-item-content">
                     <span>#{barcode}</span>
                     <span>{taxFreePrice}$ + KDV %{tax}</span>
-                    <span>{quantity} {fraction ? "Kilo" : "Adet"}</span>
+                    <span>{quantity} {fraction ? (lang === "tr" ? "Kilo" : "Kilo") : (lang === "tr" ? "Adet" : "Piece")}</span>
                 </div>
                 <div className="shopping-cart-item-content">
                     <span className="product-name">{index}.{productName}</span>

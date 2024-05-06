@@ -18,8 +18,8 @@ const PaymentProvider = ({children}) => {
     const {fetchProducts, clearProducts} = React.useContext(AppDataContext)
 
     React.useEffect(() => {
-        const salesDataString = sessionStorage.getItem('salesData')
-        const paymentTransactionsString = sessionStorage.getItem('paymentTransactions')
+        const salesDataString = localStorage.getItem('salesData')
+        const paymentTransactionsString = localStorage.getItem('paymentTransactions')
         if (salesDataString) {
             setTempData(JSON.parse(salesDataString));
         }
@@ -30,7 +30,7 @@ const PaymentProvider = ({children}) => {
 
     React.useEffect(() => {
         if (paymentTransactions.length) {
-            sessionStorage.setItem('paymentTransactions', JSON.stringify(paymentTransactions));
+            localStorage.setItem('paymentTransactions', JSON.stringify(paymentTransactions));
         }
     }, [paymentTransactions]);
 
@@ -54,8 +54,8 @@ const PaymentProvider = ({children}) => {
 
     const cancelTransaction = () => {
         const _amountPaid = amountPaid;
-        sessionStorage.removeItem('salesData');
-        sessionStorage.removeItem('paymentTransactions');
+        localStorage.removeItem('salesData');
+        localStorage.removeItem('paymentTransactions');
         setEmail('');
         setTempData({subTotal: 0, total: 0, cart: [], tax: 0})
         return _amountPaid;

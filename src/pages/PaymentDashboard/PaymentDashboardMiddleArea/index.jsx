@@ -6,7 +6,7 @@ import {useTranslation} from 'react-i18next';
 import AppStatusContext from "../../../shared/states/AppStatus/context";
 
 function PaymentDashboardMiddleArea() {
-    const {dark} = useContext(AppStatusContext);
+    const {dark, lang} = useContext(AppStatusContext);
     const {total, subTotal, cart} = useContext(PaymentContext)
     const {t} = useTranslation();
     return (
@@ -20,7 +20,7 @@ function PaymentDashboardMiddleArea() {
                             campaign={item.campaign.toUpperCase()}
                             discountedPrice={item.discountedPrice}
                             price={item.price} index={key + 1} barcode={item.barcode} tax={item.tax}
-                            quantity={item.quantity} productName={item.name}/>
+                            quantity={item.quantity} productName={item.name} lang={lang}/>
                     )}
                 </div>
             </div>

@@ -31,6 +31,15 @@ const AppStatusProvider = ({children}) => {
                     };
                     setStatus(combinedData);
                     localStorage.setItem('status', JSON.stringify(combinedData));
+                }).catch(err => {
+                    const combinedData = {
+                        ...statusData,
+                        userIp: `${err.message}`,
+                        case: config.caseNumber,
+                        storeNumber: config.storeNumber
+                    };
+                    setStatus(combinedData);
+                    localStorage.setItem('status', JSON.stringify(combinedData));
                 });
             })
             .catch(err => {

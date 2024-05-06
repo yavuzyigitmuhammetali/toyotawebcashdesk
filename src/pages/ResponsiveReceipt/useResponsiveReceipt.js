@@ -10,6 +10,7 @@ export const useResponsiveReceipt = (printErrorMessage) => {
     const [alignment, setAlignment] = useState('left');
     const [alignment2, setAlignment2] = useState('left');
     const {receiptNumber} = useParams();
+    const [isPrinting, setIsPrinting] = useState(false);
 
     useEffect(() => {
         const filteredReceipt = receipts.find(item => item.receiptNumber === receiptNumber);
@@ -18,9 +19,11 @@ export const useResponsiveReceipt = (printErrorMessage) => {
     }, [receiptNumber, receipts]);
 
 
-    const handlePrint = useCallback(() => {
+    const handlePrint = useCallback(async () => {
         if (receipt.active) {
-            window.print();
+            setIsPrinting(true);
+            await window.print();
+            setIsPrinting(false);
         } else {
             alert(printErrorMessage);
         }
@@ -51,6 +54,7 @@ export const useResponsiveReceipt = (printErrorMessage) => {
         alignment2,
         handlePrint,
         handleAlignment,
-        handleAlignment2
+        handleAlignment2,
+        isPrinting
     }
 }
