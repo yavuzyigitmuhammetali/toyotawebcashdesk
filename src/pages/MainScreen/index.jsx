@@ -13,6 +13,7 @@ import SummarizeIcon from '@mui/icons-material/Summarize';
 import KeyboardContext from '../../shared/components/ScreenKeyboard/context';
 import MainScreenLayout from "./components/MainScreenLayout";
 import config from "../../config.json";
+import TooltipProvider from "../../shared/components/TooltipProvider/TooltipProvider";
 
 function MainScreen() {
     const {isOnline, status, logOut, lang, dark, cashier} = React.useContext(AppStatusContext);
@@ -36,20 +37,48 @@ function MainScreen() {
                     src={config.storeLogo}/>
                 <div className="main-screen-active-area">
                     <div className="main-screen-sides">
-                        <MainScreenItem to={"/order/create"} dark={dark}
-                                        customIcon={StorefrontIcon}>{t('orderCreation')}</MainScreenItem>
-                        <MainScreenItem to={"/products/list"} dark={dark}
-                                        customIcon={InventoryIcon}>{t('products')}</MainScreenItem>
-                        <MainScreenItem to={"/product/add"} dark={dark}
-                                        customIcon={AddBusinessIcon}>{t('productEntry')}</MainScreenItem>
+                        <TooltipProvider dark={dark} backgroundColor="#6F8AB6" textColor="white"
+                                         content={t('orderCreationInfo')}>
+                            <MainScreenItem to={"/order/create"} dark={dark} customIcon={StorefrontIcon}>
+                                {t('orderCreation')}
+                            </MainScreenItem>
+                        </TooltipProvider>
+
+                        <TooltipProvider dark={dark} backgroundColor="#6F8AB6" textColor="white"
+                                         content={t('productsInfo')}>
+                            <MainScreenItem to={"/products/list"} dark={dark} customIcon={InventoryIcon}>
+                                {t('products')}
+                            </MainScreenItem>
+                        </TooltipProvider>
+
+                        <TooltipProvider dark={dark} backgroundColor="#6F8AB6" textColor="white"
+                                         content={t('productEntryInfo')}>
+                            <MainScreenItem to={"/product/add"} dark={dark} customIcon={AddBusinessIcon}>
+                                {t('productEntry')}
+                            </MainScreenItem>
+                        </TooltipProvider>
                     </div>
                     <div className="main-screen-sides">
-                        <MainScreenItem to={"/refund/create"} dark={dark}
-                                        customIcon={AssignmentReturnIcon}>{t('returnProcesses')}</MainScreenItem>
-                        <MainScreenItem to={"/purchase/list"} dark={dark}
-                                        customIcon={ReceiptLongIcon}>{t('receipts')}</MainScreenItem>
-                        <MainScreenItem to={"/summary/calculate"} dark={dark}
-                                        customIcon={SummarizeIcon}>{t('reports')}</MainScreenItem>
+                        <TooltipProvider dark={dark} backgroundColor="#6F8AB6" textColor="white"
+                                         content={t('returnProcessesInfo')}>
+                            <MainScreenItem to={"/refund/create"} dark={dark} customIcon={AssignmentReturnIcon}>
+                                {t('returnProcesses')}
+                            </MainScreenItem>
+                        </TooltipProvider>
+
+                        <TooltipProvider dark={dark} backgroundColor="#6F8AB6" textColor="white"
+                                         content={t('receiptsInfo')}>
+                            <MainScreenItem to={"/purchase/list"} dark={dark} customIcon={ReceiptLongIcon}>
+                                {t('receipts')}
+                            </MainScreenItem>
+                        </TooltipProvider>
+
+                        <TooltipProvider dark={dark} backgroundColor="#6F8AB6" textColor="white"
+                                         content={t('reportsInfo')}>
+                            <MainScreenItem to={"/summary/calculate"} dark={dark} customIcon={SummarizeIcon}>
+                                {t('reports')}
+                            </MainScreenItem>
+                        </TooltipProvider>
                     </div>
                 </div>
             </div>

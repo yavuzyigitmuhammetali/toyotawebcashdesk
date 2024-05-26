@@ -186,6 +186,16 @@
   "cashierName": "Cashier Name",
   "orderConfirmed": "Order Confirmed!",
   "mainScreen": "Main Screen",
-  "alreadyLoggedIn": "Already logged in"
+  "alreadyLoggedIn": "Already logged in",
+  "changeThemeInfo": "Usually using black or dark colours to reduce eye strain and improve focus.",
+  "changeLangInfo": "Changes the language throughout the application.",
+  "printTestInfo": "This is a test print. It is not possible to print from this application.",
+  "orderCreationInfo": "The main page where you create your orders and complete them by adding your products to the cart.",
+  "productsInfo": "A functional page where products are comprehensively listed, filtered, and their various attributes are updated.",
+  "productEntryInfo": "A page where necessary information is entered to create new products and various values are adjusted.",
+  "returnProcessesInfo": "A page where product returns can be processed and relevant transactions are managed.",
+  "receiptsInfo": "A page where purchased products' receipts are detailed, listed, sorted, and displayed.",
+  "reportsInfo": "A statistical reporting page presenting analyses derived from orders and sales data.",
+  "logout": "Logout"
 }
 

@@ -186,6 +186,16 @@
   "cashierName": "Kasiyer Adı",
   "orderConfirmed": "Sipariş Onaylandı!",
   "mainScreen": "Ana Sayfa",
-  "alreadyLoggedIn": "Already logged in"
+  "alreadyLoggedIn": "Already logged in",
+  "changeThemeInfo": "Genellikle siyah veya koyu renkler kullanarak göz yorgunluğunu azaltır ve odaklanmayı artırır.",
+  "changeLangInfo": "Uygulama genelinde dili değiştirir.",
+  "printTestInfo": "Bu, yazdırma işlevinin çalışıp çalışmadığını kontrol etmek için bir testtir.",
+  "orderCreationInfo": "Siparişinizi oluşturduğunuz ve ürünlerinizi sepete ekleyip tamamladığınız ana sayfa.",
+  "productsInfo": "Ürünlerin kapsamlı bir şekilde listelendiği, filtre edildiği ve çeşitli özelliklerinin güncellendiği işlevsel bir sayfa.",
+  "productEntryInfo": "Yeni ürünler oluşturmak için gerekli olan bilgilerin girildiği ve çeşitli değerlerin ayarlandığı sayfa.",
+  "returnProcessesInfo": "Ürün iadelerinin yapılabildiği ve ilgili işlemlerin yönetildiği bir sayfa.",
+  "receiptsInfo": "Satın alınan ürünlerin fişlerinin detaylı bir şekilde listelendiği, sıralandığı ve görüntülendiği bir sayfa.",
+  "reportsInfo": "Yapılan siparişler ve satış verileri üzerinden elde edilen analizlerin sunulduğu istatistiksel bir raporlama sayfası.",
+  "logout": "Çıkış Yap"
 }
 

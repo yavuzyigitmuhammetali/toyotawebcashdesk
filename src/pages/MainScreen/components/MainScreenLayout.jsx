@@ -3,6 +3,7 @@ import {IconButton} from "@mui/material";
 import LogoutIcon from '@mui/icons-material/Logout';
 import OnlineOfflineIndicator from "../../../shared/components/OnlineOfflineIndicator/OnlineOfflineIndicator";
 import SettingsDashboard from "../../SettingsDashboard";
+import TooltipProvider from "../../../shared/components/TooltipProvider/TooltipProvider";
 
 function MainScreenLayout({dark, lang, isOnline, logOut, status, cashier, t}) {
     return (
@@ -18,12 +19,18 @@ function MainScreenLayout({dark, lang, isOnline, logOut, status, cashier, t}) {
                 <div>{t('cashierName')}: {cashier.cashierName}</div>
             </div>
             <div className="main-screen-upper-right">
-                <SettingsDashboard/>
+                <TooltipProvider dark={dark} content={t('settings')} position="bottom">
+                    <SettingsDashboard/>
+                </TooltipProvider>
+
             </div>
             <div className="main-screen-lower-right">
-                <IconButton onClick={logOut} color="error" aria-label="delete">
-                    <LogoutIcon/>
-                </IconButton>
+                <TooltipProvider dark={dark} content={t('logout')}>
+                    <IconButton onClick={logOut} color="error" aria-label="delete">
+                        <LogoutIcon/>
+                    </IconButton>
+                </TooltipProvider>
+
             </div>
         </>
     );
