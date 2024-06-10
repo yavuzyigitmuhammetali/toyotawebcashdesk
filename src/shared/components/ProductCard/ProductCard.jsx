@@ -18,7 +18,8 @@ const ProductCard = React.memo((props) => {
         favorite = false,
         style,
         onClick,
-        className = ""
+        className = "",
+        performanceMode = false
     } = props;
 
     const isDisabled = stock === 0;
@@ -31,20 +32,22 @@ const ProductCard = React.memo((props) => {
         <button
             type="button"
             onClick={onClick}
-            className={className + `
-        product-card-container
-        product-card-click
-        ${isDisabled ? "product-card-disabled" : ""}
-        ${isCategory ? "product-card-category" : "product-card-regular"}
-        ${isDark ? "product-card-dark" : "product-card-light"}
-        ${isFavorite ? "product-card-favorite" : ""}
-        ${isOutOfStock ? "product-card-out-of-stock" : ""}
-      `}
+            className={`
+                ${className} 
+                product-card-container
+                ${performanceMode ? 'simplified-hover' : 'hover-scale'}
+                ${isDisabled ? "product-card-disabled" : ""}
+                ${isCategory ? "product-card-category" : "product-card-regular"}
+                ${isDark ? "product-card-dark" : "product-card-light"}
+                ${isFavorite ? "product-card-favorite" : ""}
+                ${isOutOfStock ? "product-card-out-of-stock" : ""}
+                ${performanceMode ? 'simplified-click' : 'product-card-click'}
+            `}
             style={style}
         >
             {src ? (
                 <img
-                    className={`product-card-img ${(!stock && !category) ? "grayscale" : ""}`}
+                    className={`product-card-img ${(!stock && !category) ? "grayscale" : ""} ${performanceMode ? "low-quality" : ""}`}
                     src={src}
                     alt={name}
                     loading="lazy"
@@ -86,7 +89,8 @@ ProductCard.propTypes = {
     fraction: PropTypes.bool,
     favorite: PropTypes.bool,
     style: PropTypes.object,
-    onClick: PropTypes.func
+    onClick: PropTypes.func,
+    performanceMode: PropTypes.bool
 };
 
 export default ProductCard;
