@@ -21,34 +21,31 @@ function DigitalArea({dark = false, totalPrice = 2000, data = []}) {
         }
     }, [amountPaid]);
 
+    const renderTypewriter = (className, text, speed = 100, span = false) => (
+        <Typewriter className={className} speed={speed} span={span}>{text}</Typewriter>
+    );
 
     return (
         <div className={`digital-area-container ${dark ? 'dark' : ''}`}>
             <div>
-                <Typewriter className="total-price" speed={100}>{totalPrice.toFixed(2).toString() + "$"}</Typewriter>
-                <Typewriter className="dots"
-                            speed={20}>................................................................................</Typewriter>
+                {renderTypewriter("total-price", totalPrice.toFixed(2).toString() + "$")}
+                {renderTypewriter("dots", ".......................................................................................................", 20)}
             </div>
             <div className="digital-area-scroll" ref={scrollRef}>
-                {data.map((item, key) => <Typewriter key={key} className="item" speed={100}>
-                    {(item.type === "card" ? "💳" : "💵") + " " + item.price.toFixed(2).toString() + "$ " + (item.type === "card" ? t('paidWithCard') : t('paidInCash'))}
-                </Typewriter>)}
+                {data.map((item, key) => renderTypewriter("item",
+                    (item.type === "card" ? "💳" : "💵") + " " + item.price.toFixed(2).toString() + "$ " + (item.type === "card" ? t('paidWithCard') : t('paidInCash')), 100, false, key))}
             </div>
             <div>
-                <Typewriter className="dots"
-                            speed={20}>................................................................................</Typewriter>
+                {renderTypewriter("dots", ".......................................................................................................", 20)}
                 <div>
-                    <Typewriter span className="amount" speed={100}>{t('paidAmount') + ": "}</Typewriter>
-                    <Typewriter span className="amount"
-                                speed={100}>{amountPaid.toFixed(2).toString() + "$"}</Typewriter>
+                    {renderTypewriter("amount", t('paidAmount') + ": ", 100, true)}
+                    {renderTypewriter("amount", amountPaid.toFixed(2).toString() + "$", 100, true)}
                 </div>
                 <div>
-                    <Typewriter span className="amount" speed={100}>{t('remainingAmount') + ": "}</Typewriter>
-                    <Typewriter span className="amount"
-                                speed={100}>{amountRemaining.toFixed(2).toString() + "$"}</Typewriter>
+                    {renderTypewriter("amount", t('remainingAmount') + ": ", 100, true)}
+                    {renderTypewriter("amount", amountRemaining.toFixed(2).toString() + "$", 100, true)}
                 </div>
-                {change ? <Typewriter className="change"
-                                      speed={100}>{t('change') + ": " + change.toFixed(2).toString() + "$"}</Typewriter> : null}
+                {change ? renderTypewriter("change", t('change') + ": " + change.toFixed(2).toString() + "$") : null}
             </div>
         </div>
     );

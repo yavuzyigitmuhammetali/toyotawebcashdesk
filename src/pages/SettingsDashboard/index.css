@@ -2,6 +2,7 @@
     box-sizing: border-box;
     position: fixed;
     width: 800px;
+    max-width: 100%;
     height: 480px;
     background-color: #DEDEDF;
     top: 50%;
@@ -13,6 +14,14 @@
     z-index: 99999;
     padding: 20px;
     cursor: pointer;
+}
+
+@media (max-width: 800px) {
+    .settings-dashboard-container {
+        width: 90%;
+        height: auto;
+        padding: 10px;
+    }
 }
 
 .settings-dashboard-container.dark {
@@ -44,6 +53,13 @@
     gap: 10px;
 }
 
+@media (max-width: 800px) {
+    .settings-dashboard-body {
+        flex-direction: column;
+        gap: 5px;
+    }
+}
+
 .settings-dashboard-active-area {
     width: 50%;
     height: 100%;
@@ -51,4 +67,11 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
+}
+
+@media (max-width: 800px) {
+    .settings-dashboard-active-area {
+        width: 100%;
+        gap: 5px;
+    }
 }
