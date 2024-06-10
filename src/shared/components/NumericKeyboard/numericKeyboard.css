@@ -1,3 +1,6 @@
+/* Filename: numericKeyboard.css */
+/* Path: src/shared/components/NumericKeyboard/numericKeyboard.css */
+
 .numeric-keyboard-container {
     box-sizing: border-box;
     aspect-ratio: 308 / 312 !important;
@@ -13,6 +16,11 @@
 .numeric-keyboard-container.dark {
     background-color: #121418;
     border-color: white;
+}
+
+.numeric-keyboard-container.performance {
+    padding: 2%;
+    gap: 1%;
 }
 
 .numeric-keyboard-container * {

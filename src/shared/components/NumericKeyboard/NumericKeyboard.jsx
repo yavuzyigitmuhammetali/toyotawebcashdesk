@@ -14,6 +14,7 @@ function NumericKeyboard({
                              recurringValues = false,
                              allowDecimal = false,
                              fromKeyboard = false,
+                             performanceMode = true,
                          }) {
     const [value, setValue] = useState("");
     const {setData} = useContext(NumericKeyboardContext);
@@ -41,7 +42,8 @@ function NumericKeyboard({
     };
 
     return (
-        <div className={`numeric-keyboard-container ${dark ? 'dark' : ''}`} style={{width: width}}>
+        <div className={`numeric-keyboard-container ${dark ? 'dark' : ''} ${performanceMode ? 'performance' : ''}`}
+             style={{width: width}}>
             <ThemeProvider theme={createTheme({palette: {mode: dark ? "dark" : "light"}})}>
                 <TextField
                     className="numeric-keyboard-textfield"
@@ -57,8 +59,14 @@ function NumericKeyboard({
                     endIcon={<DeleteForeverIcon/>}
                     color="error"
                     variant="contained"
+                    disableElevation={performanceMode}
                 ></Button>
-                <Button size="small" onClick={() => setValue(value + "00")} variant="contained">
+                <Button
+                    size="small"
+                    onClick={() => setValue(value + "00")}
+                    variant="contained"
+                    disableElevation={performanceMode}
+                >
                     00
                 </Button>
                 <Button
@@ -68,39 +76,32 @@ function NumericKeyboard({
                     color="warning"
                     startIcon={<BackspaceIcon/>}
                     variant="contained"
+                    disableElevation={performanceMode}
                 ></Button>
-                <Button size="small" onClick={() => setValue(value + "1")} variant="contained">
-                    1
-                </Button>
-                <Button size="small" onClick={() => setValue(value + "2")} variant="contained">
-                    2
-                </Button>
-                <Button size="small" onClick={() => setValue(value + "3")} variant="contained">
-                    3
-                </Button>
-                <Button size="small" onClick={() => setValue(value + "4")} variant="contained">
-                    4
-                </Button>
-                <Button size="small" onClick={() => setValue(value + "5")} variant="contained">
-                    5
-                </Button>
-                <Button size="small" onClick={() => setValue(value + "6")} variant="contained">
-                    6
-                </Button>
-                <Button size="small" onClick={() => setValue(value + "7")} variant="contained">
-                    7
-                </Button>
-                <Button size="small" onClick={() => setValue(value + "8")} variant="contained">
-                    8
-                </Button>
-                <Button size="small" onClick={() => setValue(value + "9")} variant="contained">
-                    9
-                </Button>
+                <Button size="small" onClick={() => setValue(value + "1")} variant="contained"
+                        disableElevation={performanceMode}>1</Button>
+                <Button size="small" onClick={() => setValue(value + "2")} variant="contained"
+                        disableElevation={performanceMode}>2</Button>
+                <Button size="small" onClick={() => setValue(value + "3")} variant="contained"
+                        disableElevation={performanceMode}>3</Button>
+                <Button size="small" onClick={() => setValue(value + "4")} variant="contained"
+                        disableElevation={performanceMode}>4</Button>
+                <Button size="small" onClick={() => setValue(value + "5")} variant="contained"
+                        disableElevation={performanceMode}>5</Button>
+                <Button size="small" onClick={() => setValue(value + "6")} variant="contained"
+                        disableElevation={performanceMode}>6</Button>
+                <Button size="small" onClick={() => setValue(value + "7")} variant="contained"
+                        disableElevation={performanceMode}>7</Button>
+                <Button size="small" onClick={() => setValue(value + "8")} variant="contained"
+                        disableElevation={performanceMode}>8</Button>
+                <Button size="small" onClick={() => setValue(value + "9")} variant="contained"
+                        disableElevation={performanceMode}>9</Button>
                 <Button
                     size="small"
                     onClick={() => setValue(value + "0")}
                     className="numeric-keyboard-zero"
                     variant="contained"
+                    disableElevation={performanceMode}
                 >
                     0
                 </Button>
@@ -112,6 +113,7 @@ function NumericKeyboard({
                     endIcon={<DoneOutlineIcon/>}
                     color="success"
                     variant="contained"
+                    disableElevation={performanceMode}
                 ></Button>
                 <Button
                     size="small"
@@ -119,6 +121,7 @@ function NumericKeyboard({
                     onClick={() => setValue(value + ".")}
                     className="numeric-keyboard-decimal"
                     variant="contained"
+                    disableElevation={performanceMode}
                 >
                     .
                 </Button>
