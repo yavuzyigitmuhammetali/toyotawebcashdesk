@@ -17,26 +17,26 @@ const KeyboardProvider = ({children}) => {
         enterRef.current?.click();
     }, []);
 
-
     const onChangeValue = useCallback((event) => {
         const {id: inputId, value: inputValue} = event.target;
         setValue((prevValue) => ({
-            ...prevValue, [inputId ? inputId : id]: inputValue,
+            ...prevValue,
+            [inputId ? inputId : id]: inputValue,
         }));
     }, [id]);
 
-    const setChangedValue = useCallback((value) => {
+    const setChangedValue = useCallback((newVal) => {
         setValue((prevValue) => ({
-            ...prevValue, [id]: value,
+            ...prevValue,
+            [id]: newVal,
         }));
     }, [id]);
 
     const handleValue = useCallback((updatedValue) => {
-        if (id) {
-            setValue((prevValue) => ({
-                ...prevValue, [id]: (prevValue[id] || "") + updatedValue,
-            }));
-        }
+        setValue((prevValue) => ({
+            ...prevValue,
+            [id]: (prevValue[id] || "") + updatedValue,
+        }));
     }, [id]);
 
     const handleDelete = useCallback(() => {
@@ -58,28 +58,30 @@ const KeyboardProvider = ({children}) => {
     const handleElementFocus = useCallback((event) => {
         const {id: elementId, value: elementValue} = event.target;
         setValue((prevValue) => ({
-            ...prevValue, [elementId]: elementValue ?? "",
+            ...prevValue,
+            [elementId]: elementValue ?? "",
         }));
         setId(elementId);
-        return elementId;
     }, []);
 
-    return (<KeyboardContext.Provider
-        value={{
-            handleValue,
-            handleDelete,
-            onChangeValue,
-            handleEnter,
-            handleElementFocus,
-            setChangedValue,
-            clearValues,
-            value,
-            id,
-            enterRef,
-        }}
-    >
-        {children}
-    </KeyboardContext.Provider>);
+    const contextValue = {
+        handleValue,
+        handleDelete,
+        onChangeValue,
+        handleEnter,
+        handleElementFocus,
+        setChangedValue,
+        clearValues,
+        value,
+        id,
+        enterRef,
+    };
+
+    return (
+        <KeyboardContext.Provider value={contextValue}>
+            {children}
+        </KeyboardContext.Provider>
+    );
 };
 
 export default KeyboardContext;

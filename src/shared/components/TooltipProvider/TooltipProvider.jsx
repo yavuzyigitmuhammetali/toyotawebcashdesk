@@ -5,7 +5,7 @@ import './TooltipProvider.css';
 const TooltipProvider = ({
                              children,
                              content,
-                             delay = 800,
+                             delay = 400,
                              position = 'top',
                              dark = false,
                              backgroundColor = 'black',
@@ -15,12 +15,14 @@ const TooltipProvider = ({
                              customClass = ''
                          }) => {
     const [showTooltip, setShowTooltip] = useState(false);
+    const [visible, setVisible] = useState(false);
     const timeoutRef = useRef(null);
     const tooltipRef = useRef(null);
 
     const handleMouseEnter = () => {
         timeoutRef.current = setTimeout(() => {
             setShowTooltip(true);
+            setVisible(true);
         }, delay);
     };
 
@@ -28,6 +30,15 @@ const TooltipProvider = ({
         clearTimeout(timeoutRef.current);
         setShowTooltip(false);
     };
+
+    useEffect(() => {
+        if (!showTooltip) {
+            const timeout = setTimeout(() => {
+                setVisible(false);
+            }, 300); // Animasyon süresi ile aynı olmalı
+            return () => clearTimeout(timeout);
+        }
+    }, [showTooltip]);
 
     useEffect(() => {
         return () => {
@@ -41,15 +52,18 @@ const TooltipProvider = ({
         backgroundColor: dark ? textColor : backgroundColor,
         color: dark ? backgroundColor : textColor,
         borderRadius,
-        fontSize
+        fontSize,
+        pointerEvents: 'none'
     };
 
     return (
         <div className="tooltip-container" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
             {children}
-            {showTooltip && (
-                <div onMouseEnter={handleMouseLeave} className={`tooltip-box tooltip-${position} ${customClass}`}
-                     style={tooltipStyle} ref={tooltipRef}>
+            {visible && (
+                <div
+                    onMouseEnter={() => (setVisible(false))}
+                    className={`tooltip-box tooltip-${position} ${customClass} ${showTooltip ? 'fade-in' : 'fade-out'}`}
+                    style={tooltipStyle} ref={tooltipRef}>
                     {content}
                 </div>
             )}

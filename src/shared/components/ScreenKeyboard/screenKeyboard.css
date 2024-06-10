@@ -1,11 +1,22 @@
+:root {
+    --dark-background-color: #12161B;
+    --dark-border-color: #1D2229;
+    --light-background-color: white;
+    --light-border-color: black;
+    --close-button-red: red;
+    --close-button-light-red: #E33E4D;
+    --button-size: 22px;
+    --font-family: 'Rubik', sans-serif;
+}
+
 .screen-keyboard-container {
     z-index: 999999;
     position: fixed;
     box-sizing: border-box;
     min-width: 750px;
     height: 255px;
-    background-color: #12161B;
-    border: 0.5px solid #1D2229;
+    background-color: var(--dark-background-color);
+    border: 0.5px solid var(--dark-border-color);
     padding-top: 25px;
     padding-bottom: 5px;
     display: grid;
@@ -23,8 +34,8 @@
 }
 
 .screen-keyboard-close-button {
-    width: 22px;
-    height: 22px;
+    width: var(--button-size);
+    height: var(--button-size);
     border: none;
     border-radius: 50%;
     color: white;
@@ -59,8 +70,4 @@
     border: none !important;
     padding: 0 !important;
     margin: 0 !important;
-}
-
-.screen-keyboard-double-height {
-    height: 200px;
 }
