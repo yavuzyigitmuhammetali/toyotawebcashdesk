@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 
-export const useLoginPageRightArea = (value, loginFunction, loginSuccessMessage, errorTitle) => {
+export const useLoginPageRightArea = (value, loginFunction, loginSuccessMessage, errorTitle, performanceMode = false) => {
     const [error, setError] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
     const [loginData, setLoginData] = useState({username: "", password: ""});
@@ -30,7 +30,6 @@ export const useLoginPageRightArea = (value, loginFunction, loginSuccessMessage,
             setButtonState(false);
         }
         setError(false);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [value]);
 
     const handleLogin = async () => {
@@ -60,6 +59,7 @@ export const useLoginPageRightArea = (value, loginFunction, loginSuccessMessage,
         loading,
         handleClickShowPassword,
         handleMouseDownPassword,
-        handleLogin
+        handleLogin,
+        performanceMode
     };
 };

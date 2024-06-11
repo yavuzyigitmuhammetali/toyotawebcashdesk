@@ -27,6 +27,13 @@
     animation-delay: 0.5s;
 }
 
+.login-page-left-area.no-animation,
+.login-page-right-area.no-animation {
+    opacity: 1;
+    transform: perspective(1000px) rotateY(0);
+    animation: none;
+}
+
 @keyframes flipInLeft {
     0% {
         opacity: 0;

@@ -19,7 +19,7 @@ import KeyboardContext from "../../../shared/components/ScreenKeyboard/context";
 import AppStatusContext from "../../../shared/states/AppStatus/context";
 import {useTranslation} from "react-i18next";
 
-function LoginPageRightArea() {
+function LoginPageRightArea({performanceMode = false}) {
     const {handleElementFocus, value, onChangeValue, enterRef} = useContext(KeyboardContext);
     const {loginFunction, lang, dark} = useContext(AppStatusContext);
     const {t} = useTranslation();
@@ -32,7 +32,7 @@ function LoginPageRightArea() {
         handleClickShowPassword,
         handleMouseDownPassword,
         handleLogin
-    } = useLoginPageRightArea(value, loginFunction, t("loginSuccessMessage"), t("errorTitle"));
+    } = useLoginPageRightArea(value, loginFunction, t("loginSuccessMessage"), t("errorTitle"), performanceMode);
 
     return (
         <div className={`login-page-right-area-container ${dark ? 'dark' : 'light'}`}>
