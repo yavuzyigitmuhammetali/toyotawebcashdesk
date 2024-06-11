@@ -9,7 +9,7 @@ import {useScreenKeyboard} from "./useScreenKeyboard";
 import KeyboardContext from "./context";
 import "./screenKeyboard.css";
 
-function ScreenKeyboard({fullWidth = false, dark = false, language = "tr", style}) {
+function ScreenKeyboard({fullWidth = false, dark = false, language = "tr", style, performanceMode = false}) {
     const [onOff, setOnOff] = useState(true);
     const {handleDelete, handleValue, handleEnter} = useContext(KeyboardContext);
 
@@ -33,6 +33,38 @@ function ScreenKeyboard({fullWidth = false, dark = false, language = "tr", style
         backgroundColor: dark ? "var(--dark-background-color)" : "var(--light-background-color)",
         borderColor: dark ? "white" : "black",
     }), [isDragging, dark]);
+
+    const optimizedButton = (item, index) => {
+        const baseClass = dark ? "screen-keyboard-optimized-button-dark" : "screen-keyboard-optimized-button-light";
+        if (performanceMode) {
+            return (
+                <button
+                    key={index}
+                    className={baseClass}
+                    type="button"
+                    onClick={() => handleValue(capsLock ? item.toUpperCase() : item)}
+                >
+                    {capsLock ? item.toUpperCase() : item}
+                </button>
+            );
+        } else {
+            return (
+                <Button
+                    size="small"
+                    type="button"
+                    onClick={() => handleValue(capsLock ? item.toUpperCase() : item)}
+                    variant="outlined"
+                    key={index}
+                >
+                    {capsLock ? item.toUpperCase() : item}
+                </Button>
+            );
+        }
+    };
+
+    const getClassForSpecialButton = (baseClass) => {
+        return dark ? `${baseClass}-dark` : `${baseClass}-light`;
+    };
 
     if (onOff) {
         return (
@@ -60,6 +92,7 @@ function ScreenKeyboard({fullWidth = false, dark = false, language = "tr", style
                     style={buttonStyle}
                 >
                     <button
+                        type="button"
                         className="screen-keyboard-close-button"
                         style={{backgroundColor: dark ? "var(--close-button-red)" : "var(--close-button-light-red)"}}
                         onClick={() => setOnOff(true)}
@@ -70,8 +103,18 @@ function ScreenKeyboard({fullWidth = false, dark = false, language = "tr", style
                         {keyboard.map((item, index) => {
                             switch (item) {
                                 case "del":
-                                    return (
+                                    return performanceMode ? (
+                                        <button
+                                            type="button"
+                                            key={index}
+                                            className={getClassForSpecialButton("screen-keyboard-optimized-double")}
+                                            onClick={handleDelete}
+                                        >
+                                            del
+                                        </button>
+                                    ) : (
                                         <Button
+                                            type="button"
                                             size="small"
                                             onClick={handleDelete}
                                             variant="outlined"
@@ -82,8 +125,18 @@ function ScreenKeyboard({fullWidth = false, dark = false, language = "tr", style
                                         </Button>
                                     );
                                 case "enter":
-                                    return (
+                                    return performanceMode ? (
+                                        <button
+                                            type="button"
+                                            key={index}
+                                            className={getClassForSpecialButton("screen-keyboard-optimized-enter")}
+                                            onClick={handleEnter}
+                                        >
+                                            enter
+                                        </button>
+                                    ) : (
                                         <Button
+                                            type="button"
                                             size="small"
                                             onClick={handleEnter}
                                             variant="outlined"
@@ -94,8 +147,18 @@ function ScreenKeyboard({fullWidth = false, dark = false, language = "tr", style
                                         </Button>
                                     );
                                 case "space":
-                                    return (
+                                    return performanceMode ? (
+                                        <button
+                                            type="button"
+                                            key={index}
+                                            className={getClassForSpecialButton("screen-keyboard-optimized-triple")}
+                                            onClick={() => handleValue(" ")}
+                                        >
+                                            space
+                                        </button>
+                                    ) : (
                                         <Button
+                                            type="button"
                                             size="small"
                                             onClick={() => handleValue(" ")}
                                             variant="outlined"
@@ -106,8 +169,18 @@ function ScreenKeyboard({fullWidth = false, dark = false, language = "tr", style
                                         </Button>
                                     );
                                 case "language":
-                                    return (
+                                    return performanceMode ? (
+                                        <button
+                                            type="button"
+                                            key={index}
+                                            className={getClassForSpecialButton("screen-keyboard-optimized-caps")}
+                                            onClick={handleKeyboardCapsLock}
+                                        >
+                                            caps
+                                        </button>
+                                    ) : (
                                         <Button
+                                            type="button"
                                             size="small"
                                             onClick={handleKeyboardCapsLock}
                                             variant="outlined"
@@ -118,16 +191,7 @@ function ScreenKeyboard({fullWidth = false, dark = false, language = "tr", style
                                         </Button>
                                     );
                                 default:
-                                    return (
-                                        <Button
-                                            size="small"
-                                            onClick={() => handleValue(capsLock ? item.toUpperCase() : item)}
-                                            variant="outlined"
-                                            key={index}
-                                        >
-                                            {capsLock ? item.toUpperCase() : item}
-                                        </Button>
-                                    );
+                                    return optimizedButton(item, index);
                             }
                         })}
                     </ThemeProvider>

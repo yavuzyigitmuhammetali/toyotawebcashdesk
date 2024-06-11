@@ -71,3 +71,111 @@
     padding: 0 !important;
     margin: 0 !important;
 }
+
+.screen-keyboard-optimized-button-dark {
+    background-color: var(--dark-background-color);
+    border: 1px solid var(--dark-border-color);
+    color: white;
+    padding: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-family: var(--font-family), sans-serif;
+}
+
+.screen-keyboard-optimized-button-light {
+    background-color: var(--light-background-color);
+    border: 1px solid var(--light-border-color);
+    color: black;
+    padding: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-family: var(--font-family), sans-serif;
+}
+
+.screen-keyboard-optimized-double-dark {
+    grid-column-start: span 2;
+    background-color: var(--dark-background-color);
+    border: 1px solid var(--dark-border-color);
+    color: white;
+    padding: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-family: var(--font-family), sans-serif;
+}
+
+.screen-keyboard-optimized-double-light {
+    grid-column-start: span 2;
+    background-color: var(--light-background-color);
+    border: 1px solid var(--light-border-color);
+    color: black;
+    padding: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-family: var(--font-family), sans-serif;
+}
+
+.screen-keyboard-optimized-enter-dark {
+    grid-row-end: span 4;
+    grid-column-end: -1;
+    background-color: var(--dark-background-color);
+    border: 1px solid var(--dark-border-color);
+    color: white;
+    padding: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-family: var(--font-family), sans-serif;
+}
+
+.screen-keyboard-optimized-enter-light {
+    grid-row-end: span 4;
+    grid-column-end: -1;
+    background-color: var(--light-background-color);
+    border: 1px solid var(--light-border-color);
+    color: black;
+    padding: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-family: var(--font-family), sans-serif;
+}
+
+.screen-keyboard-optimized-triple-dark {
+    grid-column-start: span 10;
+    background-color: var(--dark-background-color);
+    border: 1px solid var(--dark-border-color);
+    color: white;
+    padding: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-family: var(--font-family), sans-serif;
+}
+
+.screen-keyboard-optimized-triple-light {
+    grid-column-start: span 10;
+    background-color: var(--light-background-color);
+    border: 1px solid var(--light-border-color);
+    color: black;
+    padding: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-family: var(--font-family), sans-serif;
+}
+
+.screen-keyboard-optimized-caps-dark {
+    background-color: var(--dark-background-color);
+    border: 1px solid var(--dark-border-color);
+    color: white;
+    padding: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-family: var(--font-family), sans-serif;
+}
+
+.screen-keyboard-optimized-caps-light {
+    background-color: var(--light-background-color);
+    border: 1px solid var(--light-border-color);
+    color: black;
+    padding: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-family: var(--font-family), sans-serif;
+}
