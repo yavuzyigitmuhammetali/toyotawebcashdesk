@@ -1,3 +1,4 @@
+/* Existing styles... */
 .shopping-cart-item-container {
     user-select: none;
     box-sizing: border-box;
@@ -115,4 +116,15 @@
 
 .discounted-price {
     color: red;
+}
+
+/* Performance mode styles */
+.performance-mode .shopping-cart-item-container:hover {
+    filter: none;
+}
+
+.performance-mode .shopping-cart-item-editor {
+    transition: none;
+    animation: none;
+    left: 0;
 }
