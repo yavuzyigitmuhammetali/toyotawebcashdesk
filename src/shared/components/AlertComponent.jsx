@@ -6,7 +6,7 @@ function SlideTransition(props) {
     return <Slide {...props} direction="down"/>;
 }
 
-function AlertComponent({style, autoHideDuration = 3000, variant = "filled"}) {
+function AlertComponent({style, autoHideDuration = 3000, variant = "filled", performanceMode = false}) {
     const location = useLocation();
     const navigate = useNavigate();
     const [message, setMessage] = useState("");
@@ -48,9 +48,9 @@ function AlertComponent({style, autoHideDuration = 3000, variant = "filled"}) {
                 style={{zIndex: "99990"}}
                 open={open}
                 onClose={() => handleClose('timeout')}
-                TransitionComponent={SlideTransition}
+                TransitionComponent={performanceMode ? undefined : SlideTransition}
                 anchorOrigin={{vertical: 'top', horizontal: 'center'}}
-                autoHideDuration={autoHideDuration}
+                autoHideDuration={performanceMode ? autoHideDuration / 2 : autoHideDuration}
             >
                 <Alert onClose={() => handleClose('close')} variant={variant} severity={severity}>
                     {message}
@@ -61,7 +61,3 @@ function AlertComponent({style, autoHideDuration = 3000, variant = "filled"}) {
 }
 
 export default AlertComponent;
-
-
-
-

@@ -14,7 +14,7 @@ function NumericKeyboard({
                              recurringValues = false,
                              allowDecimal = false,
                              fromKeyboard = false,
-                             performanceMode = true,
+                             performanceMode = false,
                          }) {
     const [value, setValue] = useState("");
     const {setData} = useContext(NumericKeyboardContext);

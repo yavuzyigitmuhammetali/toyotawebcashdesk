@@ -10,7 +10,7 @@ export function useProductShowcase({
                                        keyboardContext = null,
                                        ScreenKeyboardComponent = null,
                                        language = 'en',
-                                       isPerformanceMode = true,
+                                       isPerformanceMode = false,
                                    }) {
     const [inputValue, setInputValue] = useState('');
     const {handleElementFocus, value, onChangeValue} = keyboardContext || {};
