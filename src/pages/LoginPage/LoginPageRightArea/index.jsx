@@ -91,6 +91,7 @@ function LoginPageRightArea({performanceMode = false}) {
                     {loading ? <CircularProgress size={24} color="inherit"/> : t("login")}
                 </Button>
                 <ScreenKeyboard
+                    performanceMode={performanceMode}
                     language={lang}
                     dark={dark}
                     style={{width: "40px", height: "40px", alignSelf: "center"}}

@@ -61,3 +61,24 @@
     min-width: 400px;
     max-height: 25vh;
 }
+
+/* src/pages/MainScreen/index.css */
+.main-screen-container.performance-mode {
+    padding: 5vw;
+}
+
+.main-screen-item-container.performance-mode {
+    height: 50px;
+    transition: none;
+}
+
+.main-screen-item-container.performance-mode:hover {
+    transform: none;
+    border-color: green;
+}
+
+.main-screen-logo.performance-mode {
+    max-width: 20vw;
+    min-width: 200px;
+    max-height: 15vh;
+}

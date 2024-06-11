@@ -1,5 +1,6 @@
-import React from 'react';
-import "./index.css"
+// src/pages/MainScreen/index.jsx
+import React, {useContext, useEffect} from 'react';
+import "./index.css";
 import AlertComponent from "../../shared/components/AlertComponent";
 import AppStatusContext from "../../shared/states/AppStatus/context";
 import MainScreenItem from "./components/MainScreenItem/MainScreenItem";
@@ -15,77 +16,67 @@ import MainScreenLayout from "./components/MainScreenLayout";
 import config from "../../config.json";
 import TooltipProvider from "../../shared/components/TooltipProvider/TooltipProvider";
 
-function MainScreen() {
-    const {isOnline, status, logOut, lang, dark, cashier} = React.useContext(AppStatusContext);
-    const {clearValues} = React.useContext(KeyboardContext);
+const icons = {
+    orderCreation: StorefrontIcon,
+    products: InventoryIcon,
+    productEntry: AddBusinessIcon,
+    returnProcesses: AssignmentReturnIcon,
+    receipts: ReceiptLongIcon,
+    reports: SummarizeIcon,
+};
+
+const items = [
+    {to: "/order/create", text: 'orderCreation', info: 'orderCreationInfo', icon: icons.orderCreation},
+    {to: "/products/list", text: 'products', info: 'productsInfo', icon: icons.products},
+    {to: "/product/add", text: 'productEntry', info: 'productEntryInfo', icon: icons.productEntry},
+    {to: "/refund/create", text: 'returnProcesses', info: 'returnProcessesInfo', icon: icons.returnProcesses},
+    {to: "/purchase/list", text: 'receipts', info: 'receiptsInfo', icon: icons.receipts},
+    {to: "/summary/calculate", text: 'reports', info: 'reportsInfo', icon: icons.reports},
+];
+
+function MainScreen({performanceMode = false}) {
+    const {isOnline, status, logOut, lang, dark, cashier} = useContext(AppStatusContext);
+    const {clearValues} = useContext(KeyboardContext);
     const {t} = useTranslation();
 
-    React.useEffect(() => {
-        document.title = config.storeName + " • " + t('mainScreen');
+    useEffect(() => {
+        document.title = `${config.storeName} • ${t('mainScreen')}`;
         return () => {
             clearValues();
         };
     }, [clearValues, t]);
 
-
-    return (<>
-            <AlertComponent/>
-            <div className={`main-screen-container ${dark ? 'dark' : ''}`}>
-                <img
-                    alt={"logo"}
-                    className="main-screen-logo"
-                    src={config.storeLogo}/>
+    return (
+        <>
+            <AlertComponent performanceMode={performanceMode}/>
+            <div className={`main-screen-container ${dark ? 'dark' : ''} ${performanceMode ? 'performance-mode' : ''}`}>
+                <img alt="logo" className="main-screen-logo" src={config.storeLogo}/>
                 <div className="main-screen-active-area">
                     <div className="main-screen-sides">
-                        <TooltipProvider dark={dark} backgroundColor="#6F8AB6" textColor="white"
-                                         content={t('orderCreationInfo')}>
-                            <MainScreenItem to={"/order/create"} dark={dark} customIcon={StorefrontIcon}>
-                                {t('orderCreation')}
-                            </MainScreenItem>
-                        </TooltipProvider>
-
-                        <TooltipProvider dark={dark} backgroundColor="#6F8AB6" textColor="white"
-                                         content={t('productsInfo')}>
-                            <MainScreenItem to={"/products/list"} dark={dark} customIcon={InventoryIcon}>
-                                {t('products')}
-                            </MainScreenItem>
-                        </TooltipProvider>
-
-                        <TooltipProvider dark={dark} backgroundColor="#6F8AB6" textColor="white"
-                                         content={t('productEntryInfo')}>
-                            <MainScreenItem to={"/product/add"} dark={dark} customIcon={AddBusinessIcon}>
-                                {t('productEntry')}
-                            </MainScreenItem>
-                        </TooltipProvider>
+                        {items.slice(0, items.length / 2).map(({to, text, info, icon: Icon}) => (
+                            <TooltipProvider key={to} performanceMode={performanceMode} dark={dark}
+                                             backgroundColor="#6F8AB6" textColor="white" content={t(info)}>
+                                <MainScreenItem performanceMode={performanceMode} to={to} dark={dark} customIcon={Icon}>
+                                    {t(text)}
+                                </MainScreenItem>
+                            </TooltipProvider>
+                        ))}
                     </div>
                     <div className="main-screen-sides">
-                        <TooltipProvider dark={dark} backgroundColor="#6F8AB6" textColor="white"
-                                         content={t('returnProcessesInfo')}>
-                            <MainScreenItem to={"/refund/create"} dark={dark} customIcon={AssignmentReturnIcon}>
-                                {t('returnProcesses')}
-                            </MainScreenItem>
-                        </TooltipProvider>
-
-                        <TooltipProvider dark={dark} backgroundColor="#6F8AB6" textColor="white"
-                                         content={t('receiptsInfo')}>
-                            <MainScreenItem to={"/purchase/list"} dark={dark} customIcon={ReceiptLongIcon}>
-                                {t('receipts')}
-                            </MainScreenItem>
-                        </TooltipProvider>
-
-                        <TooltipProvider dark={dark} backgroundColor="#6F8AB6" textColor="white"
-                                         content={t('reportsInfo')}>
-                            <MainScreenItem to={"/summary/calculate"} dark={dark} customIcon={SummarizeIcon}>
-                                {t('reports')}
-                            </MainScreenItem>
-                        </TooltipProvider>
+                        {items.slice(items.length / 2).map(({to, text, info, icon: Icon}) => (
+                            <TooltipProvider key={to} performanceMode={performanceMode} dark={dark}
+                                             backgroundColor="#6F8AB6" textColor="white" content={t(info)}>
+                                <MainScreenItem performanceMode={performanceMode} to={to} dark={dark} customIcon={Icon}>
+                                    {t(text)}
+                                </MainScreenItem>
+                            </TooltipProvider>
+                        ))}
                     </div>
                 </div>
             </div>
-            <MainScreenLayout dark={dark} lang={lang} isOnline={isOnline} logOut={logOut} status={status}
-                              cashier={cashier} t={t}/>
+            <MainScreenLayout performanceMode={performanceMode} dark={dark} lang={lang} isOnline={isOnline}
+                              logOut={logOut} status={status} cashier={cashier} t={t}/>
         </>
-
     );
 }
 

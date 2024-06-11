@@ -5,11 +5,12 @@ import OnlineOfflineIndicator from "../../../shared/components/OnlineOfflineIndi
 import SettingsDashboard from "../../SettingsDashboard";
 import TooltipProvider from "../../../shared/components/TooltipProvider/TooltipProvider";
 
-function MainScreenLayout({dark, lang, isOnline, logOut, status, cashier, t}) {
+function MainScreenLayout({dark, lang, isOnline, logOut, status, cashier, t, performanceMode = false}) {
     return (
         <>
             <div className="main-screen-lower-left">
-                <OnlineOfflineIndicator dark={dark} language={lang} online={isOnline}/>
+                <OnlineOfflineIndicator performanceMode={performanceMode} dark={dark} language={lang}
+                                        online={isOnline}/>
             </div>
             <div className={`main-screen-upper-left ${dark ? 'dark' : ''}`}>
                 <div>{t('storeNo')}: {status.storeNumber}</div>
@@ -19,13 +20,14 @@ function MainScreenLayout({dark, lang, isOnline, logOut, status, cashier, t}) {
                 <div>{t('cashierName')}: {cashier.cashierName}</div>
             </div>
             <div className="main-screen-upper-right">
-                <TooltipProvider dark={dark} content={t('settings')} position="bottom">
+                <TooltipProvider performanceMode={performanceMode} dark={dark} content={t('settings')}
+                                 position="bottom">
                     <SettingsDashboard/>
                 </TooltipProvider>
 
             </div>
             <div className="main-screen-lower-right">
-                <TooltipProvider dark={dark} content={t('logout')}>
+                <TooltipProvider performanceMode={performanceMode} dark={dark} content={t('logout')}>
                     <IconButton onClick={logOut} color="error" aria-label="delete">
                         <LogoutIcon/>
                     </IconButton>
