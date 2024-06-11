@@ -9,7 +9,8 @@ export function useProductShowcase({
                                        dark = false,
                                        keyboardContext = null,
                                        ScreenKeyboardComponent = null,
-                                       language = 'en'
+                                       language = 'en',
+                                       isPerformanceMode = true,
                                    }) {
     const [inputValue, setInputValue] = useState('');
     const {handleElementFocus, value, onChangeValue} = keyboardContext || {};
@@ -22,13 +23,11 @@ export function useProductShowcase({
         [data, value?.productSearch]
     );
 
-
     useEffect(() => {
         setInputValue(value?.productSearch ?? '');
     }, [value]);
 
     const t = translations[language] || translations.en;
-
 
     const currentData = useMemo(() => {
         switch (map) {
@@ -45,8 +44,11 @@ export function useProductShowcase({
         }
     }, [map, data, favourites, filteredByName, alphabeticalFilteredData, withoutBarcode]);
 
-    const columnCount = Math.floor((window.innerWidth / 110) - 1);
+    const columnCount = isPerformanceMode
+        ? 6
+        : Math.floor((window.innerWidth / 110) - 1);
     const rowCount = Math.ceil(currentData.length / columnCount);
+
     const Cell = ({columnIndex, rowIndex, style}) => {
         const productIndex = rowIndex * columnCount + columnIndex;
         const product = currentData[productIndex];
@@ -85,5 +87,6 @@ export function useProductShowcase({
         Cell,
         ScreenKeyboardComponent,
         language,
+        isPerformanceMode
     };
 }

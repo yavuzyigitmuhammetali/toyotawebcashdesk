@@ -29,6 +29,11 @@
     border-color: white;
 }
 
+.product-showcase-active-area.performance-mode {
+    width: 840px;
+    height: 550px;
+}
+
 .product-showcase-search-area {
     width: 100%;
     display: flex;

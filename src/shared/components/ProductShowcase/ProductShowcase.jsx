@@ -7,6 +7,8 @@ import {FixedSizeGrid as Grid} from 'react-window';
 import './productShowcase.css';
 
 function ProductShowcase(props) {
+
+
     const {
         dark,
         inputValue,
@@ -20,12 +22,13 @@ function ProductShowcase(props) {
         Cell,
         ScreenKeyboardComponent,
         language,
+        isPerformanceMode
     } = useProductShowcase(props);
-
     return (
         <ThemeProvider theme={createTheme({palette: {mode: dark ? 'dark' : 'light'}, typography: {fontSize: 10}})}>
             <div className="product-showcase-container">
-                <div className={`product-showcase-active-area ${dark ? 'dark' : ''}`}>
+                <div
+                    className={`product-showcase-active-area ${dark ? 'dark' : ''} ${isPerformanceMode ? 'performance-mode' : ''}`}>
                     <div className="product-showcase-search-area">
                         <TextField
                             onFocus={handleElementFocus}
@@ -44,11 +47,11 @@ function ProductShowcase(props) {
                     <div className="product-showcase-products-scroll-area">
                         <Grid
                             columnCount={columnCount}
-                            columnWidth={110}
+                            columnWidth={isPerformanceMode ? 140 : 110}
                             height={window.innerHeight - 180}
                             rowCount={rowCount}
-                            rowHeight={120}
-                            width={(columnCount * 110) + 5}
+                            rowHeight={isPerformanceMode ? 140 : 120}
+                            width={(columnCount * (isPerformanceMode ? 140 : 110)) + 5}
                         >
                             {Cell}
                         </Grid>

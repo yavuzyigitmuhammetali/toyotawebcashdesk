@@ -36,7 +36,6 @@
 }
 
 .product-card-img.low-quality {
-    filter: blur(2px);
 }
 
 .product-card-text {
