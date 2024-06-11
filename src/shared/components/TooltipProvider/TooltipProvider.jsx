@@ -12,7 +12,8 @@ const TooltipProvider = ({
                              textColor = 'white',
                              borderRadius = '4px',
                              fontSize = '0.5em',
-                             customClass = ''
+                             customClass = '',
+                             performanceMode = false,
                          }) => {
     const [showTooltip, setShowTooltip] = useState(false);
     const [visible, setVisible] = useState(false);
@@ -35,10 +36,10 @@ const TooltipProvider = ({
         if (!showTooltip) {
             const timeout = setTimeout(() => {
                 setVisible(false);
-            }, 300); // Animasyon süresi ile aynı olmalı
+            }, performanceMode ? 0 : 300); // Skip animation delay in performance mode
             return () => clearTimeout(timeout);
         }
-    }, [showTooltip]);
+    }, [showTooltip, performanceMode]);
 
     useEffect(() => {
         return () => {
@@ -53,7 +54,8 @@ const TooltipProvider = ({
         color: dark ? backgroundColor : textColor,
         borderRadius,
         fontSize,
-        pointerEvents: 'none'
+        pointerEvents: 'none',
+        transition: performanceMode ? 'none' : 'opacity 0.2s, transform 0.2s', // Disable transition in performance mode
     };
 
     return (
@@ -61,9 +63,13 @@ const TooltipProvider = ({
             {children}
             {visible && (
                 <div
-                    onMouseEnter={() => (setVisible(false))}
-                    className={`tooltip-box tooltip-${position} ${customClass} ${showTooltip ? 'fade-in' : 'fade-out'}`}
-                    style={tooltipStyle} ref={tooltipRef}>
+                    onMouseEnter={() => setVisible(false)}
+                    className={`tooltip-box tooltip-${position} ${customClass} ${
+                        showTooltip ? (performanceMode ? 'performance-mode' : 'fade-in') : (performanceMode ? 'performance-mode' : 'fade-out')
+                    }`}
+                    style={tooltipStyle}
+                    ref={tooltipRef}
+                >
                     {content}
                 </div>
             )}
@@ -79,7 +85,8 @@ TooltipProvider.propTypes = {
     backgroundColor: PropTypes.string,
     textColor: PropTypes.string,
     borderRadius: PropTypes.string,
-    customClass: PropTypes.string
+    customClass: PropTypes.string,
+    performanceMode: PropTypes.bool, // New prop type for performance mode
 };
 
 export default TooltipProvider;
