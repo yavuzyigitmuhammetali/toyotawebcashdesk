@@ -55,7 +55,6 @@
     background-color: transparent !important;
     border-bottom: 1px solid black;
     display: flex;
-
 }
 
 .summary-dashboard-left-header > * {
@@ -63,7 +62,6 @@
     min-width: 0 !important;
 }
 
-/* New CSS classes for dark theme styles */
 .dark-theme {
     background-color: rgb(17, 20, 24);
     border-color: white;
@@ -78,4 +76,19 @@
 .summary-dashboard-right-header-dark {
     background-color: black;
     color: white;
+}
+
+.performance-mode .summary-dashboard-container {
+    font-size: 1.2vw;
+}
+
+.performance-mode .summary-dashboard-left,
+.performance-mode .summary-dashboard-right {
+    font-size: small;
+    gap: 40px;
+}
+
+.performance-mode .summary-dashboard-tab ul {
+    max-height: 200px;
+    overflow-y: auto;
 }

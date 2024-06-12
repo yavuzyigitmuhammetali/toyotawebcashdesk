@@ -1,52 +1,60 @@
 /**
- * Calculate the total amount of active receipts.
- * @param {Array} receipts - The array of receipts to calculate the total amount from.
- * @returns {number} - The total amount of active receipts.
+ * Calculates the total amount from a list of receipts.
+ *
+ * @param {Array} receipts - Array of receipt objects.
+ * @returns {number} Total amount from all active receipts.
  */
 export function calcTotalAmount(receipts) {
     return receipts.reduce((accumulator, {active, total}) => active ? accumulator + total : accumulator, 0);
 }
 
 /**
- * Calculate the total amount without discount of active receipts.
- * @param {Array} receipts - The array of receipts to calculate the total amount without discount from.
- * @returns {number} - The total amount without discount of active receipts.
+ * Calculates the total amount without discount from a list of receipts.
+ *
+ * @param {Array} receipts - Array of receipt objects.
+ * @returns {number} Total amount without discount from all active receipts.
  */
 export function calcTotalAmountWithoutDiscount(receipts) {
     return receipts.reduce((accumulator, {active, subTotal}) => active ? accumulator + subTotal : accumulator, 0);
 }
 
 /**
- * Calculate the total amount paid of active receipts.
- * @param {Array} receipts - The array of receipts to calculate the total amount paid from.
- * @returns {number} - The total amount paid of active receipts.
+ * Calculates the total amount paid from a list of receipts.
+ *
+ * @param {Array} receipts - Array of receipt objects.
+ * @returns {number} Total amount paid from all active receipts.
  */
 export function calcTotalPaid(receipts) {
     return receipts.reduce((accumulator, {active, amountPaid}) => active ? accumulator + amountPaid : accumulator, 0);
 }
 
 /**
- * Calculate the total change of active receipts.
- * @param {Array} receipts - The array of receipts to calculate the total change from.
- * @returns {number} - The total change of active receipts.
+ * Calculates the total change from a list of receipts.
+ *
+ * @param {Array} receipts - Array of receipt objects.
+ * @returns {number} Total change from all active receipts.
  */
 export function calcTotalChange(receipts) {
     return receipts.reduce((accumulator, {active, change}) => active ? accumulator + change : accumulator, 0);
 }
 
 /**
- * Calculate the total tax of active receipts.
- * @param {Array} receipts - The array of receipts to calculate the total tax from.
- * @returns {number} - The total tax of active receipts.
+ * Calculates the total tax from a list of receipts.
+ *
+ * @param {Array} receipts - Array of receipt objects.
+ * @returns {number} Total tax from all active receipts.
  */
 export function calcTotalTax(receipts) {
     return receipts.reduce((accumulator, {active, totalTax}) => active ? accumulator + totalTax : accumulator, 0);
 }
 
 /**
- * Calculate the total amount with card payments of active receipts.
- * @param {Array} receipts - The array of receipts to calculate the total amount with card payments from.
- * @returns {number} - The total amount with card payments of active receipts.
+ * Calculates the total amount paid with card from a list of receipts.
+ *
+ * @param {Array} receipts - Array of receipt objects.
+ * @param {string} receipts[].transactions[].type - Type of transaction (e.g., 'card').
+ * @param {number} receipts[].transactions[].price - Price of the transaction.
+ * @returns {number} Total amount paid with card from all active receipts.
  */
 export function calcTotalAmountWithCard(receipts) {
     return receipts.reduce((total, {active, transactions}) => {
@@ -59,9 +67,12 @@ export function calcTotalAmountWithCard(receipts) {
 }
 
 /**
- * Calculate the total amount with cash payments of active receipts.
- * @param {Array} receipts - The array of receipts to calculate the total amount with cash payments from.
- * @returns {number} - The total amount with cash payments of active receipts.
+ * Calculates the total amount paid with cash from a list of receipts.
+ *
+ * @param {Array} receipts - Array of receipt objects.
+ * @param {string} receipts[].transactions[].type - Type of transaction (e.g., 'cash').
+ * @param {number} receipts[].transactions[].price - Price of the transaction.
+ * @returns {number} Total amount paid with cash from all active receipts.
  */
 export function calcTotalAmountWithCash(receipts) {
     return receipts.reduce((accumulator, {active, transactions}) => {
@@ -74,9 +85,12 @@ export function calcTotalAmountWithCash(receipts) {
 }
 
 /**
- * Calculate the total payback amount of active receipts.
- * @param {Array} receipts - The array of receipts to calculate the total payback amount from.
- * @returns {number} - The total payback amount of active receipts.
+ * Calculates the total payback amount from a list of receipts.
+ *
+ * @param {Array} receipts - Array of receipt objects.
+ * @param {string} receipts[].transactions[].type - Type of transaction (e.g., 'payback').
+ * @param {number} receipts[].transactions[].price - Price of the transaction.
+ * @returns {number} Total payback amount from all active receipts.
  */
 export function calcTotalPayback(receipts) {
     return receipts.reduce((accumulator, {active, transactions}) => {
@@ -89,10 +103,11 @@ export function calcTotalPayback(receipts) {
 }
 
 /**
- * Find the name associated with a specific ID in an array.
- * @param {Array} arr - The array to search for the ID.
- * @param {number} id - The ID to find the associated name for.
- * @returns {string|undefined} - The name associated with the ID, or undefined if not found.
+ * Finds the name associated with a given ID from an array.
+ *
+ * @param {Array} arr - Array of objects.
+ * @param {number|string} id - ID to search for.
+ * @returns {string|undefined} Name associated with the ID or undefined if not found.
  */
 export function findNameWithId(arr, id) {
     const foundItem = arr.find(item => item.id === id);
@@ -100,9 +115,14 @@ export function findNameWithId(arr, id) {
 }
 
 /**
- * Find the ID of the top-selling category based on the quantity sold in receipts.
- * @param {Array} receipts - The array of receipts to analyze.
- * @returns {number} - The ID of the top-selling category.
+ * Finds the top-selling category from a list of receipts.
+ *
+ * @param {Array} receipts - Array of receipt objects.
+ * @param {boolean} receipts[].active - Indicates if the receipt is active.
+ * @param {Array} receipts[].cart - Array of cart item objects.
+ * @param {number} receipts[].cart[].categoryId - Category ID of the cart item.
+ * @param {number} receipts[].cart[].quantity - Quantity of the cart item.
+ * @returns {number} ID of the top-selling category.
  */
 export function findTopSellingCategory(receipts) {
     const categorySales = {};
@@ -125,9 +145,14 @@ export function findTopSellingCategory(receipts) {
 }
 
 /**
- * Find the ID of the top-selling sub-category based on the quantity sold in receipts.
- * @param {Array} receipts - The array of receipts to analyze.
- * @returns {number} - The ID of the top-selling sub-category.
+ * Finds the top-selling subcategory from a list of receipts.
+ *
+ * @param {Array} receipts - Array of receipt objects.
+ * @param {boolean} receipts[].active - Indicates if the receipt is active.
+ * @param {Array} receipts[].cart - Array of cart item objects.
+ * @param {number} receipts[].cart[].subCategoryId - Subcategory ID of the cart item.
+ * @param {number} receipts[].cart[].quantity - Quantity of the cart item.
+ * @returns {number} ID of the top-selling subcategory.
  */
 export function findTopSellingSubCategory(receipts) {
     const subCategorySales = {};
@@ -150,9 +175,14 @@ export function findTopSellingSubCategory(receipts) {
 }
 
 /**
- * Find the ID of the top-selling product based on the quantity sold in receipts.
- * @param {Array} receipts - The array of receipts to analyze.
- * @returns {number} - The ID of the top-selling product.
+ * Finds the top-selling product from a list of receipts.
+ *
+ * @param {Array} receipts - Array of receipt objects.
+ * @param {boolean} receipts[].active - Indicates if the receipt is active.
+ * @param {Array} receipts[].cart - Array of cart item objects.
+ * @param {number} receipts[].cart[].id - Product ID of the cart item.
+ * @param {number} receipts[].cart[].quantity - Quantity of the cart item.
+ * @returns {number} ID of the top-selling product.
  */
 export function findTopSellingProduct(receipts) {
     const productSales = {};
@@ -175,9 +205,15 @@ export function findTopSellingProduct(receipts) {
 }
 
 /**
- * Find the ID of the top-selling campaign product based on the quantity sold in receipts with a discount.
- * @param {Array} receipts - The array of receipts to analyze.
- * @returns {number} - The ID of the top-selling campaign product.
+ * Finds the top-selling product from a campaign (discounted price) from a list of receipts.
+ *
+ * @param {Array} receipts - Array of receipt objects.
+ * @param {boolean} receipts[].active - Indicates if the receipt is active.
+ * @param {Array} receipts[].cart - Array of cart item objects.
+ * @param {number} receipts[].cart[].id - Product ID of the cart item.
+ * @param {number} receipts[].cart[].quantity - Quantity of the cart item.
+ * @param {number} [receipts[].cart[].discountedPrice] - Discounted price of the cart item.
+ * @returns {number} ID of the top-selling product from a campaign.
  */
 export function findTopSellingCampaignProduct(receipts) {
     const productSales = {};
@@ -202,9 +238,16 @@ export function findTopSellingCampaignProduct(receipts) {
 }
 
 /**
- * Find the ID of the most profitable category based on the profit generated from sales in receipts.
- * @param {Array} receipts - The array of receipts to analyze.
- * @returns {number} - The ID of the most profitable category.
+ * Finds the most profitable category from a list of receipts.
+ *
+ * @param {Array} receipts - Array of receipt objects.
+ * @param {boolean} receipts[].active - Indicates if the receipt is active.
+ * @param {Array} receipts[].cart - Array of cart item objects.
+ * @param {number} receipts[].cart[].categoryId - Category ID of the cart item.
+ * @param {number} receipts[].cart[].quantity - Quantity of the cart item.
+ * @param {number} receipts[].cart[].price - Price of the cart item.
+ * @param {number} [receipts[].cart[].discountedPrice] - Discounted price of the cart item.
+ * @returns {number} ID of the most profitable category.
  */
 export function findMostProfitableCategory(receipts) {
     const categories = {};
@@ -220,9 +263,16 @@ export function findMostProfitableCategory(receipts) {
 }
 
 /**
- * Find the ID of the most profitable sub-category based on the profit generated from sales in receipts.
- * @param {Array} receipts - The array of receipts to analyze.
- * @returns {number} - The ID of the most profitable sub-category.
+ * Finds the most profitable subcategory from a list of receipts.
+ *
+ * @param {Array} receipts - Array of receipt objects.
+ * @param {boolean} receipts[].active - Indicates if the receipt is active.
+ * @param {Array} receipts[].cart - Array of cart item objects.
+ * @param {number} receipts[].cart[].subCategoryId - Subcategory ID of the cart item.
+ * @param {number} receipts[].cart[].quantity - Quantity of the cart item.
+ * @param {number} receipts[].cart[].price - Price of the cart item.
+ * @param {number} [receipts[].cart[].discountedPrice] - Discounted price of the cart item.
+ * @returns {number} ID of the most profitable subcategory.
  */
 export function findMostProfitableSubCategory(receipts) {
     const subCategories = {};
@@ -238,9 +288,16 @@ export function findMostProfitableSubCategory(receipts) {
 }
 
 /**
- * Find the ID of the most profitable product based on the profit generated from sales in receipts.
- * @param {Array} receipts - The array of receipts to analyze.
- * @returns {number} - The ID of the most profitable product.
+ * Finds the most profitable product from a list of receipts.
+ *
+ * @param {Array} receipts - Array of receipt objects.
+ * @param {boolean} receipts[].active - Indicates if the receipt is active.
+ * @param {Array} receipts[].cart - Array of cart item objects.
+ * @param {number} receipts[].cart[].id - Product ID of the cart item.
+ * @param {number} receipts[].cart[].quantity - Quantity of the cart item.
+ * @param {number} receipts[].cart[].price - Price of the cart item.
+ * @param {number} [receipts[].cart[].discountedPrice] - Discounted price of the cart item.
+ * @returns {number} ID of the most profitable product.
  */
 export function findMostProfitableProduct(receipts) {
     const products = {};
@@ -256,9 +313,15 @@ export function findMostProfitableProduct(receipts) {
 }
 
 /**
- * Find the most refunded products based on the quantity refunded in receipts.
- * @param {Array} receipts - The array of receipts to analyze.
- * @returns {Object} - An object containing the refunded products and the quantity refunded.
+ * Finds the most refunded products from a list of receipts.
+ *
+ * @param {Array} receipts - Array of receipt objects.
+ * @param {boolean} receipts[].active - Indicates if the receipt is active.
+ * @param {boolean} receipts[].refund - Indicates if the receipt is a refund.
+ * @param {Array} receipts[].cart - Array of cart item objects.
+ * @param {number} receipts[].cart[].id - Product ID of the cart item.
+ * @param {number} receipts[].cart[].quantity - Quantity of the cart item.
+ * @returns {Object} Object containing the IDs of the most refunded products and the quantity.
  */
 export function findMostRefundedProducts(receipts) {
     const productQuantities = receipts.reduce((acc, receipt) => {
@@ -300,9 +363,11 @@ export function findMostRefundedProducts(receipts) {
 }
 
 /**
- * Find the hour with the most sales based on the receipts.
- * @param {Array} receipts - The array of receipts to analyze.
- * @returns {number} - The hour with the most sales.
+ * Finds the hour with the most sales from a list of receipts.
+ *
+ * @param {Array} receipts - Array of receipt objects.
+ * @param {string} receipts[].date - Date of the receipt.
+ * @returns {number} The hour with the most sales.
  */
 export function findMostSoldHour(receipts) {
     const hourCounts = receipts.reduce((acc, receipt) => {
@@ -319,9 +384,11 @@ export function findMostSoldHour(receipts) {
 }
 
 /**
- * Find the hour with the least sales based on the receipts.
- * @param {Array} receipts - The array of receipts to analyze.
- * @returns {number} - The hour with the least sales.
+ * Finds the hour with the least sales from a list of receipts.
+ *
+ * @param {Array} receipts - Array of receipt objects.
+ * @param {string} receipts[].date - Date of the receipt.
+ * @returns {number} The hour with the least sales.
  */
 export function findLeastSoldHour(receipts) {
     const hourCounts = receipts.reduce((acc, receipt) => {
@@ -338,11 +405,12 @@ export function findLeastSoldHour(receipts) {
 }
 
 /**
- * Filter receipts based on a specific date range and case.
- * @param {Array} _receipts - The array of receipts to filter.
- * @param {string} _filterType - The type of date range to filter by (hourly, daily, monthly, yearly).
- * @param {number} _case - The case to filter by.
- * @returns {Array} - The filtered receipts based on the date range and case.
+ * Filters receipts by date based on the provided filter type.
+ *
+ * @param {Array} _receipts - Array of receipt objects.
+ * @param {string} _filterType - Type of filter ('hourly', 'daily', 'monthly', 'yearly').
+ * @param {number} [_case=1] - Case number to filter by.
+ * @returns {Array} Filtered array of receipt objects.
  */
 export function filterReceiptsByDate(_receipts, _filterType, _case = 1) {
     const referenceDate = new Date();
@@ -373,4 +441,3 @@ export function filterReceiptsByDate(_receipts, _filterType, _case = 1) {
 
     return _receipts.filter(receipt => receipt.case === _case && new Date(receipt.date) >= startDate && new Date(receipt.date) <= endDate);
 }
-
