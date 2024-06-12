@@ -6,10 +6,11 @@ import ScreenKeyboard from "../../../shared/components/ScreenKeyboard/ScreenKeyb
 import QrCodeIcon from '@mui/icons-material/QrCode';
 import DialpadIcon from '@mui/icons-material/Dialpad';
 
-function ProductDisplayArea({formData, handleCheckboxChange, lang, dark, t}) {
+function ProductDisplayArea({formData, handleCheckboxChange, lang, dark, t, performanceMode}) {
     return (
-        <div className="product-entry-panel-left-area">
-            <ProductCard className="product-card"
+        <div className={`product-entry-panel-left-area ${performanceMode ? 'performance' : ''}`}>
+            <ProductCard className={`product-card ${performanceMode ? 'performance' : ''}`}
+                         performanceMode={performanceMode}
                          name={formData.name}
                          stock={formData.stock}
                          discountText={formData.campaign}
@@ -38,7 +39,7 @@ function ProductDisplayArea({formData, handleCheckboxChange, lang, dark, t}) {
                           checkedIcon={<DialpadIcon color="success"/>} onChange={handleCheckboxChange}
                           name="fraction"/>
             </div>
-            <div><ScreenKeyboard language={lang} dark={dark}/></div>
+            <div><ScreenKeyboard performanceMode={performanceMode} language={lang} dark={dark}/></div>
         </div>
     );
 }

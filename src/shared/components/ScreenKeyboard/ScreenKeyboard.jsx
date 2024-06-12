@@ -68,11 +68,9 @@ function ScreenKeyboard({fullWidth = false, dark = false, language = "tr", style
 
     if (onOff) {
         return (
-            <ThemeProvider theme={theme}>
-                <IconButton style={style} onClick={() => setOnOff(!onOff)}>
-                    <KeyboardAltIcon/>
-                </IconButton>
-            </ThemeProvider>
+            <IconButton style={style} onClick={() => setOnOff(!onOff)}>
+                <KeyboardAltIcon/>
+            </IconButton>
         );
     } else {
         return (

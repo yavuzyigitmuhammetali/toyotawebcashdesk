@@ -8,10 +8,11 @@ function ProductFormArea({
                              subCategories,
                              t,
                              handleElementFocus,
-                             onChangeValue
+                             onChangeValue,
+                             performanceMode
                          }) {
     return (
-        <div className="product-entry-panel-right-area">
+        <div className={`product-entry-panel-right-area ${performanceMode ? 'performance' : ''}`}>
             <TextField onFocus={handleElementFocus} id="name" required label={t('productName')}
                        variant="outlined"
                        name="name"

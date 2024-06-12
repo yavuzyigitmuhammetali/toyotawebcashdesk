@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import "./index.css"
+import "./index.css";
 import {useProductEntryPanel} from "./useProductEntryPanel";
 import {useTranslation} from "react-i18next";
 import ProductDisplayArea from './components/ProductDisplayArea';
@@ -8,7 +8,7 @@ import ProductDialog from './components/ProductDialog';
 import KeyboardContext from "../../shared/components/ScreenKeyboard/context";
 import AppStatusContext from "../../shared/states/AppStatus/context";
 
-function ProductEntryPanel() {
+function ProductEntryPanel({performanceMode = false}) {
     const {lang, dark} = useContext(AppStatusContext);
     const {t} = useTranslation();
     const {handleElementFocus, value, onChangeValue, enterRef, clearValues} = useContext(KeyboardContext);
@@ -25,12 +25,12 @@ function ProductEntryPanel() {
     return (
         <div className={`product-entry-panel-container ${dark ? 'dark' : 'light'}`}>
             <ProductDisplayArea t={t} lang={lang} dark={dark} formData={formData}
-                                handleCheckboxChange={handleCheckboxChange}/>
+                                handleCheckboxChange={handleCheckboxChange} performanceMode={performanceMode}/>
             <ProductFormArea onChangeValue={onChangeValue} handleElementFocus={handleElementFocus} t={t}
                              formData={formData} handleInputChange={handleInputChange}
-                             categories={categories} subCategories={subCategories}/>
+                             categories={categories} subCategories={subCategories} performanceMode={performanceMode}/>
             <ProductDialog lang={lang} t={t} valid={valid} isLoading={isLoading} handleSendData={handleSendData}
-                           enterRef={enterRef}/>
+                           enterRef={enterRef} performanceMode={performanceMode}/>
         </div>
     );
 }

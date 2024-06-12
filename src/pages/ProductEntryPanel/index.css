@@ -61,3 +61,22 @@
     display: flex;
     flex-direction: column;
 }
+
+.product-entry-panel-left-area.performance {
+    justify-content: flex-start;
+}
+
+.product-card.performance {
+    margin-top: 20px;
+    width: 60%;
+    font-size: 16px;
+}
+
+.product-entry-panel-right-area.performance {
+    padding: 2vh;
+    gap: 2vh;
+}
+
+.product-entry-panel-right-area.performance > * {
+    width: 80%;
+}
