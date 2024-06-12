@@ -12,13 +12,29 @@ import {useNavigate} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 import TooltipProvider from "../../shared/components/TooltipProvider/TooltipProvider";
 
-function SettingsDashboard() {
+function SettingsDashboard({performanceMode = false}) {
     const {dark, changeDark, lang, changeLang} = useContext(AppStatusContext);
     const [showSettings, setShowSettings] = useState(false);
     const navigate = useNavigate();
     const {t} = useTranslation();
 
     const toggleSettings = () => setShowSettings(!showSettings);
+
+    const renderSettingsItem = (icon, property, onClick, content, label, onOff = undefined) => (
+        <TooltipProvider performanceMode={performanceMode} dark={dark} content={t(content)}>
+            <SettingsItem
+                icon={icon}
+                property={property}
+                onClick={onClick}
+                dark={dark}
+                performanceMode={performanceMode}
+                onOff={onOff}
+            >
+                {t(label)}
+            </SettingsItem>
+        </TooltipProvider>
+    );
+
     return (
         <>
             <IconButton
@@ -30,42 +46,19 @@ function SettingsDashboard() {
             </IconButton>
             {showSettings && (
                 <div className="settings-overlay">
-                    <div className={`settings-dashboard-container ${dark ? 'dark' : ''}`}>
+                    <div
+                        className={`settings-dashboard-container ${dark ? 'dark' : ''} ${performanceMode ? 'performance' : ''}`}>
                         <div className="settings-dashboard-header">{t('settings')}</div>
                         <hr className={`settings-divider ${dark ? 'dark' : ''}`}/>
                         <div className="settings-dashboard-body">
                             <div className="settings-dashboard-active-area">
-                                <TooltipProvider dark={dark} content={t('changeThemeInfo')}>
-                                    <SettingsItem
-                                        icon={<DarkModeIcon/>}
-                                        dark={dark}
-                                        onClick={changeDark}
-                                        onOff={dark}
-                                    >
-                                        {t("dark-mode")}
-                                    </SettingsItem>
-                                </TooltipProvider>
-                                <TooltipProvider dark={dark} content={t('changeLangInfo')}>
-                                    <SettingsItem
-                                        icon={<LanguageIcon/>}
-                                        property={lang}
-                                        onClick={changeLang}
-                                        dark={dark}
-                                    >
-                                        {t("lang")}
-                                    </SettingsItem>
-                                </TooltipProvider>
+                                {renderSettingsItem(
+                                    <DarkModeIcon/>, null, changeDark, 'changeThemeInfo', 'dark-mode', dark)}
+                                {renderSettingsItem(<LanguageIcon/>, lang, changeLang, 'changeLangInfo', 'lang')}
                             </div>
                             <div className="settings-dashboard-active-area">
-                                <TooltipProvider dark={dark} content={t('printTestInfo')}>
-                                    <SettingsItem
-                                        icon={<PrintIcon/>}
-                                        onClick={() => navigate("/receipt/print-test")}
-                                        dark={dark}
-                                    >
-                                        {t("print-test")}
-                                    </SettingsItem>
-                                </TooltipProvider>
+                                {renderSettingsItem(
+                                    <PrintIcon/>, null, () => navigate("/receipt/print-test"), 'printTestInfo', 'print-test')}
                             </div>
                         </div>
                     </div>

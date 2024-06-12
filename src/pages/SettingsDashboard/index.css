@@ -75,3 +75,19 @@
         gap: 5px;
     }
 }
+
+.settings-dashboard-container.performance {
+    box-shadow: none;
+    border-radius: 0;
+}
+
+.settings-item.performance {
+    transition: none;
+    box-shadow: none;
+}
+
+.settings-item.performance:hover {
+    transform: none;
+    box-shadow: none;
+}
+

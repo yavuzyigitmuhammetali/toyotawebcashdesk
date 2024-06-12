@@ -65,3 +65,13 @@
     border-left: 2px solid;
     padding-left: 10px;
 }
+
+.settings-item.performance {
+    transition: none;
+    box-shadow: none;
+}
+
+.settings-item.performance:hover {
+    transform: none;
+    box-shadow: none;
+}

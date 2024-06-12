@@ -11,6 +11,7 @@ function SettingsItem({
                           icon = <AcUnitIcon/>,
                           onClick = () => {
                           },
+                          performanceMode = false,
                       }) {
     const [isActive, setIsActive] = useState(false);
 
@@ -39,6 +40,9 @@ function SettingsItem({
             }
         } else {
             className += " light";
+        }
+        if (performanceMode) {
+            className += " performance";
         }
         return className;
     };
