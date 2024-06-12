@@ -37,6 +37,7 @@
     flex-direction: column;
     align-items: center;
     box-sizing: border-box;
+    transform-origin: top;
     top: 0;
     left: 0;
     padding: 0 10px 10px;
@@ -47,18 +48,59 @@
 
 @keyframes jell-in-top {
     0% {
-        top: -50%;
+        transform: translateY(-100%);
     }
     100% {
-        top: 0;
+        transform: translateY(0);
     }
 }
 
 @keyframes jell-out-top {
     0% {
-        top: 0;
+        transform: translateY(0);
     }
     100% {
-        top: -50%;
+        transform: translateY(-100%);
     }
+}
+
+@media (max-width: 700px) {
+    @keyframes jell-in-top {
+        0% {
+            transform: scale(0);
+            display: none;
+        }
+        100% {
+            transform: scale(1);
+        }
+    }
+
+    @keyframes jell-out-top {
+        0% {
+            transform: scale(1);
+        }
+        100% {
+            transform: scale(0);
+            display: none;
+        }
+    }
+}
+
+.performance-mode .sales-dashboard-right-area-container {
+    background-color: #EEE;
+    gap: 20px;
+}
+
+.performance-mode .sales-dashboard-right-area-control > * {
+    max-width: 80px !important;
+}
+
+.performance-mode .sales-dashboard-right-area-campaigns {
+    gap: 2px;
+    animation: none !important;
+}
+
+.performance-mode button, .performance-mode .MuiButton-root {
+    animation: none !important;
+    transition: none !important;
 }

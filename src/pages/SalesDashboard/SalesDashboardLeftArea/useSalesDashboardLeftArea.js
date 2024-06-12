@@ -4,7 +4,7 @@ import CartContext from "../context";
 import NumericKeyboardContext from "../../../shared/components/NumericKeyboard/context";
 import KeyboardContext from "../../../shared/components/ScreenKeyboard/context";
 
-export const useSalesDashboardLeftArea = () => {
+export const useSalesDashboardLeftArea = (performanceMode) => {
     const {
         categories, subCategories: _subCategories, products: _products, addToCart
     } = useContext(CartContext);
@@ -94,9 +94,8 @@ export const useSalesDashboardLeftArea = () => {
         handleElementFocus,
         value,
         onChangeValue,
-        columnWidth: 112,
-        rowHeight: 120,
-        maxProductCount: 40
+        columnWidth: performanceMode ? 140 : 112,
+        rowHeight: performanceMode ? 140 : 120,
+        maxProductCount: performanceMode ? 20 : 40
     };
 };
-

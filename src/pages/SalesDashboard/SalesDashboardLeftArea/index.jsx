@@ -10,7 +10,7 @@ import {FixedSizeGrid as Grid} from 'react-window';
 import {useSalesDashboardLeftArea} from './useSalesDashboardLeftArea';
 import "./index.css";
 
-function SalesDashboardLeftArea() {
+function SalesDashboardLeftArea({performanceMode = false}) {
     const {t} = useTranslation();
     const {lang, dark} = useContext(AppStatusContext);
     const {
@@ -27,8 +27,7 @@ function SalesDashboardLeftArea() {
         columnWidth,
         rowHeight,
         maxProductCount
-    } = useSalesDashboardLeftArea();
-
+    } = useSalesDashboardLeftArea(performanceMode);
 
     const columnCount = Math.max(1, Math.floor(window.innerWidth / (columnWidth * 3)));
     const rowCount = Math.ceil(products.length / Math.max(1, Math.floor(window.innerWidth / (columnWidth * 3))));
@@ -43,6 +42,7 @@ function SalesDashboardLeftArea() {
         return (
             <div style={{...style, margin: 2}}>
                 <ProductCard
+                    performanceMode={performanceMode}
                     discountText={product.campaign}
                     onClick={() => addToCart(product)}
                     dark={dark}
@@ -63,6 +63,7 @@ function SalesDashboardLeftArea() {
             case "categories":
                 return categories.map((category, key) => (
                     <ProductCard
+                        performanceMode={performanceMode}
                         key={key}
                         category
                         onClick={() => {
@@ -77,6 +78,7 @@ function SalesDashboardLeftArea() {
             case "subcategories":
                 return subCategories.map((subcategory, key) => (
                     <ProductCard
+                        performanceMode={performanceMode}
                         key={key}
                         category
                         onClick={() => {
@@ -105,6 +107,7 @@ function SalesDashboardLeftArea() {
                 } else {
                     return products.map((product) => (
                         <ProductCard
+                            performanceMode={performanceMode}
                             key={product.id}
                             onClick={() => addToCart(product)}
                             dark={dark}
@@ -125,7 +128,7 @@ function SalesDashboardLeftArea() {
     };
 
     return (
-        <div className={`left-container ${dark ? "dark-theme" : ""}`}>
+        <div className={`left-container ${dark ? "dark-theme" : ""} ${performanceMode ? "performance-mode" : ""}`}>
             <div className="left-one">
                 <TextField
                     id="barcodeArea"
@@ -141,7 +144,7 @@ function SalesDashboardLeftArea() {
                         </IconButton>),
                     }}
                 />
-                <ScreenKeyboard dark={dark} language={lang}/>
+                <ScreenKeyboard performanceMode={performanceMode} dark={dark} language={lang}/>
             </div>
             <div className="left-two">
                 <Button onClick={() => {
@@ -159,7 +162,7 @@ function SalesDashboardLeftArea() {
                         variant={map === "products" ? "contained" : "outlined"}>{t('products')}</Button>
             </div>
             <div className="left-three-scroll">
-                <div className="left-three">
+                <div className={`left-three ${performanceMode ? "performance-mode" : ""}`}>
                     {renderContent()}
                 </div>
             </div>

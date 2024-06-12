@@ -49,8 +49,17 @@
 
 .left-three {
     display: flex;
-    gap: 10px;
+    gap: 15px;
     flex-wrap: wrap;
+    justify-content: flex-end;
+}
+
+.left-three-scroll.performance-mode .left-three {
+    gap: 5px;
+}
+
+.left-three.performance-mode {
+    gap: 15px;
 }
 
 @keyframes customLoadingAnimation {

@@ -6,7 +6,7 @@ import KeyboardContext from "../../../shared/components/ScreenKeyboard/context";
 import {useTranslation} from "react-i18next";
 import AppStatusContext from "../../../shared/states/AppStatus/context";
 
-function SalesDashboardMiddleArea() {
+function SalesDashboardMiddleArea({performanceMode = false}) {
     const {dark, lang} = useContext(AppStatusContext);
     const {
         handleElementFocus, value: keyboardValue, onChangeValue
@@ -42,6 +42,7 @@ function SalesDashboardMiddleArea() {
                 <div className="sales-dashboard-middle-area-products">
                     {cart.map((item, key) => (
                         <ShoppingCartItem
+                            performanceMode={performanceMode}
                             lang={lang}
                             onAdd={() => increaseQuantityByIndex(key)}
                             onDelete={() => decreaseQuantityByIndex(key)}

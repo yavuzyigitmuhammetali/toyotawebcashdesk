@@ -11,9 +11,9 @@ function SalesDashboard() {
         <div className="sales-dashboard-container">
             <CartProvider>
                 <NumericKeyboardProvider>
-                    <SalesDashboardLeftArea/>
-                    <SalesDashboardMiddleArea/>
-                    <SalesDashboardRightArea/>
+                    <SalesDashboardLeftArea performanceMode={false}/>
+                    <SalesDashboardMiddleArea performanceMode={false}/>
+                    <SalesDashboardRightArea performanceMode={false}/>
                 </NumericKeyboardProvider>
             </CartProvider>
         </div>

@@ -14,6 +14,7 @@ import Backdrop from '@mui/material/Backdrop';
 const CartContext = React.createContext(undefined);
 
 const CartProvider = ({children}) => {
+    const performanceMode = false;
     const [cart, setCart] = React.useState([])
     const {products: _products, categories, subCategories, fetchProducts} = React.useContext(AppDataContext);
     const [products, setProducts] = React.useState([defaultProduct])
@@ -89,7 +90,7 @@ const CartProvider = ({children}) => {
             return product;
         });
         setProducts(updatedProducts);
-    }, [cart, _products]);
+    }, performanceMode ? [] : [cart, _products]);
 
 
     const toggleDiscounts = React.useCallback((discountKey) => {
