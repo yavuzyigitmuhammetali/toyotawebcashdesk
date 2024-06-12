@@ -67,3 +67,15 @@
 .main-container-main.dark {
     background-color: #131922;
 }
+
+.main-container-header.performance {
+    transition: none;
+}
+
+.main-container-footer.performance {
+    transition: none;
+}
+
+.main-container-main.performance {
+    transition: none;
+}

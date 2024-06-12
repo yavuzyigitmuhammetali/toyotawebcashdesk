@@ -16,7 +16,7 @@ function LoginPage({performanceMode = false}) {
     return (
         <div className={`login-page-container ${dark ? "dark-mode" : "light-mode"}`}>
             <div className={`login-page-left-area ${performanceMode ? 'no-animation' : ''}`}>
-                <LoginPageLeftArea/>
+                <LoginPageLeftArea performanceMode={performanceMode}/>
             </div>
             <div className={`login-page-right-area ${performanceMode ? 'no-animation' : ''}`}>
                 <LoginPageRightArea performanceMode={performanceMode}/>

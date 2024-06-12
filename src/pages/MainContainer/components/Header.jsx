@@ -4,10 +4,10 @@ import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import {Link} from "react-router-dom";
 import SettingsDashboard from "../../SettingsDashboard";
 
-const Header = ({dark, pageTitle, prevLink}) => (
-    <header className={`main-container-header ${dark ? 'dark' : ''}`}>
+const Header = ({dark, pageTitle, prevLink, performanceMode}) => (
+    <header className={`main-container-header ${dark ? 'dark' : ''} ${performanceMode ? 'performance' : ''}`}>
         <div>
-            <IconButton color="error" component={Link} to={prevLink}>
+            <IconButton color="error" component={Link} to={prevLink} style={performanceMode ? {animation: 'none'} : {}}>
                 <ArrowBackIosIcon/>
             </IconButton>
         </div>
@@ -17,5 +17,5 @@ const Header = ({dark, pageTitle, prevLink}) => (
         </div>
     </header>
 );
-export default Header;
 
+export default Header;

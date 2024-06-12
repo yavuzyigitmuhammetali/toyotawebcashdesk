@@ -7,13 +7,14 @@ import config from "../../../config";
 
 const LoginSrc = lazy(() => import('./components/LoginSrc'));
 
-function LoginPageLeftArea({width = "400px", warn = false}) {
+function LoginPageLeftArea({width = "400px", warn = false, performanceMode = false}) {
     const {isOnline, status, lang, dark} = React.useContext(AppStatusContext);
     const {t} = useTranslation();
     return (
         <div className={`login-page-left-area-container ${dark ? 'dark' : 'light'}`} style={{width: width}}>
             <div className="login-page-left-area-indicator">
-                <OnlineOfflineIndicator dark={dark} language={lang} online={isOnline}/>
+                <OnlineOfflineIndicator performanceMode={performanceMode} dark={dark} language={lang}
+                                        online={isOnline}/>
             </div>
             <img src={config.storeLogo} alt="logo" className="login-page-left-area-logo"/>
             <LoginSrc className={warn ? 'warn' : ''} dark={dark}/>

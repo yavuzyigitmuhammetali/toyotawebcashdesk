@@ -10,7 +10,7 @@ import KeyboardContext from "../../shared/components/ScreenKeyboard/context";
 import {useTranslation} from "react-i18next";
 import AppStatusContext from "../../shared/states/AppStatus/context";
 
-function RefundDashboard() {
+function RefundDashboard({performanceMode = true}) {
     const keyboardContext = useContext(KeyboardContext);
     const {t} = useTranslation();
     const {status, lang, dark, cashier} = useContext(AppStatusContext);
@@ -56,6 +56,7 @@ function RefundDashboard() {
                     <div className={upperAreaScrollClass}>
                         {cart.map((product, key) => (
                             <ShoppingCartItem
+                                performanceMode={performanceMode}
                                 dark={dark}
                                 key={key}
                                 price={product.price}
@@ -80,6 +81,7 @@ function RefundDashboard() {
                     <div className={upperAreaScrollClass}>
                         {refundedProducts.map((product, key) => (
                             <ShoppingCartItem
+                                performanceMode={performanceMode}
                                 disabled
                                 dark={dark}
                                 key={key}
