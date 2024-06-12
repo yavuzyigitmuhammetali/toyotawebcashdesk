@@ -22,13 +22,13 @@ function ProductShowcase(props) {
         Cell,
         ScreenKeyboardComponent,
         language,
-        isPerformanceMode
+        performanceMode
     } = useProductShowcase(props);
     return (
         <ThemeProvider theme={createTheme({palette: {mode: dark ? 'dark' : 'light'}, typography: {fontSize: 10}})}>
             <div className="product-showcase-container">
                 <div
-                    className={`product-showcase-active-area ${dark ? 'dark' : ''} ${isPerformanceMode ? 'performance-mode' : ''}`}>
+                    className={`product-showcase-active-area ${dark ? 'dark' : ''} ${performanceMode ? 'performance-mode' : ''}`}>
                     <div className="product-showcase-search-area">
                         <TextField
                             onFocus={handleElementFocus}
@@ -41,17 +41,18 @@ function ProductShowcase(props) {
                             id="productSearch"
                         />
                         {ScreenKeyboardComponent ?
-                            <ScreenKeyboardComponent fullWidth={true} language={language} dark={dark}/> : null}
+                            <ScreenKeyboardComponent performanceMode={performanceMode} fullWidth={true}
+                                                     language={language} dark={dark}/> : null}
                     </div>
                     <FilterButtons map={map} setMap={setMap} t={t}/>
                     <div className="product-showcase-products-scroll-area">
                         <Grid
                             columnCount={columnCount}
-                            columnWidth={isPerformanceMode ? 140 : 110}
+                            columnWidth={performanceMode ? 140 : 110}
                             height={window.innerHeight - 180}
                             rowCount={rowCount}
-                            rowHeight={isPerformanceMode ? 140 : 120}
-                            width={(columnCount * (isPerformanceMode ? 140 : 110)) + 5}
+                            rowHeight={performanceMode ? 140 : 120}
+                            width={(columnCount * (performanceMode ? 140 : 110)) + 5}
                         >
                             {Cell}
                         </Grid>

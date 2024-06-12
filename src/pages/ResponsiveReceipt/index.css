@@ -1,3 +1,4 @@
+/* Existing styles */
 .responsive-receipt-container {
     position: relative;
     overflow-y: auto;
@@ -23,6 +24,23 @@
     transform: translate(-50%);
 }
 
+/* New styles for alignment */
+.receipt-align-left {
+    left: 0;
+    transform: translate(0, 0);
+}
+
+.receipt-align-center {
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+
+.receipt-align-right {
+    left: 100%;
+    transform: translate(-100%, 0);
+}
+
+/* Print styles */
 @media print {
     html * {
         visibility: hidden;
@@ -81,6 +99,3 @@
         margin: 0;
     }
 }
-
-
-

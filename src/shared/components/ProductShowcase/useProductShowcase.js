@@ -10,7 +10,7 @@ export function useProductShowcase({
                                        keyboardContext = null,
                                        ScreenKeyboardComponent = null,
                                        language = 'en',
-                                       isPerformanceMode = false,
+                                       performanceMode = false,
                                    }) {
     const [inputValue, setInputValue] = useState('');
     const {handleElementFocus, value, onChangeValue} = keyboardContext || {};
@@ -44,7 +44,7 @@ export function useProductShowcase({
         }
     }, [map, data, favourites, filteredByName, alphabeticalFilteredData, withoutBarcode]);
 
-    const columnCount = isPerformanceMode
+    const columnCount = performanceMode
         ? 6
         : Math.floor((window.innerWidth / 110) - 1);
     const rowCount = Math.ceil(currentData.length / columnCount);
@@ -59,6 +59,7 @@ export function useProductShowcase({
         return (
             <div style={{...style, margin: 2}}>
                 <ProductCard
+                    performanceMode={performanceMode}
                     discountText={product.campaign}
                     onClick={() => onClick(product)}
                     dark={dark}
@@ -87,6 +88,6 @@ export function useProductShowcase({
         Cell,
         ScreenKeyboardComponent,
         language,
-        isPerformanceMode
+        performanceMode
     };
 }

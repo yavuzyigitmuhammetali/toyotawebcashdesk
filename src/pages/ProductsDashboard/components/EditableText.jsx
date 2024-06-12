@@ -4,19 +4,18 @@ import {useTranslation} from 'react-i18next';
 
 function EditableText({
                           text, style, name, id, onFocus, defaultText = "", className = "", onTextChange = () => {
-    }
+    }, performanceMode = false
                       }) {
     const [isEditing, setIsEditing] = useState(false);
     const [inputValue, setInputValue] = useState('');
     const {t} = useTranslation();
-
 
     const handleChange = (event) => {
         setInputValue(event.target.value);
     };
 
     useEffect(() => {
-        onTextChange(text, name)
+        onTextChange(text, name);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [text]);
 
@@ -30,7 +29,7 @@ function EditableText({
         }
     };
 
-    const handleDoubleClick = () => {
+    const handleClick = () => {
         setIsEditing(true);
         setInputValue(text);
     };
@@ -50,7 +49,8 @@ function EditableText({
                     autoFocus
                 />
             ) : (
-                <span onDoubleClick={handleDoubleClick}>{defaultText ? defaultText : text}</span>
+                <span onClick={handleClick}
+                      style={performanceMode ? {cursor: 'text'} : {}}>{defaultText ? defaultText : text}</span>
             )}
         </div>
     );
