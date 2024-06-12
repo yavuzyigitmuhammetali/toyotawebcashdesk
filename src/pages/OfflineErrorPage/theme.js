@@ -1,6 +1,6 @@
 import {createTheme} from '@mui/material/styles';
 
-export const getTheme = (mode) => createTheme({
+export const getTheme = (mode, performanceMode) => createTheme({
     palette: {
         mode: mode,
         ...(mode === 'light'
@@ -25,6 +25,19 @@ export const getTheme = (mode) => createTheme({
             styleOverrides: {
                 root: {
                     borderBottom: mode === 'light' ? '1px solid rgba(0, 0, 0, 0.12)' : '1px solid rgba(255, 255, 255, 0.12)',
+                    ...(performanceMode && {
+                        padding: '4px', // Reduced padding in performance mode
+                    }),
+                },
+            },
+        },
+        MuiButton: {
+            styleOverrides: {
+                root: {
+                    ...(performanceMode && {
+                        transition: 'none', // Disable transition animations
+                        boxShadow: 'none', // Remove shadow for performance
+                    }),
                 },
             },
         },

@@ -2,12 +2,12 @@ import React from 'react';
 import {Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from '@mui/material';
 import {useTranslation} from "react-i18next";
 
-const ScheduleTable = ({schedule}) => {
+const ScheduleTable = ({schedule, performanceMode}) => {
     const {t} = useTranslation();
     const daysOfWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
     return (
-        <TableContainer component={Paper}>
-            <Table aria-label="schedule table">
+        <TableContainer component={Paper} sx={performanceMode ? {maxHeight: '200px'} : {}}>
+            <Table aria-label="schedule table" size={performanceMode ? "small" : "medium"}>
                 <TableHead>
                     <TableRow>
                         <TableCell style={{color: "red"}}>{t('day')}</TableCell>

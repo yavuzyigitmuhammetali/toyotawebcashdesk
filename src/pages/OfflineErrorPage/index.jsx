@@ -8,26 +8,26 @@ import AppStatusContext from "../../shared/states/AppStatus/context";
 import {getTheme} from "./theme";
 import {useTranslation} from "react-i18next";
 
-const OfflineErrorPage = () => {
+const OfflineErrorPage = ({performanceMode = false}) => {
     const {status, isOnline, lang, dark} = React.useContext(AppStatusContext);
-    const theme = getTheme(dark ? "dark" : "light");
+    const theme = getTheme(dark ? "dark" : "light", performanceMode);
     const {t} = useTranslation();
-    const [schedule, setSchedule] = useState(
-        {
-            "Monday": null,
-            "Tuesday": null,
-            "Wednesday": null,
-            "Thursday": null,
-            "Friday": null,
-            "Saturday": null,
-            "Sunday": null
-        })
+    const [schedule, setSchedule] = useState({
+        "Monday": null,
+        "Tuesday": null,
+        "Wednesday": null,
+        "Thursday": null,
+        "Friday": null,
+        "Saturday": null,
+        "Sunday": null
+    });
 
     useEffect(() => {
         if (status && status.schedule) {
             setSchedule(status.schedule);
         }
     }, [status]);
+
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline/>
@@ -43,14 +43,15 @@ const OfflineErrorPage = () => {
                     color: 'text.primary',
                 }}
             >
-                <OnlineOfflineIndicator dark={dark} language={lang} online={isOnline}/>
+                <OnlineOfflineIndicator performanceMode={performanceMode} dark={dark} language={lang}
+                                        online={isOnline}/>
                 <Typography variant="h4" component="h1" gutterBottom sx={{fontWeight: 'bold', mb: 4}}>
                     {t('offlineErrorTitle')}
                 </Typography>
                 <Typography variant="h6" sx={{mb: 3}}>
                     {t('offlineErrorMessage')}
                 </Typography>
-                <ScheduleTable schedule={schedule}/>
+                <ScheduleTable schedule={schedule} performanceMode={performanceMode}/>
                 <Box mt={5}>
                     <Box sx={{textAlign: 'center', mt: 3}}>
                         <Typography variant="body2">
