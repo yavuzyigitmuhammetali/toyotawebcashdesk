@@ -19,6 +19,22 @@
     border-color: white;
 }
 
+.payment-dashboard-left-area-container.performance-mode {
+    min-height: 45vh !important;
+    max-height: 95vh !important;
+    gap: 5vh;
+}
+
 .form-dialog {
     width: 100%;
+}
+
+.form-dialog.performance-mode {
+    transition: none;
+    box-shadow: none;
+}
+
+.form-dialog.performance-mode:hover {
+    transition: none;
+    box-shadow: none;
 }

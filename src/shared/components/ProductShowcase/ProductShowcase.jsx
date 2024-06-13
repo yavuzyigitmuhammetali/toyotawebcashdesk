@@ -44,7 +44,7 @@ function ProductShowcase(props) {
                             <ScreenKeyboardComponent performanceMode={performanceMode} fullWidth={true}
                                                      language={language} dark={dark}/> : null}
                     </div>
-                    <FilterButtons map={map} setMap={setMap} t={t}/>
+                    <FilterButtons map={map} setMap={setMap} t={t} performanceMode={performanceMode}/>
                     <div className="product-showcase-products-scroll-area">
                         <Grid
                             columnCount={columnCount}
@@ -63,39 +63,50 @@ function ProductShowcase(props) {
     );
 }
 
-const FilterButtons = ({map, setMap, t}) => (
+const FilterButtons = ({map, setMap, t, performanceMode}) => (
     <div className="product-showcase-filter-area">
-        <Button onClick={() => setMap(1)} color="secondary" variant={map === 1 ? 'contained' : 'outlined'}>
+        <Button disableElevation={performanceMode} onClick={() => setMap(1)} color="secondary"
+                variant={map === 1 ? 'contained' : 'outlined'}>
             {t.all}
         </Button>
-        <Button onClick={() => setMap(2)} color="secondary" variant={map === 2 ? 'contained' : 'outlined'}>
+        <Button disableElevation={performanceMode} onClick={() => setMap(2)} color="secondary"
+                variant={map === 2 ? 'contained' : 'outlined'}>
             {t.favorites}
         </Button>
-        <Button onClick={() => setMap(3)} color="secondary" variant={map === 3 ? 'contained' : 'outlined'}>
+        <Button disableElevation={performanceMode} onClick={() => setMap(3)} color="secondary"
+                variant={map === 3 ? 'contained' : 'outlined'}>
             A - Ç
         </Button>
-        <Button onClick={() => setMap(4)} color="secondary" variant={map === 4 ? 'contained' : 'outlined'}>
+        <Button disableElevation={performanceMode} onClick={() => setMap(4)} color="secondary"
+                variant={map === 4 ? 'contained' : 'outlined'}>
             D - G
         </Button>
-        <Button onClick={() => setMap(5)} color="secondary" variant={map === 5 ? 'contained' : 'outlined'}>
+        <Button disableElevation={performanceMode} onClick={() => setMap(5)} color="secondary"
+                variant={map === 5 ? 'contained' : 'outlined'}>
             Ğ - L
         </Button>
-        <Button onClick={() => setMap(6)} color="secondary" variant={map === 6 ? 'contained' : 'outlined'}>
+        <Button disableElevation={performanceMode} onClick={() => setMap(6)} color="secondary"
+                variant={map === 6 ? 'contained' : 'outlined'}>
             J - N
         </Button>
-        <Button onClick={() => setMap(7)} color="secondary" variant={map === 7 ? 'contained' : 'outlined'}>
+        <Button disableElevation={performanceMode} onClick={() => setMap(7)} color="secondary"
+                variant={map === 7 ? 'contained' : 'outlined'}>
             O - S
         </Button>
-        <Button onClick={() => setMap(8)} color="secondary" variant={map === 8 ? 'contained' : 'outlined'}>
+        <Button disableElevation={performanceMode} onClick={() => setMap(8)} color="secondary"
+                variant={map === 8 ? 'contained' : 'outlined'}>
             Ş - Y
         </Button>
-        <Button onClick={() => setMap(9)} color="secondary" variant={map === 9 ? 'contained' : 'outlined'}>
+        <Button disableElevation={performanceMode} onClick={() => setMap(9)} color="secondary"
+                variant={map === 9 ? 'contained' : 'outlined'}>
             T - Z
         </Button>
-        <Button onClick={() => setMap(10)} color="secondary" variant={map === 10 ? 'contained' : 'outlined'}>
+        <Button disableElevation={performanceMode} onClick={() => setMap(10)} color="secondary"
+                variant={map === 10 ? 'contained' : 'outlined'}>
             W - X
         </Button>
-        <Button onClick={() => setMap(11)} color="secondary" variant={map === 11 ? 'contained' : 'outlined'}>
+        <Button disableElevation={performanceMode} onClick={() => setMap(11)} color="secondary"
+                variant={map === 11 ? 'contained' : 'outlined'}>
             {t.productsWithoutBarcode}
         </Button>
     </div>

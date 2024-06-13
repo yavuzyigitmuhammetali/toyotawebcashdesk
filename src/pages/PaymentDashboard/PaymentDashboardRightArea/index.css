@@ -41,3 +41,19 @@
     flex-direction: column;
     flex: 1 1;
 }
+
+.performance-mode .payment-dashboard-right-area-container {
+    min-width: 30vw !important;
+    max-width: 30vw !important;
+    min-height: 85vh !important;
+    max-height: 85vh !important;
+    padding: 5px;
+}
+
+.performance-mode .payment-dashboard-right-area-operator {
+    gap: 3px;
+}
+
+.performance-mode .payment-dashboard-right-area-pay-methods {
+    gap: 3px;
+}

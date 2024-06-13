@@ -3,7 +3,7 @@ import "./digitalArea.css";
 import Typewriter from "../Typewriter";
 import {useTranslation} from "react-i18next";
 
-function DigitalArea({dark = false, totalPrice = 2000, data = []}) {
+function DigitalArea({dark = false, totalPrice = 2000, data = [], performanceMode = false}) {
     const scrollRef = useRef(null);
     const {t} = useTranslation();
 
@@ -22,7 +22,7 @@ function DigitalArea({dark = false, totalPrice = 2000, data = []}) {
     }, [amountPaid]);
 
     const renderTypewriter = (className, text, speed = 100, span = false) => (
-        <Typewriter className={className} speed={speed} span={span}>{text}</Typewriter>
+        <Typewriter isActive={!performanceMode} className={className} speed={speed} span={span}>{text}</Typewriter>
     );
 
     return (

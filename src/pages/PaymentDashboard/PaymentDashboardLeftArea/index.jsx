@@ -8,28 +8,33 @@ import KeyboardContext from "../../../shared/components/ScreenKeyboard/context";
 import ScreenKeyboard from "../../../shared/components/ScreenKeyboard/ScreenKeyboard";
 import AppStatusContext from "../../../shared/states/AppStatus/context";
 
-function PaymentDashboardLeftArea() {
+function PaymentDashboardLeftArea({performanceMode = true}) {
     const {total, paymentTransactions, email, setValidEmail} = useContext(PaymentContext)
     const keyboardContext = useContext(KeyboardContext)
     const {lang, dark} = useContext(AppStatusContext);
     const {t} = useTranslation();
 
-
     return (
-        <div className={`payment-dashboard-left-area-container ${dark ? 'dark-mode' : ''}`}>
+        <div
+            className={`payment-dashboard-left-area-container ${dark ? 'dark-mode' : ''} ${performanceMode ? 'performance-mode' : ''}`}>
             <div>
-                <DigitalArea dark={dark} totalPrice={total} data={paymentTransactions}/>
+                <DigitalArea performanceMode={performanceMode} dark={dark} totalPrice={total}
+                             data={paymentTransactions}/>
             </div>
             <div>
-                <FormDialog language={lang} disabled={!total || email.length > 0} className="form-dialog"
-                            buttonName={t('eInvoice')}
-                            func={setValidEmail}
-                            label={t('customerEmail')}
-                            errorText={t('invalidEmailError')}
-                            dark={dark}
-                            ScreenKeyboardComponent={ScreenKeyboard}
-                            keyboardContext={keyboardContext}
-                            dialog={t('contributeToNature')}/>
+                <FormDialog
+                    language={lang}
+                    disabled={!total || email.length > 0}
+                    className={`form-dialog ${performanceMode ? 'performance-mode' : ''}`}
+                    buttonName={t('eInvoice')}
+                    func={setValidEmail}
+                    label={t('customerEmail')}
+                    errorText={t('invalidEmailError')}
+                    dark={dark}
+                    ScreenKeyboardComponent={ScreenKeyboard}
+                    keyboardContext={keyboardContext}
+                    dialog={t('contributeToNature')}
+                />
             </div>
         </div>
     );

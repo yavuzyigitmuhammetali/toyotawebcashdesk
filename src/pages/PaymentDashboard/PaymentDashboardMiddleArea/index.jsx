@@ -5,7 +5,7 @@ import PaymentContext from "../context";
 import {useTranslation} from 'react-i18next';
 import AppStatusContext from "../../../shared/states/AppStatus/context";
 
-function PaymentDashboardMiddleArea() {
+function PaymentDashboardMiddleArea({performanceMode = true}) {
     const {dark, lang} = useContext(AppStatusContext);
     const {total, subTotal, cart} = useContext(PaymentContext)
     const {t} = useTranslation();
@@ -15,6 +15,7 @@ function PaymentDashboardMiddleArea() {
                 <div className="payment-dashboard-middle-area-products">
                     {cart.map((item, key) =>
                         <ShoppingCartItem
+                            performanceMode={performanceMode}
                             disabled
                             key={key} dark={dark}
                             campaign={item.campaign.toUpperCase()}

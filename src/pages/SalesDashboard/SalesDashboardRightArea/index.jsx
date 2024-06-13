@@ -59,14 +59,18 @@ function SalesDashboardRightArea({performanceMode = true}) {
                 <ResponsiveDialog style={{width: "auto"}} language={lang} title={t('cancelTransaction')}
                                   text={t('cancelTransactionWarning')}
                                   onConfirm={cancelTransaction}>
-                    <Button size="large" color="error" variant="contained"> {t('cancelTransaction')}</Button>
+                    <Button disableElevation={performanceMode} size="large" color="error"
+                            variant="contained"> {t('cancelTransaction')}</Button>
                 </ResponsiveDialog>
-                <Button onClick={() => setProductShowcaseWindow(!productShowcaseWindow)} color="info"
+                <Button disableElevation={performanceMode}
+                        onClick={() => setProductShowcaseWindow(!productShowcaseWindow)} color="info"
                         variant="contained">{t('searchByName')}</Button>
-                <Button onClick={() => setCampaignsWindow({first: true, other: true})}
+                <Button disableElevation={performanceMode}
+                        onClick={() => setCampaignsWindow({first: true, other: true})}
                         color="secondary"
                         variant="contained">{t('campaigns')}</Button>
-                <Button disabled={cart.length === 0} color="success" onClick={handleConfirmCart} variant="contained"
+                <Button disableElevation={performanceMode} disabled={cart.length === 0} color="success"
+                        onClick={handleConfirmCart} variant="contained"
                         endIcon={<SendIcon/>}>{t('paymentScreen')}</Button>
             </div>
             <div className="sales-dashboard-right-area-keyboard">
