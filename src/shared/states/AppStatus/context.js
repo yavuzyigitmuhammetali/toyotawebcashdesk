@@ -13,8 +13,19 @@ const AppStatusProvider = ({children}) => {
     const [isLoggedIn, setIsLoggedIn] = React.useState(JSON.parse(localStorage.getItem('isLoggedIn')) ?? false);
     const [dark, setDark] = React.useState(false);
     const [lang, setLang] = React.useState('en');
+    const [reloadRequired, setReloadRequired] = React.useState(JSON.parse(sessionStorage.getItem('reloadRequired')) ?? false);
     const {i18n} = useTranslation();
 
+    React.useEffect(() => {
+        if (localStorage.getItem('performanceMode') === null) {
+            localStorage.setItem('performanceMode', JSON.stringify(false));
+        }
+        if (sessionStorage.getItem('reloadRequired') === null) {
+            sessionStorage.setItem('reloadRequired', JSON.stringify(false));
+        }
+    }, []);
+
+    const performanceMode = JSON.parse(localStorage.getItem('performanceMode'));
 
     React.useEffect(() => {
         changeLang(JSON.parse(localStorage.getItem('lang')) ?? navigator.language.slice(0, 2));
@@ -109,6 +120,22 @@ const AppStatusProvider = ({children}) => {
         }
     };
 
+    const forceReload = React.useCallback(() => {
+        sessionStorage.setItem('reloadRequired', JSON.stringify(true));
+        setReloadRequired(true);
+    }, [setReloadRequired])
+
+    const changePerformanceMode = React.useCallback(() => {
+        if (performanceMode === true) {
+            localStorage.setItem('performanceMode', JSON.stringify(false));
+        } else if (performanceMode === false) {
+            localStorage.setItem('performanceMode', JSON.stringify(true));
+        } else {
+            localStorage.setItem('performanceMode', JSON.stringify(false));
+        }
+        forceReload();
+    }, [performanceMode, forceReload])
+
     return (
         <AppStatusContext.Provider
             value={{
@@ -117,16 +144,46 @@ const AppStatusProvider = ({children}) => {
                 lang,
                 status,
                 isOnline,
+                performanceMode,
                 isLoggedIn,
                 loginFunction,
                 logOut,
                 changeDark,
                 changeLang,
                 setIsOnline,
-                setStatus
+                setStatus,
+                changePerformanceMode
             }}
         >
             {children}
+            {
+                reloadRequired ? (
+                    <div style={{
+                        position: 'fixed',
+                        top: 0,
+                        left: 0,
+                        width: '100%',
+                        height: '100%',
+                        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                        color: 'white',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        zIndex: 99999999,
+                    }}>
+                        <div style={{pointerEvents: 'none', userSelect: 'none'}}>
+                            {lang === "tr" ?
+                                <h1>Önemli değişiklikler yapıldı. Lütfen değişikliklerin uygulanması için sayfayı
+                                    kapatıp yeniden açın!</h1>
+                                :
+                                <h1>Significant changes have been made. Please close and reopen the page to apply the
+                                    changes!</h1>
+                            }
+
+                        </div>
+                    </div>
+                ) : null
+            }
         </AppStatusContext.Provider>
     );
 };

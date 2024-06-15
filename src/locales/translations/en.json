@@ -196,6 +196,10 @@
   "returnProcessesInfo": "A page where product returns can be processed and relevant transactions are managed.",
   "receiptsInfo": "A page where purchased products' receipts are detailed, listed, sorted, and displayed.",
   "reportsInfo": "A statistical reporting page presenting analyses derived from orders and sales data.",
-  "logout": "Logout"
+  "logout": "Logout",
+  "performanceMode": "Performance Mode",
+  "performanceModeInfo": "Performance mode guarantees a significant increase in application performance and stability by slightly reducing visual effects and focusing on application responsiveness. (Beta!)",
+  "fullReset": "Hard Reset",
+  "fullResetInfo": "Deletes all accessible stored data of the web application. Frequent use of this feature may lead to performance issues!"
 }
 

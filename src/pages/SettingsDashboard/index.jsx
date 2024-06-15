@@ -8,12 +8,15 @@ import AppStatusContext from "../../shared/states/AppStatus/context";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import PrintIcon from "@mui/icons-material/Print";
 import LanguageIcon from "@mui/icons-material/Translate";
+import SpeedIcon from '@mui/icons-material/Speed';
+import RotateLeftIcon from '@mui/icons-material/RotateLeft';
 import {useNavigate} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 import TooltipProvider from "../../shared/components/TooltipProvider/TooltipProvider";
+import {clearEverything} from "../../utils/clearEverything";
 
-function SettingsDashboard({performanceMode = false}) {
-    const {dark, changeDark, lang, changeLang} = useContext(AppStatusContext);
+function SettingsDashboard() {
+    const {dark, changeDark, lang, changeLang, changePerformanceMode, performanceMode} = useContext(AppStatusContext);
     const [showSettings, setShowSettings] = useState(false);
     const navigate = useNavigate();
     const {t} = useTranslation();
@@ -55,10 +58,14 @@ function SettingsDashboard({performanceMode = false}) {
                                 {renderSettingsItem(
                                     <DarkModeIcon/>, null, changeDark, 'changeThemeInfo', 'dark-mode', dark)}
                                 {renderSettingsItem(<LanguageIcon/>, lang, changeLang, 'changeLangInfo', 'lang')}
+                                {renderSettingsItem(
+                                    <RotateLeftIcon/>, null, () => clearEverything(), 'fullResetInfo', 'fullReset')}
                             </div>
                             <div className="settings-dashboard-active-area">
                                 {renderSettingsItem(
                                     <PrintIcon/>, null, () => navigate("/receipt/print-test"), 'printTestInfo', 'print-test')}
+                                {renderSettingsItem(
+                                    <SpeedIcon/>, "(𝕓𝕖𝕥𝕒)", changePerformanceMode, 'performanceModeInfo', 'performanceMode', performanceMode)}
                             </div>
                         </div>
                     </div>

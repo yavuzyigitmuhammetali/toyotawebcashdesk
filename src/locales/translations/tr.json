@@ -196,6 +196,10 @@
   "returnProcessesInfo": "Ürün iadelerinin yapılabildiği ve ilgili işlemlerin yönetildiği bir sayfa.",
   "receiptsInfo": "Satın alınan ürünlerin fişlerinin detaylı bir şekilde listelendiği, sıralandığı ve görüntülendiği bir sayfa.",
   "reportsInfo": "Yapılan siparişler ve satış verileri üzerinden elde edilen analizlerin sunulduğu istatistiksel bir raporlama sayfası.",
-  "logout": "Çıkış Yap"
+  "logout": "Çıkış Yap",
+  "performanceMode": "Yüksek Performans Modu",
+  "performanceModeInfo": "Performans modu, görsel efektleri biraz azaltarak ve uygulama yanıt hızına odaklanarak uygulama performansında ve kararlılığında önemli bir artış garanti eder. (Beta!)",
+  "fullReset": "Tam Yeniden Yükle",
+  "fullResetInfo": "Web uygulamasının erişilebilir tüm saklanmış verilerini siler. Bu özelliğin sık kullanılması, performans sorunlarına yol açabilir!"
 }
 
