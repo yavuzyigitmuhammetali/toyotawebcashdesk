@@ -8,8 +8,8 @@ import AppStatusContext from "../../shared/states/AppStatus/context";
 import {getTheme} from "./theme";
 import {useTranslation} from "react-i18next";
 
-const OfflineErrorPage = ({performanceMode = false}) => {
-    const {status, isOnline, lang, dark} = React.useContext(AppStatusContext);
+const OfflineErrorPage = () => {
+    const {status, isOnline, lang, dark, performanceMode} = React.useContext(AppStatusContext);
     const theme = getTheme(dark ? "dark" : "light", performanceMode);
     const {t} = useTranslation();
     const [schedule, setSchedule] = useState({

@@ -37,9 +37,9 @@ import DialogActions from '@mui/material/DialogActions';
 import AppStatusContext from '../../shared/states/AppStatus/context';
 import {useTranslation} from 'react-i18next';
 
-const SummaryDashboard = ({performanceMode = false}) => {
+const SummaryDashboard = () => {
     const {t} = useTranslation();
-    const {status, dark} = useContext(AppStatusContext);
+    const {status, dark, performanceMode} = useContext(AppStatusContext);
     const {receipts: _receipts, categories, subCategories, products, fetchReceipts, fetchProducts} =
         useContext(AppDataContext);
 

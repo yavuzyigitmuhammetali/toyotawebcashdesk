@@ -5,8 +5,8 @@ import PaymentContext from "../context";
 import {useTranslation} from 'react-i18next';
 import AppStatusContext from "../../../shared/states/AppStatus/context";
 
-function PaymentDashboardMiddleArea({performanceMode = true}) {
-    const {dark, lang} = useContext(AppStatusContext);
+function PaymentDashboardMiddleArea() {
+    const {dark, lang, performanceMode} = useContext(AppStatusContext);
     const {total, subTotal, cart} = useContext(PaymentContext)
     const {t} = useTranslation();
     return (

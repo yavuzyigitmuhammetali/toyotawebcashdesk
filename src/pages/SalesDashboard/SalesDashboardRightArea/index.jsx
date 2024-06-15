@@ -16,8 +16,8 @@ import ScreenKeyboard from '../../../shared/components/ScreenKeyboard/ScreenKeyb
 import {useTranslation} from "react-i18next";
 import AppStatusContext from "../../../shared/states/AppStatus/context";
 
-function SalesDashboardRightArea({performanceMode = true}) {
-    const {lang, dark} = useContext(AppStatusContext);
+function SalesDashboardRightArea() {
+    const {lang, dark, performanceMode} = useContext(AppStatusContext);
     const {t} = useTranslation();
     const navigate = useNavigate();
     const keyboardContext = useContext(KeyboardContext);

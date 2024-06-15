@@ -7,8 +7,8 @@ import Header from "./components/Header";
 import AppStatusContext from "../../shared/states/AppStatus/context";
 import {useTranslation} from "react-i18next";
 
-function MainContainer({performanceMode = false}) {
-    const {status, isOnline, lang, dark} = useContext(AppStatusContext);
+function MainContainer() {
+    const {status, isOnline, lang, dark, performanceMode} = useContext(AppStatusContext);
     const {t} = useTranslation();
     const {
         formattedDate,

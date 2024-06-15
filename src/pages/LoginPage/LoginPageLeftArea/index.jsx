@@ -7,8 +7,8 @@ import config from "../../../config";
 
 const LoginSrc = lazy(() => import('./components/LoginSrc'));
 
-function LoginPageLeftArea({width = "400px", warn = false, performanceMode = false}) {
-    const {isOnline, status, lang, dark} = React.useContext(AppStatusContext);
+function LoginPageLeftArea({width = "400px", warn = false}) {
+    const {isOnline, status, lang, dark, performanceMode} = React.useContext(AppStatusContext);
     const {t} = useTranslation();
     return (
         <div className={`login-page-left-area-container ${dark ? 'dark' : 'light'}`} style={{width: width}}>

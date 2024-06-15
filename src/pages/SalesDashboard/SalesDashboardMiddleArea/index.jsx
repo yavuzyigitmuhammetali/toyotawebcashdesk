@@ -6,8 +6,8 @@ import KeyboardContext from "../../../shared/components/ScreenKeyboard/context";
 import {useTranslation} from "react-i18next";
 import AppStatusContext from "../../../shared/states/AppStatus/context";
 
-function SalesDashboardMiddleArea({performanceMode = false}) {
-    const {dark, lang} = useContext(AppStatusContext);
+function SalesDashboardMiddleArea() {
+    const {dark, lang, performanceMode} = useContext(AppStatusContext);
     const {
         handleElementFocus, value: keyboardValue, onChangeValue
     } = useContext(KeyboardContext);

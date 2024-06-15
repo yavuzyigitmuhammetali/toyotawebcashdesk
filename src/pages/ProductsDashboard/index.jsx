@@ -8,9 +8,9 @@ import AppStatusContext from "../../shared/states/AppStatus/context";
 import "./index.css";
 import CircularProgress from "@mui/material/CircularProgress";
 
-function ProductsDashboard({performanceMode = false}) {
+function ProductsDashboard() {
     const navigate = useNavigate();
-    const {lang, dark} = useContext(AppStatusContext);
+    const {lang, dark, performanceMode} = useContext(AppStatusContext);
     const {products, fetchProducts} = useContext(AppDataContext);
     const keyboardContext = useContext(KeyboardContext);
     const [loading, setLoading] = useState(true);

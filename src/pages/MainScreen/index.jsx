@@ -34,8 +34,8 @@ const items = [
     {to: "/summary/calculate", text: 'reports', info: 'reportsInfo', icon: icons.reports},
 ];
 
-function MainScreen({performanceMode = false}) {
-    const {isOnline, status, logOut, lang, dark, cashier} = useContext(AppStatusContext);
+function MainScreen() {
+    const {isOnline, status, logOut, lang, dark, cashier, performanceMode} = useContext(AppStatusContext);
     const {clearValues} = useContext(KeyboardContext);
     const {t} = useTranslation();
 

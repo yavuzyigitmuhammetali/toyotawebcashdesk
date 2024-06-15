@@ -8,8 +8,8 @@ import ProductDialog from './components/ProductDialog';
 import KeyboardContext from "../../shared/components/ScreenKeyboard/context";
 import AppStatusContext from "../../shared/states/AppStatus/context";
 
-function ProductEntryPanel({performanceMode = false}) {
-    const {lang, dark} = useContext(AppStatusContext);
+function ProductEntryPanel() {
+    const {lang, dark, performanceMode} = useContext(AppStatusContext);
     const {t} = useTranslation();
     const {handleElementFocus, value, onChangeValue, enterRef, clearValues} = useContext(KeyboardContext);
     const {

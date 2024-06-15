@@ -10,9 +10,9 @@ import {FixedSizeGrid as Grid} from 'react-window';
 import {useSalesDashboardLeftArea} from './useSalesDashboardLeftArea';
 import "./index.css";
 
-function SalesDashboardLeftArea({performanceMode = false}) {
+function SalesDashboardLeftArea() {
     const {t} = useTranslation();
-    const {lang, dark} = useContext(AppStatusContext);
+    const {lang, dark, performanceMode} = useContext(AppStatusContext);
     const {
         categories,
         subCategories,

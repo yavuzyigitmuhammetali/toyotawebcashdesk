@@ -8,8 +8,8 @@ import {usePaymentDashboardRightArea} from "./usePaymentDashboardRightArea";
 import AppStatusContext from "../../../shared/states/AppStatus/context";
 import {useTranslation} from "react-i18next";
 
-function PaymentDashboardRightArea({performanceMode = true}) {
-    const {lang, dark} = useContext(AppStatusContext);
+function PaymentDashboardRightArea() {
+    const {lang, dark, performanceMode} = useContext(AppStatusContext);
     const {t} = useTranslation();
     const {
         subTotal,

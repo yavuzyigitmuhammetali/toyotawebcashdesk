@@ -9,14 +9,15 @@ import AppDataContext from "../../shared/states/AppData/context";
 import {defaultProduct} from "../../shared/states/AppData/defaultData";
 import CircularProgress from '@mui/material/CircularProgress';
 import Backdrop from '@mui/material/Backdrop';
+import AppStatusContext from "../../shared/states/AppStatus/context";
 
 
 const CartContext = React.createContext(undefined);
 
 const CartProvider = ({children}) => {
-    const performanceMode = false;
     const [cart, setCart] = React.useState([])
     const {products: _products, categories, subCategories, fetchProducts} = React.useContext(AppDataContext);
+    const {performanceMode} = React.useContext(AppStatusContext);
     const [products, setProducts] = React.useState([defaultProduct])
     const [total, setTotal] = React.useState(0)
     const [subTotal, setSubTotal] = React.useState(0)

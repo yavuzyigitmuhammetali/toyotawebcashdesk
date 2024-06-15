@@ -8,10 +8,10 @@ import KeyboardContext from "../../../shared/components/ScreenKeyboard/context";
 import ScreenKeyboard from "../../../shared/components/ScreenKeyboard/ScreenKeyboard";
 import AppStatusContext from "../../../shared/states/AppStatus/context";
 
-function PaymentDashboardLeftArea({performanceMode = true}) {
+function PaymentDashboardLeftArea() {
     const {total, paymentTransactions, email, setValidEmail} = useContext(PaymentContext)
     const keyboardContext = useContext(KeyboardContext)
-    const {lang, dark} = useContext(AppStatusContext);
+    const {lang, dark, performanceMode} = useContext(AppStatusContext);
     const {t} = useTranslation();
 
     return (

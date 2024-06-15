@@ -19,9 +19,9 @@ import KeyboardContext from "../../../shared/components/ScreenKeyboard/context";
 import AppStatusContext from "../../../shared/states/AppStatus/context";
 import {useTranslation} from "react-i18next";
 
-function LoginPageRightArea({performanceMode = false}) {
+function LoginPageRightArea() {
     const {handleElementFocus, value, onChangeValue, enterRef} = useContext(KeyboardContext);
-    const {loginFunction, lang, dark} = useContext(AppStatusContext);
+    const {loginFunction, lang, dark, performanceMode} = useContext(AppStatusContext);
     const {t} = useTranslation();
     const {
         error,

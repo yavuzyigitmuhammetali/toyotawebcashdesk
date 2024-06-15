@@ -10,10 +10,10 @@ import KeyboardContext from "../../shared/components/ScreenKeyboard/context";
 import {useTranslation} from "react-i18next";
 import AppStatusContext from "../../shared/states/AppStatus/context";
 
-function RefundDashboard({performanceMode = true}) {
+function RefundDashboard() {
     const keyboardContext = useContext(KeyboardContext);
     const {t} = useTranslation();
-    const {status, lang, dark, cashier} = useContext(AppStatusContext);
+    const {status, lang, dark, cashier, performanceMode} = useContext(AppStatusContext);
     const {
         receipt,
         cart,
