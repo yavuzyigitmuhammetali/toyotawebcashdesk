@@ -1,5 +1,5 @@
 .left-container {
-    background-color: #F8FAFB;
+    background-color: var(--secondary-background);
     min-width: 33vw !important;
     max-width: 33vw !important;
     min-height: 90vh !important;
@@ -9,7 +9,7 @@
     overflow: hidden !important;
     display: flex;
     flex-direction: column;
-    border: 1px solid black;
+    border: 1px solid var(--border-color);
 }
 
 .left-one {
@@ -17,7 +17,7 @@
     padding: 10px;
     display: flex;
     flex-direction: row;
-    border-bottom: 1px solid #E6EAF1;
+    border-bottom: 1px solid var(--border-color);
 }
 
 .left-one > * {
@@ -29,7 +29,7 @@
     flex-direction: row;
     justify-content: space-between;
     padding: 10px;
-    border-bottom: 1px solid #E6EAF1;
+    border-bottom: 1px solid var(--border-color);
 }
 
 .left-three-scroll {
@@ -72,15 +72,10 @@
 }
 
 .custom-loading {
-    border: 8px solid #f3f3f3;
-    border-top: 8px solid #3498db;
+    border: 8px solid var(--secondary-background);
+    border-top: 8px solid var(--highlight-color);
     border-radius: 50%;
     width: 50px;
     height: 50px;
     animation: customLoadingAnimation 2s linear infinite;
-}
-
-.dark-theme {
-    background-color: #111418;
-    border-color: white;
 }

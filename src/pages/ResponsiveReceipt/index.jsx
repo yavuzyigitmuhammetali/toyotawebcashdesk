@@ -30,7 +30,7 @@ function ResponsiveReceipt() {
     } = useResponsiveReceipt(t('printErrorMessage'));
 
     return (
-        <div className={`responsive-receipt-container ${dark ? "dark-mode" : ""}`}>
+        <div className={`responsive-receipt-container`}>
             <AlertComponent/>
             <div className="responsive-receipt-controller">
                 <ToggleButtonGroup

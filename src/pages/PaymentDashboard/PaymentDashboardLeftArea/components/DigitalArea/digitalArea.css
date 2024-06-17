@@ -10,19 +10,14 @@
     height: 32vh;
     align-items: center;
     text-align: center;
-    border: 1px dotted black;
+    border: 1px dotted var(--border-color);
     user-select: none;
-    color: black;
-}
-
-.digital-area-container.dark {
-    border-color: white;
-    color: white;
+    color: var(--primary-text);
 }
 
 .total-price {
     font-size: 3.5em;
-    color: green;
+    color: darkgreen;
     filter: brightness(1);
 }
 
@@ -58,5 +53,5 @@
 
 .change {
     font-size: 1.3em;
-    color: greenyellow;
+    color: var(--accent-color);
 }

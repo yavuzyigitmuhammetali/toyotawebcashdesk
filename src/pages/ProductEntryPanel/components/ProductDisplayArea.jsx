@@ -39,7 +39,7 @@ function ProductDisplayArea({formData, handleCheckboxChange, lang, dark, t, perf
                           checkedIcon={<DialpadIcon color="success"/>} onChange={handleCheckboxChange}
                           name="fraction"/>
             </div>
-            <div><ScreenKeyboard performanceMode={performanceMode} language={lang} dark={dark}/></div>
+            <div><ScreenKeyboard color="primary" performanceMode={performanceMode} language={lang} dark={dark}/></div>
         </div>
     );
 }

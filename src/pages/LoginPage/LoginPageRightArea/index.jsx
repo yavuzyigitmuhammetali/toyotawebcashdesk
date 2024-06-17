@@ -35,12 +35,12 @@ function LoginPageRightArea() {
     } = useLoginPageRightArea(value, loginFunction, t("loginSuccessMessage"), t("errorTitle"), performanceMode);
 
     return (
-        <div className={`login-page-right-area-container ${dark ? 'dark' : 'light'}`}>
+        <div className={`login-page-right-area-container`}>
             <div className="login-page-right-area-info">
-                <div className={`login-page-right-area-title ${dark ? 'dark' : 'light'}`}>
+                <div className={`login-page-right-area-title`}>
                     {t("loginAccount")}
                 </div>
-                <div className={`login-page-right-area-subtitle ${dark ? 'dark' : 'light'}`}>
+                <div className={`login-page-right-area-subtitle`}>
                     {t("enterUsernamePassword")}
                 </div>
             </div>
@@ -91,6 +91,7 @@ function LoginPageRightArea() {
                     {loading ? <CircularProgress size={24} color="inherit"/> : t("login")}
                 </Button>
                 <ScreenKeyboard
+                    color="primary"
                     performanceMode={performanceMode}
                     language={lang}
                     dark={dark}

@@ -16,7 +16,7 @@ function PaymentDashboardLeftArea() {
 
     return (
         <div
-            className={`payment-dashboard-left-area-container ${dark ? 'dark-mode' : ''} ${performanceMode ? 'performance-mode' : ''}`}>
+            className={`payment-dashboard-left-area-container ${performanceMode ? 'performance-mode' : ''}`}>
             <div>
                 <DigitalArea performanceMode={performanceMode} dark={dark} totalPrice={total}
                              data={paymentTransactions}/>

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {useProductShowcase} from './useProductShowcase';
 import {createTheme, ThemeProvider} from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
@@ -6,11 +7,17 @@ import {Button} from '@mui/material';
 import {FixedSizeGrid as Grid} from 'react-window';
 import './productShowcase.css';
 
-function ProductShowcase(props) {
-
-
+function ProductShowcase({
+                             dark = false,
+                             data = [],
+                             onClick,
+                             keyboardContext = null,
+                             ScreenKeyboardComponent = null,
+                             language = 'en',
+                             performanceMode = false,
+                             buttonColor = "secondary"
+                         }) {
     const {
-        dark,
         inputValue,
         handleElementFocus,
         onChangeValue,
@@ -20,10 +27,16 @@ function ProductShowcase(props) {
         columnCount,
         rowCount,
         Cell,
+    } = useProductShowcase({
+        data,
+        onClick,
+        dark,
+        keyboardContext,
         ScreenKeyboardComponent,
         language,
-        performanceMode
-    } = useProductShowcase(props);
+        performanceMode,
+    });
+
     return (
         <ThemeProvider theme={createTheme({palette: {mode: dark ? 'dark' : 'light'}, typography: {fontSize: 10}})}>
             <div className="product-showcase-container">
@@ -40,11 +53,18 @@ function ProductShowcase(props) {
                             label={t.searchLabel}
                             id="productSearch"
                         />
-                        {ScreenKeyboardComponent ?
-                            <ScreenKeyboardComponent performanceMode={performanceMode} fullWidth={true}
-                                                     language={language} dark={dark}/> : null}
+                        {ScreenKeyboardComponent && (
+                            <ScreenKeyboardComponent
+                                color={buttonColor}
+                                performanceMode={performanceMode}
+                                fullWidth
+                                language={language}
+                                dark={dark}
+                            />
+                        )}
                     </div>
-                    <FilterButtons map={map} setMap={setMap} t={t} performanceMode={performanceMode}/>
+                    <FilterButtons map={map} setMap={setMap} t={t} performanceMode={performanceMode}
+                                   buttonColor={buttonColor}/>
                     <div className="product-showcase-products-scroll-area">
                         <Grid
                             columnCount={columnCount}
@@ -63,53 +83,56 @@ function ProductShowcase(props) {
     );
 }
 
-const FilterButtons = ({map, setMap, t, performanceMode}) => (
+const FilterButtons = ({map, setMap, t, performanceMode, buttonColor}) => (
     <div className="product-showcase-filter-area">
-        <Button disableElevation={performanceMode} onClick={() => setMap(1)} color="secondary"
-                variant={map === 1 ? 'contained' : 'outlined'}>
-            {t.all}
-        </Button>
-        <Button disableElevation={performanceMode} onClick={() => setMap(2)} color="secondary"
-                variant={map === 2 ? 'contained' : 'outlined'}>
-            {t.favorites}
-        </Button>
-        <Button disableElevation={performanceMode} onClick={() => setMap(3)} color="secondary"
-                variant={map === 3 ? 'contained' : 'outlined'}>
-            A - Ç
-        </Button>
-        <Button disableElevation={performanceMode} onClick={() => setMap(4)} color="secondary"
-                variant={map === 4 ? 'contained' : 'outlined'}>
-            D - G
-        </Button>
-        <Button disableElevation={performanceMode} onClick={() => setMap(5)} color="secondary"
-                variant={map === 5 ? 'contained' : 'outlined'}>
-            Ğ - L
-        </Button>
-        <Button disableElevation={performanceMode} onClick={() => setMap(6)} color="secondary"
-                variant={map === 6 ? 'contained' : 'outlined'}>
-            J - N
-        </Button>
-        <Button disableElevation={performanceMode} onClick={() => setMap(7)} color="secondary"
-                variant={map === 7 ? 'contained' : 'outlined'}>
-            O - S
-        </Button>
-        <Button disableElevation={performanceMode} onClick={() => setMap(8)} color="secondary"
-                variant={map === 8 ? 'contained' : 'outlined'}>
-            Ş - Y
-        </Button>
-        <Button disableElevation={performanceMode} onClick={() => setMap(9)} color="secondary"
-                variant={map === 9 ? 'contained' : 'outlined'}>
-            T - Z
-        </Button>
-        <Button disableElevation={performanceMode} onClick={() => setMap(10)} color="secondary"
-                variant={map === 10 ? 'contained' : 'outlined'}>
-            W - X
-        </Button>
-        <Button disableElevation={performanceMode} onClick={() => setMap(11)} color="secondary"
-                variant={map === 11 ? 'contained' : 'outlined'}>
-            {t.productsWithoutBarcode}
-        </Button>
+        {[
+            {label: t.all, value: 1},
+            {label: t.favorites, value: 2},
+            {label: 'A - Ç', value: 3},
+            {label: 'D - G', value: 4},
+            {label: 'Ğ - L', value: 5},
+            {label: 'J - N', value: 6},
+            {label: 'O - S', value: 7},
+            {label: 'Ş - Y', value: 8},
+            {label: 'T - Z', value: 9},
+            {label: 'W - X', value: 10},
+            {label: t.productsWithoutBarcode, value: 11},
+        ].map(({label, value}) => (
+            <Button
+                key={value}
+                disableElevation={performanceMode}
+                onClick={() => setMap(value)}
+                color={buttonColor}
+                variant={map === value ? 'contained' : 'outlined'}
+            >
+                {label}
+            </Button>
+        ))}
     </div>
 );
+
+ProductShowcase.propTypes = {
+    dark: PropTypes.bool,
+    data: PropTypes.arrayOf(PropTypes.object),
+    onClick: PropTypes.func.isRequired,
+    keyboardContext: PropTypes.shape({
+        handleElementFocus: PropTypes.func,
+        value: PropTypes.object,
+        onChangeValue: PropTypes.func,
+    }),
+    ScreenKeyboardComponent: PropTypes.elementType,
+    language: PropTypes.string,
+    performanceMode: PropTypes.bool,
+    buttonColor: PropTypes.oneOf([
+        'default',
+        'inherit',
+        'primary',
+        'secondary',
+        'error',
+        'info',
+        'success',
+        'warning',
+    ]),
+};
 
 export default ProductShowcase;

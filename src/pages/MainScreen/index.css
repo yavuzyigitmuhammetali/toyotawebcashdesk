@@ -1,6 +1,6 @@
 .main-screen-container {
     position: relative;
-    background-color: #F8FAFB;
+    background-color: var(--primary-background);
     box-sizing: border-box;
     display: flex;
     width: 100vw;
@@ -35,8 +35,9 @@
     position: absolute;
     left: 10px;
     top: 10px;
-    background-color: white;
-    border: 1px solid black;
+    color: var(--primary-text);
+    background-color: var(--snow-color);
+    border: 1px solid var(--border-color);
     padding: 10px;
 }
 
@@ -62,7 +63,6 @@
     max-height: 25vh;
 }
 
-/* src/pages/MainScreen/index.css */
 .main-screen-container.performance-mode {
     padding: 5vw;
 }
@@ -74,7 +74,7 @@
 
 .main-screen-item-container.performance-mode:hover {
     transform: none;
-    border-color: green;
+    border-color: var(--accent-color);
 }
 
 .main-screen-logo.performance-mode {

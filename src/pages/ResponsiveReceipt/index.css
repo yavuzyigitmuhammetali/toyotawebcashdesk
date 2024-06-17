@@ -1,9 +1,10 @@
-/* Existing styles */
 .responsive-receipt-container {
     position: relative;
     overflow-y: auto;
     height: 90vh;
     width: 100vw;
+    background-color: var(--primary-background);
+    color: var(--primary-text);
 }
 
 .responsive-receipt-receipt {
@@ -12,12 +13,10 @@
     width: max-content;
 }
 
-.responsive-receipt-container.dark-mode {
-    background-color: #111418;
-}
-
 .responsive-receipt-controller {
     position: fixed;
+
+
     z-index: 6;
     top: 5vh;
     left: 50%;

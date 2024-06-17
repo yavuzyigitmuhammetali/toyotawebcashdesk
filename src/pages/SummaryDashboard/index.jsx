@@ -133,7 +133,7 @@ const SummaryDashboard = () => {
     return (
         <div className={`summary-dashboard-container ${performanceMode ? 'performance-mode' : ''}`}>
             <div
-                className={`summary-dashboard-left ${dark ? 'dark-theme' : ''} ${performanceMode ? 'performance-mode' : ''}`}>
+                className={`summary-dashboard-left ${performanceMode ? 'performance-mode' : ''}`}>
                 <ToggleButtonGroup
                     color="primary"
                     value={alignment}
@@ -164,9 +164,9 @@ const SummaryDashboard = () => {
                               products={products}/>
             </div>
             <div
-                className={`summary-dashboard-right ${dark ? 'summary-dashboard-right-dark' : ''} ${performanceMode ? 'performance-mode' : ''}`}>
+                className={`summary-dashboard-right ${performanceMode ? 'performance-mode' : ''}`}>
                 <div
-                    className={`summary-dashboard-right-header ${dark ? 'summary-dashboard-right-header-dark' : ''} ${performanceMode ? 'performance-mode' : ''}`}>
+                    className={`summary-dashboard-right-header ${performanceMode ? 'performance-mode' : ''}`}>
                     {t('outOfStockProducts')}
                 </div>
                 <br/>

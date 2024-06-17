@@ -26,12 +26,24 @@ const icons = {
 };
 
 const items = [
-    {to: "/order/create", text: 'orderCreation', info: 'orderCreationInfo', icon: icons.orderCreation},
-    {to: "/products/list", text: 'products', info: 'productsInfo', icon: icons.products},
-    {to: "/product/add", text: 'productEntry', info: 'productEntryInfo', icon: icons.productEntry},
-    {to: "/refund/create", text: 'returnProcesses', info: 'returnProcessesInfo', icon: icons.returnProcesses},
-    {to: "/purchase/list", text: 'receipts', info: 'receiptsInfo', icon: icons.receipts},
-    {to: "/summary/calculate", text: 'reports', info: 'reportsInfo', icon: icons.reports},
+    {
+        to: "/order/create",
+        text: 'orderCreation',
+        info: 'orderCreationInfo',
+        icon: icons.orderCreation,
+        color: "#3D526D"
+    },
+    {to: "/products/list", text: 'products', info: 'productsInfo', icon: icons.products, color: "#3D526D"},
+    {to: "/product/add", text: 'productEntry', info: 'productEntryInfo', icon: icons.productEntry, color: "#3D526D"},
+    {
+        to: "/refund/create",
+        text: 'returnProcesses',
+        info: 'returnProcessesInfo',
+        icon: icons.returnProcesses,
+        color: "#3D526D"
+    },
+    {to: "/purchase/list", text: 'receipts', info: 'receiptsInfo', icon: icons.receipts, color: "#3D526D"},
+    {to: "/summary/calculate", text: 'reports', info: 'reportsInfo', icon: icons.reports, color: "#3D526D"},
 ];
 
 function MainScreen() {
@@ -49,24 +61,26 @@ function MainScreen() {
     return (
         <>
             <AlertComponent performanceMode={performanceMode}/>
-            <div className={`main-screen-container ${dark ? 'dark' : ''} ${performanceMode ? 'performance-mode' : ''}`}>
+            <div className={`main-screen-container ${performanceMode ? 'performance-mode' : ''}`}>
                 <img alt="logo" className="main-screen-logo" src={config.storeLogo}/>
                 <div className="main-screen-active-area">
                     <div className="main-screen-sides">
-                        {items.slice(0, items.length / 2).map(({to, text, info, icon: Icon}) => (
+                        {items.slice(0, items.length / 2).map(({to, text, info, icon: Icon, color}) => (
                             <TooltipProvider key={to} performanceMode={performanceMode} dark={dark}
                                              backgroundColor="#6F8AB6" textColor="white" content={t(info)}>
-                                <MainScreenItem performanceMode={performanceMode} to={to} dark={dark} customIcon={Icon}>
+                                <MainScreenItem performanceMode={performanceMode} to={to} dark={dark} customIcon={Icon}
+                                                color={color}>
                                     {t(text)}
                                 </MainScreenItem>
                             </TooltipProvider>
                         ))}
                     </div>
                     <div className="main-screen-sides">
-                        {items.slice(items.length / 2).map(({to, text, info, icon: Icon}) => (
+                        {items.slice(items.length / 2).map(({to, text, info, icon: Icon, color}) => (
                             <TooltipProvider key={to} performanceMode={performanceMode} dark={dark}
                                              backgroundColor="#6F8AB6" textColor="white" content={t(info)}>
-                                <MainScreenItem performanceMode={performanceMode} to={to} dark={dark} customIcon={Icon}>
+                                <MainScreenItem performanceMode={performanceMode} to={to} dark={dark} customIcon={Icon}
+                                                color={color}>
                                     {t(text)}
                                 </MainScreenItem>
                             </TooltipProvider>

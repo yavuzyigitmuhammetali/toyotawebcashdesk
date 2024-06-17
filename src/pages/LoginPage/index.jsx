@@ -7,14 +7,14 @@ import {useTranslation} from "react-i18next";
 import config from "../../config.json";
 
 function LoginPage() {
-    const {dark, performanceMode} = useContext(AppStatusContext);
+    const {performanceMode} = useContext(AppStatusContext);
     const {t} = useTranslation();
     useEffect(() => {
         document.title = config.storeName + " • " + t('login');
     }, [t]);
 
     return (
-        <div className={`login-page-container ${dark ? "dark-mode" : "light-mode"}`}>
+        <div className={`login-page-container `}>
             <div className={`login-page-left-area ${performanceMode ? 'no-animation' : ''}`}>
                 <LoginPageLeftArea/>
             </div>

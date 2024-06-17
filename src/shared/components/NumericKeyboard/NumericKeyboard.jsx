@@ -1,4 +1,5 @@
 import React, {useContext, useState} from "react";
+import PropTypes from 'prop-types';
 import "./numericKeyboard.css";
 import {Button, TextField} from "@mui/material";
 import BackspaceIcon from "@mui/icons-material/Backspace";
@@ -6,6 +7,7 @@ import DoneOutlineIcon from "@mui/icons-material/DoneOutline";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import {createTheme, ThemeProvider} from "@mui/material/styles";
 import NumericKeyboardContext from "./context";
+
 
 function NumericKeyboard({
                              width = "auto",
@@ -15,6 +17,7 @@ function NumericKeyboard({
                              allowDecimal = false,
                              fromKeyboard = false,
                              performanceMode = false,
+                             buttonColor = "primary"
                          }) {
     const [value, setValue] = useState("");
     const {setData} = useContext(NumericKeyboardContext);
@@ -27,6 +30,7 @@ function NumericKeyboard({
         }
         return parseFloat(str);
     };
+
     const submitData = () => {
         const number = convertToDouble(value);
         if (recurringValues) {
@@ -78,33 +82,18 @@ function NumericKeyboard({
                     variant="contained"
                     disableElevation={performanceMode}
                 ></Button>
-                <Button size="small" onClick={() => setValue(value + "1")} variant="contained"
-                        disableElevation={performanceMode}>1</Button>
-                <Button size="small" onClick={() => setValue(value + "2")} variant="contained"
-                        disableElevation={performanceMode}>2</Button>
-                <Button size="small" onClick={() => setValue(value + "3")} variant="contained"
-                        disableElevation={performanceMode}>3</Button>
-                <Button size="small" onClick={() => setValue(value + "4")} variant="contained"
-                        disableElevation={performanceMode}>4</Button>
-                <Button size="small" onClick={() => setValue(value + "5")} variant="contained"
-                        disableElevation={performanceMode}>5</Button>
-                <Button size="small" onClick={() => setValue(value + "6")} variant="contained"
-                        disableElevation={performanceMode}>6</Button>
-                <Button size="small" onClick={() => setValue(value + "7")} variant="contained"
-                        disableElevation={performanceMode}>7</Button>
-                <Button size="small" onClick={() => setValue(value + "8")} variant="contained"
-                        disableElevation={performanceMode}>8</Button>
-                <Button size="small" onClick={() => setValue(value + "9")} variant="contained"
-                        disableElevation={performanceMode}>9</Button>
-                <Button
-                    size="small"
-                    onClick={() => setValue(value + "0")}
-                    className="numeric-keyboard-zero"
-                    variant="contained"
-                    disableElevation={performanceMode}
-                >
-                    0
-                </Button>
+                {[...Array(10).keys()].map(num => (
+                    <Button
+                        key={num}
+                        size="small"
+                        onClick={() => setValue(value + num)}
+                        variant="contained"
+                        disableElevation={performanceMode}
+                        color={buttonColor}
+                    >
+                        {num}
+                    </Button>
+                ))}
                 <Button
                     size="small"
                     disabled={disabled}
@@ -129,5 +118,24 @@ function NumericKeyboard({
         </div>
     );
 }
+
+NumericKeyboard.propTypes = {
+    width: PropTypes.string,
+    dark: PropTypes.bool,
+    disabled: PropTypes.bool,
+    recurringValues: PropTypes.bool,
+    allowDecimal: PropTypes.bool,
+    fromKeyboard: PropTypes.bool,
+    performanceMode: PropTypes.bool,
+    buttonColor: PropTypes.oneOf([
+        "inherit",
+        "primary",
+        "secondary",
+        "success",
+        "error",
+        "info",
+        "warning"
+    ])
+};
 
 export default NumericKeyboard;

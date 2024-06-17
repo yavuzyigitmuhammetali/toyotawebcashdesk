@@ -17,9 +17,9 @@ function MainContainer() {
     } = useMainContainer(lang, t);
 
     return (
-        <div className={`main-container-body ${dark ? 'dark' : ''} ${performanceMode ? 'performance' : ''}`}>
+        <div className={`main-container-body ${performanceMode ? 'performance' : ''}`}>
             <Header dark={dark} pageTitle={pageTitle} prevLink={prevLink} performanceMode={performanceMode}/>
-            <main className={`main-container-main ${dark ? 'dark' : ''} ${performanceMode ? 'performance' : ''}`}>
+            <main className={`main-container-main ${performanceMode ? 'performance' : ''}`}>
                 <Outlet/>
             </main>
             <Footer dark={dark} lang={lang} formattedDate={formattedDate} isOnline={isOnline} status={status} t={t}

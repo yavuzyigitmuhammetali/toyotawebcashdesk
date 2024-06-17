@@ -128,7 +128,7 @@ function SalesDashboardLeftArea() {
     };
 
     return (
-        <div className={`left-container ${dark ? "dark-theme" : ""} ${performanceMode ? "performance-mode" : ""}`}>
+        <div className={`left-container ${performanceMode ? "performance-mode" : ""}`}>
             <div className="left-one">
                 <TextField
                     id="barcodeArea"
@@ -144,7 +144,7 @@ function SalesDashboardLeftArea() {
                         </IconButton>),
                     }}
                 />
-                <ScreenKeyboard performanceMode={performanceMode} dark={dark} language={lang}/>
+                <ScreenKeyboard color="primary" performanceMode={performanceMode} dark={dark} language={lang}/>
             </div>
             <div className="left-two">
                 <Button disableElevation={performanceMode} onClick={() => {

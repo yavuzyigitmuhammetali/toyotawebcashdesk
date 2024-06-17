@@ -88,6 +88,6 @@ export function useProductShowcase({
         Cell,
         ScreenKeyboardComponent,
         language,
-        performanceMode
+        performanceMode,
     };
 }

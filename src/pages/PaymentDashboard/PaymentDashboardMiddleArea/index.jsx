@@ -10,8 +10,8 @@ function PaymentDashboardMiddleArea() {
     const {total, subTotal, cart} = useContext(PaymentContext)
     const {t} = useTranslation();
     return (
-        <div className={`payment-dashboard-middle-area-container ${dark ? 'dark' : ''}`}>
-            <div className={`payment-dashboard-middle-area-products-scroll ${dark ? 'dark' : ''}`}>
+        <div className={`payment-dashboard-middle-area-container `}>
+            <div className={`payment-dashboard-middle-area-products-scroll`}>
                 <div className="payment-dashboard-middle-area-products">
                     {cart.map((item, key) =>
                         <ShoppingCartItem
@@ -25,7 +25,7 @@ function PaymentDashboardMiddleArea() {
                     )}
                 </div>
             </div>
-            <div className={`payment-dashboard-middle-area-texts ${dark ? 'dark' : ''}`}>
+            <div className={`payment-dashboard-middle-area-texts `}>
                 <div className="payment-dashboard-middle-area-amount">
                     <span>{t('subTotal')}: </span>
                     <span>{subTotal.toFixed(2)}$</span>

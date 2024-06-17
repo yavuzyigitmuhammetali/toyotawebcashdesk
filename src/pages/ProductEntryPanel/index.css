@@ -4,17 +4,7 @@
     height: 90vh;
     display: flex;
     flex-direction: row;
-}
-
-
-.product-entry-panel-container.light {
-    background-color: #F8FAFB;
-    color: black;
-}
-
-.product-entry-panel-container.dark {
-    background-color: #131922;
-    color: white;
+    color: var(--primary-text);
 }
 
 .product-entry-panel-left-area {

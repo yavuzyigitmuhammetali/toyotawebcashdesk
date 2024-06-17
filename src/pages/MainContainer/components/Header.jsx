@@ -5,7 +5,7 @@ import {Link} from "react-router-dom";
 import SettingsDashboard from "../../SettingsDashboard";
 
 const Header = ({dark, pageTitle, prevLink, performanceMode}) => (
-    <header className={`main-container-header ${dark ? 'dark' : ''} ${performanceMode ? 'performance' : ''}`}>
+    <header className={`main-container-header ${performanceMode ? 'performance' : ''}`}>
         <div>
             <IconButton color="error" component={Link} to={prevLink} style={performanceMode ? {animation: 'none'} : {}}>
                 <ArrowBackIosIcon/>

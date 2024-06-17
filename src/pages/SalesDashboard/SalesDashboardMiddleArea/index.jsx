@@ -37,8 +37,8 @@ function SalesDashboardMiddleArea() {
     }, [decimalValue, keyboardValue]);
 
     return (
-        <div className={`sales-dashboard-middle-area-container ${dark ? 'dark' : ''}`}>
-            <div className={`sales-dashboard-middle-area-products-scroll ${dark ? 'dark' : ''}`}>
+        <div className={`sales-dashboard-middle-area-container`}>
+            <div className={`sales-dashboard-middle-area-products-scroll`}>
                 <div className="sales-dashboard-middle-area-products">
                     {cart.map((item, key) => (
                         <ShoppingCartItem
@@ -63,12 +63,12 @@ function SalesDashboardMiddleArea() {
                     ))}
                 </div>
             </div>
-            <div className={`sales-dashboard-middle-area-texts ${dark ? 'dark' : ''}`}>
+            <div className={`sales-dashboard-middle-area-texts `}>
                 <div className="sales-dashboard-middle-area-amount">
                     <span>{t('subTotal')}: </span>
                     <span>{subTotalPrice.toFixed(2)}$</span>
                 </div>
-                <hr className={dark ? 'dark' : ''}/>
+                <hr/>
                 <div className="sales-dashboard-middle-area-amount">
                     <span>{t('totalAmount')}: </span>
                     <span>{totalPrice.toFixed(2)}$</span>

@@ -33,7 +33,7 @@
     top: 50%;
     transform: translate(-50%, -50%);
     filter: brightness(1.7);
-    color: white;
+    color: black;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -44,6 +44,7 @@
 
 .main-screen-item-icon.dark {
     filter: brightness(1);
+    color: white;
 }
 
 .main-screen-item-text {

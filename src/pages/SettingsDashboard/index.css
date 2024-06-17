@@ -4,16 +4,18 @@
     width: 800px;
     max-width: 100%;
     height: 480px;
-    background-color: #DEDEDF;
+    background-color: var(--tertiary-background);
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    border: 2px solid black;
+    border: 2px solid var(--border-color);
     box-shadow: 5px 5px 20px black;
     border-radius: 15px;
     z-index: 99999;
     padding: 20px;
     cursor: pointer;
+    color: var(--primary-text);
+    border-color: var(--border-color);
 }
 
 @media (max-width: 800px) {
@@ -24,11 +26,6 @@
     }
 }
 
-.settings-dashboard-container.dark {
-    color: white;
-    background-color: rgb(30, 30, 30);
-    border-color: white;
-}
 
 .settings-dashboard-header {
     display: flex;
@@ -37,14 +34,11 @@
 }
 
 .settings-divider {
-    background-color: black;
+    background-color: var(--border-color);
     height: 1px;
     border: none;
 }
 
-.settings-divider.dark {
-    background-color: white;
-}
 
 .settings-dashboard-body {
     height: 100%;
@@ -90,4 +84,3 @@
     transform: none;
     box-shadow: none;
 }
-

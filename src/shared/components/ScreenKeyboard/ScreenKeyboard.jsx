@@ -1,4 +1,5 @@
-import React, {useContext, useMemo, useState} from "react";
+import React, {useContext, useEffect, useMemo, useState} from "react";
+import PropTypes from "prop-types";
 import {ThemeProvider} from "@mui/material/styles";
 import {Button, IconButton} from "@mui/material";
 import KeyboardAltIcon from "@mui/icons-material/KeyboardAlt";
@@ -9,7 +10,25 @@ import {useScreenKeyboard} from "./useScreenKeyboard";
 import KeyboardContext from "./context";
 import "./screenKeyboard.css";
 
-function ScreenKeyboard({fullWidth = false, dark = false, language = "tr", style, performanceMode = false}) {
+// Define the color mapping for background colors
+const colorMap = {
+    primary: {light: "#F5F5F5", dark: "#12161B"},
+    secondary: {light: "#E0E0E0", dark: "#1C1C1C"},
+    error: {light: "#FFEBEE", dark: "#2A0F0F"},
+    info: {light: "#E3F2FD", dark: "#0F1926"},
+    success: {light: "#E8F5E9", dark: "#0F2610"},
+    warning: {light: "#FFF8E1", dark: "#2B1F09"},
+    inherit: {light: "#FFFFFF", dark: "#000000"}
+};
+
+const ScreenKeyboard = ({
+                            fullWidth = false,
+                            dark = false,
+                            language = "tr",
+                            style,
+                            performanceMode = false,
+                            color = "primary"
+                        }) => {
     const [onOff, setOnOff] = useState(true);
     const {handleDelete, handleValue, handleEnter} = useContext(KeyboardContext);
 
@@ -28,6 +47,13 @@ function ScreenKeyboard({fullWidth = false, dark = false, language = "tr", style
     } = useScreenKeyboard(language, onOff);
 
     const theme = useMemo(() => (dark ? darkTheme : lightTheme), [dark]);
+
+    useEffect(() => {
+        const root = document.documentElement;
+        root.style.setProperty("--dark-background-color", colorMap[color].dark);
+        root.style.setProperty("--light-background-color", colorMap[color].light);
+    }, [color]);
+
     const buttonStyle = useMemo(() => ({
         cursor: isDragging ? "grabbing" : "grab",
         backgroundColor: dark ? "var(--dark-background-color)" : "var(--light-background-color)",
@@ -55,6 +81,7 @@ function ScreenKeyboard({fullWidth = false, dark = false, language = "tr", style
                     onClick={() => handleValue(capsLock ? item.toUpperCase() : item)}
                     variant="outlined"
                     key={index}
+                    color={color}
                 >
                     {capsLock ? item.toUpperCase() : item}
                 </Button>
@@ -118,6 +145,7 @@ function ScreenKeyboard({fullWidth = false, dark = false, language = "tr", style
                                             variant="outlined"
                                             className="screen-keyboard-double"
                                             key={index}
+                                            color={color}
                                         >
                                             del
                                         </Button>
@@ -140,6 +168,7 @@ function ScreenKeyboard({fullWidth = false, dark = false, language = "tr", style
                                             variant="outlined"
                                             style={{gridRowEnd: "span 4", gridColumnEnd: "-1"}}
                                             key={index}
+                                            color={color}
                                         >
                                             enter
                                         </Button>
@@ -162,6 +191,7 @@ function ScreenKeyboard({fullWidth = false, dark = false, language = "tr", style
                                             variant="outlined"
                                             className="screen-keyboard-triple"
                                             key={index}
+                                            color={color}
                                         >
                                             space
                                         </Button>
@@ -184,6 +214,7 @@ function ScreenKeyboard({fullWidth = false, dark = false, language = "tr", style
                                             variant="outlined"
                                             startIcon={<KeyboardCapslockIcon/>}
                                             key={index}
+                                            color={color}
                                         >
                                             caps
                                         </Button>
@@ -197,6 +228,15 @@ function ScreenKeyboard({fullWidth = false, dark = false, language = "tr", style
             </>
         );
     }
-}
+};
+
+ScreenKeyboard.propTypes = {
+    fullWidth: PropTypes.bool,
+    dark: PropTypes.bool,
+    language: PropTypes.oneOf(['en', 'tr']),
+    style: PropTypes.object,
+    performanceMode: PropTypes.bool,
+    color: PropTypes.oneOf(['primary', 'secondary', 'error', 'info', 'success', 'warning', 'inherit']),
+};
 
 export default ScreenKeyboard;

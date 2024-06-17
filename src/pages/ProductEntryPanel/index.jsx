@@ -23,7 +23,7 @@ function ProductEntryPanel() {
         handleSendData
     } = useProductEntryPanel(t, value, clearValues);
     return (
-        <div className={`product-entry-panel-container ${dark ? 'dark' : 'light'}`}>
+        <div className={`product-entry-panel-container`}>
             <ProductDisplayArea t={t} lang={lang} dark={dark} formData={formData}
                                 handleCheckboxChange={handleCheckboxChange} performanceMode={performanceMode}/>
             <ProductFormArea onChangeValue={onChangeValue} handleElementFocus={handleElementFocus} t={t}

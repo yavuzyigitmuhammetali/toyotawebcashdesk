@@ -9,16 +9,8 @@
     box-sizing: border-box;
     padding: 10px 20px;
     width: 400px;
-}
-
-.login-page-right-area-container.dark {
-    background-color: #1C1F25;
-    border: 2px solid #1A2027;
-}
-
-.login-page-right-area-container.light {
-    background-color: white;
-    border: 2px solid #1A2027;
+    background-color: var(--tertiary-background);
+    border: 0.1px solid var(--border-color);
 }
 
 .login-page-right-area-info {
@@ -42,20 +34,9 @@
 .login-page-right-area-title {
     font-weight: 700;
     font-size: 2em;
+    color: var(--primary-title);
 }
 
-.login-page-right-area-title.dark {
-    color: white;
-}
-
-.login-page-right-area-title.light {
-    color: #5492F0;
-}
-
-.login-page-right-area-subtitle.dark {
-    color: #5492F0;
-}
-
-.login-page-right-area-subtitle.light {
-    color: #E1E2E3;
+.login-page-right-area-subtitle {
+    color: var(--highlight-color);
 }

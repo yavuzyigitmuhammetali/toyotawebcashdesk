@@ -3,6 +3,7 @@ import config from '../../../config.json';
 import {getIp, getStatus, login} from "./api";
 import {setupTimer, updateOnlineStatus} from "../../functions/checkOnline";
 import {useTranslation} from "react-i18next";
+import {applyTheme} from "../../../utils/themeUtils";
 
 const AppStatusContext = React.createContext(undefined);
 
@@ -70,19 +71,14 @@ const AppStatusProvider = ({children}) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [status]);
 
-    /*    React.useEffect(() => {
-            if (!isOnline) {
-                logOut();
-            }
-        }, [isOnline]);*/
-
-
     const changeDark = (darkTheme = undefined) => {
         const newDark = darkTheme === undefined ? !dark : darkTheme;
         setDark(newDark);
-        document.documentElement.classList.toggle('dark', newDark);
+        const theme = newDark ? config.themes.dark : config.themes.light;
+        applyTheme(theme);
         localStorage.setItem('dark', JSON.stringify(newDark));
-    }
+    };
+
     const changeLang = (language) => {
         if (language) {
             setLang(language);
@@ -123,7 +119,7 @@ const AppStatusProvider = ({children}) => {
     const forceReload = React.useCallback(() => {
         sessionStorage.setItem('reloadRequired', JSON.stringify(true));
         setReloadRequired(true);
-    }, [setReloadRequired])
+    }, [setReloadRequired]);
 
     const changePerformanceMode = React.useCallback(() => {
         if (performanceMode === true) {
@@ -134,7 +130,7 @@ const AppStatusProvider = ({children}) => {
             localStorage.setItem('performanceMode', JSON.stringify(false));
         }
         forceReload();
-    }, [performanceMode, forceReload])
+    }, [performanceMode, forceReload]);
 
     return (
         <AppStatusContext.Provider
@@ -164,8 +160,8 @@ const AppStatusProvider = ({children}) => {
                         left: 0,
                         width: '100%',
                         height: '100%',
-                        backgroundColor: 'rgba(0, 0, 0, 0.8)',
-                        color: 'white',
+                        backgroundColor: 'var(--rgba1-color)',
+                        color: 'var(--primary-text)',
                         display: 'flex',
                         justifyContent: 'center',
                         alignItems: 'center',
@@ -179,7 +175,6 @@ const AppStatusProvider = ({children}) => {
                                 <h1>Significant changes have been made. Please close and reopen the page to apply the
                                     changes!</h1>
                             }
-
                         </div>
                     </div>
                 ) : null

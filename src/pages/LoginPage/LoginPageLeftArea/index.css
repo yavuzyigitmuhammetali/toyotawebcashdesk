@@ -1,14 +1,7 @@
 .login-page-left-area-container {
     position: relative;
     user-select: none;
-}
-
-.login-page-left-area-container.dark {
-    color: white;
-}
-
-.login-page-left-area-container.light {
-    color: #111418;
+    color: var(--primary-text);
 }
 
 .login-page-left-area-texts {

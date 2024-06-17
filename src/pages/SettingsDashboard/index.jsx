@@ -23,7 +23,7 @@ function SettingsDashboard() {
 
     const toggleSettings = () => setShowSettings(!showSettings);
 
-    const renderSettingsItem = (icon, property, onClick, content, label, onOff = undefined) => (
+    const renderSettingsItem = (icon, property, onClick, content, label, onOff = undefined, color = "#3874CB") => (
         <TooltipProvider performanceMode={performanceMode} dark={dark} content={t(content)}>
             <SettingsItem
                 icon={icon}
@@ -32,6 +32,7 @@ function SettingsDashboard() {
                 dark={dark}
                 performanceMode={performanceMode}
                 onOff={onOff}
+                color={color}
             >
                 {t(label)}
             </SettingsItem>
@@ -50,22 +51,23 @@ function SettingsDashboard() {
             {showSettings && (
                 <div className="settings-overlay">
                     <div
-                        className={`settings-dashboard-container ${dark ? 'dark' : ''} ${performanceMode ? 'performance' : ''}`}>
+                        className={`settings-dashboard-container ${performanceMode ? 'performance' : ''}`}>
                         <div className="settings-dashboard-header">{t('settings')}</div>
-                        <hr className={`settings-divider ${dark ? 'dark' : ''}`}/>
+                        <hr className={`settings-divider`}/>
                         <div className="settings-dashboard-body">
                             <div className="settings-dashboard-active-area">
                                 {renderSettingsItem(
-                                    <DarkModeIcon/>, null, changeDark, 'changeThemeInfo', 'dark-mode', dark)}
-                                {renderSettingsItem(<LanguageIcon/>, lang, changeLang, 'changeLangInfo', 'lang')}
+                                    <DarkModeIcon/>, null, changeDark, 'changeThemeInfo', 'dark-mode', dark, "")}
                                 {renderSettingsItem(
-                                    <RotateLeftIcon/>, null, () => clearEverything(), 'fullResetInfo', 'fullReset')}
+                                    <LanguageIcon/>, lang, changeLang, 'changeLangInfo', 'lang', undefined, undefined)}
+                                {renderSettingsItem(
+                                    <RotateLeftIcon/>, null, () => clearEverything(), 'fullResetInfo', 'fullReset', undefined, undefined)}
                             </div>
                             <div className="settings-dashboard-active-area">
                                 {renderSettingsItem(
-                                    <PrintIcon/>, null, () => navigate("/receipt/print-test"), 'printTestInfo', 'print-test')}
+                                    <PrintIcon/>, null, () => navigate("/receipt/print-test"), 'printTestInfo', 'print-test', undefined, undefined)}
                                 {renderSettingsItem(
-                                    <SpeedIcon/>, "(𝕓𝕖𝕥𝕒)", changePerformanceMode, 'performanceModeInfo', 'performanceMode', performanceMode)}
+                                    <SpeedIcon/>, "(𝕓𝕖𝕥𝕒)", changePerformanceMode, 'performanceModeInfo', 'performanceMode', performanceMode, "")}
                             </div>
                         </div>
                     </div>

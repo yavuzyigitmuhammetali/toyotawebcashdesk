@@ -38,6 +38,7 @@ function ProductsDashboard() {
                 <>
                     <div className="product-showcase-wrapper">
                         <ProductShowcase
+                            buttonColor="info"
                             performanceMode={performanceMode}
                             language={lang}
                             ScreenKeyboardComponent={ScreenKeyboard}

@@ -31,10 +31,6 @@ function RefundDashboard() {
         checkReceipt
     } = useRefundDashboard(status, cashier, t);
 
-    const upperAreaContainerClass = dark ? "refund-dashboard-upper-area-container refund-dashboard-dark" : "refund-dashboard-upper-area-container refund-dashboard-light";
-    const upperAreaItemClass = dark ? "refund-dashboard-upper-area-item refund-dashboard-upper-area-item-dark" : "refund-dashboard-upper-area-item refund-dashboard-upper-area-item-light";
-    const upperAreaScrollClass = dark ? "refund-dashboard-upper-area-scroll refund-dashboard-upper-area-scroll-dark" : "refund-dashboard-upper-area-scroll refund-dashboard-upper-area-scroll-light";
-    const lowerAreaContainerClass = dark ? "refund-dashboard-lower-area-container refund-dashboard-lower-area-container-dark" : "refund-dashboard-lower-area-container refund-dashboard-lower-area-container-light";
 
     return (
         <>
@@ -51,9 +47,9 @@ function RefundDashboard() {
                 dialog={t('pleaseEnterReceiptNumber')}
                 openManual={1}
             />
-            <div className={upperAreaContainerClass}>
-                <div className={upperAreaItemClass}>
-                    <div className={upperAreaScrollClass}>
+            <div className={"refund-dashboard-upper-area-container"}>
+                <div className={"refund-dashboard-upper-area-item"}>
+                    <div className={"refund-dashboard-upper-area-scroll"}>
                         {cart.map((product, key) => (
                             <ShoppingCartItem
                                 performanceMode={performanceMode}
@@ -77,8 +73,8 @@ function RefundDashboard() {
                         ))}
                     </div>
                 </div>
-                <div className={upperAreaItemClass}>
-                    <div className={upperAreaScrollClass}>
+                <div className={"refund-dashboard-upper-area-item"}>
+                    <div className={"refund-dashboard-upper-area-scroll"}>
                         {refundedProducts.map((product, key) => (
                             <ShoppingCartItem
                                 performanceMode={performanceMode}
@@ -99,7 +95,7 @@ function RefundDashboard() {
                     </div>
                 </div>
             </div>
-            <div className={lowerAreaContainerClass}>
+            <div className={"refund-dashboard-lower-area-container"}>
                 <div>
                     <div>{t('totalTaxPaid')}: {(receipt.totalTax - tax).toFixed(2)}</div>
                     <div>{t('subtotalAmount')}: {(receipt.subTotal - subTotal).toFixed(2)}</div>

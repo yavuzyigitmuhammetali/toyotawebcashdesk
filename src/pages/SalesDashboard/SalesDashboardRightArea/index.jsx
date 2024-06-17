@@ -52,7 +52,6 @@ function SalesDashboardRightArea() {
 
     return (
         <div
-            style={{backgroundColor: dark ? "#121418" : "", borderColor: dark ? "white" : ""}}
             className={`sales-dashboard-right-area-container ${performanceMode ? 'performance-mode' : ''}`}
         >
             <div className="sales-dashboard-right-area-control">
@@ -74,14 +73,12 @@ function SalesDashboardRightArea() {
                         endIcon={<SendIcon/>}>{t('paymentScreen')}</Button>
             </div>
             <div className="sales-dashboard-right-area-keyboard">
-                <NumericKeyboard performanceMode={performanceMode} dark={dark}/>
+                <NumericKeyboard buttonColor="primary" performanceMode={performanceMode} dark={dark}/>
             </div>
             {campaignsWindow.first ?
                 <div
                     id="campaigns-menu"
                     style={{
-                        borderColor: dark ? "white" : "",
-                        backgroundColor: dark ? "#131922" : "",
                         animation: !performanceMode && (campaignsWindow.other ? "jell-in-top 0.5s ease-in-out forwards" : "jell-out-top 0.5s ease-in-out forwards")
                     }}
                     className="sales-dashboard-right-area-campaigns"
@@ -119,7 +116,7 @@ function SalesDashboardRightArea() {
                             <CloseOutlinedIcon/>
                         </IconButton>
                     </div>
-                    <ProductShowcase performanceMode={performanceMode} language={lang}
+                    <ProductShowcase buttonColor="info" performanceMode={performanceMode} language={lang}
                                      ScreenKeyboardComponent={ScreenKeyboard}
                                      keyboardContext={keyboardContext} dark={dark} onClick={addToCart} data={products}/>
                 </>

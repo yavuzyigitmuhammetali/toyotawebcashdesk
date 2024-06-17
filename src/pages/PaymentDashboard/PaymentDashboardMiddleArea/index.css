@@ -1,5 +1,5 @@
 .payment-dashboard-middle-area-container {
-    background-color: #F8FAFB;
+    background-color: var(--secondary-background);
     min-width: 33vw !important;
     max-width: 33vw !important;
     min-height: 90vh !important;
@@ -11,16 +11,12 @@
     gap: 2px;
     flex-direction: column;
     padding: 10px;
-    border: 1px solid black;
+    border: 1px solid var(--border-color);
 }
 
-.payment-dashboard-middle-area-container.dark {
-    background-color: #121418;
-    border-color: white;
-}
 
 .payment-dashboard-middle-area-products-scroll {
-    border: 1px solid black;
+    border: 1px solid var(--border-color);
     box-sizing: border-box;
     overflow-y: auto;
     padding: 0;
@@ -28,11 +24,7 @@
     flex-grow: 1;
     flex-basis: 0;
     max-height: 100%;
-}
-
-.payment-dashboard-middle-area-products-scroll.dark {
-    border-color: white;
-    background-color: #111923;
+    background-color: var(--tertiary-background);
 }
 
 .payment-dashboard-middle-area-products-scroll::-webkit-scrollbar {
@@ -49,18 +41,12 @@
     user-select: none;
     box-sizing: border-box;
     padding: 10px;
-    background-color: white;
+    background-color: var(--muted-color);
     width: 100%;
-    color: black;
+    color: var(--primary-text);
     border-radius: 20px;
-    border: 0.2px solid black;
+    border: 0.2px solid var(--border-color);
     border-top: none;
-}
-
-.payment-dashboard-middle-area-texts.dark {
-    background-color: black;
-    color: white;
-    border-color: white;
 }
 
 .payment-dashboard-middle-area-amount {
@@ -69,5 +55,5 @@
 }
 
 .payment-dashboard-middle-area-hr {
-    border-color: Background;
+    border-color: var(--border-color);
 }

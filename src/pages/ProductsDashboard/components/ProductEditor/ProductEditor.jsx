@@ -89,7 +89,7 @@ function ProductEditor({performanceMode = false}) {
                     </Select>
                 </div>
             </div>
-            <div><ScreenKeyboard performanceMode={performanceMode} language={lang} dark={dark}/></div>
+            <div><ScreenKeyboard color="primary" performanceMode={performanceMode} language={lang} dark={dark}/></div>
             <div className="product-editor-actions">
                 <Button style={{flex: 1}} size="small" onClick={cancelChange} color="error"
                         variant="contained">{t('cancel')}

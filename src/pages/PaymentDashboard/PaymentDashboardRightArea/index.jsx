@@ -26,7 +26,7 @@ function PaymentDashboardRightArea() {
 
     return (
         <div
-            className={`${dark ? "payment-dashboard-right-area-container dark-theme" : "payment-dashboard-right-area-container"} ${performanceMode ? "performance-mode" : ""}`}
+            className={`payment-dashboard-right-area-container ${performanceMode ? "performance-mode" : ""}`}
         >
             <div className="payment-dashboard-right-area-operator">
                 <ResponsiveDialog
@@ -59,6 +59,7 @@ function PaymentDashboardRightArea() {
             <div className="payment-dashboard-right-area-pay">
                 <div className="payment-dashboard-right-area-pay-keyboard">
                     <NumericKeyboard
+                        buttonColor="primary"
                         performanceMode={performanceMode}
                         allowDecimal
                         disabled={(amountRemaining + amountPaid) === 0 || paymentMethod === "card" || amountRemaining <= 0}

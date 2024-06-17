@@ -83,13 +83,6 @@
     }
 }
 
-/* Edited styles based on instructions */
-.dark {
-    background-color: #12161B;
-    color: white;
-    border-color: white;
-}
-
 .product-name {
     font-size: 1.5em;
     font-weight: 700;

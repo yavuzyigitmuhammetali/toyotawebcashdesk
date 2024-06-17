@@ -1,3 +1,31 @@
+:root {
+    --primary-background: #F8FAFB;
+    --secondary-background: whitesmoke;
+    --tertiary-background: white;
+    --primary-text: black;
+    --secondary-text: #111418;
+    --border-color: black;
+    --highlight-color: #3498db;
+    --accent-color: green;
+    --muted-color: #E6EAF1;
+    --snow-color: snow;
+    --primary-title: #5296D5;
+}
+
+.dark-mode {
+    --primary-background: #0a0d12;
+    --secondary-background: #0d121c;
+    --tertiary-background: #1D1F24;
+    --primary-text: white;
+    --secondary-text: #D57B52;
+    --border-color: white;
+    --highlight-color: #D57B52;
+    --accent-color: greenyellow;
+    --muted-color: #121418;
+    --snow-color: black;
+    --primary-title: white;
+}
+
 @font-face {
     font-family: 'Noto Emoji';
     src: url('/public/fonts/Noto_Emoji/NotoEmoji-VariableFont_wght.ttf') format('truetype');
@@ -34,7 +62,6 @@
     overflow: clip;
 }
 
-
 ::-webkit-scrollbar {
     width: 0;
 }
@@ -45,11 +72,11 @@
 */
 html {
     font-family: Rubik, serif !important;
-    background-color: #F8FAFB;
+    background-color: var(--primary-background);
 }
 
 html.dark {
-    background-color: #111418;
+    background-color: var(--primary-background);
 }
 
 html, body, div, span, applet, object, iframe,

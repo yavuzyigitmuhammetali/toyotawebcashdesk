@@ -11,7 +11,7 @@ function LoginPageLeftArea({width = "400px", warn = false}) {
     const {isOnline, status, lang, dark, performanceMode} = React.useContext(AppStatusContext);
     const {t} = useTranslation();
     return (
-        <div className={`login-page-left-area-container ${dark ? 'dark' : 'light'}`} style={{width: width}}>
+        <div className={`login-page-left-area-container`} style={{width: width}}>
             <div className="login-page-left-area-indicator">
                 <OnlineOfflineIndicator performanceMode={performanceMode} dark={dark} language={lang}
                                         online={isOnline}/>

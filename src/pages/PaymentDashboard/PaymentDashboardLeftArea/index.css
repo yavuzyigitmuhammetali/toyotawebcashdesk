@@ -1,5 +1,5 @@
 .payment-dashboard-left-area-container {
-    background-color: #F8FAFB;
+    background-color: var(--secondary-background);
     min-width: 33vw !important;
     max-width: 33vw !important;
     min-height: 90vh !important;
@@ -11,12 +11,7 @@
     gap: 10vh;
     flex-direction: column;
     padding: 10px;
-    border: 1px solid black;
-}
-
-.payment-dashboard-left-area-container.dark-mode {
-    background-color: #121418;
-    border-color: white;
+    border: 1px solid var(--border-color);
 }
 
 .payment-dashboard-left-area-container.performance-mode {
