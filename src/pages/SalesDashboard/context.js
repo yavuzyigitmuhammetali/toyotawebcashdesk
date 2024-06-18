@@ -17,7 +17,7 @@ const CartContext = React.createContext(undefined);
 const CartProvider = ({children}) => {
     const [cart, setCart] = React.useState([])
     const {products: _products, categories, subCategories, fetchProducts} = React.useContext(AppDataContext);
-    const {performanceMode} = React.useContext(AppStatusContext);
+    const {performanceMode, colorOptions} = React.useContext(AppStatusContext);
     const [products, setProducts] = React.useState([defaultProduct])
     const [total, setTotal] = React.useState(0)
     const [subTotal, setSubTotal] = React.useState(0)
@@ -253,7 +253,7 @@ const CartProvider = ({children}) => {
             sx={{color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1, backdropFilter: 'blur(3px)'}}
             open={isLoading}
         >
-            <CircularProgress color="inherit"/>
+            <CircularProgress color={colorOptions.buttons.circularProgress ?? colorOptions.buttons.default}/>
         </Backdrop>
     </CartContext.Provider>);
 };

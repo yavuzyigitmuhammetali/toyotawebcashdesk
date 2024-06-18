@@ -12,7 +12,7 @@ import "./index.css";
 
 function SalesDashboardLeftArea() {
     const {t} = useTranslation();
-    const {lang, dark, performanceMode} = useContext(AppStatusContext);
+    const {lang, dark, performanceMode, colorOptions} = useContext(AppStatusContext);
     const {
         categories,
         subCategories,
@@ -42,6 +42,7 @@ function SalesDashboardLeftArea() {
         return (
             <div style={{...style, margin: 2}}>
                 <ProductCard
+                    color={colorOptions.productCard.salesDashboardLeft ?? colorOptions.productCard.default}
                     performanceMode={performanceMode}
                     discountText={product.campaign}
                     onClick={() => addToCart(product)}
@@ -63,6 +64,7 @@ function SalesDashboardLeftArea() {
             case "categories":
                 return categories.map((category, key) => (
                     <ProductCard
+                        color={colorOptions.productCard.salesDashboardLeft ?? colorOptions.productCard.default}
                         performanceMode={performanceMode}
                         key={key}
                         category
@@ -78,6 +80,7 @@ function SalesDashboardLeftArea() {
             case "subcategories":
                 return subCategories.map((subcategory, key) => (
                     <ProductCard
+                        color={colorOptions.productCard.salesDashboardLeft ?? colorOptions.productCard.default}
                         performanceMode={performanceMode}
                         key={key}
                         category
@@ -107,6 +110,7 @@ function SalesDashboardLeftArea() {
                 } else {
                     return products.map((product) => (
                         <ProductCard
+                            color={colorOptions.productCard.salesDashboardLeft ?? colorOptions.productCard.default}
                             performanceMode={performanceMode}
                             key={product.id}
                             onClick={() => addToCart(product)}
@@ -131,6 +135,7 @@ function SalesDashboardLeftArea() {
         <div className={`left-container ${performanceMode ? "performance-mode" : ""}`}>
             <div className="left-one">
                 <TextField
+                    color={colorOptions.buttons.salesDashboardLeft ?? colorOptions.buttons.default}
                     id="barcodeArea"
                     label={t('barcodeEntry')}
                     onFocus={handleElementFocus}
@@ -144,21 +149,26 @@ function SalesDashboardLeftArea() {
                         </IconButton>),
                     }}
                 />
-                <ScreenKeyboard color="primary" performanceMode={performanceMode} dark={dark} language={lang}/>
+                <ScreenKeyboard
+                    color={colorOptions.screenKeyboard.salesDashboardLeft ?? colorOptions.screenKeyboard.default}
+                    performanceMode={performanceMode} dark={dark} language={lang}/>
             </div>
             <div className="left-two">
-                <Button disableElevation={performanceMode} onClick={() => {
+                <Button color={colorOptions.buttons.salesDashboardLeft ?? colorOptions.buttons.default}
+                        disableElevation={performanceMode} onClick={() => {
                     setMap("categories");
                     updateSelectedMap(0, "category");
                     updateSelectedMap(0, "subcategory");
                 }} size="small" variant="contained">{t('categories')}</Button>
-                <Button disableElevation={performanceMode} onClick={() => {
+                <Button color={colorOptions.buttons.salesDashboardLeft ?? colorOptions.buttons.default}
+                        disableElevation={performanceMode} onClick={() => {
                     setMap("subcategories");
                     updateSelectedMap(0, "subcategory");
                 }} size="small"
                         variant={map === "subcategories" || map === "products" ? "contained" : "outlined"}>
                     {t('subCategories')}</Button>
-                <Button disableElevation={performanceMode} onClick={() => setMap("products")} size="small"
+                <Button color={colorOptions.buttons.salesDashboardLeft ?? colorOptions.buttons.default}
+                        disableElevation={performanceMode} onClick={() => setMap("products")} size="small"
                         variant={map === "products" ? "contained" : "outlined"}>{t('products')}</Button>
             </div>
             <div className="left-three-scroll">

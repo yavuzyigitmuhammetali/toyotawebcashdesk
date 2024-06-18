@@ -16,15 +16,25 @@ import TooltipProvider from "../../shared/components/TooltipProvider/TooltipProv
 import {clearEverything} from "../../utils/clearEverything";
 
 function SettingsDashboard() {
-    const {dark, changeDark, lang, changeLang, changePerformanceMode, performanceMode} = useContext(AppStatusContext);
+    const {
+        dark,
+        changeDark,
+        lang,
+        changeLang,
+        changePerformanceMode,
+        performanceMode,
+        colorOptions
+    } = useContext(AppStatusContext);
     const [showSettings, setShowSettings] = useState(false);
     const navigate = useNavigate();
     const {t} = useTranslation();
 
     const toggleSettings = () => setShowSettings(!showSettings);
 
-    const renderSettingsItem = (icon, property, onClick, content, label, onOff = undefined, color = "#3874CB") => (
-        <TooltipProvider performanceMode={performanceMode} dark={dark} content={t(content)}>
+    const renderSettingsItem = (icon, property, onClick, content, label, onOff = undefined, color = colorOptions.settingsItem) => (
+        <TooltipProvider textColor={colorOptions.tooltip.textColor}
+                         backgroundColor={colorOptions.tooltip.backgroundColor} performanceMode={performanceMode}
+                         dark={dark} content={t(content)}>
             <SettingsItem
                 icon={icon}
                 property={property}

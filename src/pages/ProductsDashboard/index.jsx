@@ -10,7 +10,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 
 function ProductsDashboard() {
     const navigate = useNavigate();
-    const {lang, dark, performanceMode} = useContext(AppStatusContext);
+    const {lang, dark, performanceMode, colorOptions} = useContext(AppStatusContext);
     const {products, fetchProducts} = useContext(AppDataContext);
     const keyboardContext = useContext(KeyboardContext);
     const [loading, setLoading] = useState(true);
@@ -32,13 +32,15 @@ function ProductsDashboard() {
         <div className="main-wrapper">
             {loading ? (
                 <div className="loading-container">
-                    <CircularProgress/>
+                    <CircularProgress color={colorOptions.buttons.circularProgress ?? colorOptions.buttons.default}/>
                 </div>
             ) : (
                 <>
                     <div className="product-showcase-wrapper">
                         <ProductShowcase
-                            buttonColor="info"
+                            cardColor={colorOptions.productCard.productsDashboard ?? colorOptions.productCard.default}
+                            buttonColor={colorOptions.buttons.productShowcase ?? colorOptions.buttons.default}
+                            keyboardColor={colorOptions.screenKeyboard.productsDashboard ?? colorOptions.screenKeyboard.default}
                             performanceMode={performanceMode}
                             language={lang}
                             ScreenKeyboardComponent={ScreenKeyboard}

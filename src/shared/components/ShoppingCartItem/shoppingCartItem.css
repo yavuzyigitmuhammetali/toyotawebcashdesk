@@ -1,9 +1,9 @@
-/* Existing styles... */
 .shopping-cart-item-container {
+    --background-color: orange;
     user-select: none;
     box-sizing: border-box;
     padding: 2px;
-    background-color: orange;
+    background-color: var(--background-color);
     color: #111418;
     width: 100%;
     height: 72px;
@@ -111,7 +111,6 @@
     color: red;
 }
 
-/* Performance mode styles */
 .performance-mode .shopping-cart-item-container:hover {
     filter: none;
 }
@@ -121,3 +120,4 @@
     animation: none;
     left: 0;
 }
+

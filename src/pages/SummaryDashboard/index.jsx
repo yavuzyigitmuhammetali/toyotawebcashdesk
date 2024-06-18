@@ -39,7 +39,7 @@ import {useTranslation} from 'react-i18next';
 
 const SummaryDashboard = () => {
     const {t} = useTranslation();
-    const {status, dark, performanceMode} = useContext(AppStatusContext);
+    const {status, dark, performanceMode, colorOptions} = useContext(AppStatusContext);
     const {receipts: _receipts, categories, subCategories, products, fetchReceipts, fetchProducts} =
         useContext(AppDataContext);
 
@@ -125,7 +125,7 @@ const SummaryDashboard = () => {
                         </Button>
                     </DialogActions>
                 </Dialog>
-                <CircularProgress/>
+                <CircularProgress color={colorOptions.buttons.circularProgress ?? colorOptions.buttons.default}/>
             </Box>
         );
     }
@@ -135,7 +135,7 @@ const SummaryDashboard = () => {
             <div
                 className={`summary-dashboard-left ${performanceMode ? 'performance-mode' : ''}`}>
                 <ToggleButtonGroup
-                    color="primary"
+                    color={colorOptions.buttons.summaryDashboard ?? colorOptions.buttons.default}
                     value={alignment}
                     exclusive
                     onChange={handleChange}

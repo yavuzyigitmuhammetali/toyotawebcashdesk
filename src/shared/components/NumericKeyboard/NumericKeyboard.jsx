@@ -50,6 +50,7 @@ function NumericKeyboard({
              style={{width: width}}>
             <ThemeProvider theme={createTheme({palette: {mode: dark ? "dark" : "light"}})}>
                 <TextField
+                    color={buttonColor}
                     className="numeric-keyboard-textfield"
                     onChange={(event) => fromKeyboard && setValue(event.target.value)}
                     fullWidth
@@ -67,6 +68,7 @@ function NumericKeyboard({
                 ></Button>
                 <Button
                     size="small"
+                    color={buttonColor}
                     onClick={() => setValue(value + "00")}
                     variant="contained"
                     disableElevation={performanceMode}
@@ -82,7 +84,7 @@ function NumericKeyboard({
                     variant="contained"
                     disableElevation={performanceMode}
                 ></Button>
-                {[...Array(10).keys()].map(num => (
+                {[...Array(9).keys()].map(num => num + 1).map(num => (
                     <Button
                         key={num}
                         size="small"
@@ -106,15 +108,25 @@ function NumericKeyboard({
                 ></Button>
                 <Button
                     size="small"
-                    disabled={!allowDecimal}
-                    onClick={() => setValue(value + ".")}
-                    className="numeric-keyboard-decimal"
+                    onClick={() => setValue(value + 0)}
                     variant="contained"
                     disableElevation={performanceMode}
+                    color={buttonColor}
+                    className="numeric-keyboard-decimal"
                 >
-                    .
+                    0
                 </Button>
             </ThemeProvider>
+            <Button
+                size="small"
+                disabled={!allowDecimal}
+                onClick={() => setValue(value + ".")}
+                className="numeric-keyboard-decimal"
+                variant="contained"
+                disableElevation={performanceMode}
+            >
+                .
+            </Button>
         </div>
     );
 }

@@ -32,7 +32,7 @@
     left: 0;
     top: 50%;
     transform: translate(-50%, -50%);
-    filter: brightness(1.7);
+    filter: brightness(1.2);
     color: black;
     display: flex;
     justify-content: center;

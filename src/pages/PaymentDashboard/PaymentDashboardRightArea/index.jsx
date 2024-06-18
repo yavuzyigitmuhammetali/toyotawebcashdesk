@@ -9,7 +9,7 @@ import AppStatusContext from "../../../shared/states/AppStatus/context";
 import {useTranslation} from "react-i18next";
 
 function PaymentDashboardRightArea() {
-    const {lang, dark, performanceMode} = useContext(AppStatusContext);
+    const {lang, dark, performanceMode, colorOptions} = useContext(AppStatusContext);
     const {t} = useTranslation();
     const {
         subTotal,
@@ -59,7 +59,7 @@ function PaymentDashboardRightArea() {
             <div className="payment-dashboard-right-area-pay">
                 <div className="payment-dashboard-right-area-pay-keyboard">
                     <NumericKeyboard
-                        buttonColor="primary"
+                        buttonColor={colorOptions.buttons.paymentDashboardRight ?? colorOptions.buttons.default}
                         performanceMode={performanceMode}
                         allowDecimal
                         disabled={(amountRemaining + amountPaid) === 0 || paymentMethod === "card" || amountRemaining <= 0}

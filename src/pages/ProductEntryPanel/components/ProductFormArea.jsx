@@ -9,32 +9,36 @@ function ProductFormArea({
                              t,
                              handleElementFocus,
                              onChangeValue,
-                             performanceMode
+                             performanceMode,
+                             color = "primary"
                          }) {
     return (
         <div className={`product-entry-panel-right-area ${performanceMode ? 'performance' : ''}`}>
-            <TextField onFocus={handleElementFocus} id="name" required label={t('productName')}
+            <TextField color={color} onFocus={handleElementFocus} id="name" required label={t('productName')}
                        variant="outlined"
                        name="name"
                        value={formData.name} onChange={onChangeValue}/>
-            <TextField onFocus={handleElementFocus} id="stock" label={t('stockQuantity')} variant="outlined"
+            <TextField color={color} onFocus={handleElementFocus} id="stock" label={t('stockQuantity')}
+                       variant="outlined"
                        type="number"
                        name="stock" value={formData.stock} onChange={onChangeValue}/>
-            <TextField onFocus={handleElementFocus} id="price" required label={t('productPrice')}
+            <TextField color={color} onFocus={handleElementFocus} id="price" required label={t('productPrice')}
                        variant="outlined"
                        type="number"
                        name="price" value={formData.price} onChange={onChangeValue}/>
-            <TextField onFocus={handleElementFocus} id="tax" InputProps={{
-                startAdornment: <InputAdornment position="start">%</InputAdornment>,
+            <TextField color={color} onFocus={handleElementFocus} id="tax" InputProps={{
+                startAdornment: <InputAdornment color={color} position="start">%</InputAdornment>,
             }} label={t('taxPercentage')} variant="outlined" type="number" name="tax"
                        value={formData.tax} onChange={onChangeValue}/>
-            <TextField onFocus={handleElementFocus} id="image" label={t('productImageURL')} variant="outlined"
+            <TextField color={color} onFocus={handleElementFocus} id="image" label={t('productImageURL')}
+                       variant="outlined"
                        type="url"
                        name="image"
                        value={formData.image} onChange={onChangeValue}/>
             <div>
-                <InputLabel id="demo-simple-select-label">{t('campaigns')}</InputLabel>
+                <InputLabel color={color} id="demo-simple-select-label">{t('campaigns')}</InputLabel>
                 <Select
+                    color={color}
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
                     value={formData.campaign}
@@ -48,8 +52,9 @@ function ProductFormArea({
                 </Select>
             </div>
             <div>
-                <InputLabel required id="demo-simple-select-label">{t('category')}</InputLabel>
+                <InputLabel color={color} required id="demo-simple-select-label">{t('category')}</InputLabel>
                 <Select
+                    color={color}
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
                     value={formData.categoryId}
@@ -60,8 +65,9 @@ function ProductFormArea({
                 </Select>
             </div>
             <div>
-                <InputLabel required id="demo-simple-select-label">{t('subCategory')}</InputLabel>
+                <InputLabel color={color} required id="demo-simple-select-label">{t('subCategory')}</InputLabel>
                 <Select
+                    color={color}
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
                     value={formData.subCategoryId}

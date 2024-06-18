@@ -15,7 +15,9 @@ function ProductShowcase({
                              ScreenKeyboardComponent = null,
                              language = 'en',
                              performanceMode = false,
-                             buttonColor = "secondary"
+                             keyboardColor = null,
+                             buttonColor = "secondary",
+                             cardColor = "#097ff5"
                          }) {
     const {
         inputValue,
@@ -35,6 +37,7 @@ function ProductShowcase({
         ScreenKeyboardComponent,
         language,
         performanceMode,
+        cardColor
     });
 
     return (
@@ -49,13 +52,13 @@ function ProductShowcase({
                             value={inputValue}
                             onClick={() => setMap(0)}
                             fullWidth
-                            color="secondary"
+                            color={buttonColor}
                             label={t.searchLabel}
                             id="productSearch"
                         />
                         {ScreenKeyboardComponent && (
                             <ScreenKeyboardComponent
-                                color={buttonColor}
+                                color={keyboardColor ?? buttonColor}
                                 performanceMode={performanceMode}
                                 fullWidth
                                 language={language}
@@ -133,6 +136,7 @@ ProductShowcase.propTypes = {
         'success',
         'warning',
     ]),
+    cardColor: PropTypes.string,
 };
 
 export default ProductShowcase;

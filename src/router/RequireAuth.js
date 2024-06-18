@@ -24,7 +24,7 @@ export default function RequireAuth() {
 
 
     React.useEffect(() => {
-        setFavicon(config.storeLogo);
+        setFavicon(config.storeLogo.favicon);
     }, []);
 
 

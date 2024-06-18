@@ -17,7 +17,7 @@ import {useTranslation} from "react-i18next";
 import AppStatusContext from "../../../shared/states/AppStatus/context";
 
 function SalesDashboardRightArea() {
-    const {lang, dark, performanceMode} = useContext(AppStatusContext);
+    const {lang, dark, performanceMode, colorOptions} = useContext(AppStatusContext);
     const {t} = useTranslation();
     const navigate = useNavigate();
     const keyboardContext = useContext(KeyboardContext);
@@ -73,7 +73,8 @@ function SalesDashboardRightArea() {
                         endIcon={<SendIcon/>}>{t('paymentScreen')}</Button>
             </div>
             <div className="sales-dashboard-right-area-keyboard">
-                <NumericKeyboard buttonColor="primary" performanceMode={performanceMode} dark={dark}/>
+                <NumericKeyboard buttonColor={colorOptions.buttons.salesDashboardRight ?? colorOptions.buttons.default}
+                                 performanceMode={performanceMode} dark={dark}/>
             </div>
             {campaignsWindow.first ?
                 <div
@@ -90,6 +91,7 @@ function SalesDashboardRightArea() {
                             color={discounts.buy3pay2 ? "success" : "error"}
                             variant="contained">{t('buy3Pay2')}</Button>
                     <FormDialog
+                        keyboardColor={colorOptions.screenKeyboard.salesDashboardRight ?? colorOptions.screenKeyboard.default}
                         language={lang}
                         dialog={t('taxFreeForStudents')}
                         dark={dark}
@@ -116,9 +118,12 @@ function SalesDashboardRightArea() {
                             <CloseOutlinedIcon/>
                         </IconButton>
                     </div>
-                    <ProductShowcase buttonColor="info" performanceMode={performanceMode} language={lang}
-                                     ScreenKeyboardComponent={ScreenKeyboard}
-                                     keyboardContext={keyboardContext} dark={dark} onClick={addToCart} data={products}/>
+                    <ProductShowcase
+                        cardColor={colorOptions.productCard.salesDashboardRight ?? colorOptions.productCard.default}
+                        buttonColor={colorOptions.screenKeyboard.salesDashboardRight ?? colorOptions.screenKeyboard.default}
+                        performanceMode={performanceMode} language={lang}
+                        ScreenKeyboardComponent={ScreenKeyboard}
+                        keyboardContext={keyboardContext} dark={dark} onClick={addToCart} data={products}/>
                 </>
                 :
                 <></>}

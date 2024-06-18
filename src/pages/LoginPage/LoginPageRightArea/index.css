@@ -10,7 +10,7 @@
     padding: 10px 20px;
     width: 400px;
     background-color: var(--tertiary-background);
-    border: 0.1px solid var(--border-color);
+    border: 1px solid var(--border-color);
 }
 
 .login-page-right-area-info {

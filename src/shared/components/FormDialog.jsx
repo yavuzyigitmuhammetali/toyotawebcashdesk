@@ -28,7 +28,8 @@ function FormDialog({
                         keyboardContext = null,
                         ScreenKeyboardComponent = null,
                         language = "en",
-                        className = ""
+                        className = "",
+                        keyboardColor = "primary"
                     }) {
     const [inputValue, setInputValue] = useState("")
     const {handleElementFocus, value, onChangeValue, enterRef, clearValues} = keyboardContext || {};
@@ -107,6 +108,7 @@ function FormDialog({
                             {dialog}
                         </DialogContentText>
                         <TextField
+                            color={keyboardColor}
                             error={error}
                             helperText={error ? errorText : ""}
                             onFocus={handleElementFocus}
@@ -125,7 +127,7 @@ function FormDialog({
                     </DialogContent>
                     <DialogActions>
                         {screenKeyboard && ScreenKeyboardComponent ?
-                            <ScreenKeyboardComponent color="primary" fullWidth={true} language={language}
+                            <ScreenKeyboardComponent color={keyboardColor} fullWidth={true} language={language}
                                                      dark={dark}/> : null}
                         <Button onClick={handleClose}>{cancel}</Button>
                         <Button ref={enterRef} type="submit">{apply}</Button>

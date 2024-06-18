@@ -16,7 +16,7 @@ import {useResponsiveReceipt} from "./useResponsiveReceipt";
 import config from "../../config.json";
 
 function ResponsiveReceipt() {
-    const {lang, dark} = useContext(AppStatusContext);
+    const {lang, colorOptions} = useContext(AppStatusContext);
     const {t} = useTranslation();
 
     const {
@@ -34,7 +34,7 @@ function ResponsiveReceipt() {
             <AlertComponent/>
             <div className="responsive-receipt-controller">
                 <ToggleButtonGroup
-                    color="secondary"
+                    color={colorOptions.buttons.responsiveReceipt ?? colorOptions.buttons.default}
                     value={alignment}
                     exclusive
                     onChange={handleAlignment}
@@ -56,7 +56,7 @@ function ResponsiveReceipt() {
                     </ToggleButton>
                 </ToggleButtonGroup>
                 <ToggleButtonGroup
-                    color="secondary"
+                    color={colorOptions.buttons.responsiveReceipt ?? colorOptions.buttons.default}
                     value={alignment2}
                     exclusive
                     onChange={handleAlignment2}
@@ -75,7 +75,7 @@ function ResponsiveReceipt() {
                 ${alignment2 === "left" ? "printable-content responsive-receipt-receipt" : "printable-content-full responsive-receipt-receipt"}
             `}>
                 <Receipt
-                    logo={config.storeLogo}
+                    logo={config.storeLogo.receipts}
                     unstyled={alignment2 === "right"}
                     storeName={config.storeName}
                     language={lang}

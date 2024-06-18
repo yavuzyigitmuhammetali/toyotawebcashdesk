@@ -11,6 +11,7 @@ export function useProductShowcase({
                                        ScreenKeyboardComponent = null,
                                        language = 'en',
                                        performanceMode = false,
+                                       cardColor = "#097ff5"
                                    }) {
     const [inputValue, setInputValue] = useState('');
     const {handleElementFocus, value, onChangeValue} = keyboardContext || {};
@@ -59,6 +60,7 @@ export function useProductShowcase({
         return (
             <div style={{...style, margin: 2}}>
                 <ProductCard
+                    color={cardColor}
                     performanceMode={performanceMode}
                     discountText={product.campaign}
                     onClick={() => onClick(product)}

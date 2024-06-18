@@ -19,7 +19,8 @@ const ProductCard = React.memo((props) => {
         style,
         onClick,
         className = "",
-        performanceMode = false
+        performanceMode = false,
+        color = "#097ff5"
     } = props;
 
     const isDisabled = stock === 0;
@@ -27,6 +28,13 @@ const ProductCard = React.memo((props) => {
     const isDark = dark;
     const isFavorite = favorite;
     const isOutOfStock = !stock;
+
+    const cardStyle = {
+        ...style,
+        '--text-color': color,
+        '--active-border-color': color,
+        '--sub-text-color': color
+    };
 
     return (
         <button
@@ -43,7 +51,7 @@ const ProductCard = React.memo((props) => {
                 ${isOutOfStock ? "product-card-out-of-stock" : ""}
                 ${performanceMode ? 'simplified-click' : 'product-card-click'}
             `}
-            style={style}
+            style={cardStyle}
         >
             {src ? (
                 <img
@@ -57,7 +65,7 @@ const ProductCard = React.memo((props) => {
             )}
             <div className={`product-card-text ${dark ? "dark" : ""} ${favorite ? "favorite" : ""}`}>
                 <span className={dark ? "text-white" : ""}>{name}</span>
-                {(barcode && !category) && <span className={dark ? "text-blue" : "text-gray"}>#{barcode}</span>}
+                {(barcode && !category) && <span className={dark ? "sub-text" : "text-gray"}>#{barcode}</span>}
             </div>
             {(price && !category) && (
                 <>
@@ -90,7 +98,8 @@ ProductCard.propTypes = {
     favorite: PropTypes.bool,
     style: PropTypes.object,
     onClick: PropTypes.func,
-    performanceMode: PropTypes.bool
+    performanceMode: PropTypes.bool,
+    color: PropTypes.string
 };
 
 export default ProductCard;

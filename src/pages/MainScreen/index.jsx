@@ -30,24 +30,22 @@ const items = [
         to: "/order/create",
         text: 'orderCreation',
         info: 'orderCreationInfo',
-        icon: icons.orderCreation,
-        color: "#3D526D"
+        icon: icons.orderCreation
     },
-    {to: "/products/list", text: 'products', info: 'productsInfo', icon: icons.products, color: "#3D526D"},
-    {to: "/product/add", text: 'productEntry', info: 'productEntryInfo', icon: icons.productEntry, color: "#3D526D"},
+    {to: "/products/list", text: 'products', info: 'productsInfo', icon: icons.products},
+    {to: "/product/add", text: 'productEntry', info: 'productEntryInfo', icon: icons.productEntry},
     {
         to: "/refund/create",
         text: 'returnProcesses',
         info: 'returnProcessesInfo',
-        icon: icons.returnProcesses,
-        color: "#3D526D"
+        icon: icons.returnProcesses
     },
-    {to: "/purchase/list", text: 'receipts', info: 'receiptsInfo', icon: icons.receipts, color: "#3D526D"},
-    {to: "/summary/calculate", text: 'reports', info: 'reportsInfo', icon: icons.reports, color: "#3D526D"},
+    {to: "/purchase/list", text: 'receipts', info: 'receiptsInfo', icon: icons.receipts},
+    {to: "/summary/calculate", text: 'reports', info: 'reportsInfo', icon: icons.reports},
 ];
 
 function MainScreen() {
-    const {isOnline, status, logOut, lang, dark, cashier, performanceMode} = useContext(AppStatusContext);
+    const {isOnline, status, logOut, lang, dark, cashier, performanceMode, colorOptions} = useContext(AppStatusContext);
     const {clearValues} = useContext(KeyboardContext);
     const {t} = useTranslation();
 
@@ -62,25 +60,27 @@ function MainScreen() {
         <>
             <AlertComponent performanceMode={performanceMode}/>
             <div className={`main-screen-container ${performanceMode ? 'performance-mode' : ''}`}>
-                <img alt="logo" className="main-screen-logo" src={config.storeLogo}/>
+                <img alt="logo" className="main-screen-logo" src={config.storeLogo.mainScreen}/>
                 <div className="main-screen-active-area">
                     <div className="main-screen-sides">
-                        {items.slice(0, items.length / 2).map(({to, text, info, icon: Icon, color}) => (
+                        {items.slice(0, items.length / 2).map(({to, text, info, icon: Icon}, index) => (
                             <TooltipProvider key={to} performanceMode={performanceMode} dark={dark}
-                                             backgroundColor="#6F8AB6" textColor="white" content={t(info)}>
+                                             backgroundColor={colorOptions.tooltip.backgroundColor}
+                                             textColor={colorOptions.tooltip.textColor} content={t(info)}>
                                 <MainScreenItem performanceMode={performanceMode} to={to} dark={dark} customIcon={Icon}
-                                                color={color}>
+                                                color={colorOptions.mainScreenItems[index] ?? colorOptions.mainScreenItems.default}>
                                     {t(text)}
                                 </MainScreenItem>
                             </TooltipProvider>
                         ))}
                     </div>
                     <div className="main-screen-sides">
-                        {items.slice(items.length / 2).map(({to, text, info, icon: Icon, color}) => (
+                        {items.slice(items.length / 2).map(({to, text, info, icon: Icon}, index) => (
                             <TooltipProvider key={to} performanceMode={performanceMode} dark={dark}
-                                             backgroundColor="#6F8AB6" textColor="white" content={t(info)}>
+                                             backgroundColor={colorOptions.tooltip.backgroundColor}
+                                             textColor={colorOptions.tooltip.textColor} content={t(info)}>
                                 <MainScreenItem performanceMode={performanceMode} to={to} dark={dark} customIcon={Icon}
-                                                color={color}>
+                                                color={colorOptions.mainScreenItems[(items.length / 2) + index] ?? colorOptions.mainScreenItems.default}>
                                     {t(text)}
                                 </MainScreenItem>
                             </TooltipProvider>

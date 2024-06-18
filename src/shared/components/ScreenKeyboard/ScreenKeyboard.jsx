@@ -10,7 +10,7 @@ import {useScreenKeyboard} from "./useScreenKeyboard";
 import KeyboardContext from "./context";
 import "./screenKeyboard.css";
 
-// Define the color mapping for background colors
+
 const colorMap = {
     primary: {light: "#F5F5F5", dark: "#12161B"},
     secondary: {light: "#E0E0E0", dark: "#1C1C1C"},

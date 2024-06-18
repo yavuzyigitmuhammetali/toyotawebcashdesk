@@ -1,6 +1,6 @@
 import React from 'react';
 
-const LoginSrc = React.memo(function LoginSrc({dark, style}) {
+const LoginSrc = React.memo(function LoginSrc({dark, style, backgroundColor = "#097ff5", waveColor = "#fff"}) {
     return (
         <>
             <svg
@@ -45,10 +45,10 @@ const LoginSrc = React.memo(function LoginSrc({dark, style}) {
                     x2={224.713}
                     y2={0}
                 >
-                    <stop offset={0} stopColor="#097ff5"/>
-                    <stop offset={0.28} stopColor="#1687f7"/>
-                    <stop offset={0.798} stopColor="#399afd"/>
-                    <stop offset={1} stopColor="#48a3ff"/>
+                    <stop offset={0} stopColor={backgroundColor}/>
+                    <stop offset={0.28} stopColor={backgroundColor}/>
+                    <stop offset={0.798} stopColor={backgroundColor}/>
+                    <stop offset={1} stopColor={backgroundColor}/>
                 </linearGradient>
                 <use xlinkHref="#A" fill="url(#E)"/>
                 <clipPath id="F">
@@ -62,8 +62,8 @@ const LoginSrc = React.memo(function LoginSrc({dark, style}) {
                     x2={223.198}
                     y2={621.58}
                 >
-                    <stop offset={0} stopColor="#2390ff"/>
-                    <stop offset={0.915} stopColor="#2390ff" stopOpacity={0}/>
+                    <stop offset={0} stopColor={waveColor}/>
+                    <stop offset={0.915} stopColor={waveColor} stopOpacity={0}/>
                 </linearGradient>
                 <path
                     d="M-78.84 489.44c20.72-20.13 54.76-32.93 86.55-26.83 21.88 4.2 41.37 14.16 61.37 22.62 20 8.45 42.01 15.65 64.33 13.6 48.86-4.49 79.63-50.28 128.02-57.45 51.49-7.63 105.1 31.2 153.13 14.06 34.69-12.38 51.89-50.37 89.14-55.59v197.2H-78.84V489.44z"
@@ -79,8 +79,8 @@ const LoginSrc = React.memo(function LoginSrc({dark, style}) {
                     x2={216.282}
                     y2={463.921}
                 >
-                    <stop offset={0.085} stopColor="#2390ff" stopOpacity={0}/>
-                    <stop offset={1} stopColor="#2390ff"/>
+                    <stop offset={0.085} stopColor={waveColor} stopOpacity={0}/>
+                    <stop offset={1} stopColor={waveColor}/>
                 </linearGradient>
                 <path
                     d="M-33.45 504.17c26.83 4.41 41.71-.13 64-12.17 14.97-8.09 27.6-19.61 45.45-23.1 21.8-4.26 44.32 4.94 61.12 16.19 16.8 11.26 31.05 25.06 50.79 33.2 40.99 16.91 93.46 4.23 130.4-17.3 15.98-9.32 30.42-20.23 47.82-27.98s39.04-12.06 57.99-6.73c15.58 4.38 27.04 14.53 41.9 20.17v142.99H-33.45V504.17z"
@@ -96,9 +96,9 @@ const LoginSrc = React.memo(function LoginSrc({dark, style}) {
                     x2={216.28}
                     y2={150.937}
                 >
-                    <stop offset={0.04} stopColor="#fff" stopOpacity={0}/>
-                    <stop offset={0.967} stopColor="#fff" stopOpacity={0.98}/>
-                    <stop offset={0.987} stopColor="#fff"/>
+                    <stop offset={0.04} stopColor={waveColor} stopOpacity={0}/>
+                    <stop offset={0.967} stopColor={waveColor} stopOpacity={0.98}/>
+                    <stop offset={0.987} stopColor={waveColor}/>
                 </linearGradient>
                 <path
                     d="M466.02 71.05c-26.83-8.76-41.71.25-64 24.16-14.97 16.05-27.6 38.92-45.45 45.85-21.8 8.46-44.32-9.8-61.12-32.14s-31.05-49.74-50.79-65.9c-40.99-33.55-93.46-8.4-130.4 34.34-15.98 18.49-30.42 40.15-47.82 55.53S27.4 156.83 8.45 146.25c-15.58-8.7-27.04-28.85-41.9-40.03V-61.82h499.47V71.05z"
@@ -113,9 +113,9 @@ const LoginSrc = React.memo(function LoginSrc({dark, style}) {
                     x2={278.373}
                     y2={112.419}
                 >
-                    <stop offset={0} stopColor="#fff" stopOpacity={0}/>
-                    <stop offset={0.966} stopColor="#fff" stopOpacity={0.98}/>
-                    <stop offset={0.987} stopColor="#fff"/>
+                    <stop offset={0} stopColor={waveColor} stopOpacity={0}/>
+                    <stop offset={0.966} stopColor={waveColor} stopOpacity={0.98}/>
+                    <stop offset={0.987} stopColor={waveColor}/>
                 </linearGradient>
                 <path
                     d="M-4.75 50.5c30.42-6.79 47.28.2 72.56 18.72 16.97 12.44 31.29 30.16 51.53 35.54 24.71 6.56 50.24-7.59 69.29-24.91s35.2-38.56 57.58-51.08c46.47-26.01 105.96-6.51 147.83 26.62 18.11 14.33 34.49 31.12 54.22 43.04s44.26 18.55 65.74 10.36c17.67-6.74 30.66-22.36 47.5-31.03v-90.83H-4.75V50.5z"

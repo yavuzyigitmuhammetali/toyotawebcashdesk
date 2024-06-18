@@ -6,7 +6,16 @@ import ScreenKeyboard from "../../../shared/components/ScreenKeyboard/ScreenKeyb
 import QrCodeIcon from '@mui/icons-material/QrCode';
 import DialpadIcon from '@mui/icons-material/Dialpad';
 
-function ProductDisplayArea({formData, handleCheckboxChange, lang, dark, t, performanceMode}) {
+function ProductDisplayArea({
+                                formData,
+                                handleCheckboxChange,
+                                lang,
+                                dark,
+                                t,
+                                performanceMode,
+                                keyboardColor = "primary",
+                                cartColor = "#097ff5"
+                            }) {
     return (
         <div className={`product-entry-panel-left-area ${performanceMode ? 'performance' : ''}`}>
             <ProductCard className={`product-card ${performanceMode ? 'performance' : ''}`}
@@ -17,6 +26,7 @@ function ProductDisplayArea({formData, handleCheckboxChange, lang, dark, t, perf
                          dark={dark}
                          price={formData.price}
                          fraction={formData.fraction}
+                         color={cartColor}
                          src={formData.image} barcode={formData.barcode} favorite={formData.isFavourite}/>
             <div>
                 <span>{t('addToFavorites')}</span>
@@ -39,7 +49,8 @@ function ProductDisplayArea({formData, handleCheckboxChange, lang, dark, t, perf
                           checkedIcon={<DialpadIcon color="success"/>} onChange={handleCheckboxChange}
                           name="fraction"/>
             </div>
-            <div><ScreenKeyboard color="primary" performanceMode={performanceMode} language={lang} dark={dark}/></div>
+            <div><ScreenKeyboard color={keyboardColor} performanceMode={performanceMode} language={lang} dark={dark}/>
+            </div>
         </div>
     );
 }

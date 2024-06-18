@@ -27,7 +27,8 @@ const ShoppingCartItem = React.memo(({
                                          decimalValue,
                                          id,
                                          lang = "tr",
-                                         performanceMode = false
+                                         performanceMode = false,
+                                         color = "orange"  // New color prop
                                      }) => {
     const taxFreePrice = ((discountedPrice ? discountedPrice : price) / (1 + (tax / 100))).toFixed(2);
     const finalPrice = (quantity * price).toFixed(2);
@@ -40,9 +41,14 @@ const ShoppingCartItem = React.memo(({
         }
         return setElementVisibility(!isElementVisible)
     }
+
+    const backgroundColor = dark ? "#12161B" : color;
+    const textColor = dark ? "white" : "black";
+    const borderColor = dark ? "white" : "black";
+
     return (
         <div
-            style={{backgroundColor: dark && "#12161B", color: dark && "white", borderColor: dark && "white"}}
+            style={{backgroundColor, color: textColor, borderColor}}
             className={`${disabled ? "shopping-cart-item-container shopping-cart-item-disabled" : "shopping-cart-item-container"} ${performanceMode ? "performance-mode" : ""}`}
         >
             <ThemeProvider theme={createTheme({palette: {mode: dark ? "dark" : "light"}})}>
@@ -100,3 +106,4 @@ const ShoppingCartItem = React.memo(({
 });
 
 export default ShoppingCartItem;
+

@@ -11,7 +11,7 @@ import AppStatusContext from "../../../shared/states/AppStatus/context";
 function PaymentDashboardLeftArea() {
     const {total, paymentTransactions, email, setValidEmail} = useContext(PaymentContext)
     const keyboardContext = useContext(KeyboardContext)
-    const {lang, dark, performanceMode} = useContext(AppStatusContext);
+    const {lang, dark, performanceMode, colorOptions} = useContext(AppStatusContext);
     const {t} = useTranslation();
 
     return (
@@ -23,6 +23,7 @@ function PaymentDashboardLeftArea() {
             </div>
             <div>
                 <FormDialog
+                    keyboardColor={colorOptions.screenKeyboard.paymentDashboardLeft ?? colorOptions.screenKeyboard.default}
                     language={lang}
                     disabled={!total || email.length > 0}
                     className={`form-dialog ${performanceMode ? 'performance-mode' : ''}`}

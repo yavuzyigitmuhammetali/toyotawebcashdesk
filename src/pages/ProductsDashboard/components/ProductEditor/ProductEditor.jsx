@@ -15,7 +15,7 @@ import {useTranslation} from "react-i18next";
 function ProductEditor({performanceMode = false}) {
     const [selectState, setSelectState] = useState(false);
     const {handleElementFocus, value: screenKeyboardValue, clearValues, enterRef} = useContext(KeyboardContext);
-    const {lang, dark} = useContext(AppStatusContext);
+    const {lang, dark, colorOptions} = useContext(AppStatusContext);
     const {t} = useTranslation();
     const {
         changeData,
@@ -35,18 +35,22 @@ function ProductEditor({performanceMode = false}) {
                              src={product.image} category name={""}
                              style={{width: "30vw", borderWidth: "3px"}}/>
 
-                <div className="product-editor-name" style={{color: dark ? "#C595D4" : "#9031AA"}}>{product.name}</div>
+                <div className="product-editor-name"
+                     style={{color: dark ? colorOptions.productEditor.dark : colorOptions.productEditor.light}}>{product.name}</div>
                 <div className="product-editor-barcode">#{product.barcode}</div>
                 <EditableText id="price" onFocus={handleElementFocus} className="product-editor-price"
-                              style={{color: dark ? "#C595D4" : "#9031AA"}} text={product.price.toString()} name="price"
+                              style={{color: dark ? colorOptions.productEditor.dark : colorOptions.productEditor.light}}
+                              text={product.price.toString()} name="price"
                               onTextChange={handleTextChange} performanceMode={performanceMode}/>
                 <div className="product-editor-price-label">$</div>
                 <EditableText id="tax" onFocus={handleElementFocus} className="product-editor-tax"
-                              style={{color: dark ? "#C595D4" : "#9031AA"}} text={product.tax.toString()} name="tax"
+                              style={{color: dark ? colorOptions.productEditor.dark : colorOptions.productEditor.light}}
+                              text={product.tax.toString()} name="tax"
                               onTextChange={handleTextChange} performanceMode={performanceMode}/>
                 <div className="product-editor-tax-label">%</div>
                 <EditableText id="stock" onFocus={handleElementFocus} className="product-editor-stock"
-                              style={{color: dark ? "#C595D4" : "#9031AA"}} text={product.stock.toString()} name="stock"
+                              style={{color: dark ? colorOptions.productEditor.dark : colorOptions.productEditor.light}}
+                              text={product.stock.toString()} name="stock"
                               onTextChange={handleTextChange} performanceMode={performanceMode}/>
                 <div className="product-editor-stock-label">{product.fraction ? t('lbs') : t('pcs')}</div>
                 <EditableText id="photo" onFocus={handleElementFocus} className="product-editor-image-placeholder"
@@ -54,18 +58,18 @@ function ProductEditor({performanceMode = false}) {
                               onTextChange={handleTextChange} performanceMode={performanceMode}/>
                 <AddPhotoAlternateIcon
                     className={`product-editor-photo-icon ${performanceMode ? 'performance-mode' : ''}`}
-                    style={{color: dark ? "#C595D4" : "#9031AA"}}/>
+                    style={{color: dark ? colorOptions.productEditor.dark : colorOptions.productEditor.light}}/>
                 <Checkbox onClick={changeFavorite} checked={product.isFavourite} style={{
                     right: "3%",
                     top: "30%",
                     fontSize: "1.5vw",
                     position: "absolute",
-                    color: dark ? "#C595D4" : "#9031AA"
+                    color: dark ? colorOptions.productEditor.dark : colorOptions.productEditor.light
                 }} color="error" icon={<FavoriteBorder style={{width: "2vw"}}/>}
                           checkedIcon={<Favorite style={{width: "2vw"}}/>}/>
                 <div className="product-editor-campaign-section">
                     <div className="product-editor-campaign-text" onClick={() => setSelectState(!selectState)}
-                         style={{backgroundColor: dark ? "#C595D4" : "#9031AA"}}>
+                         style={{backgroundColor: dark ? colorOptions.productEditor.dark : colorOptions.productEditor.light}}>
                         {product.campaign}
                     </div>
                     <Select

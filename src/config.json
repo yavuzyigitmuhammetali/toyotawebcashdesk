@@ -2,7 +2,12 @@
   "caseNumber": 1,
   "storeNumber": "1001(Web)",
   "storeName": "Lorem Ipsum",
-  "storeLogo": "https://upload.wikimedia.org/wikipedia/commons/a/ac/Service_mark.svg",
+  "storeLogo": {
+    "loginPage": "https://upload.wikimedia.org/wikipedia/commons/a/ac/Service_mark.svg",
+    "mainScreen": "https://upload.wikimedia.org/wikipedia/commons/a/ac/Service_mark.svg",
+    "receipts": "https://upload.wikimedia.org/wikipedia/commons/a/ac/Service_mark.svg",
+    "favicon": "https://upload.wikimedia.org/wikipedia/commons/a/ac/Service_mark.svg"
+  },
   "apiBaseUrl": "/api/v1",
   "apiEndpoints": {
     "products": "/products",
@@ -42,6 +47,63 @@
       "muted-color": "#121418",
       "snow-color": "black",
       "primary-title": "white"
+    }
+  },
+  "colorOptions": {
+    "buttons": {
+      "default": "primary",
+      "loginRight": null,
+      "summaryDashboard": null,
+      "responsiveReceipt": null,
+      "productShowcase": null,
+      "productEditor": null,
+      "salesDashboardLeft": null,
+      "salesDashboardRight": null,
+      "paymentDashboardRight": null,
+      "productEntryPanel": null,
+      "circularProgress": null
+    },
+    "loginLeft": {
+      "waveColor": "white",
+      "backgroundColor": "#097ff5"
+    },
+    "screenKeyboard": {
+      "default": "primary",
+      "loginRight": null,
+      "productEntryPanel": null,
+      "productsDashboard": null,
+      "refundDashboard": null,
+      "salesDashboardLeft": null,
+      "salesDashboardRight": null,
+      "paymentDashboardLeft": null
+    },
+    "mainScreenItems": {
+      "default": "#3D526D",
+      "add new index number to custom color": "",
+      "0": null,
+      "5": null
+    },
+    "tooltip": {
+      "backgroundColor": "#6F8AB6",
+      "textColor": "white"
+    },
+    "settingsItem": "#3874CB",
+    "productEditor": {
+      "dark": "#C595D4",
+      "light": "#9031AA"
+    },
+    "productCard": {
+      "default": "#097ff5",
+      "productsDashboard": null,
+      "salesDashboardRight": null,
+      "salesDashboardLeft": null
+    },
+    "cartItem": {
+      "default": "orange",
+      "refundDashboard": null,
+      "salesDashboardMiddle": null,
+      "paymentDashboardMiddle": null,
+      "productEntryPanel": null
     }
   }
 }

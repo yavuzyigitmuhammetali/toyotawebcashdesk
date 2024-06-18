@@ -21,7 +21,7 @@ import {useTranslation} from "react-i18next";
 
 function LoginPageRightArea() {
     const {handleElementFocus, value, onChangeValue, enterRef} = useContext(KeyboardContext);
-    const {loginFunction, lang, dark, performanceMode} = useContext(AppStatusContext);
+    const {loginFunction, lang, dark, performanceMode, colorOptions} = useContext(AppStatusContext);
     const {t} = useTranslation();
     const {
         error,
@@ -46,6 +46,7 @@ function LoginPageRightArea() {
             </div>
             <form className="login-page-right-area-inputs">
                 <TextField
+                    color={error ? "error" : colorOptions.buttons.loginRight ?? colorOptions.buttons.default}
                     error={error}
                     onFocus={handleElementFocus}
                     value={loginData.username}
@@ -55,7 +56,8 @@ function LoginPageRightArea() {
                     id="username"
                     variant="outlined"
                 />
-                <FormControl variant="outlined">
+                <FormControl color={error ? "error" : colorOptions.buttons.loginRight ?? colorOptions.buttons.default}
+                             variant="outlined">
                     <InputLabel htmlFor="password">{t("password")}</InputLabel>
                     <OutlinedInput
                         error={error}
@@ -85,13 +87,13 @@ function LoginPageRightArea() {
                     ref={enterRef}
                     onClick={handleLogin}
                     disabled={!buttonState || loading}
-                    color={error ? "error" : "info"}
+                    color={error ? "error" : colorOptions.buttons.loginRight ?? colorOptions.buttons.default}
                     variant="contained"
                 >
                     {loading ? <CircularProgress size={24} color="inherit"/> : t("login")}
                 </Button>
                 <ScreenKeyboard
-                    color="primary"
+                    color={colorOptions.screenKeyboard.loginRight ?? colorOptions.screenKeyboard.default}
                     performanceMode={performanceMode}
                     language={lang}
                     dark={dark}

@@ -96,6 +96,7 @@
 .receipt-container hr {
     width: 100%;
     color: black;
+    border-color: black;
     border-style: dashed;
 }
 

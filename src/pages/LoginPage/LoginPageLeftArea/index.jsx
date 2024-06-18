@@ -7,8 +7,8 @@ import config from "../../../config";
 
 const LoginSrc = lazy(() => import('./components/LoginSrc'));
 
-function LoginPageLeftArea({width = "400px", warn = false}) {
-    const {isOnline, status, lang, dark, performanceMode} = React.useContext(AppStatusContext);
+function LoginPageLeftArea({width = "401px", warn = false}) {
+    const {isOnline, status, lang, dark, performanceMode, colorOptions} = React.useContext(AppStatusContext);
     const {t} = useTranslation();
     return (
         <div className={`login-page-left-area-container`} style={{width: width}}>
@@ -16,8 +16,10 @@ function LoginPageLeftArea({width = "400px", warn = false}) {
                 <OnlineOfflineIndicator performanceMode={performanceMode} dark={dark} language={lang}
                                         online={isOnline}/>
             </div>
-            <img src={config.storeLogo} alt="logo" className="login-page-left-area-logo"/>
-            <LoginSrc className={warn ? 'warn' : ''} dark={dark}/>
+            <img src={config.storeLogo.loginPage} alt="logo" className="login-page-left-area-logo"/>
+            <LoginSrc waveColor={colorOptions.loginLeft.waveColor}
+                      backgroundColor={colorOptions.loginLeft.backgroundColor} className={warn ? 'warn' : ''}
+                      dark={dark}/>
             <span className="login-page-left-area-texts good-wish">{t('storeNumber')}: {status.storeNumber}</span>
             <span className="login-page-left-area-texts welcome">{t('welcomeBack')}</span>
             <span className="login-page-left-area-texts explanation">{status.version}</span>

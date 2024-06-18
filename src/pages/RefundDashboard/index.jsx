@@ -13,7 +13,7 @@ import AppStatusContext from "../../shared/states/AppStatus/context";
 function RefundDashboard() {
     const keyboardContext = useContext(KeyboardContext);
     const {t} = useTranslation();
-    const {status, lang, dark, cashier, performanceMode} = useContext(AppStatusContext);
+    const {status, lang, dark, cashier, performanceMode, colorOptions} = useContext(AppStatusContext);
     const {
         receipt,
         cart,
@@ -46,12 +46,14 @@ function RefundDashboard() {
                 dark={dark}
                 dialog={t('pleaseEnterReceiptNumber')}
                 openManual={1}
+                keyboardColor={colorOptions.screenKeyboard.refundDashboard ?? colorOptions.screenKeyboard.default}
             />
             <div className={"refund-dashboard-upper-area-container"}>
                 <div className={"refund-dashboard-upper-area-item"}>
                     <div className={"refund-dashboard-upper-area-scroll"}>
                         {cart.map((product, key) => (
                             <ShoppingCartItem
+                                color={colorOptions.cartItem.refundDashboard ?? colorOptions.cartItem.default}
                                 performanceMode={performanceMode}
                                 dark={dark}
                                 key={key}
@@ -115,7 +117,9 @@ function RefundDashboard() {
                             variant="contained"
                             size="small"
                             disabled={loading}
-                            startIcon={loading ? <CircularProgress size={24}/> : null}
+                            startIcon={loading ? <CircularProgress
+                                color={colorOptions.buttons.circularProgress ?? colorOptions.buttons.default}
+                                size={24}/> : null}
                         >
                             {t('approveRefund')}
                         </Button>

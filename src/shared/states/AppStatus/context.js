@@ -8,6 +8,7 @@ import {applyTheme} from "../../../utils/themeUtils";
 const AppStatusContext = React.createContext(undefined);
 
 const AppStatusProvider = ({children}) => {
+    const colorOptions = config.colorOptions;
     const [status, setStatus] = React.useState(JSON.parse(localStorage.getItem('status')));
     const [cashier, setCashier] = React.useState(JSON.parse(localStorage.getItem('cashier')) ?? {});
     const [isOnline, setIsOnline] = React.useState(JSON.parse(localStorage.getItem('isOnline')) ?? false);
@@ -142,6 +143,7 @@ const AppStatusProvider = ({children}) => {
                 isOnline,
                 performanceMode,
                 isLoggedIn,
+                colorOptions,
                 loginFunction,
                 logOut,
                 changeDark,
@@ -160,8 +162,8 @@ const AppStatusProvider = ({children}) => {
                         left: 0,
                         width: '100%',
                         height: '100%',
-                        backgroundColor: 'var(--rgba1-color)',
-                        color: 'var(--primary-text)',
+                        backgroundColor: 'rgba(0,0,0,0.8)',
+                        color: 'white',
                         display: 'flex',
                         justifyContent: 'center',
                         alignItems: 'center',
