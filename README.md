@@ -41,9 +41,11 @@ The POS System offers the following key features:
 5. **Reporting**: Generate comprehensive reports on sales, profits, top-selling products, and more.
 6. **User Management**: Manage cashier accounts and track sales by cashier.
 7. **Localization**: Support for multiple languages (English and Turkish currently included).
-8.  **Online/Offline Mode**: The system operates online during specified time intervals and switches to offline mode for the remaining duration. Thus, stricter measures are taken against accessible hours.
+8. **Online/Offline Mode**: The system operates online during specified time intervals and switches to offline mode for the remaining duration. Thus, stricter measures are taken against accessible hours.
 9. **Responsive Design**: Many reusable elements in the user interface are optimized for various screen sizes, including desktop and mobile devices.
 10. **Dark Mode**: Implement dark mode for better user experience in low-light environments.
+11. **Performance Mode**: Integrate performance mode across all components and pages, ensuring optimal performance and smooth user experience even under heavy loads.
+12. **Theme Management**: Centralized theme management through `config.json` allows for easy customization of the application's appearance, including light and dark themes, and company-specific themes like the Migros example.
 
 ## Installation
 To set up the POS System, follow these steps:
@@ -69,7 +71,7 @@ To set up the POS System, follow these steps:
    ```
 
 The application should now be running at `http://localhost:3000`.
-_If you want to try the sample data with which I tested the system, you can access the json files from  [this link](https://www.mediafire.com/file/y7qjopeu2xujk5w/mock.zip/file)._
+_If you want to try the sample data with which I tested the system, you can access the json files from [this link](https://www.mediafire.com/file/y7qjopeu2xujk5w/mock.zip/file)._
 
 
 ## Configure
@@ -79,15 +81,250 @@ To configure the POS System, you can utilize the `config.json` file, modify the 
 ### Using `config.json`
 The `config.json` file is used to store various configuration settings for the POS System. It includes the following properties:
 
-- [caseNumber](./src/config.json): Represents the case number associated with the POS System.
-- [storeNumber](./src/config.json): Specifies the store number or identifier.
-- [storeName](./src/config.json): Indicates the name of the store.
-- [storeLogo](./src/config.json): Specify the path to your store's logo image. This logo will be displayed on receipts. If this field is left blank, no logo will be displayed.
-- [apiBaseUrl](./src/config.json): Defines the base URL for the API endpoints.
-- [apiEndpoints](./src/config.json): Contains the specific API endpoints for different functionalities, such as products, receipts, categories, subcategories, login, status, and test.
-- [externalEndpoints](./src/config.json): Specifies any external API endpoints used by the system, such as the IP address lookup service.
+- `caseNumber`: Represents the case number associated with the POS System.
+- `storeNumber`: Specifies the store number or identifier.
+- `storeName`: Indicates the name of the store.
+- `storeLogo`: Contains the URLs for the store's logo images for different parts of the application:
+   - `loginPage`
+   - `mainScreen`
+   - `receipts`
+   - `favicon`
+- `apiBaseUrl`: Defines the base URL for the API endpoints.
+- `apiEndpoints`: Contains the specific API endpoints for different functionalities, such as products, receipts, categories, subcategories, login, status, and test.
+- `externalEndpoints`: Specifies any external API endpoints used by the system, such as the IP address lookup service.
+- `themes`: Defines the color schemes for light and dark themes used in the application.
+   - `light`: Contains the colors for the light theme.
+   - `dark`: Contains the colors for the dark theme.
+- `colorOptions`: Manages the color settings for various components and features in the application.
 
-To modify the configuration settings, you can directly edit the values in the `config.json` file. For example, you can change the [storeName](./src/config.json) to reflect your own store's name or update the [apiBaseUrl](./src/config.json) to point to your backend API.
+#### Example of `config.json`:
+```json
+{
+  "caseNumber": 1,
+  "storeNumber": "1001(Web)",
+  "storeName": "Lorem Ipsum",
+  "storeLogo": {
+    "loginPage": "https://upload.wikimedia.org/wikipedia/commons/a/ac/Service_mark.svg",
+    "mainScreen": "https://upload.wikimedia.org/wikipedia/commons/a/ac/Service_mark.svg",
+    "receipts": "https://upload.wikimedia.org/wikipedia/commons/a/ac/Service_mark.svg",
+    "favicon": "https://upload.wikimedia.org/wikipedia/commons/a/ac/Service_mark.svg"
+  },
+  "apiBaseUrl": "/api/v1",
+  "apiEndpoints": {
+    "products": "/products",
+    "receipts": "/receipts",
+    "categories": "/categories",
+    "subcategories": "/subcategories",
+    "login": "/login",
+    "status": "/status",
+    "test": "/test"
+  },
+  "externalEndpoints": {
+    "ipify": "https://api.ipify.org?format=json"
+  },
+  "themes": {
+    "light": {
+      "primary-background": "#F8FAFB",
+      "secondary-background": "whitesmoke",
+      "tertiary-background": "white",
+      "primary-text": "black",
+      "secondary-text": "#111418",
+      "border-color": "black",
+      "highlight-color": "#3498db",
+      "accent-color": "green",
+      "muted-color": "#E6EAF1",
+      "snow-color": "snow",
+      "primary-title": "#5296D5"
+    },
+    "dark": {
+      "primary-background": "#0a0d12",
+      "secondary-background": "#0d121c",
+      "tertiary-background": "#1D1F24",
+      "primary-text": "white",
+      "secondary-text": "#D57B52",
+      "border-color": "white",
+      "highlight-color": "#D57B52",
+      "accent-color": "greenyellow",
+      "muted-color": "#121418",
+      "snow-color": "black",
+      "primary-title": "white"
+    }
+  },
+  "colorOptions": {
+    "buttons": {
+      "default": "primary",
+      "loginRight": null,
+      "summaryDashboard": null,
+      "responsiveReceipt": null,
+      "productShowcase": null,
+      "productEditor": null,
+      "salesDashboardLeft": null,
+      "salesDashboardRight": null,
+      "paymentDashboardRight": null,
+      "productEntryPanel": null,
+      "circularProgress": null
+    },
+    "loginLeft": {
+      "waveColor": "white",
+      "backgroundColor": "#097ff5"
+    },
+    "screenKeyboard": {
+      "default": "primary",
+      "loginRight": null,
+      "productEntryPanel": null,
+      "productsDashboard": null,
+      "refundDashboard": null,
+      "salesDashboardLeft": null,
+      "salesDashboardRight": null,
+      "paymentDashboardLeft": null
+    },
+    "mainScreenItems": {
+      "default": "#3D526D",
+      "add new index number to custom color": "",
+      "0": null,
+      "5": null
+    },
+    "tooltip": {
+      "backgroundColor": "#6F8AB6",
+      "textColor": "white"
+    },
+    "settingsItem": "#3874CB",
+    "productEditor": {
+      "dark": "#C595D4",
+      "light": "#9031AA"
+    },
+    "productCard": {
+      "default": "#097ff5",
+      "productsDashboard": null,
+      "salesDashboardRight": null,
+      "salesDashboardLeft": null
+    },
+    "cartItem": {
+      "default": "orange",
+      "refundDashboard": null,
+      "salesDashboardMiddle": null,
+      "paymentDashboardMiddle": null,
+      "productEntryPanel": null
+    }
+  }
+}
+```
+
+### Migros Company Theme Example
+
+Below is an example of a `config.json` configured for the Migros company theme:
+
+```json
+{
+  "caseNumber": 1,
+  "storeNumber": "000(Web)",
+  "storeName": "Migros",
+  "storeLogo": {
+    "loginPage": "https://mcqueenfilms.com/media/migros.png",
+    "mainScreen": "https://upload.wikimedia.org/wikipedia/commons/0/07/MiGROS_Logo.svg",
+    "receipts": "https://upload.wikimedia.org/wikipedia/commons/0/07/MiGROS_Logo.svg",
+    "favicon": "https://www.migros.ch/assets/mgb-favicons/icon-512x512.png"
+  },
+  "apiBaseUrl": "/api/v1",
+  "apiEndpoints": {
+    "products": "/products",
+    "receipts": "/receipts",
+    "categories": "/categories",
+    "subcategories": "/subcategories",
+    "login": "/login",
+    "status": "/status",
+    "test": "/test"
+  },
+  "externalEndpoints": {
+    "ipify": "https://api.ipify.org?format=json"
+  },
+  "themes": {
+    "light": {
+      "primary-background": "#F8FAFB",
+      "secondary-background": "whitesmoke",
+      "tertiary-background": "#D9E7E9",
+      "primary-text": "black",
+      "secondary-text": "#111418",
+      "border-color": "black",
+      "highlight-color": "#DD742D",
+      "accent-color": "green",
+      "muted-color": "#ed6c02",
+      "snow-color": "snow",
+      "primary-title": "#ff6600"
+    },
+    "dark": {
+      "primary-background": "#0a0d12",
+      "secondary-background": "#0d121c",
+      "tertiary-background": "#1D1F24",
+      "primary-text": "white",
+      "secondary-text": "#D57B52",
+      "border-color": "white",
+      "highlight-color": "#ff6600",
+      "accent-color": "greenyellow",
+      "muted-color": "#121418",
+      "snow-color": "black",
+      "primary-title": "white"
+    }
+  },
+  "colorOptions": {
+    "buttons": {
+      "default": "warning",
+      "loginRight": null,
+      "summaryDashboard": null,
+      "responsiveReceipt": null,
+      "productShowcase": null,
+      "productEditor": null,
+      "salesDashboardLeft": null,
+      "salesDashboardRight": null,
+      "paymentDashboardRight": null,
+      "productEntryPanel": null,
+      "circularProgress": null
+    },
+    "loginLeft": {
+      "waveColor": "white",
+      "backgroundColor": "#ff6600"
+    },
+    "screenKeyboard": {
+      "default": "warning",
+      "loginRight": null,
+      "productEntryPanel": null,
+      "productsDashboard": null,
+      "refundDashboard": null,
+      "salesDashboardLeft": null,
+      "salesDashboardRight": null,
+      "paymentDashboardLeft": null
+    },
+    "mainScreenItems": {
+      "default": "#ff6600",
+      "add new index number to custom color": "",
+      "0": null,
+      "5": null
+    },
+    "tooltip": {
+      "backgroundColor": "#ff6600",
+      "textColor": "white"
+    },
+    "settingsItem": "#ff6600",
+    "productEditor": {
+      "dark": "#ff6600",
+      "light": "#ff6600"
+    },
+    "productCard": {
+      "default": "#ff6600",
+      "productsDashboard": null,
+      "salesDashboardRight": null,
+      "salesDashboardLeft": null
+    },
+    "cartItem": {
+      "default": "#ff6600",
+      "refundDashboard": null,
+      "salesDashboardMiddle": null,
+      "paymentDashboardMiddle": null,
+      "productEntryPanel": null
+    }
+  }
+}
+```
 
 ### Modifying Icons and Fonts in the [public](./public/index.html) Folder
 The [public](./public/index.html) folder in a React application is used to store static assets that are not processed by the build system. You can customize the icons and fonts used in the POS System by modifying the files in this folder.
@@ -115,26 +352,26 @@ Products:
    "image": "",
    "categoryId": 1,
    "subCategoryId": 1,
-   "fraction":false
+   "fraction": false
 }
 ```
 
 Categories:
 ```json
 {
-   "id":1,
-   "name":"Categories",
-   "image":""
+   "id": 1,
+   "name": "Categories",
+   "image": ""
 }
 ```
 
 Sub-Categories:
 ```json
 {
-   "id":1,
-   "name":"Sub",
-   "image":"",
-   "categoryId":1
+   "id": 1,
+   "name": "Sub",
+   "image": "",
+   "categoryId": 1
 }
 ```
 
@@ -145,7 +382,7 @@ Receipts:
    "active": true,
    "storeNumber": "1001(Web)",
    "case": 1,
-   "cashierName":"Name",
+   "cashierName": "Name",
    "cashierNumber": 1,
    "date": "2000-01-01T09:00:00.175Z",
    "total": 1,
@@ -166,7 +403,7 @@ Receipts:
          "image": "",
          "categoryId": 1,
          "subCategoryId": 1,
-         "fraction":false,
+         "fraction": false,
          "quantity": 4,
          "discountedPrice": 0
       }
@@ -182,7 +419,7 @@ Receipts:
       }
    ],
    "refund": "",
-   "email":""
+   "email": ""
 }
 ```
 
@@ -191,7 +428,7 @@ Receipts:
 `/status`:
 ```json
 {
-   "version":"v1.00",
+   "version": "v1.00",
    "schedule": {
       "Monday": {"start": "0:00", "end": "24:00"},
       "Tuesday": {"start": "0:00", "end": "24:00"},
@@ -229,14 +466,13 @@ Remember to adjust the sample data and configurations according to your specific
 
 I hope this detailed explanation helps you understand how to configure the POS System using `config.json`, modify icons and fonts in the `public` folder, create data with template data in `defaultData.js`, and utilize Mockoon for testing with sample data.
 
-
-
-
 ## Usage
 The POS System offers a comprehensive and intuitive interface for managing various business operations efficiently. Below is an expanded overview of the main functionalities provided by the system:
 
 ### Sales Management
-- **Order Creation**: Initiate new sales transactions by adding products to the shopping cart. This can be done through the `SalesDashboard` where products can be selected and quantities adjusted.
+- **Order Creation**: Initiate new sales transactions by adding products to the shopping cart. This can be done through the `SalesDashboard` where products
+
+can be selected and quantities adjusted.
 - **Discount Application**: Apply discounts at the item level or to the entire cart. This feature is accessible within the `PaymentDashboard`, allowing for dynamic pricing adjustments before finalizing the sale.
 - **Payment Processing**: Handle multiple forms of payment including cash, credit/debit cards, and digital wallets. The `PaymentDashboard` facilitates the entry of payment details and processes transactions securely.
 - **Sales History**: View and manage past transactions through the `PurchaseReceipts` page, which provides detailed historical data on all sales activities.
@@ -298,7 +534,6 @@ The main components of the file structure are:
 4. **locales**: This directory stores the translation files for different languages.
 5. **index.js**: The entry point of the application.
 6. **config.json**: The configuration file for the POS System, containing settings such as the API base URL, online/offline schedule, and cashier information.
-
 
 ## Pages
 The POS System consists of the following pages:
@@ -374,7 +609,7 @@ The POS System utilizes a variety of reusable components located in the `shared/
 
 ### ScreenKeyboard
 - **Description**: Handles the on-screen keyboard functionality, providing a full QWERTY keyboard for data entry.
-- **Extra Features**: Includes language support and can switch between multiple layouts (e.g., numeric, alphanumeric).
+- **Extra Features**: Includes language support and can switch between multiple layouts (e.g., numeric, alphanumeric). Now integrated with smooth animation for enhanced user experience.
 
 ### OnlineOfflineIndicator
 - **Description**: Displays the current online/offline status of the application, updating in real-time based on network conditions.
@@ -388,7 +623,9 @@ The POS System utilizes a variety of reusable components located in the `shared/
 - **Description**: Generates and renders the receipt for a completed transaction, showing detailed breakdowns of items, taxes, discounts, and totals.
 - **Extra Features**: Can be configured to print or email directly from the component, and supports multiple formats (e.g., full page, slip).
 
-These components are built with reusability in mind, ensuring that they can be easily adapted or extended for use in other projects beyond the POS System. Their modular design also facilitates maintenance and scalability, allowing for new features to be added as the system evolves.
+### TooltipProvider
+- **Description**: Provides a customizable tooltip component that can be easily integrated into any part of the application.
+- **Extra Features**: Supports various positions, custom styling, delay configuration, and a performance mode for optimal rendering. Now includes performance optimization integrated with smooth animation.
 
 ## Contexts
 
@@ -408,6 +645,9 @@ At the heart of any POS system is the processing of transactions, and this conte
 
 ### 5. **CartContext**
 Essential for managing the shopping cart, this context handles additions, removals, and modifications of products within the cart. It is intricately designed to calculate totals, subtotals, taxes, and discounts efficiently. This not only ensures accuracy in financial calculations but also significantly enhances the system's performance by optimizing data handling and state updates.
+
+### Performance Mode
+Performance mode integration for all components and pages has been completed. This ensures that the system runs optimally even under heavy loads, providing a smooth and responsive user experience.
 
 Each context provider in the POS System is engineered to perform its role with maximum efficiency and minimum overhead. This design philosophy not only ensures stellar performance across different modules of the system but also simplifies maintenance and scalability. By compartmentalizing state management, the system can easily adapt to new requirements and integrate additional functionalities without compromising on performance. This strategic approach to context management is a testament to the system's robust architecture and its capability to handle the dynamic needs of modern retail environments.
 
