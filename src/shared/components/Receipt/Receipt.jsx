@@ -1,50 +1,53 @@
-import React from "react";
-import "./receipt.css";
+import React, {useMemo} from "react";
+import PropTypes from "prop-types";
+import styles from "./Receipt.module.css";
 import {convertToDateFormat} from "./functions";
 import {defaultReceipt} from "./data";
 import translations from './lang.json';
 
-function Receipt({storeName = "Lorem Ipsum", logo = "", unstyled = true, data = {}, language = "en"}) {
-    const defaultData = defaultReceipt;
+const maskName = (name) => name.split(' ').map((n) => n[0] + n.slice(1).replace(/./g, '*')).join(' ');
 
-    const validatedData = {
-        ...defaultData,
-        ...data,
-        cart: data.cart && data.cart.length > 0
-            ? data.cart.map((item) => ({...defaultData.cart[0], ...item}))
-            : defaultData.cart,
-        transactions: data.transactions && data.transactions.length > 0
-            ? data.transactions.map((item) => ({...defaultData.transactions[0], ...item}))
-            : defaultData.transactions,
-    };
+const Receipt = ({storeName, logo, unstyled, data, language}) => {
+    const validatedData = useMemo(() => {
+        return {
+            ...defaultReceipt,
+            ...data,
+            cart: data.cart?.length ? data.cart.map(item => ({...defaultReceipt.cart[0], ...item})) : defaultReceipt.cart,
+            transactions: data.transactions?.length ? data.transactions.map(item => ({...defaultReceipt.transactions[0], ...item})) : defaultReceipt.transactions,
+        };
+    }, [data]);
 
     const {day, time} = convertToDateFormat(validatedData.date, language);
 
+    const containerClass = `${styles.receiptContainer} ${unstyled ? styles.receiptUnstyled : ""}`;
+    const imgClass = `${styles.receiptImg} ${unstyled ? styles.receiptImgUnstyled : ""}`;
+
     return (
-        <div className={unstyled ? "receipt-container receipt-unstyled" : "receipt-container"}>
+        <div className={containerClass}>
             <img
-                alt={""}
-                className={unstyled ? "receipt-img receipt-unstyled" : "receipt-img"}
-                src={logo}/>
-            {!validatedData.active && <div className="receipt-refund">{translations[language].refund}</div>}
-            <div className="receipt-header">
+                alt=""
+                className={imgClass}
+                src={logo}
+            />
+            {!validatedData.active && <div className={styles.receiptRefund}>{translations[language].refund}</div>}
+            <div className={styles.receiptHeader}>
                 <h1 style={{fontSize: "2em"}}>{storeName}</h1>
                 <div>{translations[language].storeNumber}: {validatedData.storeNumber}</div>
                 <div>{translations[language].caseNumber}: {validatedData.case}</div>
-                <div className="receipt-header-time">
-                    <span>{translations[language].cashierName}: {validatedData.cashierName.split(' ').map((name) => name[0] + name.slice(1).replace(/./g, '*')).join(' ')}</span>
+                <div className={styles.receiptHeaderTime}>
+                    <span>{translations[language].cashierName}: {maskName(validatedData.cashierName)}</span>
                     <span>{translations[language].cashierNumber}: {validatedData.cashierNumber.toString().padStart(4, '0')}</span>
                 </div>
                 <div>{translations[language].receiptNumber}: {validatedData.receiptNumber}</div>
-                <div className="receipt-header-time">
+                <div className={styles.receiptHeaderTime}>
                     <span>{translations[language].receiptDate}: {day}</span>
                     <span>{translations[language].receiptTime}: {time}</span>
                 </div>
             </div>
 
-            <div className="receipt-main">
+            <div className={styles.receiptMain}>
                 {validatedData.cart.map((item, key) => (
-                    <div key={key} className="receipt-product">
+                    <div key={key} className={styles.receiptProduct}>
                         <span style={{justifyContent: "left"}}>{item.name}</span>
                         <span>{item.quantity} {item.fraction ? translations[language].lbs : translations[language].pcs}</span>
                         <span>%{item.tax < 10 ? "0" + item.tax : item.tax.toString()}</span>
@@ -53,7 +56,7 @@ function Receipt({storeName = "Lorem Ipsum", logo = "", unstyled = true, data = 
                 ))}
             </div>
 
-            <div className="receipt-footer">
+            <div className={styles.receiptFooter}>
                 <hr/>
                 <div>
                     <span>{translations[language].totalTax}:</span> <span>*{validatedData.totalTax.toFixed(2)}$</span>
@@ -92,9 +95,25 @@ function Receipt({storeName = "Lorem Ipsum", logo = "", unstyled = true, data = 
                 </div>
             </div>
 
-            <h2 className="receipt-thanks">{translations[language].thanks}</h2>
+            <h2 className={styles.receiptThanks}>{translations[language].thanks}</h2>
         </div>
     );
 }
+
+Receipt.propTypes = {
+    storeName: PropTypes.string,
+    logo: PropTypes.string,
+    unstyled: PropTypes.bool,
+    data: PropTypes.object,
+    language: PropTypes.string
+};
+
+Receipt.defaultProps = {
+    storeName: "Lorem Ipsum",
+    logo: "",
+    unstyled: true,
+    data: {},
+    language: "en"
+};
 
 export default Receipt;

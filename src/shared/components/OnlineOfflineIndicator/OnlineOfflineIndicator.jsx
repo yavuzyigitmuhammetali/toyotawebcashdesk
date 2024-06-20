@@ -1,6 +1,11 @@
-// Filename: OnlineOfflineIndicator.jsx
 import React from 'react';
-import './onlineOfflineIndicator.css';
+import PropTypes from 'prop-types';
+import styles from './OnlineOfflineIndicator.module.css';
+
+const languageText = {
+    en: {online: "Online", offline: "Offline"},
+    tr: {online: "Çevrimiçi", offline: "Çevrimdışı"},
+};
 
 const OnlineOfflineIndicator = React.memo(({
                                                online = false,
@@ -9,17 +14,13 @@ const OnlineOfflineIndicator = React.memo(({
                                                performanceMode = false
                                            }) => {
     const circleSize = 5;
-    const languageText = {
-        en: {online: "Online", offline: "Offline"},
-        tr: {online: "Çevrimiçi", offline: "Çevrimdışı"},
-    };
 
     return (
-        <div className={`indicator ${dark ? 'dark' : ''}`}>
-            <div className={online ? 'online' : 'offline'}>
+        <div className={`${styles.indicator} ${dark ? styles.dark : ''}`}>
+            <div className={online ? styles.online : styles.offline}>
                 {online ? languageText[language].online : languageText[language].offline}
             </div>
-            <div className="circle-container">
+            <div className={styles.circleContainer} aria-hidden="true">
                 {performanceMode ? (
                     <svg width="20" height="20">
                         <circle cx="10" cy="10" r={circleSize} fill={online ? "green" : "red"}/>
@@ -41,4 +42,12 @@ const OnlineOfflineIndicator = React.memo(({
     );
 });
 
+OnlineOfflineIndicator.propTypes = {
+    online: PropTypes.bool,
+    language: PropTypes.oneOf(['en', 'tr']),
+    dark: PropTypes.bool,
+    performanceMode: PropTypes.bool,
+};
+
 export default OnlineOfflineIndicator;
+

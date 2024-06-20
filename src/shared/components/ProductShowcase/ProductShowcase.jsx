@@ -5,7 +5,7 @@ import {createTheme, ThemeProvider} from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
 import {Button} from '@mui/material';
 import {FixedSizeGrid as Grid} from 'react-window';
-import './productShowcase.css';
+import styles from './ProductShowcase.module.css';
 
 function ProductShowcase({
                              dark = false,
@@ -42,10 +42,10 @@ function ProductShowcase({
 
     return (
         <ThemeProvider theme={createTheme({palette: {mode: dark ? 'dark' : 'light'}, typography: {fontSize: 10}})}>
-            <div className="product-showcase-container">
+            <div className={styles.productShowcaseContainer}>
                 <div
-                    className={`product-showcase-active-area ${dark ? 'dark' : ''} ${performanceMode ? 'performance-mode' : ''}`}>
-                    <div className="product-showcase-search-area">
+                    className={`${styles.productShowcaseActiveArea} ${dark ? styles.dark : ''} ${performanceMode ? styles.performanceMode : ''}`}>
+                    <div className={styles.productShowcaseSearchArea}>
                         <TextField
                             onFocus={handleElementFocus}
                             onChange={onChangeValue}
@@ -68,7 +68,7 @@ function ProductShowcase({
                     </div>
                     <FilterButtons map={map} setMap={setMap} t={t} performanceMode={performanceMode}
                                    buttonColor={buttonColor}/>
-                    <div className="product-showcase-products-scroll-area">
+                    <div className={styles.productShowcaseProductsScrollArea}>
                         <Grid
                             columnCount={columnCount}
                             columnWidth={performanceMode ? 140 : 110}
@@ -87,7 +87,7 @@ function ProductShowcase({
 }
 
 const FilterButtons = ({map, setMap, t, performanceMode, buttonColor}) => (
-    <div className="product-showcase-filter-area">
+    <div className={styles.productShowcaseFilterArea}>
         {[
             {label: t.all, value: 1},
             {label: t.favorites, value: 2},

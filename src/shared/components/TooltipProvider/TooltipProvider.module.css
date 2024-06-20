@@ -1,0 +1,199 @@
+.tooltipContainer {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltipBox {
+    position: absolute;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    padding: 8px;
+    border-radius: 4px;
+    z-index: 99999;
+    white-space: nowrap;
+    opacity: 0;
+    font-size: 1em;
+    transition: opacity 0.2s, transform 0.2s;
+}
+
+.tooltipTop {
+    bottom: 100%;
+    left: 50%;
+    margin-bottom: 5px;
+    transform-origin: bottom;
+    transform: translateX(-50%);
+}
+
+.tooltipRight {
+    top: 50%;
+    left: 100%;
+    margin-left: 5px;
+    transform-origin: left;
+    transform: translateY(-50%);
+}
+
+.tooltipBottom {
+    top: 100%;
+    left: 50%;
+    margin-top: 5px;
+    transform-origin: top;
+    transform: translateX(-50%);
+}
+
+.tooltipLeft {
+    top: 50%;
+    right: 100%;
+    margin-right: 5px;
+    transform-origin: right;
+    transform: translateY(-50%);
+}
+
+.tooltipContainer:hover .tooltipBox {
+    opacity: 1;
+}
+
+:root {
+    --fadeInDuration: 0.2s;
+    --fadeOutDuration: 0.18s;
+}
+
+.tooltipTop.fadeIn {
+    animation: growInTop var(--fadeInDuration) forwards;
+}
+
+.tooltipTop.fadeOut {
+    animation: shrinkOutTop var(--fadeOutDuration) forwards;
+}
+
+.tooltipRight.fadeIn {
+    animation: growInRight var(--fadeInDuration) forwards;
+}
+
+.tooltipRight.fadeOut {
+    animation: shrinkOutRight var(--fadeOutDuration) forwards;
+}
+
+.tooltipBottom.fadeIn {
+    animation: growInBottom var(--fadeInDuration) forwards;
+}
+
+.tooltipBottom.fadeOut {
+    animation: shrinkOutBottom var(--fadeOutDuration) forwards;
+}
+
+.tooltipLeft.fadeIn {
+    animation: growInLeft var(--fadeInDuration) forwards;
+}
+
+.tooltipLeft.fadeOut {
+    animation: shrinkOutLeft var(--fadeOutDuration) forwards;
+}
+
+@keyframes growInTop {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) scale(0.7);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(-50%) scale(1);
+    }
+}
+
+@keyframes shrinkOutTop {
+    from {
+        opacity: 1;
+        transform: translateX(-50%) scale(1);
+    }
+    to {
+        opacity: 0;
+        transform: translateX(-50%) scale(0.7);
+    }
+}
+
+@keyframes growInRight {
+    from {
+        opacity: 0;
+        transform: translateY(-50%) scale(0.7);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(-50%) scale(1);
+    }
+}
+
+@keyframes shrinkOutRight {
+    from {
+        opacity: 1;
+        transform: translateY(-50%) scale(1);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(-50%) scale(0.7);
+    }
+}
+
+@keyframes growInBottom {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) scale(0.7);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(-50%) scale(1);
+    }
+}
+
+@keyframes shrinkOutBottom {
+    from {
+        opacity: 1;
+        transform: translateX(-50%) scale(1);
+    }
+    to {
+        opacity: 0;
+        transform: translateX(-50%) scale(0.7);
+    }
+}
+
+@keyframes growInLeft {
+    from {
+        opacity: 0;
+        transform: translateY(-50%) scale(0.7);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(-50%) scale(1);
+    }
+}
+
+@keyframes shrinkOutLeft {
+    from {
+        opacity: 1;
+        transform: translateY(-50%) scale(1);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(-50%) scale(0.7);
+    }
+}
+
+.performanceMode.tooltipTop {
+    transform: translateX(-50%);
+}
+
+.performanceMode.tooltipRight {
+    transform: translateY(-50%);
+}
+
+.performanceMode.tooltipBottom {
+    transform: translateX(-50%);
+}
+
+.performanceMode.tooltipLeft {
+    transform: translateY(-50%);
+}
+
+.performanceMode {
+    opacity: 1 !important;
+    transition: none !important;
+}

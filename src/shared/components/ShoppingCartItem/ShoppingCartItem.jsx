@@ -1,18 +1,19 @@
-import React, {useState} from 'react';
-import "./shoppingCartItem.css";
-import {IconButton} from "@mui/material";
+import React, {useCallback, useMemo, useState} from 'react';
+import styles from './ShoppingCartItem.module.css';
+import {IconButton} from '@mui/material';
 import RemoveIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Remove';
-import {createTheme, ThemeProvider} from "@mui/material/styles";
-import TextField from "@mui/material/TextField";
+import {createTheme, ThemeProvider} from '@mui/material/styles';
+import TextField from '@mui/material/TextField';
+import PropTypes from 'prop-types';
 
 const ShoppingCartItem = React.memo(({
                                          disabled = false,
                                          onDelete,
                                          onRemove,
                                          onAdd,
-                                         campaign = "",
+                                         campaign = '',
                                          index = 1,
                                          discountedPrice = 0,
                                          dark = false,
@@ -20,60 +21,80 @@ const ShoppingCartItem = React.memo(({
                                          tax = 8,
                                          quantity = 1,
                                          barcode = 120340344,
-                                         productName = "EKMEK",
+                                         productName = 'EKMEK',
                                          fraction = false,
                                          onChangeDecimal,
                                          onFocus,
                                          decimalValue,
                                          id,
-                                         lang = "tr",
+                                         lang = 'tr',
                                          performanceMode = false,
-                                         color = "orange"  // New color prop
+                                         color = 'orange',
                                      }) => {
-    const taxFreePrice = ((discountedPrice ? discountedPrice : price) / (1 + (tax / 100))).toFixed(2);
-    const finalPrice = (quantity * price).toFixed(2);
-    const finalDiscountedPrice = discountedPrice ? (discountedPrice * quantity).toFixed(2) : 0;
-    const [isElementVisible, setElementVisibility] = useState(false);
+    const [isEditorVisible, setEditorVisibility] = useState(false);
     const [firstLoad, setFirstLoad] = useState(false);
-    const toggleElementVisibility = () => {
+
+    const toggleEditorVisibility = useCallback(() => {
         if (!firstLoad) {
             setFirstLoad(true);
         }
-        return setElementVisibility(!isElementVisible)
-    }
+        setEditorVisibility(!isEditorVisible);
+    }, [firstLoad, isEditorVisible]);
 
-    const backgroundColor = dark ? "#12161B" : color;
-    const textColor = dark ? "white" : "black";
-    const borderColor = dark ? "white" : "black";
+    const taxFreePrice = useMemo(() => {
+        return ((discountedPrice ? discountedPrice : price) / (1 + tax / 100)).toFixed(2);
+    }, [discountedPrice, price, tax]);
+
+    const finalPrice = useMemo(() => {
+        return (quantity * price).toFixed(2);
+    }, [quantity, price]);
+
+    const finalDiscountedPrice = useMemo(() => {
+        return discountedPrice ? (discountedPrice * quantity).toFixed(2) : 0;
+    }, [discountedPrice, quantity]);
+
+    const backgroundColor = dark ? '#12161B' : color;
+    const textColor = dark ? 'white' : 'black';
+    const borderColor = dark ? 'white' : 'black';
 
     return (
-        <div
+        <article
             style={{backgroundColor, color: textColor, borderColor}}
-            className={`${disabled ? "shopping-cart-item-container shopping-cart-item-disabled" : "shopping-cart-item-container"} ${performanceMode ? "performance-mode" : ""}`}
+            className={`${styles.shoppingCartItemContainer} ${disabled ? styles.disabled : ''} ${
+                performanceMode ? styles.performanceMode : ''
+            }`}
         >
-            <ThemeProvider theme={createTheme({palette: {mode: dark ? "dark" : "light"}})}>
-                <div onClick={toggleElementVisibility} className="shopping-cart-item-content-container">
-                    <div className="shopping-cart-item-content">
+            <ThemeProvider theme={createTheme({palette: {mode: dark ? 'dark' : 'light'}})}>
+                <div onClick={toggleEditorVisibility} className={styles.contentContainer}>
+                    <div className={styles.content}>
                         <span>#{barcode}</span>
-                        <span>{taxFreePrice}$ + KDV %{tax}</span>
-                        <span>{quantity} {fraction ? (lang === "tr" ? "Kilo" : "Kilo") : (lang === "tr" ? "Adet" : "Piece")}</span>
+                        <span>
+              {taxFreePrice}$ + KDV %{tax}
+            </span>
+                        <span>
+              {quantity} {fraction ? (lang === 'tr' ? 'Kilo' : 'Kilo') : lang === 'tr' ? 'Adet' : 'Piece'}
+            </span>
                     </div>
-                    <div className="shopping-cart-item-content">
-                        <span className="product-name">{index}.{productName}</span>
-                        <div>{discountedPrice ? campaign : ""}</div>
-                        <span className="price">
-                            <span className={`original-price ${discountedPrice ? 'discounted' : ''}`}>
-                                {finalPrice}$
-                            </span>
-                            {discountedPrice ?
-                                <span className="discounted-price"> {finalDiscountedPrice}$</span> : null}
-                        </span>
+                    <div className={styles.content}>
+            <span className={styles.productName}>
+              {index}.{productName}
+            </span>
+                        <div>{discountedPrice ? campaign : ''}</div>
+                        <span className={styles.price}>
+              <span className={`${styles.originalPrice} ${discountedPrice ? styles.discounted : ''}`}>
+                {finalPrice}$
+              </span>
+                            {discountedPrice &&
+                                <span className={styles.discountedPrice}> {finalDiscountedPrice}$</span>}
+            </span>
                     </div>
                 </div>
                 {firstLoad && (
                     <div
-                        className={`shopping-cart-item-editor ${isElementVisible && !performanceMode ? 'jell-in' : 'jell-out'} ${dark ? 'dark-bg' : ''}`}
-                        style={performanceMode ? {left: isElementVisible ? '0' : '-50%'} : {}}
+                        className={`${styles.editor} ${isEditorVisible && !performanceMode ? styles.jellIn : styles.jellOut} ${
+                            dark ? styles.darkBg : ''
+                        }`}
+                        style={performanceMode ? {left: isEditorVisible ? '0' : '-50%'} : {}}
                     >
                         {fraction ? (
                             <TextField
@@ -86,7 +107,7 @@ const ShoppingCartItem = React.memo(({
                             />
                         ) : (
                             <>
-                                <IconButton onClick={onAdd} color="success" size="small" aria-label="delete">
+                                <IconButton onClick={onAdd} color="success" size="small" aria-label="add">
                                     <AddIcon/>
                                 </IconButton>
                                 <IconButton onClick={onDelete} color="warning" size="small" aria-label="delete">
@@ -94,16 +115,38 @@ const ShoppingCartItem = React.memo(({
                                 </IconButton>
                             </>
                         )}
-
-                        <IconButton onClick={onRemove} color="error" size="small" aria-label="delete">
+                        <IconButton onClick={onRemove} color="error" size="small" aria-label="remove">
                             <RemoveIcon/>
                         </IconButton>
                     </div>
                 )}
             </ThemeProvider>
-        </div>
+        </article>
     );
 });
 
-export default ShoppingCartItem;
+ShoppingCartItem.propTypes = {
+    disabled: PropTypes.bool,
+    onDelete: PropTypes.func.isRequired,
+    onRemove: PropTypes.func.isRequired,
+    onAdd: PropTypes.func.isRequired,
+    campaign: PropTypes.string,
+    index: PropTypes.number,
+    discountedPrice: PropTypes.number,
+    dark: PropTypes.bool,
+    price: PropTypes.number,
+    tax: PropTypes.number,
+    quantity: PropTypes.number,
+    barcode: PropTypes.number,
+    productName: PropTypes.string,
+    fraction: PropTypes.bool,
+    onChangeDecimal: PropTypes.func,
+    onFocus: PropTypes.func,
+    decimalValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+    lang: PropTypes.string,
+    performanceMode: PropTypes.bool,
+    color: PropTypes.string,
+};
 
+export default ShoppingCartItem;

@@ -8,8 +8,7 @@ import KeyboardCapslockIcon from "@mui/icons-material/KeyboardCapslock";
 import {darkTheme, lightTheme} from "./theme";
 import {useScreenKeyboard} from "./useScreenKeyboard";
 import KeyboardContext from "./context";
-import "./screenKeyboard.css";
-
+import styles from "./ScreenKeyboard.module.css";
 
 const colorMap = {
     primary: {light: "#F5F5F5", dark: "#12161B"},
@@ -61,7 +60,7 @@ const ScreenKeyboard = ({
     }), [isDragging, dark]);
 
     const optimizedButton = (item, index) => {
-        const baseClass = dark ? "screen-keyboard-optimized-button-dark" : "screen-keyboard-optimized-button-light";
+        const baseClass = dark ? styles.optimizedButtonDark : styles.optimizedButtonLight;
         if (performanceMode) {
             return (
                 <button
@@ -90,7 +89,7 @@ const ScreenKeyboard = ({
     };
 
     const getClassForSpecialButton = (baseClass) => {
-        return dark ? `${baseClass}-dark` : `${baseClass}-light`;
+        return dark ? styles[`${baseClass}Dark`] : styles[`${baseClass}Light`];
     };
 
     if (onOff) {
@@ -106,7 +105,7 @@ const ScreenKeyboard = ({
                     <KeyboardAltIcon/>
                 </IconButton>
                 <div
-                    className={`screen-keyboard-container ${fullWidth ? "fullwidth" : ""}`}
+                    className={`${styles.container} ${fullWidth ? styles.fullwidth : ""}`}
                     onMouseDown={handleMouseDown}
                     onMouseMove={handleMouseMove}
                     onMouseUp={handleMouseUp}
@@ -118,7 +117,7 @@ const ScreenKeyboard = ({
                 >
                     <button
                         type="button"
-                        className="screen-keyboard-close-button"
+                        className={styles.closeButton}
                         style={{backgroundColor: dark ? "var(--close-button-red)" : "var(--close-button-light-red)"}}
                         onClick={() => setOnOff(true)}
                     >
@@ -132,7 +131,7 @@ const ScreenKeyboard = ({
                                         <button
                                             type="button"
                                             key={index}
-                                            className={getClassForSpecialButton("screen-keyboard-optimized-double")}
+                                            className={getClassForSpecialButton("optimizedDouble")}
                                             onClick={handleDelete}
                                         >
                                             del
@@ -143,7 +142,7 @@ const ScreenKeyboard = ({
                                             size="small"
                                             onClick={handleDelete}
                                             variant="outlined"
-                                            className="screen-keyboard-double"
+                                            className={styles.double}
                                             key={index}
                                             color={color}
                                         >
@@ -155,7 +154,7 @@ const ScreenKeyboard = ({
                                         <button
                                             type="button"
                                             key={index}
-                                            className={getClassForSpecialButton("screen-keyboard-optimized-enter")}
+                                            className={getClassForSpecialButton("optimizedEnter")}
                                             onClick={handleEnter}
                                         >
                                             enter
@@ -178,7 +177,7 @@ const ScreenKeyboard = ({
                                         <button
                                             type="button"
                                             key={index}
-                                            className={getClassForSpecialButton("screen-keyboard-optimized-triple")}
+                                            className={getClassForSpecialButton("optimizedTriple")}
                                             onClick={() => handleValue(" ")}
                                         >
                                             space
@@ -189,7 +188,7 @@ const ScreenKeyboard = ({
                                             size="small"
                                             onClick={() => handleValue(" ")}
                                             variant="outlined"
-                                            className="screen-keyboard-triple"
+                                            className={styles.triple}
                                             key={index}
                                             color={color}
                                         >
@@ -201,7 +200,7 @@ const ScreenKeyboard = ({
                                         <button
                                             type="button"
                                             key={index}
-                                            className={getClassForSpecialButton("screen-keyboard-optimized-caps")}
+                                            className={getClassForSpecialButton("optimizedCaps")}
                                             onClick={handleKeyboardCapsLock}
                                         >
                                             caps
@@ -240,3 +239,4 @@ ScreenKeyboard.propTypes = {
 };
 
 export default ScreenKeyboard;
+

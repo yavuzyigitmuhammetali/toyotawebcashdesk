@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ImageNotSupportedIcon from '@mui/icons-material/ImageNotSupported';
-import "./productCard.css";
+import styles from "./ProductCard.module.css";
 
 const ProductCard = React.memo((props) => {
     const {
@@ -41,46 +41,48 @@ const ProductCard = React.memo((props) => {
             type="button"
             onClick={onClick}
             className={`
-                ${className} 
-                product-card-container
-                ${performanceMode ? 'simplified-hover' : 'hover-scale'}
-                ${isDisabled ? "product-card-disabled" : ""}
-                ${isCategory ? "product-card-category" : "product-card-regular"}
-                ${isDark ? "product-card-dark" : "product-card-light"}
-                ${isFavorite ? "product-card-favorite" : ""}
-                ${isOutOfStock ? "product-card-out-of-stock" : ""}
-                ${performanceMode ? 'simplified-click' : 'product-card-click'}
+                ${styles.productCardContainer}
+                ${performanceMode ? styles.simplifiedHover : styles.hoverScale}
+                ${isDisabled ? styles.productCardDisabled : ""}
+                ${isCategory ? styles.productCardCategory : styles.productCardRegular}
+                ${isDark ? styles.productCardDark : styles.productCardLight}
+                ${isFavorite ? styles.productCardFavorite : ""}
+                ${isOutOfStock ? styles.productCardOutOfStock : ""}
+                ${performanceMode ? styles.simplifiedClick : styles.productCardClick}
+                ${className}
             `}
             style={cardStyle}
+            disabled={isDisabled}
         >
             {src ? (
                 <img
-                    className={`product-card-img ${(!stock && !category) ? "grayscale" : ""} ${performanceMode ? "low-quality" : ""}`}
+                    className={`${styles.productCardImg} ${(!stock && !category) ? styles.grayscale : ""} ${performanceMode ? styles.lowQuality : ""}`}
                     src={src}
                     alt={name}
                     loading="lazy"
                 />
             ) : (
-                <ImageNotSupportedIcon className="product-card-img"/>
+                <ImageNotSupportedIcon className={styles.productCardImg}/>
             )}
-            <div className={`product-card-text ${dark ? "dark" : ""} ${favorite ? "favorite" : ""}`}>
-                <span className={dark ? "text-white" : ""}>{name}</span>
-                {(barcode && !category) && <span className={dark ? "sub-text" : "text-gray"}>#{barcode}</span>}
+            <div className={`${styles.productCardText} ${dark ? styles.dark : ""} ${favorite ? styles.favorite : ""}`}>
+                <span className={dark ? styles.textWhite : ""}>{name}</span>
+                {(barcode && !category) && <span className={dark ? styles.subText : styles.textGray}>#{barcode}</span>}
             </div>
             {(price && !category) && (
                 <>
                     <div
-                        className={`product-card-price ${dark ? "text-white" : ""} ${discount ? "line-through" : ""}`}>{price}$
+                        className={`${styles.productCardPrice} ${dark ? styles.textWhite : ""} ${discount ? styles.lineThrough : ""}`}>{price}$
                     </div>
-                    {discount && <span className="product-card-discount">{discount}$</span>}
+                    {discount && <span className={styles.productCardDiscount}>{discount}$</span>}
                 </>
             )}
             {(stock >= 0 && !category) && (
-                <div className={`product-card-stock ${stock < 10 ? "text-red" : dark ? "text-white" : "text-dark"}`}>
+                <div
+                    className={`${styles.productCardStock} ${stock < 10 ? styles.textRed : dark ? styles.textWhite : styles.textDark}`}>
                     {fraction ? parseFloat(stock).toFixed(2) : stock}{fraction ? "lbs." : "pcs."}
                 </div>
             )}
-            {(discount || discountText) && <div className="product-card-on-sale">{discountText.toUpperCase()}</div>}
+            {(discount || discountText) && <div className={styles.productCardOnSale}>{discountText.toUpperCase()}</div>}
         </button>
     );
 });

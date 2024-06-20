@@ -1,0 +1,110 @@
+.receiptContainer {
+    font-family: 'VT323', 'Noto Emoji', serif !important;
+    position: relative;
+    background-color: white;
+    width: 400px !important;
+    box-sizing: border-box;
+    padding: 50px 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow-x: clip !important;
+    border: 0.1px solid black;
+    color: black !important;
+    filter: grayscale(100%);
+}
+
+.receiptUnstyled {
+    filter: grayscale(0%);
+    font-family: Rubik, sans-serif !important;
+    font-size: small;
+}
+
+.receiptRefund {
+    color: red;
+    border: 1px dashed red;
+    width: 100%;
+    text-align: center;
+}
+
+.receiptImg {
+    background-color: transparent;
+    filter: brightness(0);
+    max-height: 100px;
+    max-width: 100%;
+    object-fit: contain;
+}
+
+.receiptImgUnstyled {
+    filter: brightness(1);
+}
+
+.receiptHeader {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.receiptFooter {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    width: 100%;
+}
+
+.receiptFooter div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.receiptMain {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    height: auto;
+    margin: 30px 0 10px 0;
+}
+
+.receiptProduct {
+    margin-bottom: 8px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.receiptProduct * {
+    display: flex;
+    justify-content: right;
+    flex-grow: 1;
+    flex-basis: 0;
+    max-width: 33%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.receiptHeaderTime {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.receiptContainer hr {
+    width: 100%;
+    color: black;
+    border-color: black;
+    border-style: dashed;
+}
+
+.receiptThanks {
+    text-align: center;
+    font-size: 1.5em;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}

@@ -1,0 +1,181 @@
+:root {
+    --dark-background-color: #12161B;
+    --dark-border-color: white;
+    --light-background-color: white;
+    --light-border-color: black;
+    --close-button-red: red;
+    --close-button-light-red: #E33E4D;
+    --button-size: 22px;
+    --font-family: 'Rubik', sans-serif;
+}
+
+.container {
+    z-index: 999999;
+    position: fixed;
+    box-sizing: border-box;
+    min-width: 750px;
+    height: 255px;
+    background-color: var(--dark-background-color);
+    border: 0.5px solid var(--dark-border-color);
+    padding-top: 25px;
+    padding-bottom: 5px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(7%, 7.9%));
+    gap: 3px;
+    border-radius: 12px;
+    justify-content: center;
+    bottom: 0;
+    left: 0;
+    will-change: transform;
+}
+
+.fullwidth {
+    width: 100% !important;
+}
+
+.closeButton {
+    width: var(--button-size);
+    height: var(--button-size);
+    border: none;
+    border-radius: 50%;
+    color: white;
+    font-size: 18px;
+    line-height: 1;
+    text-align: center;
+    cursor: pointer;
+    position: absolute;
+    top: 2px;
+    left: 3px;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.double {
+    grid-column-start: span 2;
+    grid-column-end: -1;
+}
+
+.triple {
+    grid-column-start: 2;
+    grid-column-end: -2;
+    grid-row-start: span 1;
+}
+
+.emptySpace {
+    width: 100% !important;
+    height: 100% !important;
+    background-color: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.optimizedButtonDark {
+    background-color: var(--dark-background-color);
+    border: 1px solid var(--dark-border-color);
+    color: white;
+    padding: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-family: var(--font-family), sans-serif;
+}
+
+.optimizedButtonLight {
+    background-color: var(--light-background-color);
+    border: 1px solid var(--light-border-color);
+    color: black;
+    padding: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-family: var(--font-family), sans-serif;
+}
+
+.optimizedDoubleDark {
+    grid-column-start: span 2;
+    background-color: var(--dark-background-color);
+    border: 1px solid var(--dark-border-color);
+    color: white;
+    padding: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-family: var(--font-family), sans-serif;
+}
+
+.optimizedDoubleLight {
+    grid-column-start: span 2;
+    background-color: var(--light-background-color);
+    border: 1px solid var(--light-border-color);
+    color: black;
+    padding: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-family: var(--font-family), sans-serif;
+}
+
+.optimizedEnterDark {
+    grid-row-end: span 4;
+    grid-column-end: -1;
+    background-color: var(--dark-background-color);
+    border: 1px solid var(--dark-border-color);
+    color: white;
+    padding: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-family: var(--font-family), sans-serif;
+}
+
+.optimizedEnterLight {
+    grid-row-end: span 4;
+    grid-column-end: -1;
+    background-color: var(--light-background-color);
+    border: 1px solid var(--light-border-color);
+    color: black;
+    padding: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-family: var(--font-family), sans-serif;
+}
+
+.optimizedTripleDark {
+    grid-column-start: span 10;
+    background-color: var(--dark-background-color);
+    border: 1px solid var(--dark-border-color);
+    color: white;
+    padding: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-family: var(--font-family), sans-serif;
+}
+
+.optimizedTripleLight {
+    grid-column-start: span 10;
+    background-color: var(--light-background-color);
+    border: 1px solid var(--light-border-color);
+    color: black;
+    padding: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-family: var(--font-family), sans-serif;
+}
+
+.optimizedCapsDark {
+    background-color: var(--dark-background-color);
+    border: 1px solid var(--dark-border-color);
+    color: white;
+    padding: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-family: var(--font-family), sans-serif;
+}
+
+.optimizedCapsLight {
+    background-color: var(--light-background-color);
+    border: 1px solid var(--light-border-color);
+    color: black;
+    padding: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-family: var(--font-family), sans-serif;
+}

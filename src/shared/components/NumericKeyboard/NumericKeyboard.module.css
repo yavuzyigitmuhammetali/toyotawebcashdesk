@@ -1,0 +1,48 @@
+.numericKeyboardContainer {
+    box-sizing: border-box;
+    aspect-ratio: 308 / 312 !important;
+    padding: 4%;
+    background-color: #FDFDFE;
+    border: 1px solid black;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+    gap: 2%;
+}
+
+.dark {
+    background-color: #121418;
+    border-color: white;
+}
+
+.performance {
+    padding: 2%;
+    gap: 1%;
+}
+
+.numericKeyboardContainer * {
+    min-width: 0 !important;
+    min-height: 0 !important;
+}
+
+.numericKeyboardTextfield {
+    grid-column: 1 / span 4;
+    grid-row: 1;
+}
+
+.numericKeyboardBackspace {
+    grid-column-end: span 2;
+}
+
+.numericKeyboardZero {
+    grid-column-end: span 2;
+}
+
+.numericKeyboardSubmit {
+    grid-column: 4;
+    grid-row: 3 / span 3;
+}
+
+.numericKeyboardDecimal {
+    grid-column-end: span 2;
+}

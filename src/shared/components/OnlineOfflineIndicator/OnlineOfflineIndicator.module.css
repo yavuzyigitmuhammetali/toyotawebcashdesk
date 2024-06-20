@@ -1,0 +1,29 @@
+.indicator {
+    display: inline-block;
+    position: relative;
+    box-sizing: border-box;
+    padding-left: 10px;
+    user-select: none;
+}
+
+.dark {
+    filter: brightness(1.8);
+    background-color: transparent;
+}
+
+.online {
+    color: green;
+}
+
+.offline {
+    color: red;
+}
+
+.circleContainer {
+    height: 20px;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+

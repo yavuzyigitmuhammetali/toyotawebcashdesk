@@ -1,6 +1,8 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import './TooltipProvider.css';
+import styles from './TooltipProvider.module.css';
+import {useTooltipVisibility} from "./useTooltipVisibility";
+
 
 const TooltipProvider = ({
                              children,
@@ -15,61 +17,36 @@ const TooltipProvider = ({
                              customClass = '',
                              performanceMode = false,
                          }) => {
-    const [showTooltip, setShowTooltip] = useState(false);
-    const [visible, setVisible] = useState(false);
-    const timeoutRef = useRef(null);
-    const tooltipRef = useRef(null);
-
-    const handleMouseEnter = () => {
-        timeoutRef.current = setTimeout(() => {
-            setShowTooltip(true);
-            setVisible(true);
-        }, delay);
-    };
-
-    const handleMouseLeave = () => {
-        clearTimeout(timeoutRef.current);
-        setShowTooltip(false);
-    };
-
-    useEffect(() => {
-        if (!showTooltip) {
-            const timeout = setTimeout(() => {
-                setVisible(false);
-            }, performanceMode ? 0 : 300); // Skip animation delay in performance mode
-            return () => clearTimeout(timeout);
-        }
-    }, [showTooltip, performanceMode]);
-
-    useEffect(() => {
-        return () => {
-            if (timeoutRef.current) {
-                clearTimeout(timeoutRef.current);
-            }
-        };
-    }, []);
+    const {visible, showTooltip, handleMouseEnter, handleMouseLeave} = useTooltipVisibility(delay, performanceMode);
 
     const tooltipStyle = {
         backgroundColor: dark ? textColor : backgroundColor,
         color: dark ? backgroundColor : textColor,
         borderRadius,
         fontSize,
-        pointerEvents: 'none',
-        transition: performanceMode ? 'none' : 'opacity 0.2s, transform 0.2s', // Disable transition in performance mode
+    };
+
+    const getTooltipClassNames = () => {
+        let tooltipClass = `${styles.tooltipBox} ${styles[`tooltip${position.charAt(0).toUpperCase()}${position.slice(1)}`]} ${customClass}`;
+
+        if (showTooltip && !performanceMode) {
+            tooltipClass += ` ${styles.fadeIn}`;
+        } else if (!showTooltip && !performanceMode) {
+            tooltipClass += ` ${styles.fadeOut}`;
+        }
+
+        if (performanceMode) {
+            tooltipClass += ` ${styles.performanceMode}`;
+        }
+
+        return tooltipClass;
     };
 
     return (
-        <div className="tooltip-container" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+        <div className={styles.tooltipContainer} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
             {children}
             {visible && (
-                <div
-                    onMouseEnter={() => setVisible(false)}
-                    className={`tooltip-box tooltip-${position} ${customClass} ${
-                        showTooltip ? (performanceMode ? 'performance-mode' : 'fade-in') : (performanceMode ? 'performance-mode' : 'fade-out')
-                    }`}
-                    style={tooltipStyle}
-                    ref={tooltipRef}
-                >
+                <div className={getTooltipClassNames()} style={tooltipStyle}>
                     {content}
                 </div>
             )}
@@ -85,8 +62,9 @@ TooltipProvider.propTypes = {
     backgroundColor: PropTypes.string,
     textColor: PropTypes.string,
     borderRadius: PropTypes.string,
+    fontSize: PropTypes.string,
     customClass: PropTypes.string,
-    performanceMode: PropTypes.bool, // New prop type for performance mode
+    performanceMode: PropTypes.bool,
 };
 
 export default TooltipProvider;
