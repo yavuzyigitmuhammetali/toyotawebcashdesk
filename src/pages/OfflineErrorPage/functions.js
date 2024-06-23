@@ -3,7 +3,7 @@
  * @param {Object} schedule - The schedule object containing opening times for each day.
  * @returns {Date|null} - The next opening time or null if no opening time is found.
  */
-export function getNextOpening(schedule) {
+export const getNextOpening = (schedule) => {
     if (!schedule) {
         return null;
     }
@@ -21,7 +21,7 @@ export function getNextOpening(schedule) {
             const openingTime = new Date(now);
             const [hours, minutes] = scheduleForDay.start.split(':');
             openingTime.setDate(now.getDate() + i);
-            openingTime.setHours(hours, minutes, 0, 0);
+            openingTime.setHours(parseInt(hours), parseInt(minutes), 0, 0);
 
             if (openingTime > now) {
                 return openingTime;
@@ -29,4 +29,4 @@ export function getNextOpening(schedule) {
         }
     }
     return null;
-}
+};

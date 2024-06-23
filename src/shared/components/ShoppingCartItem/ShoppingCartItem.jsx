@@ -1,18 +1,19 @@
 import React, {useCallback, useMemo, useState} from 'react';
 import styles from './ShoppingCartItem.module.css';
-import {IconButton} from '@mui/material';
+import {createTheme, IconButton, TextField, ThemeProvider} from '@mui/material';
 import RemoveIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Remove';
-import {createTheme, ThemeProvider} from '@mui/material/styles';
-import TextField from '@mui/material/TextField';
 import PropTypes from 'prop-types';
 
 const ShoppingCartItem = React.memo(({
                                          disabled = false,
-                                         onDelete,
-                                         onRemove,
-                                         onAdd,
+                                         onDelete = () => {
+                                         },
+                                         onRemove = () => {
+                                         },
+                                         onAdd = () => {
+                                         },
                                          campaign = '',
                                          index = 1,
                                          discountedPrice = 0,
@@ -23,10 +24,12 @@ const ShoppingCartItem = React.memo(({
                                          barcode = 120340344,
                                          productName = 'EKMEK',
                                          fraction = false,
-                                         onChangeDecimal,
-                                         onFocus,
-                                         decimalValue,
-                                         id,
+                                         onChangeDecimal = () => {
+                                         },
+                                         onFocus = () => {
+                                         },
+                                         decimalValue = '',
+                                         id = '',
                                          lang = 'tr',
                                          performanceMode = false,
                                          color = 'orange',
@@ -42,7 +45,7 @@ const ShoppingCartItem = React.memo(({
     }, [firstLoad, isEditorVisible]);
 
     const taxFreePrice = useMemo(() => {
-        return ((discountedPrice ? discountedPrice : price) / (1 + tax / 100)).toFixed(2);
+        return ((discountedPrice || price) / (1 + tax / 100)).toFixed(2);
     }, [discountedPrice, price, tax]);
 
     const finalPrice = useMemo(() => {
@@ -50,7 +53,7 @@ const ShoppingCartItem = React.memo(({
     }, [quantity, price]);
 
     const finalDiscountedPrice = useMemo(() => {
-        return discountedPrice ? (discountedPrice * quantity).toFixed(2) : 0;
+        return discountedPrice ? (discountedPrice * quantity).toFixed(2) : '0.00';
     }, [discountedPrice, quantity]);
 
     const backgroundColor = dark ? '#12161B' : color;
@@ -69,24 +72,24 @@ const ShoppingCartItem = React.memo(({
                     <div className={styles.content}>
                         <span>#{barcode}</span>
                         <span>
-              {taxFreePrice}$ + KDV %{tax}
-            </span>
+                            {taxFreePrice}$ + KDV %{tax}
+                        </span>
                         <span>
-              {quantity} {fraction ? (lang === 'tr' ? 'Kilo' : 'Kilo') : lang === 'tr' ? 'Adet' : 'Piece'}
-            </span>
+                            {quantity} {fraction ? (lang === 'tr' ? 'Kilo' : 'Kilo') : lang === 'tr' ? 'Adet' : 'Piece'}
+                        </span>
                     </div>
                     <div className={styles.content}>
-            <span className={styles.productName}>
-              {index}.{productName}
-            </span>
+                        <span className={styles.productName}>
+                            {index}.{productName}
+                        </span>
                         <div>{discountedPrice ? campaign : ''}</div>
                         <span className={styles.price}>
-              <span className={`${styles.originalPrice} ${discountedPrice ? styles.discounted : ''}`}>
-                {finalPrice}$
-              </span>
-                            {discountedPrice &&
+                            <span className={`${styles.originalPrice} ${discountedPrice ? styles.discounted : ''}`}>
+                                {finalPrice}$
+                            </span>
+                            {discountedPrice > 0 &&
                                 <span className={styles.discountedPrice}> {finalDiscountedPrice}$</span>}
-            </span>
+                        </span>
                     </div>
                 </div>
                 {firstLoad && (
@@ -98,7 +101,7 @@ const ShoppingCartItem = React.memo(({
                     >
                         {fraction ? (
                             <TextField
-                                id={id}
+                                id={id.toString()}
                                 variant="standard"
                                 type="number"
                                 onFocus={onFocus}
@@ -127,12 +130,12 @@ const ShoppingCartItem = React.memo(({
 
 ShoppingCartItem.propTypes = {
     disabled: PropTypes.bool,
-    onDelete: PropTypes.func.isRequired,
-    onRemove: PropTypes.func.isRequired,
-    onAdd: PropTypes.func.isRequired,
+    onDelete: PropTypes.func,
+    onRemove: PropTypes.func,
+    onAdd: PropTypes.func,
     campaign: PropTypes.string,
     index: PropTypes.number,
-    discountedPrice: PropTypes.number,
+    discountedPrice: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     dark: PropTypes.bool,
     price: PropTypes.number,
     tax: PropTypes.number,
@@ -143,7 +146,7 @@ ShoppingCartItem.propTypes = {
     onChangeDecimal: PropTypes.func,
     onFocus: PropTypes.func,
     decimalValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     lang: PropTypes.string,
     performanceMode: PropTypes.bool,
     color: PropTypes.string,

@@ -26,7 +26,7 @@ export const getTheme = (mode, performanceMode) => createTheme({
                 root: {
                     borderBottom: mode === 'light' ? '1px solid rgba(0, 0, 0, 0.12)' : '1px solid rgba(255, 255, 255, 0.12)',
                     ...(performanceMode && {
-                        padding: '4px', // Reduced padding in performance mode
+                        padding: '4px',
                     }),
                 },
             },
@@ -35,8 +35,8 @@ export const getTheme = (mode, performanceMode) => createTheme({
             styleOverrides: {
                 root: {
                     ...(performanceMode && {
-                        transition: 'none', // Disable transition animations
-                        boxShadow: 'none', // Remove shadow for performance
+                        transition: 'none',
+                        boxShadow: 'none',
                     }),
                 },
             },

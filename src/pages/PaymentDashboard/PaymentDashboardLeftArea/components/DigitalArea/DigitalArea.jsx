@@ -32,8 +32,15 @@ function DigitalArea({dark = false, totalPrice = 2000, data = [], performanceMod
                 {renderTypewriter("dots", ".......................................................................................................", 20)}
             </div>
             <div className="digital-area-scroll" ref={scrollRef}>
-                {data.map((item, key) => renderTypewriter("item",
-                    (item.type === "card" ? "💳" : "💵") + " " + item.price.toFixed(2).toString() + "$ " + (item.type === "card" ? t('paidWithCard') : t('paidInCash')), 100, false, key))}
+                {data.map((item, index) => (
+                    <React.Fragment key={item.id || index}>
+                        {renderTypewriter("item",
+                            (item.type === "card" ? "💳" : "💵") + " " + item.price.toFixed(2).toString() + "$ " + (item.type === "card" ? t('paidWithCard') : t('paidInCash')),
+                            100,
+                            false
+                        )}
+                    </React.Fragment>
+                ))}
             </div>
             <div>
                 {renderTypewriter("dots", ".......................................................................................................", 20)}

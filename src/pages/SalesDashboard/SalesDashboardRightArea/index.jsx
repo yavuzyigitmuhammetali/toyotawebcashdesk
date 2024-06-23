@@ -16,7 +16,7 @@ import ScreenKeyboard from '../../../shared/components/ScreenKeyboard/ScreenKeyb
 import {useTranslation} from "react-i18next";
 import AppStatusContext from "../../../shared/states/AppStatus/context";
 
-function SalesDashboardRightArea() {
+const SalesDashboardRightArea = React.memo(() => {
     const {lang, dark, performanceMode, colorOptions} = useContext(AppStatusContext);
     const {t} = useTranslation();
     const navigate = useNavigate();
@@ -129,6 +129,6 @@ function SalesDashboardRightArea() {
                 <></>}
         </div>
     );
-}
+})
 
 export default SalesDashboardRightArea;

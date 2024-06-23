@@ -1,4 +1,4 @@
-import React, {useCallback, useContext, useEffect, useState} from 'react';
+import React, {useCallback, useContext, useMemo} from 'react';
 import "./index.css"
 import ShoppingCartItem from "../../../shared/components/ShoppingCartItem/ShoppingCartItem";
 import CartContext from "../context";
@@ -9,12 +9,13 @@ import AppStatusContext from "../../../shared/states/AppStatus/context";
 function SalesDashboardMiddleArea() {
     const {dark, lang, performanceMode, colorOptions} = useContext(AppStatusContext);
     const {
-        handleElementFocus, value: keyboardValue, onChangeValue
+        handleElementFocus,
+        value: keyboardValue,
+        onChangeValue
     } = useContext(KeyboardContext);
 
     const {t} = useTranslation();
 
-    const [decimalValue, setDecimalValue] = useState({value: "", id: 0})
     const {
         cart,
         decreaseQuantityByIndex,
@@ -28,43 +29,49 @@ function SalesDashboardMiddleArea() {
     const onShoppingCartItemChangeDecimal = useCallback((event) => {
         onChangeValue(event);
         const {id, value} = event.target;
-        setDecimalValue({value: value, id: parseInt(id)})
-    }, [onChangeValue]);
+        increaseQuantityDecimalByIndex(parseInt(id), value);
+    }, [onChangeValue, increaseQuantityDecimalByIndex]);
 
-    useEffect(() => {
-        increaseQuantityDecimalByIndex(decimalValue.id, keyboardValue[decimalValue.id.toString()]);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [decimalValue, keyboardValue]);
+    const handleFocus = useCallback((event) => {
+        handleElementFocus(event);
+    }, [handleElementFocus]);
+
+
+    const cartItems = useMemo(() => cart.map((item, key) => (
+        <ShoppingCartItem
+            key={key}
+            color={colorOptions.cartItem.salesDashboardMiddle ?? colorOptions.cartItem.default}
+            performanceMode={performanceMode}
+            lang={lang}
+            onAdd={() => increaseQuantityByIndex(key)}
+            onDelete={() => decreaseQuantityByIndex(key)}
+            onRemove={() => removeFromCartByIndex(key)}
+            dark={dark}
+            campaign={item.campaign.toUpperCase()}
+            discountedPrice={item.discountedPrice}
+            price={item.price}
+            index={key + 1}
+            barcode={item.barcode}
+            tax={item.tax}
+            quantity={item.quantity}
+            productName={item.name}
+            fraction={item.fraction}
+            decimalValue={keyboardValue[key] ?? ''}
+            onFocus={handleFocus}
+            id={key.toString()}
+            onChangeDecimal={onShoppingCartItemChangeDecimal}
+        />
+        // eslint-disable-next-line
+    )), [cart, colorOptions.cartItem, performanceMode, lang, dark, keyboardValue]);
 
     return (
-        <div className={`sales-dashboard-middle-area-container`}>
-            <div className={`sales-dashboard-middle-area-products-scroll`}>
+        <div className="sales-dashboard-middle-area-container">
+            <div className="sales-dashboard-middle-area-products-scroll">
                 <div className="sales-dashboard-middle-area-products">
-                    {cart.map((item, key) => (
-                        <ShoppingCartItem
-                            color={colorOptions.cartItem.salesDashboardMiddle ?? colorOptions.cartItem.default}
-                            performanceMode={performanceMode}
-                            lang={lang}
-                            onAdd={() => increaseQuantityByIndex(key)}
-                            onDelete={() => decreaseQuantityByIndex(key)}
-                            onRemove={() => removeFromCartByIndex(key)}
-                            key={key} dark={dark}
-                            campaign={item.campaign.toUpperCase()}
-                            discountedPrice={item.discountedPrice}
-                            price={item.price} index={key + 1} barcode={item.barcode}
-                            tax={item.tax}
-                            quantity={item.quantity} productName={item.name}
-                            fraction={item.fraction}
-                            decimalValue={keyboardValue[key] ?? ''}
-                            onFocus={(event) => setDecimalValue(prevState => ({
-                                ...prevState, id: parseInt(handleElementFocus(event))
-                            }))} id={key.toString()}
-                            onChangeDecimal={onShoppingCartItemChangeDecimal}
-                        />
-                    ))}
+                    {cartItems}
                 </div>
             </div>
-            <div className={`sales-dashboard-middle-area-texts `}>
+            <div className="sales-dashboard-middle-area-texts">
                 <div className="sales-dashboard-middle-area-amount">
                     <span>{t('subTotal')}: </span>
                     <span>{subTotalPrice.toFixed(2)}$</span>
@@ -79,4 +86,4 @@ function SalesDashboardMiddleArea() {
     );
 }
 
-export default SalesDashboardMiddleArea;
+export default React.memo(SalesDashboardMiddleArea);

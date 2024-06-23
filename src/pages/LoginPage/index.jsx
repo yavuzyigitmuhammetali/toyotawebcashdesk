@@ -9,12 +9,13 @@ import config from "../../config.json";
 function LoginPage() {
     const {performanceMode} = useContext(AppStatusContext);
     const {t} = useTranslation();
+
     useEffect(() => {
-        document.title = config.storeName + " • " + t('login');
+        document.title = `${config.storeName} • ${t('login')}`;
     }, [t]);
 
     return (
-        <div className={`login-page-container `}>
+        <div className="login-page-container">
             <div className={`login-page-left-area ${performanceMode ? 'no-animation' : ''}`}>
                 <LoginPageLeftArea/>
             </div>

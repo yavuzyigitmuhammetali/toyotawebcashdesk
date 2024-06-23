@@ -82,4 +82,4 @@ function ProductFormArea({
     );
 }
 
-export default ProductFormArea;
+export default React.memo(ProductFormArea);

@@ -5,7 +5,7 @@ import PaymentContext from "../context";
 import {useTranslation} from 'react-i18next';
 import AppStatusContext from "../../../shared/states/AppStatus/context";
 
-function PaymentDashboardMiddleArea() {
+const PaymentDashboardMiddleArea = React.memo(() => {
     const {dark, lang, performanceMode, colorOptions} = useContext(AppStatusContext);
     const {total, subTotal, cart} = useContext(PaymentContext)
     const {t} = useTranslation();
@@ -39,6 +39,6 @@ function PaymentDashboardMiddleArea() {
             </div>
         </div>
     );
-}
+})
 
 export default PaymentDashboardMiddleArea;

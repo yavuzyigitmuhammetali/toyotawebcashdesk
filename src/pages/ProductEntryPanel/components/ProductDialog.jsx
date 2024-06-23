@@ -18,4 +18,4 @@ function ProductDialog({valid, isLoading, handleSendData, enterRef, lang, t, per
     );
 }
 
-export default ProductDialog;
+export default React.memo(ProductDialog);

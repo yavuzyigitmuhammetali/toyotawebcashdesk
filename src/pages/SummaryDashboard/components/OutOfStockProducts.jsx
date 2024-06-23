@@ -22,4 +22,4 @@ const OutOfStockProducts = ({products, dark, navigate, performanceMode}) => {
         ));
 };
 
-export default OutOfStockProducts;
+export default React.memo(OutOfStockProducts);

@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import {formatDate} from "../../utils/dateUtils";
 import {useLocation, useParams} from "react-router-dom";
 import {getPageTitleAndLink} from "../../utils/navigationUtils";
@@ -13,11 +13,15 @@ export const useMainContainer = (lang, t) => {
         setPathHistory((prevState) => [...prevState, location.pathname]);
     }, [location.pathname]);
 
-    const {pageTitle, prevLink} = getPageTitleAndLink(location.pathname, t, productId, receiptNumber, pathHistory);
+    const getPageInfo = useCallback(() => {
+        return getPageTitleAndLink(location.pathname, t, productId, receiptNumber, pathHistory);
+    }, [location.pathname, t, productId, receiptNumber, pathHistory]);
+
+    const {pageTitle, prevLink} = getPageInfo();
+
     return {
         formattedDate,
         pageTitle,
         prevLink
     };
 };
-

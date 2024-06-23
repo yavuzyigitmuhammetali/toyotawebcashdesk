@@ -1,10 +1,10 @@
-import React, {useEffect, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import AcUnitIcon from "@mui/icons-material/AcUnit";
 import "./settingsItem.css";
 
 function SettingsItem({
                           children,
-                          onOff = undefined,
+                          onOff,
                           dark = false,
                           color = "",
                           property = "",
@@ -13,7 +13,7 @@ function SettingsItem({
                           },
                           performanceMode = false,
                       }) {
-    const [isActive, setIsActive] = useState(false);
+    const [isActive, setIsActive] = useState(onOff ?? false);
 
     useEffect(() => {
         if (onOff !== undefined) {
@@ -21,36 +21,27 @@ function SettingsItem({
         }
     }, [onOff]);
 
-    const handleClick = () => {
+    const handleClick = useCallback(() => {
         if (onOff !== undefined) {
-            setIsActive(!isActive);
+            setIsActive((prev) => !prev);
         }
         onClick();
-    };
+    }, [onOff, onClick]);
 
-    const itemClass = () => {
-        let className = "settings-item";
-        if (onOff !== undefined) {
-            className += isActive ? " active" : " inactive";
-        }
-        if (dark) {
-            className += " dark";
-            if (onOff === undefined) {
-                className += " undefined-onOff";
-            }
-        } else {
-            className += " light";
-        }
-        if (performanceMode) {
-            className += " performance";
-        }
-        return className;
-    };
+    const itemClass = [
+        "settings-item",
+        onOff !== undefined && (isActive ? "active" : "inactive"),
+        dark ? "dark" : "light",
+        dark && onOff === undefined && "undefined-onOff",
+        performanceMode && "performance",
+    ]
+        .filter(Boolean)
+        .join(" ");
 
     return (
         <div
-            style={{backgroundColor: color}}
-            className={itemClass()}
+            style={color ? {backgroundColor: color} : undefined}
+            className={itemClass}
             onClick={handleClick}
         >
             {icon}
@@ -60,4 +51,4 @@ function SettingsItem({
     );
 }
 
-export default SettingsItem;
+export default React.memo(SettingsItem);

@@ -34,30 +34,30 @@ function LoginPageRightArea() {
         handleLogin
     } = useLoginPageRightArea(value, loginFunction, t("loginSuccessMessage"), t("errorTitle"), performanceMode);
 
+    const buttonColor = error ? "error" : colorOptions.buttons.loginRight ?? colorOptions.buttons.default;
+
     return (
-        <div className={`login-page-right-area-container`}>
+        <div className="login-page-right-area-container">
             <div className="login-page-right-area-info">
-                <div className={`login-page-right-area-title`}>
-                    {t("loginAccount")}
-                </div>
-                <div className={`login-page-right-area-subtitle`}>
-                    {t("enterUsernamePassword")}
-                </div>
+                <h2 className="login-page-right-area-title">{t("loginAccount")}</h2>
+                <p className="login-page-right-area-subtitle">{t("enterUsernamePassword")}</p>
             </div>
-            <form className="login-page-right-area-inputs">
+            <form className="login-page-right-area-inputs" onSubmit={(e) => {
+                e.preventDefault();
+                handleLogin();
+            }}>
                 <TextField
-                    color={error ? "error" : colorOptions.buttons.loginRight ?? colorOptions.buttons.default}
+                    color={buttonColor}
                     error={error}
                     onFocus={handleElementFocus}
                     value={loginData.username}
                     label={t("username")}
                     onChange={onChangeValue}
-                    autoComplete="current-password"
+                    autoComplete="username"
                     id="username"
                     variant="outlined"
                 />
-                <FormControl color={error ? "error" : colorOptions.buttons.loginRight ?? colorOptions.buttons.default}
-                             variant="outlined">
+                <FormControl color={buttonColor} variant="outlined">
                     <InputLabel htmlFor="password">{t("password")}</InputLabel>
                     <OutlinedInput
                         error={error}
@@ -87,8 +87,9 @@ function LoginPageRightArea() {
                     ref={enterRef}
                     onClick={handleLogin}
                     disabled={!buttonState || loading}
-                    color={error ? "error" : colorOptions.buttons.loginRight ?? colorOptions.buttons.default}
+                    color={buttonColor}
                     variant="contained"
+                    type="submit"
                 >
                     {loading ? <CircularProgress size={24} color="inherit"/> : t("login")}
                 </Button>
@@ -100,12 +101,12 @@ function LoginPageRightArea() {
                     style={{width: "40px", height: "40px", alignSelf: "center"}}
                 />
             </form>
-            {error ? (
+            {error && (
                 <Alert severity="error">
                     <AlertTitle>{t("errorTitle")}</AlertTitle>
                     {t("loginErrorMessage")}
                 </Alert>
-            ) : null}
+            )}
         </div>
     );
 }

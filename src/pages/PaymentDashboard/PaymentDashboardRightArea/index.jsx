@@ -8,7 +8,7 @@ import {usePaymentDashboardRightArea} from "./usePaymentDashboardRightArea";
 import AppStatusContext from "../../../shared/states/AppStatus/context";
 import {useTranslation} from "react-i18next";
 
-function PaymentDashboardRightArea() {
+const PaymentDashboardRightArea = React.memo(() => {
     const {lang, dark, performanceMode, colorOptions} = useContext(AppStatusContext);
     const {t} = useTranslation();
     const {
@@ -98,6 +98,6 @@ function PaymentDashboardRightArea() {
             </div>
         </div>
     );
-}
+})
 
 export default PaymentDashboardRightArea;

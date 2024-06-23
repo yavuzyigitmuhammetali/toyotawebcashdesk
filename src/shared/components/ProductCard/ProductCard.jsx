@@ -52,7 +52,6 @@ const ProductCard = React.memo((props) => {
                 ${className}
             `}
             style={cardStyle}
-            disabled={isDisabled}
         >
             {src ? (
                 <img

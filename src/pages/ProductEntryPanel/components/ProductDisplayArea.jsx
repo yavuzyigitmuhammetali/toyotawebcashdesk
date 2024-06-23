@@ -55,4 +55,4 @@ function ProductDisplayArea({
     );
 }
 
-export default ProductDisplayArea;
+export default React.memo(ProductDisplayArea);
