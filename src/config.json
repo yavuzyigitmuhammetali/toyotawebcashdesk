@@ -96,14 +96,14 @@
       "default": "#097ff5",
       "productsDashboard": null,
       "salesDashboardRight": null,
-      "salesDashboardLeft": null
+      "salesDashboardLeft": null,
+      "productEntryPanel": null
     },
     "cartItem": {
       "default": "orange",
       "refundDashboard": null,
       "salesDashboardMiddle": null,
-      "paymentDashboardMiddle": null,
-      "productEntryPanel": null
+      "paymentDashboardMiddle": null
     }
   }
 }

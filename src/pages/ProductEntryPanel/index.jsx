@@ -25,12 +25,12 @@ function ProductEntryPanel() {
 
     const memoizedProductDisplayArea = useMemo(() => (
         <ProductDisplayArea
-            cartColor={colorOptions.cartItem.productEntryPanel ?? colorOptions.cartItem.default}
+            cardColor={colorOptions.productCard.productEntryPanel ?? colorOptions.productCard.default}
             keyboardColor={colorOptions.screenKeyboard.productEntryPanel ?? colorOptions.screenKeyboard.default}
             t={t} lang={lang} dark={dark} formData={formData}
             handleCheckboxChange={handleCheckboxChange} performanceMode={performanceMode}
         />
-    ), [t, lang, dark, formData, handleCheckboxChange, performanceMode, colorOptions.cartItem.productEntryPanel, colorOptions.cartItem.default, colorOptions.screenKeyboard.productEntryPanel, colorOptions.screenKeyboard.default]);
+    ), [t, lang, dark, formData, handleCheckboxChange, performanceMode, colorOptions.screenKeyboard.productEntryPanel, colorOptions.screenKeyboard.default, colorOptions.productCard.productEntryPanel, colorOptions.productCard.default]);
 
     const memoizedProductFormArea = useMemo(() => (
         <ProductFormArea

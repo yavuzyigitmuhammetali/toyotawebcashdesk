@@ -51,7 +51,7 @@
         max-height: 100%;
     }
 
-    .main-container-body *:not(.main-container-main, .main-container-main *) {
+    .main-container *:not(.main-container__main, .main-container__main *) {
         display: none;
         max-width: 0 !important;
         max-height: 0 !important;

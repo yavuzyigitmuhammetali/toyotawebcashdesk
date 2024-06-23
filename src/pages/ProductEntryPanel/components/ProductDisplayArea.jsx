@@ -14,7 +14,7 @@ function ProductDisplayArea({
                                 t,
                                 performanceMode,
                                 keyboardColor = "primary",
-                                cartColor = "#097ff5"
+                                cardColor = "#097ff5"
                             }) {
     return (
         <div className={`product-entry-panel-left-area ${performanceMode ? 'performance' : ''}`}>
@@ -26,7 +26,7 @@ function ProductDisplayArea({
                          dark={dark}
                          price={formData.price}
                          fraction={formData.fraction}
-                         color={cartColor}
+                         color={cardColor}
                          src={formData.image} barcode={formData.barcode} favorite={formData.isFavourite}/>
             <div>
                 <span>{t('addToFavorites')}</span>
